@@ -1,0 +1,1829 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/16/2017 2:36:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{DBE63B1B-7C9B-4637-B972-167B36160099}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Activo"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{D221486C-1118-4EE5-A497-4CF869B6EF5B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FB7C6BD7-5965-433A-BD46-16BB1872AAAA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudLog">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A606637C-70F2-4ED8-9E47-6ED19B19F75E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudPackage">
+      <DTS:VariableValue
+        DTS:DataType="3">11</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{837E4DC4-0403-48E8-AD7B-F574FA1B13DB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BA897E9C-1E58-4EE0-A96C-AF7690A5C623}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsInserted">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Activo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{11D5BE6B-3585-4E69-9D3C-F68AE3C6FA6F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Activo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Activo\Input JDE_REP"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input JDE_REP"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+ 'idActivo'					 = cast(F1201.FANUMB as int),
+ 'Compañia'                    = cast(LTRIM(F1201.FACO) as nvarchar(50)),
+ 'NúmeroCortodeActivosFijos'   = cast(LTRIM(F1201.FANUMB) as int),
+ 'Interno'                     = cast(LTRIM(F1201.FAAPID) as nvarchar(50)),
+ 'EquipoPadre'                 = cast(LTRIM(F1201.FAAAID) as nvarchar(50)),
+ 'NúmerodeSerie'               = cast(LTRIM(F1201.FAASID) as nvarchar(50)),
+ 'Modelo'                      = cast(LTRIM(F1201.FAACL2) as nvarchar(50)),
+ 'DescripcionModelo'           = cast(LTRIM((Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'C2'
+										  AND LTRIM(DRKY) = F1201.FAACL2)) as nvarchar(50)),
+ 'Fabricante'                  = cast(LTRIM(F1201.FAACL3) as nvarchar(50)),
+ 'DescripcionFabricante'       = cast(LTRIM((Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'C3'
+										  AND LTRIM(DRKY) = F1201.FAACL3)) as nvarchar(50)),
+ 'IngresoaFlota'               = cast(LTRIM(F1201.FAACL4) as nvarchar(50)),
+ 'DescripcionIngresoaFlota'    = cast(LTRIM((Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'C4'
+									  AND LTRIM(DRKY) = F1201.FAACL4)) as nvarchar(50)),
+ 'Uso'                         = cast(LTRIM(F1201.FAACL5) as nvarchar(10)),
+ 'DescripcionUso'              = cast(LTRIM((Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'C5'
+									  AND LTRIM(DRKY) = F1201.FAACL5)) as nvarchar(50)),
+ 'Descripcion1'                = cast(LTRIM(F1201.FADL01) as nvarchar(100)),
+ 'Descripcion2'                = cast(LTRIM(F1201.FADL02) as nvarchar(100)),
+ 'Descripcion3'                = cast(LTRIM(F1201.FADL03) as nvarchar(100)),
+ 'FechadeAdquisicion'          = cast((DATEADD(dd,((NULLIF(F1201.FADAJ,0) % 1000) - 1),(cast(cast(1900+(NULLIF(F1201.FADAJ,0)/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))) as date),
+ 'FechadeRertiro'              = cast((DATEADD(dd,((NULLIF(F1201.FADSP,0) % 1000) - 1),(cast(cast(1900+(NULLIF(F1201.FADSP,0)/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))) as date), 
+ 'EstadodeEquipo'              = cast(LTRIM(F1201.FAEQST) as nvarchar(10)),
+ 'DescripcionEstadodeEquipo'   = cast(LTRIM( (Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'ES'
+										  AND LTRIM(DRKY) = F1201.FAEQST)) as nvarchar(50)),
+ 'Item Number'                 = cast(LTRIM(F1201.FAKIT) as nvarchar(50)),
+ 'TipodeEquipo'                = cast(LTRIM(F1201.FAFA0) as nvarchar(10)),
+ 'DescripcionTipodeEquipo'     = cast(LTRIM( (Select DRDL01 FROM [PRODCTL].[F0005] 
+										WHERE DRSY = '12'
+										  AND DRRT = 'F0'
+									  AND LTRIM(DRKY) = F1201.FAFA0)) as nvarchar(50)),
+ 'CodigoCategoria'             = LTRIM(F1201.FAFA9),
+ 'DescripcionLarga'            = cast('' as nvarchar(4000)),
+ A.Subfamilia,
+ (CASE A.TipoArticulo
+	WHEN '1' THEN 'Equipo'
+	WHEN 'A' THEN 'Accesorio'
+	ELSE A.TipoArticulo
+ END) AS TipoArticulo
+  FROM [JDE_REP].[PRODDTA].[F1201] F1201
+  LEFT JOIN STG.dbo.STG_Activo_TipoArticulo A
+	ON F1201.FANUMB = A.idActivo
+  WHERE F1201.FAAPID &lt;&gt; ''</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Activo\Input JDE_REP.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[idActivo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[idActivo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[idActivo]"
+                      name="idActivo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Compañia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Compañia]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Compañia]"
+                      name="Compañia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmeroCortodeActivosFijos]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[NúmeroCortodeActivosFijos]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmeroCortodeActivosFijos]"
+                      name="NúmeroCortodeActivosFijos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Interno]"
+                      name="Interno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EquipoPadre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[EquipoPadre]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EquipoPadre]"
+                      name="EquipoPadre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmerodeSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[NúmerodeSerie]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmerodeSerie]"
+                      name="NúmerodeSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Modelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Modelo]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Modelo]"
+                      name="Modelo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionModelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionModelo]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionModelo]"
+                      name="DescripcionModelo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Fabricante]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Fabricante]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Fabricante]"
+                      name="Fabricante"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionFabricante]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionFabricante]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionFabricante]"
+                      name="DescripcionFabricante"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[IngresoaFlota]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[IngresoaFlota]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[IngresoaFlota]"
+                      name="IngresoaFlota"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionIngresoaFlota]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionIngresoaFlota]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionIngresoaFlota]"
+                      name="DescripcionIngresoaFlota"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Uso]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Uso]"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Uso]"
+                      name="Uso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionUso]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionUso]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionUso]"
+                      name="DescripcionUso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion1]"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion1]"
+                      name="Descripcion1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion2]"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion2]"
+                      name="Descripcion2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion3]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion3]"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion3]"
+                      name="Descripcion3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeAdquisicion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[FechadeAdquisicion]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeAdquisicion]"
+                      name="FechadeAdquisicion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeRertiro]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[FechadeRertiro]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeRertiro]"
+                      name="FechadeRertiro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EstadodeEquipo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[EstadodeEquipo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EstadodeEquipo]"
+                      name="EstadodeEquipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionEstadodeEquipo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionEstadodeEquipo]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionEstadodeEquipo]"
+                      name="DescripcionEstadodeEquipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Item Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Item Number]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Item Number]"
+                      name="Item Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipodeEquipo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[TipodeEquipo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipodeEquipo]"
+                      name="TipodeEquipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionTipodeEquipo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionTipodeEquipo]"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionTipodeEquipo]"
+                      name="DescripcionTipodeEquipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[CodigoCategoria]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[CodigoCategoria]"
+                      length="3"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[CodigoCategoria]"
+                      name="CodigoCategoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionLarga]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionLarga]"
+                      length="4000"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionLarga]"
+                      name="DescripcionLarga"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Subfamilia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Subfamilia]"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Subfamilia]"
+                      name="Subfamilia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipoArticulo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[TipoArticulo]"
+                      length="20"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipoArticulo]"
+                      name="TipoArticulo"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[idActivo]"
+                      dataType="i4"
+                      name="idActivo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Compañia]"
+                      dataType="wstr"
+                      length="50"
+                      name="Compañia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[NúmeroCortodeActivosFijos]"
+                      dataType="i4"
+                      name="NúmeroCortodeActivosFijos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="50"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[EquipoPadre]"
+                      dataType="wstr"
+                      length="50"
+                      name="EquipoPadre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[NúmerodeSerie]"
+                      dataType="wstr"
+                      length="50"
+                      name="NúmerodeSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Modelo]"
+                      dataType="wstr"
+                      length="50"
+                      name="Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionModelo]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionModelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Fabricante]"
+                      dataType="wstr"
+                      length="50"
+                      name="Fabricante" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionFabricante]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionFabricante" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[IngresoaFlota]"
+                      dataType="wstr"
+                      length="50"
+                      name="IngresoaFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionIngresoaFlota]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionIngresoaFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Uso]"
+                      dataType="wstr"
+                      length="10"
+                      name="Uso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionUso]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionUso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion1]"
+                      dataType="wstr"
+                      length="100"
+                      name="Descripcion1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion2]"
+                      dataType="wstr"
+                      length="100"
+                      name="Descripcion2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Descripcion3]"
+                      dataType="wstr"
+                      length="100"
+                      name="Descripcion3" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[FechadeAdquisicion]"
+                      dataType="dbDate"
+                      name="FechadeAdquisicion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[FechadeRertiro]"
+                      dataType="dbDate"
+                      name="FechadeRertiro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[EstadodeEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadodeEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionEstadodeEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionEstadodeEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Item Number]"
+                      dataType="wstr"
+                      length="50"
+                      name="Item Number" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[TipodeEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipodeEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionTipodeEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      name="DescripcionTipodeEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[CodigoCategoria]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="CodigoCategoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[DescripcionLarga]"
+                      dataType="wstr"
+                      length="4000"
+                      name="DescripcionLarga" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[Subfamilia]"
+                      dataType="wstr"
+                      length="100"
+                      name="Subfamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].ExternalColumns[TipoArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      name="TipoArticulo" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[idActivo]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[idActivo]"
+                      name="idActivo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Compañia]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Compañia]"
+                      name="Compañia" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[NúmeroCortodeActivosFijos]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[NúmeroCortodeActivosFijos]"
+                      name="NúmeroCortodeActivosFijos" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      name="Interno" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[EquipoPadre]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[EquipoPadre]"
+                      name="EquipoPadre" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[NúmerodeSerie]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[NúmerodeSerie]"
+                      name="NúmerodeSerie" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Modelo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Modelo]"
+                      name="Modelo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionModelo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionModelo]"
+                      name="DescripcionModelo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Fabricante]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Fabricante]"
+                      name="Fabricante" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionFabricante]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionFabricante]"
+                      name="DescripcionFabricante" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[IngresoaFlota]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[IngresoaFlota]"
+                      name="IngresoaFlota" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionIngresoaFlota]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionIngresoaFlota]"
+                      name="DescripcionIngresoaFlota" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Uso]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Uso]"
+                      name="Uso" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionUso]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionUso]"
+                      name="DescripcionUso" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion1]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion1]"
+                      name="Descripcion1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion2]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion2]"
+                      name="Descripcion2" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion3]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Descripcion3]"
+                      name="Descripcion3" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[FechadeAdquisicion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[FechadeAdquisicion]"
+                      name="FechadeAdquisicion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[FechadeRertiro]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[FechadeRertiro]"
+                      name="FechadeRertiro" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[EstadodeEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[EstadodeEquipo]"
+                      name="EstadodeEquipo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionEstadodeEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionEstadodeEquipo]"
+                      name="DescripcionEstadodeEquipo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Item Number]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Item Number]"
+                      name="Item Number" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[TipodeEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[TipodeEquipo]"
+                      name="TipodeEquipo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionTipodeEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionTipodeEquipo]"
+                      name="DescripcionTipodeEquipo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[CodigoCategoria]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[CodigoCategoria]"
+                      name="CodigoCategoria" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionLarga]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[DescripcionLarga]"
+                      name="DescripcionLarga" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Subfamilia]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[Subfamilia]"
+                      name="Subfamilia" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[TipoArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[TipoArticulo]"
+                      name="TipoArticulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Activo\Output STG_Activo"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_Activo"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Activo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Activo\Output STG_Activo.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[idActivo]"
+                      cachedDataType="i4"
+                      cachedName="idActivo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[idActivo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[idActivo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Interno"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[interno]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Interno]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[EquipoPadre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="EquipoPadre"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[equipoPadre]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EquipoPadre]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Modelo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[modelo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Fabricante]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Fabricante"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fabricante]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Fabricante]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[IngresoaFlota]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="IngresoaFlota"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[ingresoAFlota]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[IngresoaFlota]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Uso]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Uso"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[uso]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Uso]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Descripcion1]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Descripcion1"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion1]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion1]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Descripcion2]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Descripcion2"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion2]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion2]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Descripcion3]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Descripcion3"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion3]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Descripcion3]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Subfamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Subfamilia"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[Subfamilia]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Subfamilia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[TipoArticulo]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="TipoArticulo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[TipoArticulo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipoArticulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Compañia]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Compañia"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[compania]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Compañia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[NúmeroCortodeActivosFijos]"
+                      cachedDataType="i4"
+                      cachedName="NúmeroCortodeActivosFijos"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[numeroCortoActivosFijos]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmeroCortodeActivosFijos]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[NúmerodeSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NúmerodeSerie"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[numeroSerie]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[NúmerodeSerie]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionModelo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionModelo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descModelo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionModelo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionFabricante]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionFabricante"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descFabricante]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionFabricante]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionIngresoaFlota]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionIngresoaFlota"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descIngresoAFlota]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionIngresoaFlota]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionUso]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionUso"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descUso]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionUso]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[FechadeAdquisicion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechadeAdquisicion"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fechaAdquisicion]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeAdquisicion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[FechadeRertiro]"
+                      cachedDataType="dbDate"
+                      cachedName="FechadeRertiro"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fechaRertiro]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[FechadeRertiro]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[EstadodeEquipo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EstadodeEquipo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[estadoEquipo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[EstadodeEquipo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionEstadodeEquipo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionEstadodeEquipo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descEstadoEquipo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionEstadodeEquipo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[Item Number]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Item Number"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fk_stgarticulos_articuloInventario]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[Item Number]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[TipodeEquipo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipodeEquipo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[tipoEquipo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[TipodeEquipo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionTipodeEquipo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="DescripcionTipodeEquipo"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descTipoEquipo]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionTipodeEquipo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].Columns[DescripcionLarga]"
+                      cachedDataType="wstr"
+                      cachedLength="4000"
+                      cachedName="DescripcionLarga"
+                      externalMetadataColumnId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descLargaActivosFijos]"
+                      lineageId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output].Columns[DescripcionLarga]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[idActivo]"
+                      dataType="i4"
+                      name="idActivo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[compania]"
+                      dataType="wstr"
+                      length="50"
+                      name="compania" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[numeroCortoActivosFijos]"
+                      dataType="i4"
+                      name="numeroCortoActivosFijos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[interno]"
+                      dataType="wstr"
+                      length="50"
+                      name="interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[equipoPadre]"
+                      dataType="wstr"
+                      length="50"
+                      name="equipoPadre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[numeroSerie]"
+                      dataType="wstr"
+                      length="50"
+                      name="numeroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[modelo]"
+                      dataType="wstr"
+                      length="50"
+                      name="modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descModelo]"
+                      dataType="wstr"
+                      length="50"
+                      name="descModelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fabricante]"
+                      dataType="wstr"
+                      length="50"
+                      name="fabricante" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descFabricante]"
+                      dataType="wstr"
+                      length="50"
+                      name="descFabricante" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[ingresoAFlota]"
+                      dataType="wstr"
+                      length="50"
+                      name="ingresoAFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descIngresoAFlota]"
+                      dataType="wstr"
+                      length="50"
+                      name="descIngresoAFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[uso]"
+                      dataType="wstr"
+                      length="10"
+                      name="uso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descUso]"
+                      dataType="wstr"
+                      length="50"
+                      name="descUso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion1]"
+                      dataType="wstr"
+                      length="100"
+                      name="descripcion1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion2]"
+                      dataType="wstr"
+                      length="100"
+                      name="descripcion2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descripcion3]"
+                      dataType="wstr"
+                      length="100"
+                      name="descripcion3" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fechaAdquisicion]"
+                      dataType="dbDate"
+                      name="fechaAdquisicion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fechaRertiro]"
+                      dataType="dbDate"
+                      name="fechaRertiro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[estadoEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      name="estadoEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descEstadoEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      name="descEstadoEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[fk_stgarticulos_articuloInventario]"
+                      dataType="wstr"
+                      length="50"
+                      name="fk_stgarticulos_articuloInventario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[tipoEquipo]"
+                      dataType="wstr"
+                      length="10"
+                      name="tipoEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descTipoEquipo]"
+                      dataType="wstr"
+                      length="50"
+                      name="descTipoEquipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[descLargaActivosFijos]"
+                      dataType="wstr"
+                      length="4000"
+                      name="descLargaActivosFijos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[Subfamilia]"
+                      dataType="wstr"
+                      length="100"
+                      name="Subfamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input].ExternalColumns[TipoArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      name="TipoArticulo" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Activo\Output STG_Activo.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Output STG_Activo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Activo\Output STG_Activo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Activo\Output STG_Activo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Activo\vRowsCount"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsCount">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Activo\vRowsCount.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Activo\vRowsCount.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga STG_Activo\vRowsCount.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Activo\vRowsInserted"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsInserted">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsInserted</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Activo\vRowsInserted.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Activo\vRowsInserted.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga STG_Activo\vRowsInserted.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Activo.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_Activo\vRowsCount.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_Activo\Input JDE_REP.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga STG_Activo.Paths[Row Count Output 1]"
+              endId="Package\Carga STG_Activo\vRowsInserted.Inputs[Row Count Input 1]"
+              name="Row Count Output 1"
+              startId="Package\Carga STG_Activo\vRowsCount.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga STG_Activo.Paths[Row Count Output 11]"
+              endId="Package\Carga STG_Activo\Output STG_Activo.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga STG_Activo\vRowsInserted.Outputs[Row Count Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table STG_Activo"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DelayValidation="True"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{33558539-A334-4A0F-A896-31F6E628215D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table STG_Activo"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_Activo;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6F92B266-FDF1-4B2D-BC7E-73F073E1B71D}"
+      DTS:From="Package\Truncate Table STG_Activo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_Activo" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{9EE3CB9E-C64E-4446-BE21-20FB7DA26929}"
+      DTS:EventID="311041788"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{69FEA463-FE2E-492D-B35E-488AAC3E1EB6}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{20E0596F-8A9A-40E2-A289-60D8565C1126}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_UPD ?, NULL, ?, ?, ?, ?, ?, NULL, NULL, NULL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_ERROR_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPostExecute]"
+      DTS:CreationName="OnPostExecute"
+      DTS:DTSID="{6B9AEA74-B909-4A3F-A691-E9EF3CC827EF}"
+      DTS:EventID="441770676"
+      DTS:EventName="OnPostExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{DF9C2858-B1B3-454E-8769-FFF8D87F6381}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{D82BFEA6-CAA2-4719-9462-D09948381278}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E2194173-7625-4771-AFFA-8A96DFE4618C}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="DECLARE @now datetime&#xA;SELECT @now = GETDATE()&#xA;EXEC SP_DW_AUD_LOG_UPD ?, @now, ?, NULL, NULL, ?, ?, NULL, NULL, NULL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_FINISHED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{42DD8604-D1D6-41AA-B121-E629ACE67E54}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPreExecute]"
+      DTS:CreationName="OnPreExecute"
+      DTS:DTSID="{B571D2DA-E1F9-4476-8A97-BA893E31D903}"
+      DTS:EventID="441748004"
+      DTS:EventName="OnPreExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{702DA109-F9F2-4FF5-AACA-72532A633B65}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{48F20BE2-E70D-417B-B71D-FF70EB99036F}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BB955019-670C-4003-AB6A-49F7F844DF4B}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_INS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_INS ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="PkAudLog"
+                SQLTask:DtsVariableName="User::vPkAudLog" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::StartTime"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="$Project::AUD_STARTED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F2C4F2FE-1C01-45B5-876B-7D4BA7E5BF4D}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Carga STG_Activo"
+          TopLeft="291,233" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\Truncate Table STG_Activo"
+          TopLeft="268,129" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="372,171">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPostExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPostExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="154.5,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPreExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="153.75,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Carga STG_Activo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Carga STG_Activo\vRowsInserted"
+          TopLeft="281.5,284.5" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Carga STG_Activo\vRowsCount"
+          TopLeft="284.5,198" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Carga STG_Activo\Input JDE_REP"
+          TopLeft="283,104" />
+        <EdgeLayout
+          Id="Package\Carga STG_Activo.Paths[OLE DB Source Output]"
+          TopLeft="355.5,146">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_Activo.Paths[Row Count Output 1]"
+          TopLeft="354.5,240">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.5"
+              Start="0,0"
+              End="0,37">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Carga STG_Activo\Output STG_Activo"
+          TopLeft="277,384" />
+        <EdgeLayout
+          Id="Package\Carga STG_Activo.Paths[Row Count Output 11]"
+          TopLeft="358.5,326.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57.5"
+              Start="0,0"
+              End="0,50">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Activo\Input JDE_REP">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Activo\Output STG_Activo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

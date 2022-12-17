@@ -1,0 +1,1447 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/14/2019 3:59:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{A381251E-0986-4D5B-BFE4-729046033997}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_BT_GA_FACT3_01"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{7751C0D9-3AD6-4259-AC8F-AF8BEBB49417}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga BT_GA_FACT3_01"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{49756249-9744-4F35-92E6-62845A008D89}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga BT_GA_FACT3_01"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga BT_GA_FACT3_01\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input].Columns[SK_PRO_Provincia]"
+                      cachedDataType="i4"
+                      cachedName="SK_PRO_Provincia"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_PRO_Provincia,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input].Columns[SK_FAM_Familia]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_Familia"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_FAM_Familia,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_FAM_Familia"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [LK_FAMILIA]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [LK_FAMILIA]) [refTable]
+where [refTable].[VC_FAM_Descripcion] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_FAM_Familia" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_FAM_Descripcion" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Familia]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input].Columns[VC_Familia]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="VC_Familia"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Familia]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_FAM_Descripcion</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                      name="SK_FAM_Familia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_FAM_Familia</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_PRO_Provincia"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Provincia]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Provincia]) [refTable]
+where [refTable].[VC_PRO_Provincia] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_PRO_Provincia" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_Provincia" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_PRO_ProvinciaDetalle" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="NU_PRO_Latitud" dataType="DT_NUMERIC" length="0" precision="9" scale="6" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_Longitud" dataType="DT_NUMERIC" length="0" precision="9" scale="6" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_CodigoAFIP" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_CodigoJDE" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_CodigoISO3166" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_PRO_CodigoISO3166Unif" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_PRO_CodigoPais" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_PAI_Pais" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_CodigoSalesforce" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Provincia]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input].Columns[VC_Provincia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2000"
+                      cachedName="VC_Provincia"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Provincia]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_PRO_Provincia</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      name="SK_PRO_Provincia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_PRO_Provincia</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_GA_Fact3_01"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+FC_Fecha = Date,
+ VC_Provincia = (Select Region_Normalizada from STG.dbo.STG_GA_Region Where STG_GA_Region.Region = STG_GA_Fact3_01.Region),
+CAST( Case When Charindex('compresores-de-aire',Pagepath) &gt; 0                Then 'Compresores'
+When Charindex('movimiento-de-tierra',Pagepath) &gt; 0               Then 'Tierra'
+When Charindex('grupos-electrogenos',Pagepath) &gt; 0                Then 'Grupos'
+When Charindex('plataformas-para-trabajo-en-altura',Pagepath) &gt; 0 Then 'Plataformas'
+When Charindex('manipuladores',Pagepath) &gt; 0                      Then 'Manipuladores'
+When Charindex('torres-de-iluminacion',Pagepath) &gt; 0              Then 'Torres'
+Else '*sin dato*' End AS NVARCHAR) AS  VC_Familia,
+  CAST(ChannelGrouping AS VARCHAR (2000)) AS VC_ChannelGrouping,
+ CAST (PagePath  AS VARCHAR (2000)) AS  VC_PagePath,
+  VC_Region           = Region,
+  NU_Sessions         = Sessions,
+  NU_SessionDuration  = SessionDuration,
+  NU_PageViews        = PageViews,
+  NU_UniquePageViews  = UniquePageViews,
+  NU_Bounces          = Bounces,
+  NU_TimeOnPage       = TimeOnPage,
+  NU_Users            = Users,
+  NU_NewUsers         = NewUsers
+from STG.dbo.STG_GA_Fact3_01
+Where Country = 'Argentina'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[FC_Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[FC_Fecha]"
+                      name="FC_Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Provincia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Provincia]"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Provincia]"
+                      name="VC_Provincia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Familia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Familia]"
+                      length="30"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Familia]"
+                      name="VC_Familia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_ChannelGrouping]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_ChannelGrouping]"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_ChannelGrouping]"
+                      name="VC_ChannelGrouping"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_PagePath]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_PagePath]"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_PagePath]"
+                      name="VC_PagePath"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Region]"
+                      length="50"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_Region]"
+                      name="VC_Region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Sessions]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Sessions]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Sessions]"
+                      name="NU_Sessions"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_SessionDuration]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_SessionDuration]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_SessionDuration]"
+                      name="NU_SessionDuration"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_PageViews]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_PageViews]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_PageViews]"
+                      name="NU_PageViews"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_UniquePageViews]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_UniquePageViews]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_UniquePageViews]"
+                      name="NU_UniquePageViews"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Bounces]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Bounces]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Bounces]"
+                      name="NU_Bounces"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_TimeOnPage]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_TimeOnPage]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_TimeOnPage]"
+                      name="NU_TimeOnPage"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Users]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Users]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Users]"
+                      name="NU_Users"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_NewUsers]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_NewUsers]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_NewUsers]"
+                      name="NU_NewUsers"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Provincia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_Provincia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Familia]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_ChannelGrouping]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_ChannelGrouping" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_PagePath]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_PagePath" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[VC_Region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_Region" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Sessions]"
+                      dataType="numeric"
+                      name="NU_Sessions"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_SessionDuration]"
+                      dataType="numeric"
+                      name="NU_SessionDuration"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_PageViews]"
+                      dataType="numeric"
+                      name="NU_PageViews"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_UniquePageViews]"
+                      dataType="numeric"
+                      name="NU_UniquePageViews"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Bounces]"
+                      dataType="numeric"
+                      name="NU_Bounces"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_TimeOnPage]"
+                      dataType="numeric"
+                      name="NU_TimeOnPage"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_Users]"
+                      dataType="numeric"
+                      name="NU_Users"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].ExternalColumns[NU_NewUsers]"
+                      dataType="numeric"
+                      name="NU_NewUsers"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[FC_Fecha]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[FC_Fecha]"
+                      name="FC_Fecha" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Provincia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Provincia]"
+                      name="VC_Provincia" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Familia]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Familia]"
+                      name="VC_Familia" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_ChannelGrouping]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_ChannelGrouping]"
+                      name="VC_ChannelGrouping" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_PagePath]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_PagePath]"
+                      name="VC_PagePath" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[VC_Region]"
+                      name="VC_Region" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Sessions]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Sessions]"
+                      name="NU_Sessions"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_SessionDuration]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_SessionDuration]"
+                      name="NU_SessionDuration"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_PageViews]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_PageViews]"
+                      name="NU_PageViews"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_UniquePageViews]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_UniquePageViews]"
+                      name="NU_UniquePageViews"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Bounces]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Bounces]"
+                      name="NU_Bounces"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_TimeOnPage]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_TimeOnPage]"
+                      name="NU_TimeOnPage"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Users]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_Users]"
+                      name="NU_Users"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_NewUsers]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[NU_NewUsers]"
+                      name="NU_NewUsers"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_GA_FACT3_01]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FC_Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_Fecha"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[FC_Fecha]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VC_ChannelGrouping]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2000"
+                      cachedName="VC_ChannelGrouping"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_ChannelGrouping]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_ChannelGrouping]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VC_PagePath]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2000"
+                      cachedName="VC_PagePath"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_PagePath]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[VC_PagePath]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_Sessions]"
+                      cachedDataType="numeric"
+                      cachedName="NU_Sessions"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Sessions]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Sessions]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_SessionDuration]"
+                      cachedDataType="numeric"
+                      cachedName="NU_SessionDuration"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_SessionDuration]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_SessionDuration]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_PageViews]"
+                      cachedDataType="numeric"
+                      cachedName="NU_PageViews"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_PageViews]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_PageViews]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_UniquePageViews]"
+                      cachedDataType="numeric"
+                      cachedName="NU_UniquePageViews"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_UniquePageViews]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_UniquePageViews]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_Bounces]"
+                      cachedDataType="numeric"
+                      cachedName="NU_Bounces"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Bounces]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Bounces]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_TimeOnPage]"
+                      cachedDataType="numeric"
+                      cachedName="NU_TimeOnPage"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_TimeOnPage]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_TimeOnPage]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_Users]"
+                      cachedDataType="numeric"
+                      cachedName="NU_Users"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Users]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_Users]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_NewUsers]"
+                      cachedDataType="numeric"
+                      cachedName="NU_NewUsers"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_NewUsers]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output].Columns[NU_NewUsers]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_PRO_Provincia]"
+                      cachedDataType="i4"
+                      cachedName="SK_PRO_Provincia"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Provincia]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]" />
+                    <inputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_FAM_Familia]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_Familia"
+                      externalMetadataColumnId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_Familia]"
+                      lineageId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Provincia]"
+                      dataType="i4"
+                      name="SK_PRO_Provincia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_Familia]"
+                      dataType="i4"
+                      name="SK_FAM_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_ChannelGrouping]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_ChannelGrouping" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_PagePath]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="VC_PagePath" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Sessions]"
+                      dataType="numeric"
+                      name="NU_Sessions"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_SessionDuration]"
+                      dataType="numeric"
+                      name="NU_SessionDuration"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_PageViews]"
+                      dataType="numeric"
+                      name="NU_PageViews"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_UniquePageViews]"
+                      dataType="numeric"
+                      name="NU_UniquePageViews"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Bounces]"
+                      dataType="numeric"
+                      name="NU_Bounces"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_TimeOnPage]"
+                      dataType="numeric"
+                      name="NU_TimeOnPage"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Users]"
+                      dataType="numeric"
+                      name="NU_Users"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_NewUsers]"
+                      dataType="numeric"
+                      name="NU_NewUsers"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga BT_GA_FACT3_01.Paths[Derived Column Output]"
+              endId="Package\Carga BT_GA_FACT3_01\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_GA_FACT3_01\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_GA_FACT3_01.Paths[Lookup Match Output]"
+              endId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_GA_FACT3_01.Paths[Lookup Match Output1]"
+              endId="Package\Carga BT_GA_FACT3_01\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_GA_FACT3_01.Paths[OLE DB Source Output]"
+              endId="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete BT_GA_FACT3_01"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{564607BF-40FE-4CAE-9FD4-78A265D2A0D1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete BT_GA_FACT3_01"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="DELETE FROM [BT_GA_FACT3_01]&#xA;  WHERE FC_FECHA BETWEEN (SELECT MIN(date) AS MIN_Date FROM STG.dbo.STG_GA_Fact3_01) AND (SELECT MAX (date) AS MAX_Date FROM STG.dbo.STG_GA_Fact3_01)&#xA;&#x9;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{095F9AEA-170C-4460-B400-D968D9969879}"
+      DTS:From="Package\Delete BT_GA_FACT3_01"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga BT_GA_FACT3_01" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Carga BT_GA_FACT3_01"
+          TopLeft="317,153" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Delete BT_GA_FACT3_01"
+          TopLeft="322,35" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="417.75,77">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76"
+              Start="0,0"
+              End="0,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga BT_GA_FACT3_01">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Carga BT_GA_FACT3_01\OLE DB Destination"
+          TopLeft="344,438" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia"
+          TopLeft="338,247" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01"
+          TopLeft="328,57" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia"
+          TopLeft="330,153" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga BT_GA_FACT3_01\Derived Column"
+          TopLeft="353,351" />
+        <EdgeLayout
+          Id="Package\Carga BT_GA_FACT3_01.Paths[OLE DB Source Output]"
+          TopLeft="424.75,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_GA_FACT3_01.Paths[Lookup Match Output1]"
+          TopLeft="428.75,289">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,21.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_GA_FACT3_01.Paths[Lookup Match Output]"
+          TopLeft="425.75,195">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_GA_FACT3_01.Paths[Derived Column Output]"
+          TopLeft="429.75,393">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_GA_FACT3_01\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_GA_FACT3_01\GET SK_PRO_Provincia">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Provincia]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_GA_FACT3_01\Input STG_GA_Fact3_01">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_GA_FACT3_01\GET SK_FAM_Familia">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">LK_FAMILIA</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

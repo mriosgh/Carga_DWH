@@ -1,0 +1,1316 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/25/2021 2:19:17 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{4F153BAE-AF3F-4E76-A7A2-0323D50F8D01}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga LK_PosicionArancelaria_Comex"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{27BC6E9A-2B8D-481F-932B-DA47576F4D97}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3161E490-6D64-4788-81D6-99BF62BA5C5C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Insert">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9B76A606-196B-48C3-AF8A-43EA26C12503}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="NoCambio">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga LK_PosicionArancelaria_Comex"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{21F2E060-E492-4236-BE23-ACD90234794D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga LK_PosicionArancelaria_Comex"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Cambio?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input].Columns[CH_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CH_ORIGEN"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input].Columns[CH_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="CH_CHECKSUM"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output].Columns[CH_CHECKSUM]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[SI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SI"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]} != #{Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output].Columns[CH_CHECKSUM]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CH_ORIGEN != CH_CHECKSUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[NO]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="NO"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Inputs[ChecksumInput].Columns[PosicionArancelaria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="PosicionArancelaria"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Inputs[ChecksumInput].Columns[Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripcion"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[Descripcion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]"
+                      name="CH_ORIGEN">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  LTRIM(RTRIM([CD_ID_Origen])) AS CD_ID_Origen
+      ,[VC_POCX_Descripcion]
+      ,[CH_CHECKSUM]
+  FROM [dbo].[LK_PosicionArancelaria_Comex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT  LTRIM(RTRIM([CD_ID_Origen])) AS CD_ID_Origen
+      ,[VC_POCX_Descripcion]
+      ,[CH_CHECKSUM]
+  FROM [dbo].[LK_PosicionArancelaria_Comex]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_POCX_Descripcion" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input].Columns[PosicionArancelaria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="PosicionArancelaria"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output].Columns[CH_CHECKSUM]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output].Columns[CH_CHECKSUM]"
+                      name="CH_CHECKSUM"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CH_CHECKSUM</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Fechas"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      name="FechaModificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_PosicionArancelaria_Comex"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+LTRIM(RTRIM(PosicionArancelaria)) AS PosicionArancelaria
+,LTRIM(RTRIM(Descripcion)) AS Descripcion
+FROM STG_PosicionArancelaria_Comex</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Connections[OleDbConnection]"
+                  connectionManagerID="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STGConnectionDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].ExternalColumns[PosicionArancelaria]"
+                      length="255"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]"
+                      name="PosicionArancelaria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].ExternalColumns[Descripcion]"
+                      length="255"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[Descripcion]"
+                      name="Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].ExternalColumns[PosicionArancelaria]"
+                      dataType="wstr"
+                      length="255"
+                      name="PosicionArancelaria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].ExternalColumns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Descripcion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[PosicionArancelaria]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[PosicionArancelaria]"
+                      name="PosicionArancelaria" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[Descripcion]"
+                      name="Descripcion" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output LK_PosicionArancelaria_Comex"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_PosicionArancelaria_Comex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].Columns[CH_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CH_ORIGEN"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].Columns[PosicionArancelaria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="PosicionArancelaria"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].Columns[Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_POCX_Descripcion]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[Descripcion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_CREACION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ULTIMA_MODIFICACION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[SK_POCX_PosicionArancelariaComex]"
+                      dataType="i8"
+                      name="SK_POCX_PosicionArancelariaComex" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      dataType="wstr"
+                      length="255"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_POCX_Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_POCX_Descripcion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="RowInsert">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::Insert</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="RowNoCambio">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::NoCambio</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="UPDATE"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE LK_PosicionArancelaria_Comex
+SET
+VC_POCX_Descripcion=?
+,CH_CHECKSUM=?
+,FECHA_ULTIMA_MODIFICACION=?
+WHERE CD_ID_ORIGEN=?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].Columns[PosicionArancelaria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="PosicionArancelaria"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[PosicionArancelaria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].Columns[CH_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CH_ORIGEN"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput].Columns[CH_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].Columns[Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i8"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="dbTimeStamp"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[ChecksumOutput]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Inputs[Derived Column Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[Derived Column Output]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Fechas.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[Lookup Match Output]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[Lookup No Match Output]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[NO]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio.Inputs[Row Count Input 1]"
+              name="NO"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[NO]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[OLE DB Source Output]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\CHK.Inputs[ChecksumInput]"
+              name="OLE DB Source Output"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[Row Count Output 1]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\RowInsert.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga LK_PosicionArancelaria_Comex.Paths[SI]"
+              endId="Package\Carga LK_PosicionArancelaria_Comex\UPDATE.Inputs[OLE DB Command Input]"
+              name="SI"
+              startId="Package\Carga LK_PosicionArancelaria_Comex\Cambio?.Outputs[SI]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="255.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex"
+          TopLeft="123.333331495523,38.5666659770409" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga LK_PosicionArancelaria_Comex">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="260.666666666667,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex"
+          TopLeft="90.8333319798112,32.4999994188547" />
+        <NodeLayout
+          Size="99.3333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\CHK"
+          TopLeft="171.488092682723,141.080949858228" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[OLE DB Source Output]"
+          TopLeft="221.160712331267,74.4999994188547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.5809504393737"
+              Start="0,0"
+              End="0,59.0809504393737">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.0809504393737" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="111.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\Fechas"
+          TopLeft="168.154759399061,242.124995670468" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[ChecksumOutput]"
+          TopLeft="222.488092707559,183.080949858228">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.0440458122393"
+              Start="0,0"
+              End="0,51.5440458122393">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5440458122393" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="111.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\Existe?"
+          TopLeft="164.880949924035,329.952375052373" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[Derived Column Output]"
+          TopLeft="222.184521328214,284.124995670468">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.827379381905"
+              Start="0,0"
+              End="0,38.327379381905">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.327379381905" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="260.666666666667,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex"
+          TopLeft="725.089283978034,340.51189991626" />
+        <NodeLayout
+          Size="119.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\Cambio?"
+          TopLeft="154.166664369404,432.14285122071" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[Lookup Match Output]"
+          TopLeft="217.190473813386,371.952375052373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.1904761683374"
+              Start="0,0"
+              End="0,52.6904761683374">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.6904761683374" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.5405505841687,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="127.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\RowInsert"
+          TopLeft="469.642850144633,333.761901961338" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[Lookup No Match Output]"
+          TopLeft="276.214283257368,352.857138506855">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="193.428566887265,0"
+              Start="0,0"
+              End="185.928566887265,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="185.928566887265,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="37.1578967248826,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[Row Count Output 1]"
+          TopLeft="596.976183477967,358.136900938799">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="128.113100500068,0"
+              Start="0,0"
+              End="120.613100500068,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="120.613100500068,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="147.333333333334,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\RowNoCambio"
+          TopLeft="463.541659759358,435.499992212653" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[NO]"
+          TopLeft="273.499997702738,454.821421716682">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="190.04166205662,0"
+              Start="0,0"
+              End="182.54166205662,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="182.54166205662,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="83.92801852831,5,14.685625,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="118,42"
+          Id="Package\Carga LK_PosicionArancelaria_Comex\UPDATE"
+          TopLeft="155.208331020549,566.583323202034" />
+        <EdgeLayout
+          Id="Package\Carga LK_PosicionArancelaria_Comex.Paths[SI]"
+          TopLeft="214.02083102831,474.14285122071">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,92.440471981324"
+              Start="0,0"
+              End="0,84.940471981324">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,84.940471981324" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.2351953125,37.703146146912,10.470390625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_PosicionArancelaria_Comex\Input STG_PosicionArancelaria_Comex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_PosicionArancelaria_Comex\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_PosicionArancelaria_Comex\Output LK_PosicionArancelaria_Comex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

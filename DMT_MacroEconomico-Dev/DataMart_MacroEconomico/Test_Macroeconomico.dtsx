@@ -1,0 +1,1705 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2019 9:43:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PCSBAS1045"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{DCF111D1-31F7-4F90-B7D7-E56E98A2E115}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="Test_Macroeconomico"
+  DTS:PackageType="5"
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{B2F9F537-61A6-49D4-99D6-B23FDA77F8E4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{95F05FE5-3A33-4BE1-8A08-568115897A8A}"
+      DTS:ObjectName="Administrador de conexiones con Excel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\usrcrm\Workspaces\DMTMacroEconomica\Archivos\update_report.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DB9F5DBD-8101-4A51-A821-D6850911E7B5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Registros">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Test Macroeconomico"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{78C1D5A4-EA64-412A-8DED-2AA6B016FDBC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Test Macroeconomico"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Test Macroeconomico\Búsqueda"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Búsqueda"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[BT_Macroeconomicos]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[BT_Macroeconomicos]) [refTable]
+where [refTable].[SK_VAR_Variable] = ? and [refTable].[SK_Mes] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SEC_Sector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_CAT_Categoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SUB_Subcategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_ACE_Codigo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_VAR_Variable" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_Mes" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_Trimestre" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_ValorVariable" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_ValorVariableSinEstacionalidad" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroNroVariable]};#{Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroIDMes]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Test Macroeconomico\Búsqueda.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda].Columns[EnteroNroVariable]"
+                      cachedDataType="i4"
+                      cachedName="EnteroNroVariable"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroNroVariable]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">SK_VAR_Variable</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda].Columns[EnteroIDMes]"
+                      cachedDataType="i4"
+                      cachedName="EnteroIDMes"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroIDMes]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">SK_Mes</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda].Columns[NU_ValorVariable]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda].Columns[NU_ValorVariable]"
+                      name="NU_ValorVariable"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">NU_ValorVariable</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NroVariable]"
+                      cachedDataType="r8"
+                      cachedName="NroVariable"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[IDMes]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="IDMes"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[ValorVariable_updated]"
+                      cachedDataType="r8"
+                      cachedName="ValorVariable_updated"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroNroVariable]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroNroVariable]"
+                      name="EnteroNroVariable"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroIDMes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[EnteroIDMes]"
+                      name="EnteroIDMes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[StringValorVariable_updated]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[StringValorVariable_updated]"
+                      name="StringValorVariable_updated"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Conversión de datos 1"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Conversión de datos 1.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos 1.Inputs[Entrada de conversión de datos].Columns[NU_ValorVariable]"
+                      cachedDataType="r8"
+                      cachedName="NU_ValorVariable"
+                      lineageId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda].Columns[NU_ValorVariable]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Test Macroeconomico\Conversión de datos 1.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos].Columns[StringNU_ValorVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos].Columns[StringNU_ValorVariable]"
+                      name="StringNU_ValorVariable"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda].Columns[NU_ValorVariable]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Test Macroeconomico\Conversión de datos 1.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Extrae SubString"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Extrae SubString"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada].Columns[StringValorVariable_updated]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StringValorVariable_updated"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[StringValorVariable_updated]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada].Columns[StringNU_ValorVariable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StringNU_ValorVariable"
+                      lineageId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos].Columns[StringNU_ValorVariable]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableActualizado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableActualizado]"
+                      name="SubValorVariableActualizado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">[SUBSTRING](#{Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos].Columns[StringValorVariable_updated]},1,10)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">SUBSTRING(StringValorVariable_updated,1,10)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableEnBT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableEnBT]"
+                      name="SubValorVariableEnBT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">[SUBSTRING](#{Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos].Columns[StringNU_ValorVariable]},1,10)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">SUBSTRING(StringNU_ValorVariable,1,10)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Fecha de creacion"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Fecha de creacion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Fecha de creacion.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\Test Macroeconomico\Fecha de creacion.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorNroMes]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="53"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorNroMes]"
+                      name="ErrorNroMes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">"NroVariable o Mes inexistente en la BT_Macroeconomico"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"NroVariable o Mes inexistente en la BT_Macroeconomico"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorValor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="84"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorValor]"
+                      name="ErrorValor"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">"ValorVariable no coincide con el que se encuentra registrado en la BT_Macroeconomico"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"ValorVariable no coincide con el que se encuentra registrado en la BT_Macroeconomico"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\Test Macroeconomico\Fecha de creacion.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Insertar en Log Error Numero Variable"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[LogMacroeconomico]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].Columns[NroVariable]"
+                      cachedDataType="r8"
+                      cachedName="NroVariable"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_NroVariable]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].Columns[ValorVariable_updated]"
+                      cachedDataType="r8"
+                      cachedName="ValorVariable_updated"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_ValorVariable]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[FC_Log_Fecha]"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].Columns[IDMes]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="IDMes"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Mes]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].Columns[ErrorNroMes]"
+                      cachedDataType="wstr"
+                      cachedLength="53"
+                      cachedName="ErrorNroMes"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Error]"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorNroMes]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_Log]"
+                      dataType="i4"
+                      name="SK_Log" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[FC_Log_Fecha]"
+                      dataType="dbTimeStamp"
+                      name="FC_Log_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_NroVariable]"
+                      dataType="r8"
+                      name="NU_Log_NroVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_ValorVariable]"
+                      dataType="r8"
+                      name="NU_Log_ValorVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Mes]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Log_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Error]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Log_Error" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Insertar en Log Error Valor variable"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[LogMacroeconomico]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].Columns[NroVariable]"
+                      cachedDataType="r8"
+                      cachedName="NroVariable"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_NroVariable]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].Columns[ValorVariable_updated]"
+                      cachedDataType="r8"
+                      cachedName="ValorVariable_updated"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_ValorVariable]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[FC_Log_Fecha]"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].Columns[IDMes]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="IDMes"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Mes]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].Columns[ErrorValor]"
+                      cachedDataType="wstr"
+                      cachedLength="84"
+                      cachedName="ErrorValor"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Error]"
+                      lineageId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada].Columns[ErrorValor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_Log]"
+                      dataType="i4"
+                      name="SK_Log" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[FC_Log_Fecha]"
+                      dataType="dbTimeStamp"
+                      name="FC_Log_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_NroVariable]"
+                      dataType="r8"
+                      name="NU_Log_NroVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_Log_ValorVariable]"
+                      dataType="r8"
+                      name="NU_Log_ValorVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Mes]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Log_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_Log_Error]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Log_Error" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Origen de Excel"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de Excel"
+              name="Origen de Excel"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">data$</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="La asignación de parámetros del comando SQL a variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Test Macroeconomico\Origen de Excel.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  connectionManagerRefId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel]"
+                  name="Salida de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[NroVariable]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[NroVariable]"
+                      name="NroVariable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[IDMes]"
+                      length="255"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[IDMes]"
+                      name="IDMes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[ValorVariable_updated]"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ValorVariable_updated]"
+                      name="ValorVariable_updated"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[NroVariable]"
+                      dataType="r8"
+                      name="NroVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[IDMes]"
+                      dataType="wstr"
+                      length="255"
+                      name="IDMes" />
+                    <externalMetadataColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[ValorVariable_updated]"
+                      dataType="r8"
+                      name="ValorVariable_updated" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[NroVariable]"
+                      dataType="r8"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[NroVariable]"
+                      name="NroVariable" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[IDMes]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[IDMes]"
+                      name="IDMes" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ValorVariable_updated]"
+                      dataType="r8"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ValorVariable_updated]"
+                      name="ValorVariable_updated" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Recuento de filas"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Recuento de filas;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Cuenta las filas a medida que pasan por un flujo de datos. Por ejemplo, se usa el número de filas procesadas para determinar si deben o no realizarse operaciones de limpieza o actualizar el texto de un mensaje de correo electrónico para comunicar el estado de procesamiento."
+              name="Recuento de filas">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el recuento de filas."
+                  name="VariableName">User::Registros</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Recuento de filas.Inputs[Entrada de Recuento de filas 1]"
+                  hasSideEffects="true"
+                  name="Entrada de Recuento de filas 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Recuento de filas.Outputs[Salida de Recuento de filas 1]"
+                  name="Salida de Recuento de filas 1"
+                  synchronousInputId="Package\Test Macroeconomico\Recuento de filas.Inputs[Entrada de Recuento de filas 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Test Macroeconomico\Verifica si los valores son iguales"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="División condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Enruta filas de datos a diferentes salidas según el contenido de los datos. Se usan condiciones (expresiones de SSIS) para especificar las filas que se van a enrutar. Por ejemplo, se usa para separar los registros que deben limpiarse de los registros listos para ser cargados o para enrutar solamente un subconjunto de registros."
+              name="Verifica si los valores son iguales"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional]"
+                  description="Entrada en la transformación División condicional"
+                  name="Entrada de división condicional">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional].Columns[SubValorVariableActualizado]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SubValorVariableActualizado"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableActualizado]" />
+                    <inputColumn
+                      refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional].Columns[SubValorVariableEnBT]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SubValorVariableEnBT"
+                      lineageId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableEnBT]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Son iguales]"
+                  description="Salida 1 de la transformación División condicional"
+                  errorOrTruncationOperation="Cálculo"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Son iguales"
+                  synchronousInputId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica la expresión. Esta versión de expresión usa identificadores de linaje en lugar de nombres de columna."
+                      name="Expression">#{Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableActualizado]} == #{Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada].Columns[SubValorVariableEnBT]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica la versión descriptiva de la expresión. Esta versión de expresión usa nombres de columna."
+                      expressionType="Notify"
+                      name="FriendlyExpression">SubValorVariableActualizado == SubValorVariableEnBT</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la posición de la condición en la lista de condiciones que evalúa la transformación. El orden de evaluación es del menor al mayor valor."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[No son iguales]"
+                  description="Salida predeterminada de la transformación División condicional"
+                  exclusionGroup="1"
+                  name="No son iguales"
+                  synchronousInputId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Salida de error de división condicional]"
+                  description="Salida de error de la transformación División condicional"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de división condicional"
+                  synchronousInputId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Salida de error de división condicional].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Salida de error de división condicional].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Salida de error de división condicional].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Salida de error de división condicional].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Test Macroeconomico.Paths[No son iguales]"
+              endId="Package\Test Macroeconomico\Insertar en Log Error Valor variable.Inputs[Entrada de destino de OLE DB]"
+              name="No son iguales"
+              startId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[No son iguales]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de columna derivada]"
+              endId="Package\Test Macroeconomico\Verifica si los valores son iguales.Inputs[Entrada de división condicional]"
+              name="Salida de columna derivada"
+              startId="Package\Test Macroeconomico\Extrae SubString.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de columna derivada1]"
+              endId="Package\Test Macroeconomico\Búsqueda.Inputs[Entrada de búsqueda]"
+              name="Salida de columna derivada"
+              startId="Package\Test Macroeconomico\Fecha de creacion.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de conversión de datos]"
+              endId="Package\Test Macroeconomico\Extrae SubString.Inputs[Entrada de columna derivada]"
+              name="Salida de conversión de datos"
+              startId="Package\Test Macroeconomico\Conversión de datos 1.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de conversión de datos1]"
+              endId="Package\Test Macroeconomico\Fecha de creacion.Inputs[Entrada de columna derivada]"
+              name="Salida de conversión de datos"
+              startId="Package\Test Macroeconomico\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de entradas coincidentes de búsqueda]"
+              endId="Package\Test Macroeconomico\Conversión de datos 1.Inputs[Entrada de conversión de datos]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de entradas no coincidentes de búsqueda]"
+              endId="Package\Test Macroeconomico\Insertar en Log Error Numero Variable.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas no coincidentes de búsqueda"
+              startId="Package\Test Macroeconomico\Búsqueda.Outputs[Salida de entradas no coincidentes de búsqueda]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Salida de origen de Excel]"
+              endId="Package\Test Macroeconomico\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de Excel"
+              startId="Package\Test Macroeconomico\Origen de Excel.Outputs[Salida de origen de Excel]" />
+            <path
+              refId="Package\Test Macroeconomico.Paths[Son iguales]"
+              endId="Package\Test Macroeconomico\Recuento de filas.Inputs[Entrada de Recuento de filas 1]"
+              name="Son iguales"
+              startId="Package\Test Macroeconomico\Verifica si los valores son iguales.Outputs[Son iguales]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Test Macroeconomico"
+          TopLeft="349,122" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Test Macroeconomico">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="241,42"
+          Id="Package\Test Macroeconomico\Verifica si los valores son iguales"
+          TopLeft="317,524" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Test Macroeconomico\Conversión de datos 1"
+          TopLeft="539,378" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Test Macroeconomico\Conversión de datos"
+          TopLeft="353,95" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Test Macroeconomico\Insertar en Log Error Valor variable"
+          TopLeft="494,625" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Test Macroeconomico\Origen de Excel"
+          TopLeft="362,24" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Test Macroeconomico\Extrae SubString"
+          TopLeft="355,450" />
+        <NodeLayout
+          Size="266,42"
+          Id="Package\Test Macroeconomico\Insertar en Log Error Numero Variable"
+          TopLeft="158,378" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Test Macroeconomico\Recuento de filas"
+          TopLeft="176,609" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Test Macroeconomico\Fecha de creacion"
+          TopLeft="356,187" />
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Test Macroeconomico\Búsqueda"
+          TopLeft="377,291" />
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de conversión de datos1]"
+          TopLeft="441.75,137">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de conversión de datos]"
+          TopLeft="633.5,420">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-197.5,30"
+              Start="0,0"
+              End="-197.5,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11"
+                    Point2="0,15"
+                    Point3="-4,15" />
+                  <mssgle:LineSegment
+                    End="-193.5,15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-193.5,15"
+                    Point2="-197.5,15"
+                    Point3="-197.5,19" />
+                  <mssgle:LineSegment
+                    End="-197.5,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de columna derivada1]"
+          TopLeft="441,229">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de columna derivada]"
+          TopLeft="436.75,492">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[No son iguales]"
+          TopLeft="476.333333333333,566">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="142.666666666667,59"
+              Start="0,0"
+              End="142.666666666667,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.8334707337181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.8334707337181"
+                    Point2="0,23.8334707337181"
+                    Point3="4,23.8334707337181" />
+                  <mssgle:LineSegment
+                    End="138.666666666667,23.8334707337181" />
+                  <mssgle:CubicBezierSegment
+                    Point1="138.666666666667,23.8334707337181"
+                    Point2="142.666666666667,23.8334707337181"
+                    Point3="142.666666666667,27.8334707337181" />
+                  <mssgle:LineSegment
+                    End="142.666666666667,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="38.5507552083333,28.8334707337181,65.56515625,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Son iguales]"
+          TopLeft="437.5,566">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-179.5,43"
+              Start="0,0"
+              End="-179.5,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5"
+                    Point2="0,21.5"
+                    Point3="-4,21.5" />
+                  <mssgle:LineSegment
+                    End="-175.5,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-175.5,21.5"
+                    Point2="-179.5,21.5"
+                    Point3="-179.5,25.5" />
+                  <mssgle:LineSegment
+                    End="-179.5,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-115.6532421875,26.5,51.806484375,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de origen de Excel]"
+          TopLeft="441.75,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="421.333333333333,333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-130.333333333333,45"
+              Start="0,0"
+              End="-130.333333333333,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.3307810107198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.3307810107198"
+                    Point2="0,18.3307810107198"
+                    Point3="-4,18.3307810107198" />
+                  <mssgle:LineSegment
+                    End="-126.333333333333,18.3307810107198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-126.333333333333,18.3307810107198"
+                    Point2="-130.333333333333,18.3307810107198"
+                    Point3="-130.333333333333,22.3307810107198" />
+                  <mssgle:LineSegment
+                    End="-130.333333333333,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-172.055690104167,23.3307810107198,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Test Macroeconomico.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="461.666666666667,333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="171.833333333333,45"
+              Start="0,0"
+              End="171.833333333333,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.3307810107198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.3307810107198"
+                    Point2="0,18.3307810107198"
+                    Point3="4,18.3307810107198" />
+                  <mssgle:LineSegment
+                    End="167.833333333333,18.3307810107198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="167.833333333333,18.3307810107198"
+                    Point2="171.833333333333,18.3307810107198"
+                    Point3="171.833333333333,22.3307810107198" />
+                  <mssgle:LineSegment
+                    End="171.833333333333,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-13.9023567708333,23.3307810107198,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Ejecutar este paquete en QA para hacer el test"
+          ParentId="Package\Test Macroeconomico"
+          FontInfo="{assembly:Null}"
+          Size="273,40"
+          Id="f14b348e-d2d1-486e-88f7-112e94706d31"
+          TopLeft="67,26" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Test Macroeconomico\Insertar en Log Error Valor variable">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Test Macroeconomico\Origen de Excel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Test Macroeconomico\Insertar en Log Error Numero Variable">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Test Macroeconomico\Búsqueda">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[BT_Macroeconomicos]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

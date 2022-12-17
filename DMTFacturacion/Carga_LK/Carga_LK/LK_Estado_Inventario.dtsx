@@ -1,0 +1,1290 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/30/2019 12:44:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-0BMVGN8"
+  DTS:CreatorName="DESKTOP-0BMVGN8\Dthink"
+  DTS:DTSID="{35B8B855-1191-4C8C-8F47-06CC32EC57D6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="LK_Estado_Inventario"
+  DTS:PackageType="5"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{9223643B-AB5E-42D7-A51B-3E8B0D74FF27}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Insert -1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Insert -1"
+      DTS:DTSID="{CE29CE58-7C81-447B-B782-98E832F00AE4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert -1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="BEGIN TRANSACTION&#xA;&#xA;SET IDENTITY_INSERT [dbo].[LK_Estado_Inventario] ON;&#xA;&#xA;INSERT INTO [dbo].[LK_Estado_Inventario] ([SK_CEI_Codigo_Inventario],CD_ID_Origen,[VC_CEI_Descripcion],[VC_CEI_Codigo],Fecha_Creacion,Fecha_Modificacion,Chk_Checksum)&#xA;SELECT -1,-1,'*sin dato*','*sin dato*','01-01-1970','01-01-1970',0&#xA;WHERE NOT EXISTS (SELECT 1 &#xA;    FROM [LK_Estado_Inventario] &#xA;    WHERE [SK_CEI_Codigo_Inventario] = -1);&#xA;&#xA;SET IDENTITY_INSERT [dbo].[LK_Estado_Inventario] OFF;&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LK_Estado_Inventario"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{D2C837F2-FF72-45EA-B8E1-B1F6F6DA6663}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LK_Estado_Inventario"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LK_Estado_Inventario\Cambió?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Cambió?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      lineageId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input].Columns[Chk_Checksum]"
+                      cachedDataType="i8"
+                      cachedName="Chk_Checksum"
+                      lineageId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output].Columns[Chk_Checksum]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\Cambió?.Outputs[Si]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Si"
+                  synchronousInputId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]} != #{Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output].Columns[Chk_Checksum]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CHK_ORIGEN != Chk_Checksum</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Cambió?.Outputs[No]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="No"
+                  synchronousInputId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Cambió?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput].Columns[ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="ID_Origen"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput].Columns[Descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Descripcion"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput].Columns[codigoEstado]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="codigoEstado"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[codigoEstado]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      name="CHK_ORIGEN">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\Destino Estado MRP"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino Estado MRP"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[LK_Estado_Inventario]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LK_Estado_Inventario\Destino Estado MRP.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="ID_Origen"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[Descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_CEI_Descripcion]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[codigoEstado]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="codigoEstado"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_CEI_Codigo]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[codigoEstado]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaUltimaModificacion"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Modificacion]"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaUltimaModificacion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Chk_Checksum]"
+                      lineageId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_CEI_Codigo_Inventario]"
+                      dataType="i4"
+                      name="SK_CEI_Codigo_Inventario" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_CEI_Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="VC_CEI_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_CEI_Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="VC_CEI_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Modificacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Modificacion" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[Chk_Checksum]"
+                      dataType="i8"
+                      name="Chk_Checksum" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\Destino Estado MRP.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Destino Estado MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Destino Estado MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Destino Estado MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Estado_Inventario]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Estado_Inventario]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_CEI_Codigo_Inventario" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CEI_Descripcion" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_CEI_Codigo" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Chk_Checksum" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LK_Estado_Inventario\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input].Columns[ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="ID_Origen"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output].Columns[Chk_Checksum]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output].Columns[Chk_Checksum]"
+                      name="Chk_Checksum"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">Chk_Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\Fecha Auditoria"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Fecha Auditoria"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\Fecha Auditoria.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Fecha Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaUltimaModificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaUltimaModificacion]"
+                      name="FechaUltimaModificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\Fecha Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\Origen Estado Inventario"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen Estado Inventario"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT	ID_Origen,
+		LTRIM(RTRIM(Descripcion)) AS Descripcion,
+		LTRIM(RTRIM(codigoEstado)) AS codigoEstado
+FROM [dbo].[STG_CodigosEstadoInventario];</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[ID_Origen]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]"
+                      name="ID_Origen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      length="50"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[codigoEstado]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[codigoEstado]"
+                      length="25"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[codigoEstado]"
+                      name="codigoEstado"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[ID_Origen]"
+                      dataType="i4"
+                      name="ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].ExternalColumns[codigoEstado]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="codigoEstado" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ID_Origen]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ID_Origen]"
+                      name="ID_Origen" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[codigoEstado]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[codigoEstado]"
+                      name="codigoEstado" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LK_Estado_Inventario\UPDATE"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="UPDATE"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">BEGIN TRANSACTION
+
+UPDATE [dbo].[LK_Estado_Inventario]
+	SET[VC_CEI_Descripcion]= ?
+	,[VC_CEI_Codigo] = ?
+	,[Fecha_Modificacion] = ?
+	,[Chk_Checksum] = ?
+ WHERE [CD_ID_Origen] = ?
+
+ COMMIT;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LK_Estado_Inventario\UPDATE.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].Columns[Descripcion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].Columns[codigoEstado]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="codigoEstado"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[codigoEstado]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].Columns[FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaUltimaModificacion"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output].Columns[FechaUltimaModificacion]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].Columns[ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="ID_Origen"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB].Columns[ID_Origen]" />
+                    <inputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="dbTimeStamp"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="i8"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Información de parámetros. Coincide con los valores de DBPARAMFLAGSENUM de OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LK_Estado_Inventario\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[ChecksumOutput]"
+              endId="Package\LK_Estado_Inventario\Fecha Auditoria.Inputs[Derived Column Input]"
+              name="ChecksumOutput"
+              startId="Package\LK_Estado_Inventario\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[Derived Column Output]"
+              endId="Package\LK_Estado_Inventario\Existe?.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\LK_Estado_Inventario\Fecha Auditoria.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[Lookup Match Output]"
+              endId="Package\LK_Estado_Inventario\Cambió?.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[Lookup No Match Output]"
+              endId="Package\LK_Estado_Inventario\Destino Estado MRP.Inputs[Entrada de destino de OLE DB]"
+              name="Lookup No Match Output"
+              startId="Package\LK_Estado_Inventario\Existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[Salida de origen de OLE DB]"
+              endId="Package\LK_Estado_Inventario\CHK.Inputs[ChecksumInput]"
+              name="Salida de origen de OLE DB"
+              startId="Package\LK_Estado_Inventario\Origen Estado Inventario.Outputs[Salida de origen de OLE DB]" />
+            <path
+              refId="Package\LK_Estado_Inventario.Paths[Si]"
+              endId="Package\LK_Estado_Inventario\UPDATE.Inputs[OLE DB Command Input]"
+              name="Si"
+              startId="Package\LK_Estado_Inventario\Cambió?.Outputs[Si]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{30F44C7D-C381-44C5-BEFC-70F4A30FED40}"
+      DTS:From="Package\Insert -1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\LK_Estado_Inventario" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Insert -1"
+          TopLeft="329,15.5" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\LK_Estado_Inventario"
+          TopLeft="303,98.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="394,57.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LK_Estado_Inventario">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="99,42"
+          Id="Package\LK_Estado_Inventario\CHK"
+          TopLeft="331.138888888889,95" />
+        <NodeLayout
+          Size="118,42"
+          Id="Package\LK_Estado_Inventario\UPDATE"
+          TopLeft="321.638888888889,460.333333333333" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\LK_Estado_Inventario\Fecha Auditoria"
+          TopLeft="304.638888888889,175" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\LK_Estado_Inventario\Destino Estado MRP"
+          TopLeft="535.5,268.666666666667" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\LK_Estado_Inventario\Origen Estado Inventario"
+          TopLeft="282.138888888889,15" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\LK_Estado_Inventario\Existe?"
+          TopLeft="324.638888888889,268.666666666667" />
+        <NodeLayout
+          Size="119,42"
+          Id="Package\LK_Estado_Inventario\Cambió?"
+          TopLeft="321.138888888889,368.333333333334" />
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[Si]"
+          TopLeft="380.638888888889,410.333333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49.999999999999"
+              Start="0,0"
+              End="0,42.499999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.499999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-4.42953125,16.4829101562495,8.8590625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[Salida de origen de OLE DB]"
+          TopLeft="380.638888888889,57">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[Lookup No Match Output]"
+          TopLeft="436.638888888889,289.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.8611111111109,0"
+              Start="0,0"
+              End="91.3611111111109,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="91.3611111111109,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-10.1258311631946,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[Lookup Match Output]"
+          TopLeft="380.638888888889,310.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57.6666666666675"
+              Start="0,0"
+              End="0,50.1666666666675">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.1666666666675" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.2786458333337,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[Derived Column Output]"
+          TopLeft="380.638888888889,217">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.6666666666665"
+              Start="0,0"
+              End="0,44.1666666666665">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.1666666666665" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LK_Estado_Inventario.Paths[ChecksumOutput]"
+          TopLeft="380.638888888889,137">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LK_Estado_Inventario\Destino Estado MRP">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LK_Estado_Inventario\Origen Estado Inventario">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LK_Estado_Inventario\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Estado_Inventario]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

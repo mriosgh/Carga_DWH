@@ -1,0 +1,1691 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/11/2019 2:38:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{45A59638-FDD6-4C36-B166-CD7E040C45E1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga BT_Exportador"
+  DTS:PackageType="5"
+  DTS:VersionBuild="50"
+  DTS:VersionGUID="{EB47A926-1653-4F9A-AB18-542A16EABC83}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{490249B3-56C4-4C80-866D-6EE8196E7141}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Fecha">
+      <DTS:VariableValue
+        DTS:DataType="7">3/16/2021 11:54:20 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8B7B023E-7D37-480B-B413-B3738856096D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="NoInsert">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga BT_Exportador"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CCF6C9F2-2DBF-4065-B54E-45F076FA4F63}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga BT_Exportador"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga BT_Exportador\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]}) ? -1 : #{Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_CLI_Cliente) ? -1 : SK_CLI_Cliente</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input].Columns[SK_CUE_Cuenta]"
+                      cachedDataType="i4"
+                      cachedName="SK_CUE_Cuenta"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]}) ? -1 : #{Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_CUE_Cuenta) ? -1 : SK_CUE_Cuenta</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input].Columns[SK_Semestre]"
+                      cachedDataType="i4"
+                      cachedName="SK_Semestre"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]}) ? -1 : #{Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_Semestre) ? -1 : SK_Semestre</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input].Columns[Monto]"
+                      cachedDataType="r8"
+                      cachedName="Monto"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Monto]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Monto]} * 1000</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Monto * 1000</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Prospecto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Prospecto]"
+                      name="FL_Prospecto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]}) ? "False" : "True"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_CUE_Cuenta) ? "False" : "True"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Cliente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Cliente]"
+                      name="FL_Cliente"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]}) ? "False" : "True"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_CLI_Cliente) ? "False" : "True"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET  SK_CUE_Cuenta"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  [SK_CUE_Cuenta]
+      ,[CD_ID_Origen]
+      ,[VC_CUE_Canal]
+      ,[NU_CUE_CodCliente]
+      ,[FL_CUE_Competencia]
+      ,[SK_USU_CreatedById]
+      ,[NU_CUE_Cuenta]
+      ,[VC_CUE_ParentId]
+      ,cast(ltrim(rtrim([VC_CUE_CUIT])) as nvarchar(50)) as VC_CUE_CUIT
+      ,[VC_CUE_Razon_Social]
+,-1 as SK_CLI_Cliente
+FROM [dbo].[LK_Cuenta]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT  [SK_CUE_Cuenta]
+      ,[CD_ID_Origen]
+      ,[VC_CUE_Canal]
+      ,[NU_CUE_CodCliente]
+      ,[FL_CUE_Competencia]
+      ,[SK_USU_CreatedById]
+      ,[NU_CUE_Cuenta]
+      ,[VC_CUE_ParentId]
+      ,cast(ltrim(rtrim([VC_CUE_CUIT])) as nvarchar(50)) as VC_CUE_CUIT
+      ,[VC_CUE_Razon_Social]
+,-1 as SK_CLI_Cliente
+FROM [dbo].[LK_Cuenta]) [refTable]
+where [refTable].[VC_CUE_CUIT] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_CUE_Cuenta" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_CUE_Canal" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="NU_CUE_CodCliente" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FL_CUE_Competencia" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_USU_CreatedById" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CUE_Cuenta" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CUE_ParentId" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_CUE_CUIT" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CUE_Razon_Social" dataType="DT_STR" length="4000" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_CLI_Cliente" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input].Columns[CUIT]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CUIT"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_CUE_CUIT</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]"
+                      name="SK_CUE_Cuenta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_CUE_Cuenta</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_CLI_Cliente"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [SK_CLI_Cliente]
+      ,LTRIM(RTRIM([VC_CLI_Cuit])) AS VC_CLI_Cuit
+ FROM LK_Cliente</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [SK_CLI_Cliente]
+      ,LTRIM(RTRIM([VC_CLI_Cuit])) AS VC_CLI_Cuit
+ FROM LK_Cliente) [refTable]
+where [refTable].[VC_CLI_Cuit] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_CLI_Cliente" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CLI_Cuit" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input].Columns[CUIT]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CUIT"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_CLI_Cuit</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_CLI_Cliente</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\GET SK_SEMESTRE"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_SEMESTRE"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Semestre]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Semestre]) [refTable]
+where [refTable].[SK_Semestre] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_Semestre" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_Semestre" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_Año" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Semestre]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input].Columns[Semestre]"
+                      cachedDataType="i4"
+                      cachedName="Semestre"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Semestre]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SK_Semestre</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]"
+                      name="SK_Semestre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_Semestre</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\Input STG_Exportador"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Exportador"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT LTRIM(RTRIM( [Cuit])) AS CUIT
+      ,Año AS SK_AÑO
+      ,CAST(Monto AS NUMERIC (18,2)) AS Monto
+     ,Semestre
+  FROM [STG].[dbo].[STG_Exportador]
+WHERE Fecha=?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{490249B3-56C4-4C80-866D-6EE8196E7141};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exportador\Input STG_Exportador.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Monto]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[Monto]"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Monto]"
+                      name="Monto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[SK_AÑO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[SK_AÑO]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[SK_AÑO]"
+                      name="SK_AÑO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[CUIT]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[CUIT]"
+                      name="CUIT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Semestre]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[Semestre]"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Semestre]"
+                      name="Semestre"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[Monto]"
+                      dataType="numeric"
+                      name="Monto"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[SK_AÑO]"
+                      dataType="wstr"
+                      length="255"
+                      name="SK_AÑO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[CUIT]"
+                      dataType="wstr"
+                      length="255"
+                      name="CUIT" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].ExternalColumns[Semestre]"
+                      dataType="i4"
+                      name="Semestre" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[CUIT]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[CUIT]"
+                      name="CUIT" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[SK_AÑO]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[SK_AÑO]"
+                      name="SK_AÑO" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[Monto]"
+                      dataType="numeric"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[Monto]"
+                      name="Monto"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[Semestre]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[Semestre]"
+                      name="Semestre" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\NoInsert"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="NoInsert">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::NoInsert</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\NoInsert.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\NoInsert.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga BT_Exportador\NoInsert.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\Output BT_Exportador"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output BT_Exportador"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Exportadores]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exportador\Output BT_Exportador.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[SK_AÑO]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SK_AÑO"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_Año]"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[SK_AÑO]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[SK_CUE_Cuenta]"
+                      cachedDataType="i4"
+                      cachedName="SK_CUE_Cuenta"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_CUE_Cuenta]"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[FL_Prospecto]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="FL_Prospecto"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[FL_Prospecto]"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Prospecto]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[FL_Cliente]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="FL_Cliente"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[FL_Cliente]"
+                      lineageId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output].Columns[FL_Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[SK_Semestre]"
+                      cachedDataType="i4"
+                      cachedName="SK_Semestre"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_Semestre]"
+                      lineageId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output].Columns[SK_Semestre]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].Columns[Monto]"
+                      cachedDataType="r8"
+                      cachedName="Monto"
+                      externalMetadataColumnId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[NU_MontoUSD_Exportador]"
+                      lineageId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output].Columns[Monto]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_Año]"
+                      dataType="i4"
+                      name="SK_Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_CUE_Cuenta]"
+                      dataType="i8"
+                      name="SK_CUE_Cuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[FL_Prospecto]"
+                      dataType="wstr"
+                      length="50"
+                      name="FL_Prospecto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_EXP_Exportador]"
+                      dataType="i8"
+                      name="SK_EXP_Exportador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[FL_Cliente]"
+                      dataType="wstr"
+                      length="50"
+                      name="FL_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[SK_Semestre]"
+                      dataType="i4"
+                      name="SK_Semestre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input].ExternalColumns[NU_MontoUSD_Exportador]"
+                      dataType="r8"
+                      name="NU_MontoUSD_Exportador" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\Output BT_Exportador.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Output BT_Exportador.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\Output BT_Exportador.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\Output BT_Exportador.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exportador\SK's -1"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="SK's -1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      lineageId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input].Columns[SK_CUE_Cuenta]"
+                      cachedDataType="i4"
+                      cachedName="SK_CUE_Cuenta"
+                      lineageId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exportador\SK's -1.Outputs[SI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SI"
+                  synchronousInputId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente]} == -1 &amp;&amp; #{Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output].Columns[SK_CUE_Cuenta]} == -1</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">SK_CLI_Cliente == -1 &amp;&amp; SK_CUE_Cuenta == -1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\SK's -1.Outputs[NO]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="NO"
+                  synchronousInputId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exportador\SK's -1.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\SK's -1.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\SK's -1.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exportador\SK's -1.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exportador\SK's -1.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga BT_Exportador.Paths[Derived Column Output]"
+              endId="Package\Carga BT_Exportador\SK's -1.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_Exportador\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[Lookup Match Output]"
+              endId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[Lookup Match Output1]"
+              endId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[Lookup Match Output2]"
+              endId="Package\Carga BT_Exportador\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_Exportador\GET SK_SEMESTRE.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[NO]"
+              endId="Package\Carga BT_Exportador\Output BT_Exportador.Inputs[OLE DB Destination Input]"
+              name="NO"
+              startId="Package\Carga BT_Exportador\SK's -1.Outputs[NO]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[OLE DB Source Output]"
+              endId="Package\Carga BT_Exportador\GET SK_CLI_Cliente.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga BT_Exportador\Input STG_Exportador.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga BT_Exportador.Paths[SI]"
+              endId="Package\Carga BT_Exportador\NoInsert.Inputs[Row Count Input 1]"
+              name="SI"
+              startId="Package\Carga BT_Exportador\SK's -1.Outputs[SI]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DW_AUD_Fecha_Proceso"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Carga variable con la fecha de la última factura"
+      DTS:DTSID="{1140f257-269d-48ec-a595-963aca286f77}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DW_AUD_Fecha_Proceso"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="SELECT FC_Desde FROM [dbo].[DW_AUD_Fecha_Proceso] WHERE idModulo = 11;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::Fecha" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update DW_AUD_Fecha_Proceso"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9FC37545-D338-4E8E-92D7-CF4876604B9E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update DW_AUD_Fecha_Proceso"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource=" UPDATE DW_AUD_Fecha_Proceso&#xA; SET FC_Desde=DATEADD(month, 6, FC_Desde)&#xA; WHERE idModulo=11" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{0AB6442B-F601-40A5-ABD4-9C491337D5B3}"
+      DTS:From="Package\DW_AUD_Fecha_Proceso"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga BT_Exportador" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A464F7AD-70D6-49C7-B6FC-D2E5BA5E6E72}"
+      DTS:From="Package\Carga BT_Exportador"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Update DW_AUD_Fecha_Proceso" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Carga BT_Exportador"
+          TopLeft="329,201" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\DW_AUD_Fecha_Proceso"
+          TopLeft="321,101" />
+        <NodeLayout
+          Size="234.666666666667,42"
+          Id="Package\Update DW_AUD_Fecha_Proceso"
+          TopLeft="301,315" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="419.5,143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="418.75,243">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,72"
+              Start="0,0"
+              End="0,64.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga BT_Exportador">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Carga BT_Exportador\Input STG_Exportador"
+          TopLeft="324,62" />
+        <NodeLayout
+          Size="185.333333333334,42"
+          Id="Package\Carga BT_Exportador\Output BT_Exportador"
+          TopLeft="332.388888868193,606.166665646434" />
+        <NodeLayout
+          Size="111.333333333334,42"
+          Id="Package\Carga BT_Exportador\SK's -1"
+          TopLeft="362.499994598329,501.444438219733" />
+        <NodeLayout
+          Size="119.333333333334,42"
+          Id="Package\Carga BT_Exportador\NoInsert"
+          TopLeft="122.916664835066,502.555551655425" />
+        <NodeLayout
+          Size="181.333333333334,42"
+          Id="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta"
+          TopLeft="324,230" />
+        <NodeLayout
+          Size="170.666666666667,42"
+          Id="Package\Carga BT_Exportador\GET SK_SEMESTRE"
+          TopLeft="329,328" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga BT_Exportador\Derived Column"
+          TopLeft="341,420" />
+        <NodeLayout
+          Size="173.333333333334,42"
+          Id="Package\Carga BT_Exportador\GET SK_CLI_Cliente"
+          TopLeft="327,144" />
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[SI]"
+          TopLeft="362.499994598329,522.999994937579">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-120.24999642993,0"
+              Start="0,0"
+              End="-112.74999642993,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-112.74999642993,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-61.610193527465,5,10.470390625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[OLE DB Source Output]"
+          TopLeft="414.75,104">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[NO]"
+          TopLeft="421.611108399928,543.444438219733">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62.722227426701"
+              Start="0,0"
+              End="0,55.222227426701">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.222227426701" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-7.3428125,22.8244926196005,14.685625,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[Lookup Match Output2]"
+          TopLeft="416.25,370">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,15.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[Lookup Match Output1]"
+          TopLeft="414.5,272">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,18.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[Lookup Match Output]"
+          TopLeft="414,186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,12.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exportador.Paths[Derived Column Output]"
+          TopLeft="418.083330632498,462">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.4444382197328"
+              Start="0,0"
+              End="0,31.9444382197328">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.9444382197328" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exportador\Input STG_Exportador">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exportador\Output BT_Exportador">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exportador\GET  SK_CUE_Cuenta">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exportador\GET SK_SEMESTRE">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Semestre]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exportador\GET SK_CLI_Cliente">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

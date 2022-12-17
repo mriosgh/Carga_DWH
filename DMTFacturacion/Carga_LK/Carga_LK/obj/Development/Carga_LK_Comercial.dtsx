@@ -1,0 +1,2691 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/5/2017 3:57:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\administrator"
+  DTS:DTSID="{B9A41A29-58E3-47EF-8B79-430B613B89CF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_LK_Comercial"
+  DTS:PackageType="5"
+  DTS:VersionBuild="48"
+  DTS:VersionGUID="{3A1493F5-F18C-4839-BA25-B605382510C0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CT LK_Comercial]"
+      DTS:CreationName="CACHE"
+      DTS:DTSID="{EB300A8B-A324-465F-B671-A16F702259B8}"
+      DTS:ObjectName="CT LK_Comercial">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::CTLK_Comercial_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:UseFile="True"
+          DTS:ConnectionString="D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Comercial.caw">
+          <DTS:CacheColumns>
+            <DTS:CacheColumn
+              DTS:DataType="20"
+              DTS:ObjectName="SK_COM_Comercial"
+              DTS:DTSID="{EBF7BB0F-84E8-40E2-B1E0-7ED2E4D1F200}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="3"
+              DTS:IndexPosition="1"
+              DTS:ObjectName="CD_ID_Origen"
+              DTS:DTSID="{8B6CDB32-8059-4B50-A8EF-F77B0202552B}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="130"
+              DTS:Length="50"
+              DTS:ObjectName="VC_COM_ApellidoNombre"
+              DTS:DTSID="{8F061FBB-114C-446E-AB82-21D711BDFDD4}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="130"
+              DTS:Length="50"
+              DTS:ObjectName="VC_COM_Descripcion"
+              DTS:DTSID="{B7FA4FAA-F971-43AF-BEFA-EF276718F032}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="20"
+              DTS:ObjectName="CH_CHECKSUM"
+              DTS:DTSID="{30F8DCED-953C-45C4-B292-9DDD325362C0}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="135"
+              DTS:ObjectName="Fecha_Creacion"
+              DTS:DTSID="{8213FB12-019E-429A-A555-5E9D62A2565D}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="135"
+              DTS:ObjectName="Fecha_Ultima_Modificacion"
+              DTS:DTSID="{8FA4B374-B5A8-49F2-8F4F-0AC31777CCA5}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="130"
+              DTS:Length="50"
+              DTS:ObjectName="VC_COM_Email"
+              DTS:DTSID="{F08ADD5F-D36C-402B-A102-A4CDDE66714D}"
+              DTS:CreationName="" />
+          </DTS:CacheColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{BB3BA97F-42A1-40D2-9011-419DC7ABB488}"
+      DTS:ObjectName="CTLK_Comercial_ConnectionString"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Comercial.caw</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E747D7EC-AEDC-44D5-B803-F2F516037DDA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudLog">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{84908597-8371-466F-B1FF-2C7E2025CD98}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudPackage">
+      <DTS:VariableValue
+        DTS:DataType="3">17</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FA5B13E7-FFA4-48BF-B9EF-2425D4F4A799}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D8E97604-E7C8-40E6-A18C-3B94B5B850B8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsInserted">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FC3F6431-4595-4485-B275-8B4216C9AE4A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsNoUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E6447F6D-A61E-4763-8FE8-FBD03FA10FF0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga cache LK_Comercial"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3C8C1CD0-DA46-44C1-A4E2-A9509A5161B1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga cache LK_Comercial"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga cache LK_Comercial\CT LK_Comercial"
+              componentClassID="Microsoft.Cache"
+              contactInfo="Cache Transform;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Writes data to a cache (a .caw file) with the Cache Connection Manager. Reuse the cache between multiple Lookup transforms to reduce database load. Share the cache to reduce memory usage. Note: cache data is stored in clear text and not recommended for sensitive data."
+              name="CT LK_Comercial"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Connections[CacheConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CT LK_Comercial]"
+                  connectionManagerRefId="Package.ConnectionManagers[CT LK_Comercial]"
+                  description="The connection used to access the cache."
+                  name="CacheConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input]"
+                  hasSideEffects="true"
+                  name="Cache Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[SK_COM_Comercial]"
+                      cachedDataType="i8"
+                      cachedName="SK_COM_Comercial"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[SK_COM_Comercial]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">SK_COM_Comercial</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[CD_ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="CD_ID_Origen"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">CD_ID_Origen</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[VC_COM_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_ApellidoNombre"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_ApellidoNombre]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">VC_COM_ApellidoNombre</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[VC_COM_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Descripcion"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Descripcion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">VC_COM_Descripcion</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[CH_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="CH_CHECKSUM"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CH_CHECKSUM]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">CH_CHECKSUM</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[Fecha_Creacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Creacion"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Creacion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">Fecha_Creacion</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[Fecha_Ultima_Modificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Ultima_Modificacion"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Ultima_Modificacion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">Fecha_Ultima_Modificacion</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input].Columns[VC_COM_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Email"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Email]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">VC_COM_Email</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Comercial\CT LK_Comercial.Outputs[Cache Output]"
+                  name="Cache Output"
+                  synchronousInputId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga cache LK_Comercial\LK_Comercial"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LK_Comercial"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  [SK_COM_Comercial]
+      ,[CD_ID_Origen]
+      ,[VC_COM_ApellidoNombre]
+      ,[VC_COM_Descripcion]
+      ,[CH_CHECKSUM]
+      ,[Fecha_Creacion]
+      ,[Fecha_Ultima_Modificacion]
+      ,LTRIM(RTRIM([VC_COM_Email])) AS VC_COM_Email
+  FROM LK_Comercial</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Comercial\LK_Comercial.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[SK_COM_Comercial]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[SK_COM_Comercial]"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[SK_COM_Comercial]"
+                      name="SK_COM_Comercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_ApellidoNombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_ApellidoNombre]"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_ApellidoNombre]"
+                      name="VC_COM_ApellidoNombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_Descripcion]"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Descripcion]"
+                      name="VC_COM_Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CH_CHECKSUM]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[CH_CHECKSUM]"
+                      name="CH_CHECKSUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Creacion]"
+                      name="Fecha_Creacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Ultima_Modificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[Fecha_Ultima_Modificacion]"
+                      name="Fecha_Ultima_Modificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_Email]"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].Columns[VC_COM_Email]"
+                      name="VC_COM_Email"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[SK_COM_Comercial]"
+                      dataType="i8"
+                      name="SK_COM_Comercial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_ApellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_ApellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_Descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Ultima_Modificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output].ExternalColumns[VC_COM_Email]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_Email" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[SK_COM_Comercial]"
+                      dataType="i8"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[SK_COM_Comercial]"
+                      name="SK_COM_Comercial" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_ApellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_ApellidoNombre]"
+                      name="VC_COM_ApellidoNombre" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_Descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_Descripcion]"
+                      name="VC_COM_Descripcion" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[CH_CHECKSUM]"
+                      dataType="i8"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[CH_CHECKSUM]"
+                      name="CH_CHECKSUM" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[Fecha_Creacion]"
+                      name="Fecha_Creacion" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[Fecha_Ultima_Modificacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[Fecha_Ultima_Modificacion]"
+                      name="Fecha_Ultima_Modificacion" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_Email]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[VC_COM_Email]"
+                      name="VC_COM_Email" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga cache LK_Comercial.Paths[OLE DB Source Output]"
+              endId="Package\Carga cache LK_Comercial\CT LK_Comercial.Inputs[Cache Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga cache LK_Comercial\LK_Comercial.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga_LK_Comercial"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{294e5835-fcbe-438b-b4f3-6d4442e1fecc}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga_LK_Comercial"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga_LK_Comercial\Cambió?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Cambió?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      lineageId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input].Columns[LK_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="LK_CHECKSUM"
+                      lineageId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Cambió?.Outputs[SI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SI"
+                  synchronousInputId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]} != #{Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CHK_ORIGEN != LK_CHECKSUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Cambió?.Outputs[NO]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="NO"
+                  synchronousInputId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Cambió?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Cambió?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput].Columns[VC_COM_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_ApellidoNombre"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput].Columns[VC_COM_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Descripcion"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput].Columns[idLegajo]"
+                      cachedDataType="i4"
+                      cachedName="idLegajo"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput].Columns[VC_COM_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Email"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Email]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      name="CHK_ORIGEN">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\Fechas Auditoria"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Fechas Auditoria"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\Fechas Auditoria.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Fechas Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      name="FechaModificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Fechas Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\Format Validator"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format Validator"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input].Columns[apellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="apellidoNombre"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="descripcion"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input].Columns[email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="email"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_ApellidoNombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_ApellidoNombre]"
+                      name="VC_COM_ApellidoNombre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]} == "" || [ISNULL](#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">apellidoNombre == "" || ISNULL(apellidoNombre) ? @[$Project::DEF_UNK_STR] : apellidoNombre</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Descripcion]"
+                      name="VC_COM_Descripcion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]} == "" || [ISNULL](#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]}) || #{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]} == "." ? @[$Project::DEF_UNK_STR] : #{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">descripcion == "" || ISNULL(descripcion) || descripcion == "." ? @[$Project::DEF_UNK_STR] : descripcion</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Email]"
+                      name="VC_COM_Email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]} == "" || [ISNULL](#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]}) || #{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]} == "" ? @[$Project::DEF_UNK_STR] : #{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">email == "" || ISNULL(email) || email == "" ? @[$Project::DEF_UNK_STR] : email</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\Input STG_Comercial"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Comercial"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Comercial]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Comercial\Input STG_Comercial.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[idLegajo]"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]"
+                      name="idLegajo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[apellidoNombre]"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[apellidoNombre]"
+                      name="apellidoNombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[descripcion]"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[descripcion]"
+                      name="descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[email]"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[email]"
+                      name="email"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[idLegajo]"
+                      dataType="i4"
+                      name="idLegajo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[apellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="apellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].ExternalColumns[email]"
+                      dataType="wstr"
+                      length="50"
+                      name="email" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[idLegajo]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[idLegajo]"
+                      name="idLegajo" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[apellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[apellidoNombre]"
+                      name="apellidoNombre" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[descripcion]"
+                      name="descripcion" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[email]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[email]"
+                      name="email" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\Insert LK_Comercial"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert LK_Comercial"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_Comercial]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[idLegajo]"
+                      cachedDataType="i4"
+                      cachedName="idLegajo"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[VC_COM_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_ApellidoNombre"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_ApellidoNombre]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[VC_COM_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_Descripcion]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].Columns[VC_COM_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Email"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_Email]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Email]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[SK_COM_Comercial]"
+                      dataType="i8"
+                      name="SK_COM_Comercial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Ultima_Modificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_ApellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_ApellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_Descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input].ExternalColumns[VC_COM_Email]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_COM_Email" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Insert LK_Comercial.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Insert LK_Comercial.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Insert LK_Comercial.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\Lookup existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Comercial]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Comercial]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_COM_Comercial" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_COM_ApellidoNombre" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_COM_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Ultima_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Comercial\Lookup existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input].Columns[idLegajo]"
+                      cachedDataType="i4"
+                      cachedName="idLegajo"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      name="LK_CHECKSUM"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CH_CHECKSUM</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\UPDATE"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="UPDATE"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE LK_Comercial
+SET VC_COM_ApellidoNombre = ?,
+VC_COM_Descripcion = ?,
+CH_CHECKSUM = ?,
+Fecha_Ultima_Modificacion = ?,
+VC_COM_Email=?
+WHERE CD_ID_Origen = ?;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Comercial\UPDATE.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[VC_COM_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_ApellidoNombre"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[VC_COM_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[VC_COM_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_COM_Email"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output].Columns[VC_COM_Email]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].Columns[idLegajo]"
+                      cachedDataType="i4"
+                      cachedName="idLegajo"
+                      externalMetadataColumnId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output].Columns[idLegajo]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i8"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="dbTimeStamp"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="i4"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Comercial\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\vRowsCount"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsCount">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\vRowsCount.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\vRowsCount.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Comercial\vRowsCount.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\vRowsInserted"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsInserted">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsNoUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\vRowsInserted.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\vRowsInserted.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Comercial\vRowsInserted.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\vRowsNoUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsNoUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsNoUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\vRowsNoUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\vRowsNoUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Comercial\vRowsNoUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Comercial\vRowsUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsNoUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Comercial\vRowsUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Comercial\vRowsUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Comercial\vRowsUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[ChecksumOutput]"
+              endId="Package\Carga_LK_Comercial\Fechas Auditoria.Inputs[Derived Column Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga_LK_Comercial\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Derived Column Output]"
+              endId="Package\Carga_LK_Comercial\CHK.Inputs[ChecksumInput]"
+              name="Derived Column Output"
+              startId="Package\Carga_LK_Comercial\Format Validator.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Derived Column Output1]"
+              endId="Package\Carga_LK_Comercial\Lookup existe?.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Carga_LK_Comercial\Fechas Auditoria.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Lookup Match Output]"
+              endId="Package\Carga_LK_Comercial\Cambió?.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Lookup No Match Output]"
+              endId="Package\Carga_LK_Comercial\vRowsInserted.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\Carga_LK_Comercial\Lookup existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[NO]"
+              endId="Package\Carga_LK_Comercial\vRowsNoUpdate.Inputs[Row Count Input 1]"
+              name="NO"
+              startId="Package\Carga_LK_Comercial\Cambió?.Outputs[NO]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[OLE DB Source Output]"
+              endId="Package\Carga_LK_Comercial\vRowsCount.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Carga_LK_Comercial\Input STG_Comercial.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Row Count Output 1]"
+              endId="Package\Carga_LK_Comercial\Format Validator.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Comercial\vRowsCount.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Row Count Output 11]"
+              endId="Package\Carga_LK_Comercial\UPDATE.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Comercial\vRowsUpdate.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[Row Count Output 12]"
+              endId="Package\Carga_LK_Comercial\Insert LK_Comercial.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Comercial\vRowsInserted.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Comercial.Paths[SI]"
+              endId="Package\Carga_LK_Comercial\vRowsUpdate.Inputs[Row Count Input 1]"
+              name="SI"
+              startId="Package\Carga_LK_Comercial\Cambió?.Outputs[SI]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4CA15A98-542B-405B-9057-1614011BD85B}"
+      DTS:From="Package\Carga_LK_Comercial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga cache LK_Comercial" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{C12FB61E-2511-430F-8920-A76289171805}"
+      DTS:EventID="391236396"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{9C1341D6-942E-47F8-9388-3D58455E8FAD}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1b761797-21c7-4fcc-9d9a-2fc2bf6f0609}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_UPD ?, NULL, ?, ?, ?, ?, ?, NULL, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_ERROR_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="6"
+                SQLTask:DtsVariableName="User::vRowsNoUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="7"
+                SQLTask:DtsVariableName="User::vRowsUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPostExecute]"
+      DTS:CreationName="OnPostExecute"
+      DTS:DTSID="{3B1B0387-341C-4656-8CB1-D6413D696C1A}"
+      DTS:EventID="391200324"
+      DTS:EventName="OnPostExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{85AF6203-8DC7-498D-9F4A-204AFA212800}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{948da2af-2d6e-4ea0-ba26-e486c67b0930}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9d41214d-4b20-449d-b2a0-867167f24eb8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="DECLARE @now datetime&#xA;SELECT @now = GETDATE()&#xA;EXEC SP_DW_AUD_LOG_UPD ?, @now, ?, NULL, NULL, ?, ?, NULL, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_FINISHED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::vRowsUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::vRowsNoUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{d508d6ed-c16c-4585-8990-a92ab217e070}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPreExecute]"
+      DTS:CreationName="OnPreExecute"
+      DTS:DTSID="{0BAB8F28-8C00-4F97-949A-2A0447A10CE7}"
+      DTS:EventID="498422276"
+      DTS:EventName="OnPreExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{58C8BACA-309B-4591-98E3-209A15CEC46C}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{45d31017-fb48-46b8-8998-5fb449fddcd3}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{f6e4cf53-b8a0-4cc3-932b-5506a6ba8ad3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_INS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_INS ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="PkAudLog"
+                SQLTask:DtsVariableName="User::vPkAudLog" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::StartTime"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="$Project::AUD_STARTED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{fc683e4d-6723-430b-bf09-96e36ae0be26}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Carga cache LK_Comercial"
+          TopLeft="253,212" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga_LK_Comercial"
+          TopLeft="260,112" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="351.25,154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPostExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPostExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="154.5,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPreExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="153.75,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Carga cache LK_Comercial">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Carga cache LK_Comercial\LK_Comercial"
+          TopLeft="476,59" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Carga cache LK_Comercial\CT LK_Comercial"
+          TopLeft="466,188" />
+        <EdgeLayout
+          Id="Package\Carga cache LK_Comercial.Paths[OLE DB Source Output]"
+          TopLeft="546,101">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87"
+              Start="0,0"
+              End="0,79.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,79.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga cache LK_Comercial\LK_Comercial">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga_LK_Comercial">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Carga_LK_Comercial\vRowsUpdate"
+          TopLeft="324.777777777778,889.65625" />
+        <NodeLayout
+          Size="118,42"
+          Id="Package\Carga_LK_Comercial\UPDATE"
+          TopLeft="337.277777777778,994.75" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Carga_LK_Comercial\vRowsNoUpdate"
+          TopLeft="646.619576719577,784.75" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Carga_LK_Comercial\Fechas Auditoria"
+          TopLeft="317.777777777778,574.375" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Carga_LK_Comercial\vRowsInserted"
+          TopLeft="646.619576719577,679.46875" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Carga_LK_Comercial\vRowsCount"
+          TopLeft="327.777777777778,259.09375" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Carga_LK_Comercial\Input STG_Comercial"
+          TopLeft="306.777777777778,154" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\Carga_LK_Comercial\CHK"
+          TopLeft="346.777777777778,463.28125" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Carga_LK_Comercial\Insert LK_Comercial"
+          TopLeft="973,679.46875" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Carga_LK_Comercial\Lookup existe?"
+          TopLeft="321.777777777778,679.46875" />
+        <NodeLayout
+          Size="119,42"
+          Id="Package\Carga_LK_Comercial\Cambió?"
+          TopLeft="336.777777777778,784.5625" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Carga_LK_Comercial\Format Validator"
+          TopLeft="317.777777777778,364.1875" />
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Derived Column Output1]"
+          TopLeft="396.277777777778,616.375">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Derived Column Output]"
+          TopLeft="396.277777777778,406.1875">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57.09375"
+              Start="0,0"
+              End="0,49.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[ChecksumOutput]"
+          TopLeft="396.277777777778,505.28125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69.09375"
+              Start="0,0"
+              End="0,61.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[SI]"
+          TopLeft="396.277777777778,826.5625">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.2351953125,23.02978515625,10.470390625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Row Count Output 12]"
+          TopLeft="795.619576719577,700.46875">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="177.380423280423,0"
+              Start="0,0"
+              End="169.880423280423,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="169.880423280423,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Row Count Output 11]"
+          TopLeft="396.277777777778,931.65625">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Row Count Output 1]"
+          TopLeft="396.277777777778,301.09375">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[OLE DB Source Output]"
+          TopLeft="396.277777777778,196">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[NO]"
+          TopLeft="455.777777777778,805.65625">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="190.841798941799,0"
+              Start="0,0"
+              End="183.341798941799,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="183.341798941799,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="84.3280869708995,5,14.685625,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Lookup No Match Output]"
+          TopLeft="470.777777777778,700.46875">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="175.841798941799,0"
+              Start="0,0"
+              End="168.341798941799,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="168.341798941799,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="28.3645127521495,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Comercial.Paths[Lookup Match Output]"
+          TopLeft="396.277777777778,721.46875">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.09375"
+              Start="0,0"
+              End="0,55.59375">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.59375" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,21.9921875,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Comercial\Insert LK_Comercial">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Comercial\Lookup existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Comercial]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Comercial\Input STG_Comercial">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,2146 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/14/2019 4:21:33 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{BA440330-44C4-4CAC-B0D8-A8990549CF82}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_FlotaAlquimia"
+  DTS:PackageType="5"
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{C783A164-5AA6-4DAB-88C2-BD8DDE42F967}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_FlotaAlquimia"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{84B7C41C-BE71-40AA-ADE9-A49F643294E3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_FlotaAlquimia"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="ALQUIMIA - Flota"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+	F.IDFlota
+	,IIF(LTRIM(RTRIM(F.IDSucursal)) = '' OR F.IDSucursal IS NULL, 'S/D',CAST(LTRIM(RTRIM(F.IDSucursal)) AS NVARCHAR(6))) as IDSucursal
+	,IIF(LTRIM(RTRIM(F.IDAsignacion)) = '' OR F.IDAsignacion IS NULL, 'S/D', CAST(LTRIM(RTRIM(F.IDAsignacion)) AS NVARCHAR(6))) AS IDAsignacion
+	,F.IDPropietario
+	,F.IDDeposito
+	,IIF(LTRIM(RTRIM(F.Interno)) = '' OR F.Interno IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(15))) AS Interno
+	,IIF(LTRIM(RTRIM(F.IDRubro)) = '' OR F.IDRubro IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.IDRubro)) AS NVARCHAR(3))) AS IDRubro
+	,IIF(LTRIM(RTRIM(F.IDArticulo)) = '' OR F.IDArticulo IS NULL, 'S/D',	CAST(LTRIM(RTRIM(F.IDArticulo)) AS NVARCHAR(20))) AS IDArticulo
+	,IIF(LTRIM(RTRIM(F.NroSerie)) = '' OR F.NroSerie IS NULL, 'S/D',		CAST(LTRIM(RTRIM(F.NroSerie)) AS NVARCHAR(20))) AS NroSerie
+	,IIF(LTRIM(RTRIM(F.NroVIN)) = '' OR F.NroVIN IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.NroVIN)) AS NVARCHAR(50))) AS NroVIN
+	,IIF(LTRIM(RTRIM(F.IDEstado)) = '' OR F.IDEstado IS NULL, 'S/D',		CAST(LTRIM(RTRIM(F.IDEstado)) AS NVARCHAR(3))) AS IDEstado
+	,IDEstadoTall1
+	,IDEstadoTall2
+	,Ingreso
+	,ISNULL(Reingreso, '1900-01-01') AS Reingreso
+	,IIF(LTRIM(RTRIM(F.Fabricacion)) = '' OR LTRIM(RTRIM(F.Fabricacion)) = '-' OR F.Fabricacion IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(4)))	AS Fabricacion
+	,IIF(LTRIM(RTRIM(F.ModMotor)) = '' OR LTRIM(RTRIM(F.ModMotor)) = '-' OR F.ModMotor IS NULL, 'S/D',					CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(20)))	AS ModMotor
+	,IIF(LTRIM(RTRIM(F.MarcMotor)) = '' OR LTRIM(RTRIM(F.MarcMotor)) = '-' OR F.MarcMotor IS NULL, 'S/D',				CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(15)))	AS MarcMotor
+	,IIF(LTRIM(RTRIM(F.SerieMotor)) = '' OR LTRIM(RTRIM(F.SerieMotor)) = '-' OR F.SerieMotor IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(20)))	AS SerieMotor
+	,IIF(LTRIM(RTRIM(F.Potencia)) = '' OR LTRIM(RTRIM(F.Potencia)) = '-' OR F.Potencia IS NULL, 'S/D',					CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(6)))	AS Potencia
+	,IIF(LTRIM(RTRIM(F.Spec)) = '' OR LTRIM(RTRIM(F.Spec)) = '-' OR F.Spec IS NULL, 'S/D',								CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(10)))	AS Spec
+	,IIF(LTRIM(RTRIM(F.CPL)) = '' OR LTRIM(RTRIM(F.CPL)) = '-' OR F.CPL IS NULL, 'S/D',									CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(20)))	AS CPL
+	,IIF(LTRIM(RTRIM(F.UC)) = '' OR LTRIM(RTRIM(F.UC)) = '-' OR F.UC IS NULL, 'S/D',									CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(14)))	AS UC
+	,IIF(LTRIM(RTRIM(F.Traccion)) = '' OR LTRIM(RTRIM(F.Traccion)) = '-' OR F.Traccion IS NULL, 'S/D',					CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(10)))	AS Traccion
+	,IIF(LTRIM(RTRIM(F.Nomenclador)) = '' OR LTRIM(RTRIM(F.Nomenclador)) = '-' OR F.Nomenclador IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.Interno)) AS NVARCHAR(16)))	AS Nomenclador
+	,ValorAsegurado
+	,ISNULL(FechaDisponible, '1900-01-01') AS FechaDisponible
+	,FechaBaja
+	,NotaBaja
+	,NotaAlta
+	,Obs1
+	,IIF(F.NroMemo IS NULL, 0, NroMemo)	AS NroMemo
+	,IIF(LTRIM(RTRIM(F.NroBLU)) = '' OR F.NroBLU IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.NroBLU))  AS NVARCHAR(20)))	AS NroBLU
+	,IIF(LTRIM(RTRIM(F.NroBLU2)) = '' OR F.NroBLU2 IS NULL, 'S/D',			CAST(LTRIM(RTRIM(F.NroBLU2)) AS NVARCHAR(20)))	AS NroBLU2
+	,ISNULL(UltCtrlBLU, '1900-01-01') AS UltCtrlBLU
+	,IIF(F.ObsBLU IS NULL, 'S/D', F.ObsBLU) AS ObsBLU
+	,ISNULL(CambioBLU, '1900-01-01') AS CambioBLU
+	,IIF(LTRIM(RTRIM(F.UsuarioBLU)) = '' OR F.UsuarioBLU IS NULL, 'S/D', CAST(LTRIM(RTRIM(F.UsuarioBLU)) AS NVARCHAR(16))) AS UsuarioBLU
+	,ISNULL(IDMemoAlta,0) AS IDMemoAlta
+	,ISNULL(IDItemAlta,0) AS IDItemAlta
+	,ISNULL(IDMemoBaja,0) AS IDMemoBaja
+	,ISNULL(IDItemBaja,0) AS IDItemBaja
+	,ISNULL(IDPredio,  0) AS IDPredio
+	,IIF(LTRIM(RTRIM(F.TipoUbicacion)) = '' OR F.TipoUbicacion IS NULL, 'S/D',	CAST(LTRIM(RTRIM(F.TipoUbicacion))	AS NVARCHAR(1))) AS TipoUbicacion
+	,IIF(LTRIM(RTRIM(F.Rack)) = '' OR F.Rack IS NULL, 'S/D',					CAST(LTRIM(RTRIM(F.Rack))			AS NVARCHAR(1))) AS Rack
+	,IIF(LTRIM(RTRIM(F.Coordenada)) = '' OR F.Coordenada IS NULL, 'S/D',		CAST(LTRIM(RTRIM(F.Coordenada))		AS NVARCHAR(6))) AS Coordenada
+	,IIF(LTRIM(RTRIM(F.ts)) = '' OR F.ts IS NULL, 'S/D',						CAST(LTRIM(RTRIM(F.ts))				AS NVARCHAR(255))) AS ts
+	,IDMecanico
+	,ObsMecanico
+	,IDCertificadora
+	,ISNULL(VtoCertif, '1900-01-01') AS VtoCertif
+	,ISNULL(InicioCertif, '1900-01-01') AS InicioCertif
+	,NotaST
+	,EnvioSF
+	,ISNULL(ValorOrigen.ValorOrigen, 0) AS ValorOrigen
+from Flota F
+	left join ( 
+		SELECT LTRIM(RTRIM(REPLACE(FAAPID,CHAR(9),''))) AS INTERNO, CAST(ValorOrigen AS float) AS ValorOrigen
+		FROM (
+				select 
+				ROW_NUMBER() OVER(PARTITION BY FLNUMB ORDER BY FLFY) AS ROWNUMBER,
+				FLNUMB,
+				FANUMB,
+				FAAPID,
+				FLFY,
+				(FLAPYC + FLAN01 + FLAN02 + FLAN03 + FLAN04 + FLAN05 + 
+				FLAN06 + FLAN07 + FLAN08 + FLAN09 + FLAN10 + FLAN11 + FLAN12 + FLAN13 + 
+				FLAN14)/100 as ValorOrigen
+			from Proddta.f1202 
+				inner join Proddta.f1201 on FLNUMB=FANUMB
+			where 
+				FLLT='XA' and FLOBJ in (10810,10820,10825,10830)
+				and (FLAPYC+FLAN01+FLAN02+FLAN03+FLAN04+FLAN05+FLAN06+FLAN07+FLAN08+FLAN09+FLAN10+FLAN11+FLAN12+FLAN13+FLAN14)&lt;&gt;0
+				and LTRIM(RTRIM(FAAPID)) &lt;&gt; ''
+		) VALORES
+	WHERE ROWNUMBER = 1 
+	) ValorOrigen 
+		on ValorOrigen.Interno = LTRIM(RTRIM(F.Interno))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDFlota]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDFlota]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDFlota]"
+                      name="IDFlota"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDSucursal]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDSucursal]"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDSucursal]"
+                      name="IDSucursal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPropietario]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDPropietario]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPropietario]"
+                      name="IDPropietario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDDeposito]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDDeposito]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDDeposito]"
+                      name="IDDeposito"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      length="15"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Interno]"
+                      name="Interno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDRubro]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDRubro]"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDRubro]"
+                      name="IDRubro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDArticulo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDArticulo]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDArticulo]"
+                      name="IDArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroSerie]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroSerie]"
+                      name="NroSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroVIN]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroVIN]"
+                      length="50"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroVIN]"
+                      name="NroVIN"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall1]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstadoTall1]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall1]"
+                      name="IDEstadoTall1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall2]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstadoTall2]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall2]"
+                      name="IDEstadoTall2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Ingreso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Ingreso]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Ingreso]"
+                      name="Ingreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Reingreso]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Reingreso]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Reingreso]"
+                      name="Reingreso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Fabricacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Fabricacion]"
+                      length="4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Fabricacion]"
+                      name="Fabricacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ModMotor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ModMotor]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ModMotor]"
+                      name="ModMotor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[SerieMotor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[SerieMotor]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[SerieMotor]"
+                      name="SerieMotor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Potencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Potencia]"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Potencia]"
+                      name="Potencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Spec]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Spec]"
+                      length="10"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Spec]"
+                      name="Spec"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CPL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[CPL]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CPL]"
+                      name="CPL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UC]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UC]"
+                      length="14"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UC]"
+                      name="UC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Traccion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Traccion]"
+                      length="10"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Traccion]"
+                      name="Traccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Nomenclador]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Nomenclador]"
+                      length="16"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Nomenclador]"
+                      name="Nomenclador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorAsegurado]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ValorAsegurado]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorAsegurado]"
+                      name="ValorAsegurado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaDisponible]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[FechaDisponible]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaDisponible]"
+                      name="FechaDisponible"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaBaja]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[FechaBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaBaja]"
+                      name="FechaBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaBaja]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaBaja]"
+                      name="NotaBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaAlta]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaAlta]"
+                      name="NotaAlta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Obs1]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Obs1]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Obs1]"
+                      name="Obs1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroMemo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroMemo]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroMemo]"
+                      name="NroMemo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroBLU]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU]"
+                      name="NroBLU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroBLU2]"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU2]"
+                      name="NroBLU2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UltCtrlBLU]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UltCtrlBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UltCtrlBLU]"
+                      name="UltCtrlBLU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsBLU]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ObsBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsBLU]"
+                      name="ObsBLU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CambioBLU]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[CambioBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CambioBLU]"
+                      name="CambioBLU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UsuarioBLU]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UsuarioBLU]"
+                      length="16"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UsuarioBLU]"
+                      name="UsuarioBLU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoAlta]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMemoAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoAlta]"
+                      name="IDMemoAlta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemAlta]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDItemAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemAlta]"
+                      name="IDItemAlta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoBaja]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMemoBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoBaja]"
+                      name="IDMemoBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemBaja]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDItemBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemBaja]"
+                      name="IDItemBaja"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPredio]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDPredio]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPredio]"
+                      name="IDPredio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[TipoUbicacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[TipoUbicacion]"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[TipoUbicacion]"
+                      name="TipoUbicacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Rack]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Rack]"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Rack]"
+                      name="Rack"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Coordenada]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Coordenada]"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Coordenada]"
+                      name="Coordenada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ts]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ts]"
+                      length="255"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ts]"
+                      name="ts"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMecanico]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMecanico]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMecanico]"
+                      name="IDMecanico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsMecanico]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ObsMecanico]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsMecanico]"
+                      name="ObsMecanico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDCertificadora]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDCertificadora]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDCertificadora]"
+                      name="IDCertificadora"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[VtoCertif]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[VtoCertif]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[VtoCertif]"
+                      name="VtoCertif"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[InicioCertif]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[InicioCertif]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[InicioCertif]"
+                      name="InicioCertif"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaST]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaST]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaST]"
+                      name="NotaST"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[EnvioSF]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[EnvioSF]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[EnvioSF]"
+                      name="EnvioSF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorOrigen]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ValorOrigen]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorOrigen]"
+                      name="ValorOrigen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstado]"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstado]"
+                      name="IDEstado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDAsignacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDAsignacion]"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDAsignacion]"
+                      name="IDAsignacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[MarcMotor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[MarcMotor]"
+                      length="15"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[MarcMotor]"
+                      name="MarcMotor"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDFlota]"
+                      dataType="i4"
+                      name="IDFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDSucursal]"
+                      dataType="wstr"
+                      length="6"
+                      name="IDSucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDPropietario]"
+                      dataType="i4"
+                      name="IDPropietario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDDeposito]"
+                      dataType="i4"
+                      name="IDDeposito" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDRubro]"
+                      dataType="wstr"
+                      length="3"
+                      name="IDRubro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      name="IDArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroVIN]"
+                      dataType="wstr"
+                      length="50"
+                      name="NroVIN" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstadoTall1]"
+                      dataType="i4"
+                      name="IDEstadoTall1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstadoTall2]"
+                      dataType="i4"
+                      name="IDEstadoTall2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Ingreso]"
+                      dataType="dbTimeStamp"
+                      name="Ingreso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Reingreso]"
+                      dataType="dbTimeStamp"
+                      name="Reingreso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Fabricacion]"
+                      dataType="wstr"
+                      length="4"
+                      name="Fabricacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ModMotor]"
+                      dataType="wstr"
+                      length="20"
+                      name="ModMotor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[SerieMotor]"
+                      dataType="wstr"
+                      length="20"
+                      name="SerieMotor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Potencia]"
+                      dataType="wstr"
+                      length="6"
+                      name="Potencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Spec]"
+                      dataType="wstr"
+                      length="10"
+                      name="Spec" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[CPL]"
+                      dataType="wstr"
+                      length="20"
+                      name="CPL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UC]"
+                      dataType="wstr"
+                      length="14"
+                      name="UC" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Traccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="Traccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Nomenclador]"
+                      dataType="wstr"
+                      length="16"
+                      name="Nomenclador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ValorAsegurado]"
+                      dataType="cy"
+                      name="ValorAsegurado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[FechaDisponible]"
+                      dataType="dbTimeStamp"
+                      name="FechaDisponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[FechaBaja]"
+                      dataType="dbTimeStamp"
+                      name="FechaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaBaja]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaAlta]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Obs1]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Obs1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroMemo]"
+                      dataType="i4"
+                      name="NroMemo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroBLU]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NroBLU2]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroBLU2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UltCtrlBLU]"
+                      dataType="dbTimeStamp"
+                      name="UltCtrlBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ObsBLU]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ObsBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[CambioBLU]"
+                      dataType="dbTimeStamp"
+                      name="CambioBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[UsuarioBLU]"
+                      dataType="wstr"
+                      length="16"
+                      name="UsuarioBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMemoAlta]"
+                      dataType="i4"
+                      name="IDMemoAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDItemAlta]"
+                      dataType="i4"
+                      name="IDItemAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMemoBaja]"
+                      dataType="i4"
+                      name="IDMemoBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDItemBaja]"
+                      dataType="i4"
+                      name="IDItemBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDPredio]"
+                      dataType="i4"
+                      name="IDPredio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[TipoUbicacion]"
+                      dataType="wstr"
+                      length="3"
+                      name="TipoUbicacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Rack]"
+                      dataType="wstr"
+                      length="3"
+                      name="Rack" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[Coordenada]"
+                      dataType="wstr"
+                      length="6"
+                      name="Coordenada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ts]"
+                      dataType="wstr"
+                      length="255"
+                      name="ts" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDMecanico]"
+                      dataType="i4"
+                      name="IDMecanico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ObsMecanico]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ObsMecanico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDCertificadora]"
+                      dataType="i4"
+                      name="IDCertificadora" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[VtoCertif]"
+                      dataType="dbTimeStamp"
+                      name="VtoCertif" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[InicioCertif]"
+                      dataType="dbTimeStamp"
+                      name="InicioCertif" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[NotaST]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaST" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[EnvioSF]"
+                      dataType="dbTimeStamp"
+                      name="EnvioSF" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[ValorOrigen]"
+                      dataType="r8"
+                      name="ValorOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDEstado]"
+                      dataType="wstr"
+                      length="3"
+                      name="IDEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[IDAsignacion]"
+                      dataType="wstr"
+                      length="6"
+                      name="IDAsignacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].ExternalColumns[MarcMotor]"
+                      dataType="wstr"
+                      length="15"
+                      name="MarcMotor" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDFlota]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDFlota]"
+                      name="IDFlota" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDSucursal]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDSucursal]"
+                      name="IDSucursal" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDPropietario]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDPropietario]"
+                      name="IDPropietario" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDDeposito]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDDeposito]"
+                      name="IDDeposito" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      name="Interno" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDRubro]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDRubro]"
+                      name="IDRubro" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDArticulo]"
+                      name="IDArticulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroSerie]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroSerie]"
+                      name="NroSerie" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroVIN]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroVIN]"
+                      name="NroVIN" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstadoTall1]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstadoTall1]"
+                      name="IDEstadoTall1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstadoTall2]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstadoTall2]"
+                      name="IDEstadoTall2" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Ingreso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Ingreso]"
+                      name="Ingreso" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Reingreso]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Reingreso]"
+                      name="Reingreso" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Fabricacion]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Fabricacion]"
+                      name="Fabricacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ModMotor]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ModMotor]"
+                      name="ModMotor" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[SerieMotor]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[SerieMotor]"
+                      name="SerieMotor" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Potencia]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Potencia]"
+                      name="Potencia" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Spec]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Spec]"
+                      name="Spec" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[CPL]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[CPL]"
+                      name="CPL" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UC]"
+                      dataType="wstr"
+                      length="14"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UC]"
+                      name="UC" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Traccion]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Traccion]"
+                      name="Traccion" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Nomenclador]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Nomenclador]"
+                      name="Nomenclador" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ValorAsegurado]"
+                      dataType="cy"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ValorAsegurado]"
+                      name="ValorAsegurado" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[FechaDisponible]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[FechaDisponible]"
+                      name="FechaDisponible" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[FechaBaja]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[FechaBaja]"
+                      name="FechaBaja" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaBaja]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaBaja]"
+                      name="NotaBaja" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaAlta]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaAlta]"
+                      name="NotaAlta" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Obs1]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Obs1]"
+                      name="Obs1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroMemo]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroMemo]"
+                      name="NroMemo" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroBLU]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroBLU]"
+                      name="NroBLU" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroBLU2]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NroBLU2]"
+                      name="NroBLU2" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UltCtrlBLU]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UltCtrlBLU]"
+                      name="UltCtrlBLU" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ObsBLU]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ObsBLU]"
+                      name="ObsBLU" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[CambioBLU]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[CambioBLU]"
+                      name="CambioBLU" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UsuarioBLU]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[UsuarioBLU]"
+                      name="UsuarioBLU" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMemoAlta]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMemoAlta]"
+                      name="IDMemoAlta" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDItemAlta]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDItemAlta]"
+                      name="IDItemAlta" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMemoBaja]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMemoBaja]"
+                      name="IDMemoBaja" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDItemBaja]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDItemBaja]"
+                      name="IDItemBaja" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDPredio]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDPredio]"
+                      name="IDPredio" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[TipoUbicacion]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[TipoUbicacion]"
+                      name="TipoUbicacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Rack]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Rack]"
+                      name="Rack" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Coordenada]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[Coordenada]"
+                      name="Coordenada" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ts]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ts]"
+                      name="ts" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMecanico]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDMecanico]"
+                      name="IDMecanico" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ObsMecanico]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ObsMecanico]"
+                      name="ObsMecanico" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDCertificadora]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDCertificadora]"
+                      name="IDCertificadora" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[VtoCertif]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[VtoCertif]"
+                      name="VtoCertif" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[InicioCertif]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[InicioCertif]"
+                      name="InicioCertif" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaST]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[NotaST]"
+                      name="NotaST" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[EnvioSF]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[EnvioSF]"
+                      name="EnvioSF" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ValorOrigen]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[ValorOrigen]"
+                      name="ValorOrigen" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstado]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDEstado]"
+                      name="IDEstado" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDAsignacion]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[IDAsignacion]"
+                      name="IDAsignacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[MarcMotor]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Error Output].Columns[MarcMotor]"
+                      name="MarcMotor" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_FlotaAlquimia"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_FlotaAlquimia]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDSucursal]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="IDSucursal"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDSucursal]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDSucursal]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDAsignacion]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="IDAsignacion"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDAsignacion]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDAsignacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDRubro]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="IDRubro"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDRubro]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDRubro]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDArticulo]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="IDArticulo"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDArticulo]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDArticulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NroSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="NroSerie"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroSerie]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroSerie]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NroVIN]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NroVIN"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroVIN]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroVIN]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Fabricacion]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="Fabricacion"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Fabricacion]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Fabricacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ModMotor]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="ModMotor"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ModMotor]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ModMotor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[MarcMotor]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="MarcMotor"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[MarcMotor]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[MarcMotor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[SerieMotor]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SerieMotor"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[SerieMotor]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[SerieMotor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Potencia]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="Potencia"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Potencia]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Potencia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Spec]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Spec"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Spec]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Spec]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[CPL]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="CPL"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[CPL]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CPL]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[UC]"
+                      cachedDataType="wstr"
+                      cachedLength="14"
+                      cachedName="UC"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UC]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UC]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Traccion]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Traccion"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Traccion]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Traccion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Nomenclador]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="Nomenclador"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Nomenclador]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Nomenclador]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NroBLU]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="NroBLU"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NroBLU2]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="NroBLU2"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroBLU2]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroBLU2]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[UsuarioBLU]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="UsuarioBLU"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UsuarioBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UsuarioBLU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[TipoUbicacion]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="TipoUbicacion"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[TipoUbicacion]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[TipoUbicacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Rack]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Rack"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Rack]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Rack]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Coordenada]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="Coordenada"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Coordenada]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Coordenada]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDFlota]"
+                      cachedDataType="i4"
+                      cachedName="IDFlota"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDFlota]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDFlota]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDPropietario]"
+                      cachedDataType="i4"
+                      cachedName="IDPropietario"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDPropietario]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPropietario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDEstadoTall1]"
+                      cachedDataType="i4"
+                      cachedName="IDEstadoTall1"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstadoTall1]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall1]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDEstadoTall2]"
+                      cachedDataType="i4"
+                      cachedName="IDEstadoTall2"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstadoTall2]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstadoTall2]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Ingreso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Ingreso"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Ingreso]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Ingreso]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Reingreso]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Reingreso"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Reingreso]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Reingreso]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ValorAsegurado]"
+                      cachedDataType="cy"
+                      cachedName="ValorAsegurado"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ValorAsegurado]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorAsegurado]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[FechaDisponible]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaDisponible"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[FechaDisponible]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaDisponible]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[FechaBaja]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaBaja"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[FechaBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[FechaBaja]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NotaBaja]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="NotaBaja"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaBaja]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NotaAlta]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="NotaAlta"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaAlta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Obs1]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="Obs1"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Obs1]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Obs1]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NroMemo]"
+                      cachedDataType="i4"
+                      cachedName="NroMemo"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroMemo]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NroMemo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[UltCtrlBLU]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="UltCtrlBLU"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UltCtrlBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[UltCtrlBLU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ObsBLU]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="ObsBLU"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ObsBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsBLU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[CambioBLU]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CambioBLU"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[CambioBLU]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[CambioBLU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDMemoAlta]"
+                      cachedDataType="i4"
+                      cachedName="IDMemoAlta"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMemoAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoAlta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDItemAlta]"
+                      cachedDataType="i4"
+                      cachedName="IDItemAlta"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDItemAlta]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemAlta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDMemoBaja]"
+                      cachedDataType="i4"
+                      cachedName="IDMemoBaja"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMemoBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMemoBaja]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDItemBaja]"
+                      cachedDataType="i4"
+                      cachedName="IDItemBaja"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDItemBaja]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDItemBaja]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDPredio]"
+                      cachedDataType="i4"
+                      cachedName="IDPredio"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDPredio]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDPredio]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDMecanico]"
+                      cachedDataType="i4"
+                      cachedName="IDMecanico"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMecanico]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDMecanico]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ObsMecanico]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="ObsMecanico"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ObsMecanico]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ObsMecanico]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDCertificadora]"
+                      cachedDataType="i4"
+                      cachedName="IDCertificadora"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDCertificadora]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDCertificadora]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[VtoCertif]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="VtoCertif"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[VtoCertif]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[VtoCertif]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[InicioCertif]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InicioCertif"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[InicioCertif]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[InicioCertif]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[NotaST]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="NotaST"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaST]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[NotaST]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[EnvioSF]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="EnvioSF"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[EnvioSF]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[EnvioSF]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ts]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ts"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ts]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ts]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[ValorOrigen]"
+                      cachedDataType="r8"
+                      cachedName="ValorOrigen"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ValorOrigen]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[ValorOrigen]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDDeposito]"
+                      cachedDataType="i4"
+                      cachedName="IDDeposito"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDDeposito]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDDeposito]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Interno"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[Interno]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].Columns[IDEstado]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="IDEstado"
+                      externalMetadataColumnId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstado]"
+                      lineageId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output].Columns[IDEstado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDFlota]"
+                      dataType="i4"
+                      name="IDFlota" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDSucursal]"
+                      dataType="wstr"
+                      length="6"
+                      name="IDSucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDAsignacion]"
+                      dataType="wstr"
+                      length="6"
+                      name="IDAsignacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDPropietario]"
+                      dataType="i4"
+                      name="IDPropietario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDDeposito]"
+                      dataType="i4"
+                      name="IDDeposito" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDRubro]"
+                      dataType="wstr"
+                      length="3"
+                      name="IDRubro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDArticulo]"
+                      dataType="wstr"
+                      length="20"
+                      name="IDArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroVIN]"
+                      dataType="wstr"
+                      length="50"
+                      name="NroVIN" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstado]"
+                      dataType="wstr"
+                      length="3"
+                      name="IDEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstadoTall1]"
+                      dataType="i4"
+                      name="IDEstadoTall1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDEstadoTall2]"
+                      dataType="i4"
+                      name="IDEstadoTall2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Ingreso]"
+                      dataType="dbTimeStamp"
+                      name="Ingreso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Reingreso]"
+                      dataType="dbTimeStamp"
+                      name="Reingreso" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Fabricacion]"
+                      dataType="wstr"
+                      length="4"
+                      name="Fabricacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ModMotor]"
+                      dataType="wstr"
+                      length="20"
+                      name="ModMotor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[MarcMotor]"
+                      dataType="wstr"
+                      length="15"
+                      name="MarcMotor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[SerieMotor]"
+                      dataType="wstr"
+                      length="20"
+                      name="SerieMotor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Potencia]"
+                      dataType="wstr"
+                      length="6"
+                      name="Potencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Spec]"
+                      dataType="wstr"
+                      length="10"
+                      name="Spec" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[CPL]"
+                      dataType="wstr"
+                      length="20"
+                      name="CPL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UC]"
+                      dataType="wstr"
+                      length="14"
+                      name="UC" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Traccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="Traccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Nomenclador]"
+                      dataType="wstr"
+                      length="16"
+                      name="Nomenclador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ValorAsegurado]"
+                      dataType="cy"
+                      name="ValorAsegurado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[FechaDisponible]"
+                      dataType="dbTimeStamp"
+                      name="FechaDisponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[FechaBaja]"
+                      dataType="dbTimeStamp"
+                      name="FechaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaBaja]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaAlta]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Obs1]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Obs1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroMemo]"
+                      dataType="i4"
+                      name="NroMemo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroBLU]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NroBLU2]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroBLU2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UltCtrlBLU]"
+                      dataType="dbTimeStamp"
+                      name="UltCtrlBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ObsBLU]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ObsBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[CambioBLU]"
+                      dataType="dbTimeStamp"
+                      name="CambioBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[UsuarioBLU]"
+                      dataType="wstr"
+                      length="16"
+                      name="UsuarioBLU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMemoAlta]"
+                      dataType="i4"
+                      name="IDMemoAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDItemAlta]"
+                      dataType="i4"
+                      name="IDItemAlta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMemoBaja]"
+                      dataType="i4"
+                      name="IDMemoBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDItemBaja]"
+                      dataType="i4"
+                      name="IDItemBaja" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDPredio]"
+                      dataType="i4"
+                      name="IDPredio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[TipoUbicacion]"
+                      dataType="wstr"
+                      length="3"
+                      name="TipoUbicacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Rack]"
+                      dataType="wstr"
+                      length="3"
+                      name="Rack" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Coordenada]"
+                      dataType="wstr"
+                      length="6"
+                      name="Coordenada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ts]"
+                      dataType="wstr"
+                      length="255"
+                      name="ts" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDMecanico]"
+                      dataType="i4"
+                      name="IDMecanico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ObsMecanico]"
+                      codePage="1252"
+                      dataType="text"
+                      name="ObsMecanico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[IDCertificadora]"
+                      dataType="i4"
+                      name="IDCertificadora" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[VtoCertif]"
+                      dataType="dbTimeStamp"
+                      name="VtoCertif" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[InicioCertif]"
+                      dataType="dbTimeStamp"
+                      name="InicioCertif" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[NotaST]"
+                      codePage="1252"
+                      dataType="text"
+                      name="NotaST" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[EnvioSF]"
+                      dataType="dbTimeStamp"
+                      name="EnvioSF" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[ValorOrigen]"
+                      dataType="r8"
+                      name="ValorOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input].ExternalColumns[Fecha]"
+                      dataType="dbDate"
+                      name="Fecha" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_FlotaAlquimia.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A87AA19E-1251-45BF-B334-95A5BF9A274D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_FlotaAlquimia" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A10C525B-F2BC-4059-8C47-D1228038B12C}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_FlotaAlquimia" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Carga STG_FlotaAlquimia"
+          TopLeft="353.999997615814,131.533331768115" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\TRUNCATE"
+          TopLeft="387,40" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="452.749998807907,82">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49.533331768115"
+              Start="0,0"
+              End="0,42.033331768115">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.033331768115" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_FlotaAlquimia">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia"
+          TopLeft="307,199" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota"
+          TopLeft="306,20" />
+        <EdgeLayout
+          Id="Package\Carga STG_FlotaAlquimia.Paths[OLE DB Source Output]"
+          TopLeft="388.5,62">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,137"
+              Start="0,0"
+              End="0,129.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,129.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FlotaAlquimia\STG_FlotaAlquimia">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FlotaAlquimia\ALQUIMIA - Flota">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

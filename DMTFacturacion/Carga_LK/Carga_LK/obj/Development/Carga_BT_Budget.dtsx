@@ -1,0 +1,2453 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/10/2019 3:17:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{F303A78F-5DF6-4038-B679-1DC51ACD1C54}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_BT_Budget"
+  DTS:PackageType="5"
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{EBA7C2B8-9839-42C5-AC59-F45324CD5625}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1BDC9CA1-78FA-4C13-9526-79AA8C071355}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Año">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A4B253B-EC11-43F4-8179-6643CB6891A4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PrimerMes">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E8D87FBE-8A69-43EE-983E-A226901E1CFE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UltimoMes">
+      <DTS:VariableValue
+        DTS:DataType="3">12</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete BT_Budget"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7F58CAB8-3652-4268-ADB9-88F06FDFC4DE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete BT_Budget"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="DELETE FROM BT_Budget&#xA; WHERE YEAR(FC_FechaBudget) = (SELECT YEAR(FC_Desde) FROM [dbo].[DW_AUD_Fecha_Proceso] WHERE idModulo=5)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DW_AUD_Fecha_Proceso"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{4c17dd01-a6ed-4937-a58f-969fd89b43f9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DW_AUD_Fecha_Proceso"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="SELECT YEAR(FC_Desde) FROM DW_AUD_Fecha_Proceso&#xA;  WHERE idModulo = 5"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::Año" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Loop_Mensual"
+      DTS:AssignExpression="@PrimerMes = @PrimerMes + 1"
+      DTS:CreationName="STOCK:FORLOOP"
+      DTS:DelayValidation="True"
+      DTS:Description="For Loop Container"
+      DTS:DTSID="{0A643896-8382-4EF5-936D-FDE70946582F}"
+      DTS:EvalExpression="@PrimerMes &lt; @UltimoMes"
+      DTS:ExecutableType="STOCK:FORLOOP"
+      DTS:InitExpression="@PrimerMes = 0"
+      DTS:LocaleID="-1"
+      DTS:MaxConcurrent="1"
+      DTS:ObjectName="Loop_Mensual">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Loop_Mensual\Carga_BT_Budget"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{1f06b170-5fab-489b-a5e9-1eb55b7312b3}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga_BT_Budget"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_OFC_Codigo"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_OFC_Codigo, 
+UPPER(LTRIM(RTRIM(VC_OFC_Descripcion))) as VC_OFC_Descripcion 
+FROM LK_OrigenFacturacion</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_OFC_Codigo, 
+UPPER(LTRIM(RTRIM(VC_OFC_Descripcion))) as VC_OFC_Descripcion 
+FROM LK_OrigenFacturacion) [refTable]
+where [refTable].[VC_OFC_Descripcion] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_OFC_Codigo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_OFC_Descripcion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_OrigenFacturacion]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input].Columns[VC_OrigenFacturacion]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="VC_OrigenFacturacion"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_OrigenFacturacion]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">VC_OFC_Descripcion</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output].Columns[SK_OFC_Codigo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output].Columns[SK_OFC_Codigo]"
+                          name="SK_OFC_Codigo"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_OFC_Codigo</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_SEP_SegmentacionProducto"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_SEP_SegmentacionProducto,
+UPPER(LTRIM(RTRIM(VC_SEP_Descripcion))) AS VC_SEP_Descripcion
+ FROM LK_SegmentacionProducto</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_SEP_SegmentacionProducto,
+UPPER(LTRIM(RTRIM(VC_SEP_Descripcion))) AS VC_SEP_Descripcion
+ FROM LK_SegmentacionProducto) [refTable]
+where [refTable].[VC_SEP_Descripcion] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SEP_SegmentacionProducto" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SEP_Descripcion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input].Columns[VC_Tipo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="VC_Tipo"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">VC_SEP_Descripcion</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output].Columns[SK_SEP_SegmentacionProducto]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output].Columns[SK_SEP_SegmentacionProducto]"
+                          name="SK_SEP_SegmentacionProducto"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_SEP_SegmentacionProducto</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_SFM_SubFamiliaHistorico"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_SFM_SubFamiliaHistorico
+,UPPER(LTRIM(RTRIM(VC_SFM_DescripcionHistorico))) AS VC_SFM_DescripcionHistorico
+,SK_FAM_FamiliaHistorico
+FROM LK_SubFamiliaHistorico</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_SFM_SubFamiliaHistorico
+,UPPER(LTRIM(RTRIM(VC_SFM_DescripcionHistorico))) AS VC_SFM_DescripcionHistorico
+,SK_FAM_FamiliaHistorico
+FROM LK_SubFamiliaHistorico) [refTable]
+where [refTable].[VC_SFM_DescripcionHistorico] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SFM_DescripcionHistorico" dataType="DT_STR" length="60" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_FAM_FamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_SubFamilia]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input].Columns[VC_SubFamilia]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="VC_SubFamilia"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_SubFamilia]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">VC_SFM_DescripcionHistorico</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]"
+                          name="SK_SFM_SubFamiliaHistorico"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_SFM_SubFamiliaHistorico</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                          name="SK_FAM_Familia"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_FAM_FamiliaHistorico</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_SUC_SUCURSAL"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  [SK_SUC_Sucursal]
+      ,UPPER(LTRIM(RTRIM([VC_SUC_Descripcion]))) AS VC_SUC_Descripcion
+  FROM [dbo].[LK_Sucursal]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT  [SK_SUC_Sucursal]
+      ,UPPER(LTRIM(RTRIM([VC_SUC_Descripcion]))) AS VC_SUC_Descripcion
+  FROM [dbo].[LK_Sucursal]) [refTable]
+where [refTable].[VC_SUC_Descripcion] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SUC_Sucursal" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUC_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Sucursal]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input].Columns[VC_Sucursal]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="VC_Sucursal"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Sucursal]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">VC_SUC_Descripcion</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output].Columns[SK_SUC_Sucursal]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output].Columns[SK_SUC_Sucursal]"
+                          name="SK_SUC_Sucursal"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_SUC_Sucursal</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_TSP_TipoServicioPostventa"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  [SK_TSP_TipoServicioPostventa]
+      ,LTRIM(RTRIM(CAST(CD_ID_Origen AS VARCHAR(50)))) AS CD_ID_Origen
+      ,[VC_TSP_Descripcion]
+      ,[CH_CHECKSUM]
+      ,[Fecha_Creacion]
+      ,[Fecha_Ultima_Modificacion]
+  FROM [LK_TipoServicioPostventa]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT  [SK_TSP_TipoServicioPostventa]
+      ,LTRIM(RTRIM(CAST(CD_ID_Origen AS VARCHAR(50)))) AS CD_ID_Origen
+      ,[VC_TSP_Descripcion]
+      ,[CH_CHECKSUM]
+      ,[Fecha_Creacion]
+      ,[Fecha_Ultima_Modificacion]
+  FROM [LK_TipoServicioPostventa]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_TSP_TipoServicioPostventa" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_TSP_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Ultima_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input].Columns[VC_Tipo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="VC_Tipo"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">CD_ID_Origen</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output].Columns[SK_TSP_TipoServicioPostventa]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output].Columns[SK_TSP_TipoServicioPostventa]"
+                          name="SK_TSP_TipoServicioPostventa"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_TSP_TipoServicioPostventa</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="GET SK_ZS_ZonaServicio"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select SK_ZS_ZonaServicio
+, LTRIM(RTRIM(UPPER(VC_ZS_Descripcion))) AS VC_ZS_Descripcion from LK_ZonasServicio</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select SK_ZS_ZonaServicio
+, LTRIM(RTRIM(UPPER(VC_ZS_Descripcion))) AS VC_ZS_Descripcion from LK_ZonasServicio) [refTable]
+where [refTable].[VC_ZS_Descripcion] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_ZS_ZonaServicio" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ZS_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Area]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input].Columns[VC_Area]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="VC_Area"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Area]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">VC_ZS_Descripcion</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output].Columns[SK_ZS_ZonaServicio]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output].Columns[SK_ZS_ZonaServicio]"
+                          name="SK_ZS_ZonaServicio"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">SK_ZS_ZonaServicio</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Input_STG_Presupuesto"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT UPPER(LTRIM(RTRIM([VC_SubFamilia]))) AS VC_SubFamilia
+      , UPPER(LTRIM(RTRIM(cast( VC_Sucursal as nvarchar(60))))) as VC_Sucursal
+      ,[NU_Año]
+      ,UPPER(LTRIM(RTRIM([VC_OrigenFacturacion]))) AS VC_OrigenFacturacion
+      ,UPPER(LTRIM(RTRIM([VC_Tipo]))) AS VC_Tipo
+      ,UPPER(LTRIM(RTRIM(cast(VC_Area as nvarchar (60)))))as VC_Area
+      ,'SK_SFM_SubfamiliaMKT'=-1
+      ,'FC_FechaBudget'=cast(DATEADD(month,?,NU_Año) as date)
+      ,'NU_ImporteEnDolar'=CASE 
+							WHEN ? = 0 THEN NU_01*1000
+							WHEN ? = 1 THEN NU_02*1000
+							WHEN ? = 2 THEN NU_03*1000
+							WHEN ? = 3 THEN NU_04*1000
+							WHEN ? = 4 THEN NU_05*1000
+							WHEN ? = 5 THEN NU_06*1000
+							WHEN ? = 6 THEN NU_07*1000
+							WHEN ? = 7 THEN NU_08*1000
+							WHEN ? = 8 THEN NU_09*1000
+							WHEN ? = 9 THEN NU_10*1000
+							WHEN ? = 10 THEN NU_11*1000
+							WHEN ? = 11 THEN NU_12*1000
+							END
+  FROM [STG].[dbo].[STG_Presupuesto]
+WHERE NU_Año = ?</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"0:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"1:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"2:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"3:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"4:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"5:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"6:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"7:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"8:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"9:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"10:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"11:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"12:Input",{6A4B253B-EC11-43F4-8179-6643CB6891A4};"13:Input",{1BDC9CA1-78FA-4C13-9526-79AA8C071355};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Connections[OleDbConnection]"
+                      connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[STG]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_SubFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_SubFamilia]"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_SubFamilia]"
+                          name="VC_SubFamilia"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Sucursal]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Sucursal]"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Sucursal]"
+                          name="VC_Sucursal"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[NU_Año]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[NU_Año]"
+                          length="4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[NU_Año]"
+                          name="NU_Año"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_OrigenFacturacion]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_OrigenFacturacion]"
+                          length="30"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_OrigenFacturacion]"
+                          name="VC_OrigenFacturacion"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Tipo]"
+                          length="30"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Tipo]"
+                          name="VC_Tipo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Area]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Area]"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[VC_Area]"
+                          name="VC_Area"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[SK_SFM_SubfamiliaMKT]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[SK_SFM_SubfamiliaMKT]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[SK_SFM_SubfamiliaMKT]"
+                          name="SK_SFM_SubfamiliaMKT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[FC_FechaBudget]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[FC_FechaBudget]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[FC_FechaBudget]"
+                          name="FC_FechaBudget"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[NU_ImporteEnDolar]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[NU_ImporteEnDolar]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[NU_ImporteEnDolar]"
+                          name="NU_ImporteEnDolar"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_SubFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          name="VC_SubFamilia" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Sucursal]"
+                          dataType="wstr"
+                          length="60"
+                          name="VC_Sucursal" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[NU_Año]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="NU_Año" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_OrigenFacturacion]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="VC_OrigenFacturacion" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="VC_Tipo" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[VC_Area]"
+                          dataType="wstr"
+                          length="60"
+                          name="VC_Area" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[SK_SFM_SubfamiliaMKT]"
+                          dataType="i4"
+                          name="SK_SFM_SubfamiliaMKT" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[FC_FechaBudget]"
+                          dataType="dbDate"
+                          name="FC_FechaBudget" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].ExternalColumns[NU_ImporteEnDolar]"
+                          dataType="numeric"
+                          name="NU_ImporteEnDolar"
+                          precision="23"
+                          scale="2" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_SubFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_SubFamilia]"
+                          name="VC_SubFamilia" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Sucursal]"
+                          dataType="wstr"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Sucursal]"
+                          name="VC_Sucursal" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[NU_Año]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[NU_Año]"
+                          name="NU_Año" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_OrigenFacturacion]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_OrigenFacturacion]"
+                          name="VC_OrigenFacturacion" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Tipo]"
+                          name="VC_Tipo" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Area]"
+                          dataType="wstr"
+                          length="60"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[VC_Area]"
+                          name="VC_Area" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[SK_SFM_SubfamiliaMKT]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[SK_SFM_SubfamiliaMKT]"
+                          name="SK_SFM_SubfamiliaMKT" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[FC_FechaBudget]"
+                          dataType="dbDate"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[FC_FechaBudget]"
+                          name="FC_FechaBudget" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[NU_ImporteEnDolar]"
+                          dataType="numeric"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[NU_ImporteEnDolar]"
+                          name="NU_ImporteEnDolar"
+                          precision="23"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Output BT_Budget"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[BT_Budget]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Connections[OleDbConnection]"
+                      connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_SFM_SubfamiliaMKT]"
+                          cachedDataType="i4"
+                          cachedName="SK_SFM_SubfamiliaMKT"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubfamiliaMKT]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[SK_SFM_SubfamiliaMKT]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[FC_FechaBudget]"
+                          cachedDataType="dbDate"
+                          cachedName="FC_FechaBudget"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[FC_FechaBudget]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[FC_FechaBudget]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[NU_ImporteEnDolar]"
+                          cachedDataType="i4"
+                          cachedName="NU_ImporteEnDolar"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[NU_ImporteEnDolar]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[NU_ImporteEnDolar]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_SUC_Sucursal]"
+                          cachedDataType="i8"
+                          cachedName="SK_SUC_Sucursal"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output].Columns[SK_SUC_Sucursal]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_SFM_SubFamiliaHistorico]"
+                          cachedDataType="i8"
+                          cachedName="SK_SFM_SubFamiliaHistorico"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaHistorico]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_OFC_Codigo]"
+                          cachedDataType="i4"
+                          cachedName="SK_OFC_Codigo"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output].Columns[SK_OFC_Codigo]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_SEP_SegmentacionProducto]"
+                          cachedDataType="i8"
+                          cachedName="SK_SEP_SegmentacionProducto"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SEP_SegmentacionProducto]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output].Columns[SK_SEP_SegmentacionProducto]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_FAM_Familia]"
+                          cachedDataType="i8"
+                          cachedName="SK_FAM_Familia"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_Familia]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_ZS_ZonaServicio]"
+                          cachedDataType="i8"
+                          cachedName="SK_ZS_ZonaServicio"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_ZS_ZonaServicio]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output].Columns[SK_ZS_ZonaServicio]" />
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].Columns[SK_TSP_TipoServicioPostventa]"
+                          cachedDataType="i8"
+                          cachedName="SK_TSP_TipoServicioPostventa"
+                          externalMetadataColumnId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_TSP_TipoServicioPostventa]"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output].Columns[SK_TSP_TipoServicioPostventa]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[FC_FechaBudget]"
+                          dataType="dbDate"
+                          name="FC_FechaBudget" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                          dataType="i4"
+                          name="SK_SUC_Sucursal" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaHistorico]"
+                          dataType="i8"
+                          name="SK_SFM_SubFamiliaHistorico" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[NU_ImporteEnDolar]"
+                          dataType="r8"
+                          name="NU_ImporteEnDolar" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                          dataType="i4"
+                          name="SK_OFC_Codigo" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_Familia]"
+                          dataType="i8"
+                          name="SK_FAM_Familia" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubfamiliaMKT]"
+                          dataType="i8"
+                          name="SK_SFM_SubfamiliaMKT" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_SEP_SegmentacionProducto]"
+                          dataType="i4"
+                          name="SK_SEP_SegmentacionProducto" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_ZS_ZonaServicio]"
+                          dataType="i8"
+                          name="SK_ZS_ZonaServicio" />
+                        <externalMetadataColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input].ExternalColumns[SK_TSP_TipoServicioPostventa]"
+                          dataType="i8"
+                          name="SK_TSP_TipoServicioPostventa" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Replace_Null"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_SFM_SubfamiliaMKT]"
+                          cachedDataType="i4"
+                          cachedName="SK_SFM_SubfamiliaMKT"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[SK_SFM_SubfamiliaMKT]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output].Columns[SK_SFM_SubfamiliaMKT]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_SFM_SubfamiliaMKT,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_SUC_Sucursal]"
+                          cachedDataType="i8"
+                          cachedName="SK_SUC_Sucursal"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output].Columns[SK_SUC_Sucursal]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output].Columns[SK_SUC_Sucursal]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_SUC_Sucursal,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_SFM_SubFamiliaHistorico]"
+                          cachedDataType="i8"
+                          cachedName="SK_SFM_SubFamiliaHistorico"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_SFM_SubFamiliaHistorico,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_OFC_Codigo]"
+                          cachedDataType="i4"
+                          cachedName="SK_OFC_Codigo"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output].Columns[SK_OFC_Codigo]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output].Columns[SK_OFC_Codigo]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_OFC_Codigo,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_FAM_Familia]"
+                          cachedDataType="i8"
+                          cachedName="SK_FAM_Familia"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output].Columns[SK_FAM_Familia]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_FAM_Familia,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_SEP_SegmentacionProducto]"
+                          cachedDataType="i8"
+                          cachedName="SK_SEP_SegmentacionProducto"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output].Columns[SK_SEP_SegmentacionProducto]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output].Columns[SK_SEP_SegmentacionProducto]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_SEP_SegmentacionProducto,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_ZS_ZonaServicio]"
+                          cachedDataType="i8"
+                          cachedName="SK_ZS_ZonaServicio"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output].Columns[SK_ZS_ZonaServicio]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output].Columns[SK_ZS_ZonaServicio]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_ZS_ZonaServicio,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input].Columns[SK_TSP_TipoServicioPostventa]"
+                          cachedDataType="i8"
+                          cachedName="SK_TSP_TipoServicioPostventa"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output].Columns[SK_TSP_TipoServicioPostventa]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output].Columns[SK_TSP_TipoServicioPostventa]},@[$Project::DEF_UNK_CD_INT])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL(SK_TSP_TipoServicioPostventa,@[$Project::DEF_UNK_CD_INT])</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Derived Column Output]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output1]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output2]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output3]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output4]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output5]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Loop_Mensual\Carga_BT_Budget.Paths[OLE DB Source Output]"
+                  endId="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\UPDATE DW_AUD_Fecha_Proceso"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{07CFA18F-7A57-4529-829F-ADEE9C2B8C8A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="UPDATE DW_AUD_Fecha_Proceso"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+          SQLTask:SqlStatementSource="UPDATE [dbo].[DW_AUD_Fecha_Proceso]&#xA;SET FC_Desde=DATEADD(YEAR,1,FC_Desde)&#xA;WHERE idModulo=5" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{722B9FEE-D145-4ADA-8DDE-6F0FEB9DA455}"
+      DTS:From="Package\DW_AUD_Fecha_Proceso"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Loop_Mensual" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{99722B73-8363-4093-A2E5-7B4763E3D151}"
+      DTS:From="Package\Delete BT_Budget"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DW_AUD_Fecha_Proceso" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{C923B862-C800-48B3-8105-4BEA07B3B82D}"
+      DTS:From="Package\Loop_Mensual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\UPDATE DW_AUD_Fecha_Proceso" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Delete BT_Budget"
+          TopLeft="323,22" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\DW_AUD_Fecha_Proceso"
+          TopLeft="311,127" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget"
+          TopLeft="71,40.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="293.333333333334,137.333333333334"
+          Size="293.333333333334,180"
+          Id="Package\Loop_Mensual"
+          TopLeft="258,236" />
+        <NodeLayout
+          Size="240,42"
+          Id="Package\UPDATE DW_AUD_Fecha_Proceso"
+          TopLeft="284,463" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="407.25,169">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="407.5,64">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63"
+              Start="0,0"
+              End="0,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="404.25,416">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="197.333333333334,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio"
+          TopLeft="365.5,673.75" />
+        <NodeLayout
+          Size="138.666666666667,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\Replace_Null"
+          TopLeft="391.5,775.75" />
+        <NodeLayout
+          Size="194.666666666667,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL"
+          TopLeft="352,158" />
+        <NodeLayout
+          Size="250.666666666667,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto"
+          TopLeft="339,473" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget"
+          TopLeft="385.5,875.75" />
+        <NodeLayout
+          Size="193.333333333334,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto"
+          TopLeft="352,42" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa"
+          TopLeft="337,573.25" />
+        <NodeLayout
+          Size="177.333333333334,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo"
+          TopLeft="369,372" />
+        <NodeLayout
+          Size="237.333333333334,42"
+          Id="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico"
+          TopLeft="336,265" />
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[OLE DB Source Output]"
+          TopLeft="449,84">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74"
+              Start="0,0"
+              End="0,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output5]"
+          TopLeft="461,414">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output4]"
+          TopLeft="462,615.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.5"
+              Start="0,0"
+              End="0,51">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.6953125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output3]"
+          TopLeft="462.25,515">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.25"
+              Start="0,0"
+              End="0,50.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.5703125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output2]"
+          TopLeft="462.5,715.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output1]"
+          TopLeft="456,307">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,22.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Lookup Match Output]"
+          TopLeft="452,200">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,22.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop_Mensual\Carga_BT_Budget.Paths[Derived Column Output]"
+          TopLeft="464.75,817.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_ZS_ZonaServicio">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SUC_SUCURSAL">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SEP_SegmentacionProducto">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\Output BT_Budget">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\Input_STG_Presupuesto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_TSP_TipoServicioPostventa">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_OFC_Codigo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop_Mensual\Carga_BT_Budget\GET SK_SFM_SubFamiliaHistorico">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

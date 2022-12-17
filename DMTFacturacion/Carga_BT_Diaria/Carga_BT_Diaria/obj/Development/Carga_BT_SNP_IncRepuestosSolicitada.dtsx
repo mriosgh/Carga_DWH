@@ -1,0 +1,3023 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/4/2021 6:37:01 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis1"
+  DTS:DTSID="{84C4F94F-2880-40DF-BF07-46B3231E6DB5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_BT_SNP_IncRepuestosSolicitada"
+  DTS:PackageType="5"
+  DTS:VersionBuild="39"
+  DTS:VersionGUID="{F5D24C9D-38DF-4FB2-8310-477101EA7FD0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E0336DEE-57BF-4547-975F-D6796A8F1C96}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_WSTR, 10) (DT_DBDATE) GETDATE()"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_FechaProceso">
+      <DTS:VariableValue
+        DTS:DataType="8">2022-08-01</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C6A00EF-B835-40B3-B81A-11D93F8EE07E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_Rows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Actualiza FG_ISO_CumplimientoOrden"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F1E764AF-82D8-4BAB-973E-B0F66DB6325A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Actualiza FG_ISO_CumplimientoOrden"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="&#xA;UPDATE A SET&#xA;    A.[FG_ISO_CumplimientoOrden] = CASE WHEN A.NU_ISO_NroOrden = B.NU_ISO_NroOrden AND A.VC_ISO_TipoOrden = B.VC_ISO_TipoOrden THEN 1 ELSE 0 END&#xA;FROM [BT_SNP_IncRepuestosSolicitada] A&#xA;LEFT JOIN (&#xA;&#x9;&#x9;&#x9;&#x9;SELECT &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;NU_ISO_NroOrden,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;VC_ISO_TipoOrden,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SUM(FG_ISO_CumplimientoLinea) AS SumaCumplimiento,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;COUNT(*) AS CantidadLineas,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;IIF(SUM(FG_ISO_CumplimientoLinea) = COUNT(*), 1, 0) AS CumplimientoOrden&#xA;&#x9;&#x9;&#x9;&#x9;FROM &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;[BT_SNP_IncRepuestosSolicitada]&#xA;&#x9;&#x9;&#x9;&#x9;WHERE FC_ISO_FechaSnapshot = ?&#xA;&#x9;&#x9;&#x9;&#x9;GROUP BY NU_ISO_NroOrden,VC_ISO_TipoOrden&#xA;&#x9;&#x9;&#x9;&#x9;HAVING IIF(SUM(FG_ISO_CumplimientoLinea) = COUNT(*), 1, 0) &gt; 0&#xA;&#x9;&#x9;&#x9;) B ON A.NU_ISO_NroOrden = B.NU_ISO_NroOrden AND A.VC_ISO_TipoOrden = B.VC_ISO_TipoOrden&#xA;WHERE A.FC_ISO_FechaSnapshot = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::v_FechaProceso"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::v_FechaProceso"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\BT_SNP_IncRepuestosSolicitada"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{64F635E1-35EE-42F2-8EF3-5345D6002BD1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="BT_SNP_IncRepuestosSolicitada"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="BT_SNP_IncRepuestosSolicitada"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_SNP_IncRepuestosSolicitada]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[SK_FPL_FamiliaPlanificacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_FPL_FamiliaPlanificacion"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_FPL_FamiliaPlanificacion]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[SK_UNI_UnidadNegocioCabecera]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocioCabecera"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocioCabecera]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocioCabecera]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[FechaSnapshot]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaSnapshot"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_ISO_FechaSnapshot]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Output].Columns[FechaSnapshot]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[nroOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="nroOrden"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_NroOrden]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroOrden]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[tipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="tipoOrden"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_TipoOrden]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[tipoOrden]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[nroLinea]"
+                      cachedDataType="i4"
+                      cachedName="nroLinea"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_NroLinea]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroLinea]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[CodigoEstadoSiguiente]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoEstadoSiguiente"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_CodigoEstadoSiguiente]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[cantidadSolicitada]"
+                      cachedDataType="i4"
+                      cachedName="cantidadSolicitada"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadSolicitada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadSolicitada]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[cantidadEnviada]"
+                      cachedDataType="i4"
+                      cachedName="cantidadEnviada"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadEnviada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadEnviada]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[FechaSolicitada]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaSolicitada"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_ISO_FechaSolicitada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FechaSolicitada]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[Clase]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Clase"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Clase]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Clase]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Producto"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Producto]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Producto]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[cantidadPorEstado]"
+                      cachedDataType="i4"
+                      cachedName="cantidadPorEstado"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadDisponible]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output].Columns[cantidadPorEstado]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[Frecuencia]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Frecuencia"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Frecuencia]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Frecuencia]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[Cumplimiento]"
+                      cachedDataType="i4"
+                      cachedName="Cumplimiento"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FG_ISO_CumplimientoLinea]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[Cumplimiento]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[CodigoDeRuta_trim]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoDeRuta_trim"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_CodigoDeRuta]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[CodigoDeRuta_trim]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[NotasInternas_trim]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="NotasInternas_trim"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_NotasInternas]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[NotasInternas_trim]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[SK_CLI_Cliente_Vendido_a]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente_Vendido_a"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente_Vendido_a]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente_Vendido_a]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[fechaTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaTransaccion"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_INC_FechaTransaccion]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[fechaTransaccion]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].Columns[OriginadorDeTransaccion]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="OriginadorDeTransaccion"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_OriginadorDeTransaccion]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[OriginadorDeTransaccion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_ISO_FechaSnapshot]"
+                      dataType="dbDate"
+                      name="FC_ISO_FechaSnapshot" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_NroOrden]"
+                      dataType="i4"
+                      name="NU_ISO_NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_NroLinea]"
+                      dataType="i4"
+                      name="NU_ISO_NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_ISO_TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      name="VC_ISO_CodigoEstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      dataType="i8"
+                      name="SK_ART_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadSolicitada]"
+                      dataType="i4"
+                      name="NU_ISO_CantidadSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadEnviada]"
+                      dataType="i8"
+                      name="NU_ISO_CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[NU_ISO_CantidadDisponible]"
+                      dataType="i4"
+                      name="NU_ISO_CantidadDisponible" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocioCabecera]"
+                      dataType="i8"
+                      name="SK_UNI_UnidadNegocioCabecera" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_ISO_FechaSolicitada]"
+                      dataType="dbDate"
+                      name="FC_ISO_FechaSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_FPL_FamiliaPlanificacion]"
+                      dataType="i4"
+                      name="SK_FPL_FamiliaPlanificacion" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Clase]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_ISO_Clase" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Producto]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_ISO_Producto" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_ISO_Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_ISO_Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FG_ISO_CumplimientoLinea]"
+                      dataType="i4"
+                      name="FG_ISO_CumplimientoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FG_ISO_CumplimientoOrden]"
+                      dataType="i4"
+                      name="FG_ISO_CumplimientoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_OriginadorDeTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_INC_OriginadorDeTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente_Vendido_a]"
+                      dataType="i4"
+                      name="SK_CLI_Cliente_Vendido_a" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_NotasInternas]"
+                      dataType="wstr"
+                      length="25"
+                      name="VC_INC_NotasInternas" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[VC_INC_CodigoDeRuta]"
+                      dataType="wstr"
+                      length="3"
+                      name="VC_INC_CodigoDeRuta" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input].ExternalColumns[FC_INC_FechaTransaccion]"
+                      dataType="dbDate"
+                      name="FC_INC_FechaTransaccion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="cantidadPorEstado"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input].Columns[cantidadEnviada]"
+                      cachedDataType="i4"
+                      cachedName="cantidadEnviada"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadEnviada]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input].Columns[CodigoEstadoSiguiente_int]"
+                      cachedDataType="i4"
+                      cachedName="CodigoEstadoSiguiente_int"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input].Columns[cantidad]"
+                      cachedDataType="i4"
+                      cachedName="cantidad"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output].Columns[cantidadPorEstado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output].Columns[cantidadPorEstado]"
+                      name="cantidadPorEstado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]} &gt;= 577 ? #{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadEnviada]} + #{Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]} : #{Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">CodigoEstadoSiguiente_int &gt;= 577 ? cantidadEnviada + cantidad : cantidad</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input].Columns[nroArticulo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="nroArticulo"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroArticulo]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input].Columns[CodigoEstadoSiguiente]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoEstadoSiguiente"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]"
+                      name="nroArticulo_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroArticulo]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]"
+                      name="CodigoEstadoSiguiente_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\Format"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Inputs[Derived Column Input].Columns[cantidad]"
+                      cachedDataType="i4"
+                      cachedName="cantidad"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(cantidad,0)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Output].Columns[FechaSnapshot]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Output].Columns[FechaSnapshot]"
+                      name="FechaSnapshot"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_Articulo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+	SK_ART_Articulo, 
+	CD_ID_Origen 
+FROM LK_Articulo</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+	SK_ART_Articulo, 
+	CD_ID_Origen 
+FROM LK_Articulo) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_ART_Articulo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input].Columns[nroArticulo_int]"
+                      cachedDataType="i4"
+                      cachedName="nroArticulo_int"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      name="SK_ART_Articulo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_ART_Articulo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_FamiliaPlanificacion"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+	SK_FPL_FamiliaPlanificacion, 
+	VC_FPL_CodigoFlia 
+FROM LK_FamiliaPlanificacion</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+	SK_FPL_FamiliaPlanificacion, 
+	VC_FPL_CodigoFlia 
+FROM LK_FamiliaPlanificacion) [refTable]
+where [refTable].[VC_FPL_CodigoFlia] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_FPL_FamiliaPlanificacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_FPL_CodigoFlia" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\BT_SNP_IncRepuestosSolicitada\5619:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input].Columns[FamiliaPlanificacion]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FamiliaPlanificacion"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_FPL_CodigoFlia</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      name="SK_FPL_FamiliaPlanificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_FPL_FamiliaPlanificacion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_UnidadNegocio"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+SK_UNI_UnidadNegocio,
+CD_ID_Origen
+FROM LK_UnidadNegocio</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+SK_UNI_UnidadNegocio,
+CD_ID_Origen
+FROM LK_UnidadNegocio) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_UNI_UnidadNegocio" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\BT_SNP_IncRepuestosSolicitada\5620:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input].Columns[unidadNegocioCabecera]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="unidadNegocioCabecera"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[unidadNegocioCabecera]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocioCabecera]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocioCabecera]"
+                      name="SK_UNI_UnidadNegocioCabecera"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_UNI_UnidadNegocio</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="NULLs y Cumplimiento"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[cantidadSolicitada]"
+                      cachedDataType="i4"
+                      cachedName="cantidadSolicitada"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadSolicitada]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[cantidadPorEstado]"
+                      cachedDataType="i4"
+                      cachedName="cantidadPorEstado"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output].Columns[cantidadPorEstado]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[Clase]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Clase"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Clase]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Clase]},"*sin dato*")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Clase,"*sin dato*")</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[Frecuencia]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Frecuencia"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Frecuencia]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Frecuencia]},"*sin dato*")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Frecuencia,"*sin dato*")</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Producto"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Producto]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Producto]},"*sin dato*")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Producto,"*sin dato*")</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_ART_Articulo,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[SK_FPL_FamiliaPlanificacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_FPL_FamiliaPlanificacion"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_FPL_FamiliaPlanificacion,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[SK_UNI_UnidadNegocioCabecera]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocioCabecera"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocioCabecera]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocioCabecera]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_UNI_UnidadNegocioCabecera,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[CodigoEstadoSiguiente_int]"
+                      cachedDataType="i4"
+                      cachedName="CodigoEstadoSiguiente_int"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[SK_CLI_Cliente_Vendido_a]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente_Vendido_a"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente_Vendido_a]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente_Vendido_a]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_CLI_Cliente_Vendido_a,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[NotasInternas]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="NotasInternas"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[NotasInternas]" />
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input].Columns[CodigoDeRuta]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoDeRuta"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoDeRuta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[Cumplimiento]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[Cumplimiento]"
+                      name="Cumplimiento"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output].Columns[cantidadPorEstado]} &gt;= #{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadSolicitada]} || #{Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[CodigoEstadoSiguiente_int]} &gt;= 577 ? 1 : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">cantidadPorEstado &gt;= cantidadSolicitada || CodigoEstadoSiguiente_int &gt;= 577 ? 1 : 0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[NotasInternas_trim]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[NotasInternas_trim]"
+                      name="NotasInternas_trim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[NotasInternas]}) == "" ? "*sin dato*" : [TRIM](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[NotasInternas]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(NotasInternas) == "" ? "*sin dato*" : TRIM(NotasInternas)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[CodigoDeRuta_trim]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output].Columns[CodigoDeRuta_trim]"
+                      name="CodigoDeRuta_trim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoDeRuta]}) == "" ? "s/d" : [TRIM](#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoDeRuta]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(CodigoDeRuta) == "" ? "s/d" : TRIM(CodigoDeRuta)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="SK_CLI_Cliente_Vendido_a"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_CLI_Cliente, CD_ID_Origen FROM LK_Cliente</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_CLI_Cliente, CD_ID_Origen FROM LK_Cliente) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_CLI_Cliente" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Vendido_a]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input].Columns[Vendido_a]"
+                      cachedDataType="i4"
+                      cachedName="Vendido_a"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Vendido_a]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente_Vendido_a]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output].Columns[SK_CLI_Cliente_Vendido_a]"
+                      name="SK_CLI_Cliente_Vendido_a"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_CLI_Cliente</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="STG_Stock"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+numeroArticulo
+,
+unidadNegocio
+
+,cantidad
+,
+costoUnidad
+,
+monto
+,
+clase
+,
+familiaPlanificacion
+,
+producto
+,
+tipoMaterial
+,
+frecuencia
+,
+fechaStock
+
+FROM STG_Stock
+WHERE LTRIM(RTRIM(unidadNegocio))
+ IN ('300','301')</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+numeroArticulo
+,
+unidadNegocio
+
+,cantidad
+,
+costoUnidad
+,
+monto
+,
+clase
+,
+familiaPlanificacion
+,
+producto
+,
+tipoMaterial
+,
+frecuencia
+,
+fechaStock
+
+FROM STG_Stock
+WHERE LTRIM(RTRIM(unidadNegocio))
+ IN ('300','301')) [refTable]
+where [refTable].[numeroArticulo] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="numeroArticulo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="unidadNegocio" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="cantidad" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="costoUnidad" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="monto" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="clase" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="familiaPlanificacion" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="producto" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="tipoMaterial" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="frecuencia" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="fechaStock" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Connections[OleDbConnection]"
+                  connectionManagerID="{1A290C50-0624-4513-A2C4-6504F9841FEC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input].Columns[nroArticulo_int]"
+                      cachedDataType="i4"
+                      cachedName="nroArticulo_int"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output].Columns[nroArticulo_int]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">numeroArticulo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output].Columns[cantidad]"
+                      name="cantidad"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">cantidad</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG_VentaResumidaSolicitada"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">(
+SELECT 
+	V.NumeroOrdendeVenta AS nroOrden,
+	V.TipodeOrden AS tipoOrden, 
+	V.NumerodeLinea AS nroLinea,
+	CAST(DATEADD(dd,((V.FechadeTransaccion % 1000) - 1),(cast(cast(1900+(V.FechadeTransaccion/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) as date) AS fechaTransaccion,
+	V.FechaSolicitada,
+    LTRIM(RTRIM(V.unidadNegocio)) AS unidadNegocioCabecera,
+	V.ItemArticulo AS nroArticulo, 
+	v.CodigoEstadoUltimo,
+	V.CodigoEstadoSiguiente,
+	V.cantidadOrdenada / 1000 AS cantidadSolicitada,
+    V.CantidadEnviada  / 1000 AS cantidadEnviada,
+	V.Clase AS Clase,
+	V.FamiliaPlanificacion AS FamiliaPlanificacion,
+	V.Frecuencia AS Frecuencia,
+	V.Producto AS Producto,
+	V.OriginadorDeTransaccion AS OriginadorDeTransaccion,
+	cast(V.Cliente as int) AS Vendido_a,
+	V.Enviar_a AS Enviar_a,
+	V.NotasInternas AS NotasInternas,
+	V.CodigoDeRuta AS CodigoDeRuta
+	
+FROM STG_VentaResumidaSolicitada V 
+WHERE 
+	V.TipodeOrden = 'SO'
+	AND RTRIM(LTRIM(V.unidadNegocio)) IN ('300', '301')
+	AND V.Producto IS NOT NULL
+	AND V.CodigoEstadoUltimo != '980'
+)
+
+UNION ALL
+
+
+(
+SELECT 
+	V.NumeroOrdendeVenta AS nroOrden,
+	V.TipodeOrden AS tipoOrden, 
+	V.NumerodeLinea AS nroLinea,
+	CAST(DATEADD(dd,((V.FechadeTransaccion % 1000) - 1),(cast(cast(1900+(V.FechadeTransaccion/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) as date) AS fechaTransaccion,
+	V.FechaSolicitada,
+    LTRIM(RTRIM(OCC.UnidadDeNegocio)) AS unidadNegocioCabecera,
+	V.ItemArticulo AS nroArticulo, 
+	V.CodigoEstadoUltimo,
+	V.CodigoEstadoSiguiente,
+	V.cantidadOrdenada  / 1000 AS cantidadSolicitada,
+    V.CantidadEnviada /1000 AS cantidadEnviada,
+	V.Clase AS Clase,
+	V.FamiliaPlanificacion AS FamiliaPlanificacion,
+	V.Frecuencia AS Frecuencia,
+	V.Producto AS Producto,
+	V.OriginadorDeTransaccion AS OriginadorDeTransaccion,
+	cast(V.Cliente as int) AS Vendido_a,
+	V.Enviar_a AS Enviar_a,
+	V.NotasInternas AS NotasInternas,
+	V.CodigoDeRuta AS CodigoDeRuta
+FROM STG_VentaResumidaSolicitada V 
+LEFT JOIN STG_OrdenCompraCabecera OCC
+	ON V.nroOrdenRelacionada = OCC.NroOrdenCompra
+	AND V.TipodeOrdenRelacionada = OCC.TipoDeOrden
+	AND V.companiaOrdenRelacionada = OCC.Compania
+WHERE 
+	V.TipodeOrden = 'SH'
+	AND RTRIM(LTRIM(V.unidadNegocio)) IN ('300', '301')
+	AND V.Producto IS NOT NULL
+	AND V.CodigoEstadoUltimo != '980'
+)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Connections[OleDbConnection]"
+                  connectionManagerID="{1A290C50-0624-4513-A2C4-6504F9841FEC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroOrden]"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroOrden]"
+                      name="nroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[tipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[tipoOrden]"
+                      length="5"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[tipoOrden]"
+                      name="tipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroLinea]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroLinea]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroLinea]"
+                      name="nroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[fechaTransaccion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[fechaTransaccion]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[fechaTransaccion]"
+                      name="fechaTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FechaSolicitada]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FechaSolicitada]"
+                      name="FechaSolicitada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[unidadNegocioCabecera]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[unidadNegocioCabecera]"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[unidadNegocioCabecera]"
+                      name="unidadNegocioCabecera"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroArticulo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroArticulo]"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[nroArticulo]"
+                      name="nroArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoUltimo]"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoUltimo]"
+                      name="CodigoEstadoUltimo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoSiguiente]"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]"
+                      name="CodigoEstadoSiguiente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadSolicitada]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[cantidadSolicitada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadSolicitada]"
+                      name="cantidadSolicitada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadEnviada]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[cantidadEnviada]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[cantidadEnviada]"
+                      name="cantidadEnviada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Clase]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Clase]"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Clase]"
+                      name="Clase"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[FamiliaPlanificacion]"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]"
+                      name="FamiliaPlanificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Frecuencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Frecuencia]"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Frecuencia]"
+                      name="Frecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Producto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Producto]"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Producto]"
+                      name="Producto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[OriginadorDeTransaccion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[OriginadorDeTransaccion]"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[OriginadorDeTransaccion]"
+                      name="OriginadorDeTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Vendido_a]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Vendido_a]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Vendido_a]"
+                      name="Vendido_a"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Enviar_a]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Enviar_a]"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[Enviar_a]"
+                      name="Enviar_a"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[NotasInternas]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[NotasInternas]"
+                      length="25"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[NotasInternas]"
+                      name="NotasInternas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoDeRuta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoDeRuta]"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].Columns[CodigoDeRuta]"
+                      name="CodigoDeRuta"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroOrden]"
+                      dataType="wstr"
+                      length="50"
+                      name="nroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[tipoOrden]"
+                      dataType="wstr"
+                      length="5"
+                      name="tipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroLinea]"
+                      dataType="i4"
+                      name="nroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[fechaTransaccion]"
+                      dataType="dbDate"
+                      name="fechaTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitada]"
+                      dataType="dbDate"
+                      name="FechaSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[unidadNegocioCabecera]"
+                      dataType="wstr"
+                      length="50"
+                      name="unidadNegocioCabecera" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[nroArticulo]"
+                      dataType="wstr"
+                      length="50"
+                      name="nroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoEstadoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoEstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[cantidadSolicitada]"
+                      dataType="i4"
+                      name="cantidadSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[cantidadEnviada]"
+                      dataType="i4"
+                      name="cantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Clase]"
+                      dataType="wstr"
+                      length="10"
+                      name="Clase" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      length="10"
+                      name="FamiliaPlanificacion" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      name="Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Producto]"
+                      dataType="wstr"
+                      length="10"
+                      name="Producto" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[OriginadorDeTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="OriginadorDeTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Vendido_a]"
+                      dataType="i4"
+                      name="Vendido_a" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[Enviar_a]"
+                      dataType="i4"
+                      name="Enviar_a" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[NotasInternas]"
+                      dataType="wstr"
+                      length="25"
+                      name="NotasInternas" />
+                    <externalMetadataColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output].ExternalColumns[CodigoDeRuta]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoDeRuta" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroOrden]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroOrden]"
+                      name="nroOrden" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[tipoOrden]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[tipoOrden]"
+                      name="tipoOrden" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroLinea]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroLinea]"
+                      name="nroLinea" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[fechaTransaccion]"
+                      dataType="dbDate"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[fechaTransaccion]"
+                      name="fechaTransaccion" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[FechaSolicitada]"
+                      dataType="dbDate"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[FechaSolicitada]"
+                      name="FechaSolicitada" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[unidadNegocioCabecera]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[unidadNegocioCabecera]"
+                      name="unidadNegocioCabecera" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroArticulo]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[nroArticulo]"
+                      name="nroArticulo" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoUltimo]"
+                      name="CodigoEstadoUltimo" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoSiguiente]"
+                      name="CodigoEstadoSiguiente" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[cantidadSolicitada]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[cantidadSolicitada]"
+                      name="cantidadSolicitada" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[cantidadEnviada]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[cantidadEnviada]"
+                      name="cantidadEnviada" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Clase]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Clase]"
+                      name="Clase" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[FamiliaPlanificacion]"
+                      name="FamiliaPlanificacion" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Frecuencia]"
+                      name="Frecuencia" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Producto]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Producto]"
+                      name="Producto" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[OriginadorDeTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[OriginadorDeTransaccion]"
+                      name="OriginadorDeTransaccion" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Vendido_a]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Vendido_a]"
+                      name="Vendido_a" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Enviar_a]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[Enviar_a]"
+                      name="Enviar_a" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[NotasInternas]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[NotasInternas]"
+                      name="NotasInternas" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoDeRuta]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[CodigoDeRuta]"
+                      name="CodigoDeRuta" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Data Conversion Output]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\Format.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output1]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output2]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\Format.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output1]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output2]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output3]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output4]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\BT_SNP_IncRepuestosSolicitada.Paths[OLE DB Source Output]"
+              endId="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DELETE FECHA PROCESO"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FB7B187E-73F9-433F-B3F9-C7E33F8C5C64}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE FECHA PROCESO"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="DELETE FROM [BT_SNP_IncRepuestosSolicitada]&#xA;WHERE&#xA;&#x9;[FC_ISO_FechaSnapshot] = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::v_FechaProceso"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="0" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{AF3DFFE6-0040-4CF0-9318-96F4BEC4C80D}"
+      DTS:From="Package\BT_SNP_IncRepuestosSolicitada"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Actualiza FG_ISO_CumplimientoOrden" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A8F808C-737B-46F4-990C-CC84D4C2C204}"
+      DTS:From="Package\DELETE FECHA PROCESO"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\BT_SNP_IncRepuestosSolicitada" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="259,42"
+          Id="Package\Actualiza FG_ISO_CumplimientoOrden"
+          TopLeft="489,343" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada"
+          TopLeft="505,197" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\DELETE FECHA PROCESO"
+          TopLeft="520,81" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="619.25,239">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,104"
+              Start="0,0"
+              End="0,96.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,96.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="620,123">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74"
+              Start="0,0"
+              End="0,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\NULLs y Cumplimiento"
+          TopLeft="555,993" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\Data Conversion"
+          TopLeft="557,235" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion"
+          TopLeft="548,709" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\Format"
+          TopLeft="584,443" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock"
+          TopLeft="569,345" />
+        <NodeLayout
+          Size="132,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo"
+          TopLeft="574,613" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio"
+          TopLeft="560,806" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada"
+          TopLeft="530,1095" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\cantidadPorEstado"
+          TopLeft="557,527" />
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output2]"
+          TopLeft="642.5,751">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output1]"
+          TopLeft="640.75,655">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output]"
+          TopLeft="637,387">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,18.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output2]"
+          TopLeft="646.25,1035">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output1]"
+          TopLeft="640,569">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Derived Column Output]"
+          TopLeft="640,485">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Data Conversion Output]"
+          TopLeft="634.5,277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="206,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a"
+          TopLeft="538,897" />
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output3]"
+          TopLeft="644.25,939">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[Lookup Match Output4]"
+          TopLeft="642.25,848">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,14.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="222,42"
+          Id="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada"
+          TopLeft="522,83" />
+        <EdgeLayout
+          Id="Package\BT_SNP_IncRepuestosSolicitada.Paths[OLE DB Source Output]"
+          TopLeft="634,125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,110"
+              Start="0,0"
+              End="0,102.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,102.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\LK_FamiliaPlanificacion">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\STG_Stock">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\LK_Articulo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\LK_UnidadNegocio">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\BT_SNP_IncRepuestosSolicitada">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\SK_CLI_Cliente_Vendido_a">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\BT_SNP_IncRepuestosSolicitada\STG_VentaResumidaSolicitada">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

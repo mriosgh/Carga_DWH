@@ -1,0 +1,1379 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/19/2022 11:14:17 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQADW"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{7B226651-CCB3-46F3-8402-83734CA8D7CA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_STG_FechaCobro"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{EEF3B473-C474-4310-A862-1D9349FCFEB5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_FechaCobro"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3BA0618A-7DA0-4B62-A570-144F9AB327DA}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_FechaCobro"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_FechaCobro\BT_Facturacion"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="BT_Facturacion"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+BT.NU_NumeroOrden
+,BT.NU_NumeroLinea
+,bt.VC_TipoOrden
+,bt.FC_FechaCobro
+,bt.FC_Factura
+,FL_FechaCobroNull
+FROM BT_Facturacion BT
+WHERE SK_OFC_Codigo=2
+AND FL_FechaCobroNull ='True'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FechaCobro\BT_Facturacion.Connections[OleDbConnection]"
+                  connectionManagerID="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroOrden]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[NU_NumeroOrden]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroOrden]"
+                      name="NU_NumeroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroLinea]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[NU_NumeroLinea]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroLinea]"
+                      name="NU_NumeroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_FechaCobro]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FC_FechaCobro]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_FechaCobro]"
+                      name="FC_FechaCobro"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[VC_TipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[VC_TipoOrden]"
+                      length="10"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[VC_TipoOrden]"
+                      name="VC_TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_Factura]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FC_Factura]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_Factura]"
+                      name="FC_Factura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FL_FechaCobroNull]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FL_FechaCobroNull]"
+                      length="5"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FL_FechaCobroNull]"
+                      name="FL_FechaCobroNull"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[NU_NumeroOrden]"
+                      dataType="i4"
+                      name="NU_NumeroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[NU_NumeroLinea]"
+                      dataType="i4"
+                      name="NU_NumeroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FC_FechaCobro]"
+                      dataType="dbDate"
+                      name="FC_FechaCobro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[VC_TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FC_Factura]"
+                      dataType="dbDate"
+                      name="FC_Factura" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].ExternalColumns[FL_FechaCobroNull]"
+                      dataType="wstr"
+                      length="5"
+                      name="FL_FechaCobroNull" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[NU_NumeroOrden]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[NU_NumeroOrden]"
+                      name="NU_NumeroOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[NU_NumeroLinea]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[NU_NumeroLinea]"
+                      name="NU_NumeroLinea" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[VC_TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[VC_TipoOrden]"
+                      name="VC_TipoOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FC_FechaCobro]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FC_FechaCobro]"
+                      name="FC_FechaCobro" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FC_Factura]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FC_Factura]"
+                      name="FC_Factura" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FL_FechaCobroNull]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[FL_FechaCobroNull]"
+                      name="FL_FechaCobroNull" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga STG_FechaCobro"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_FechaCobro]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[FECHACOBRO]"
+                      cachedDataType="dbDate"
+                      cachedName="FECHACOBRO"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FechaCobro]"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[NU_NumeroOrden]"
+                      cachedDataType="i4"
+                      cachedName="NU_NumeroOrden"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[NU_NumeroLinea]"
+                      cachedDataType="i4"
+                      cachedName="NU_NumeroLinea"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroLinea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[FL_FechaCobro]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="FL_FechaCobro"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FL_FechaCobroNull]"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[FL_FechaCobro]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[FC_Factura]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_Factura"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FechaFactura]"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_Factura]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].Columns[NU_CantDiasCobro]"
+                      cachedDataType="i4"
+                      cachedName="NU_CantDiasCobro"
+                      externalMetadataColumnId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NU_CantidadDiasCobro]"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[NU_CantDiasCobro]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FechaCobro]"
+                      dataType="dbDate"
+                      name="FechaCobro" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      dataType="i4"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      dataType="i4"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FL_FechaCobroNull]"
+                      dataType="wstr"
+                      length="5"
+                      name="FL_FechaCobroNull" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[FechaFactura]"
+                      dataType="dbDate"
+                      name="FechaFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input].ExternalColumns[NU_CantidadDiasCobro]"
+                      dataType="i4"
+                      name="NU_CantidadDiasCobro" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FechaCobro\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input].Columns[FECHACOBRO]"
+                      cachedDataType="dbDate"
+                      cachedName="FECHACOBRO"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[NULL]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="NULL"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(FECHACOBRO)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Not_Null]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Not_Null"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FechaCobro\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input].Columns[FC_Factura]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_Factura"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_Factura]" />
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input].Columns[FECHACOBRO]"
+                      cachedDataType="dbDate"
+                      cachedName="FECHACOBRO"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[FL_FechaCobro]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[FL_FechaCobro]"
+                      name="FL_FechaCobro"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"False"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"False"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[NU_CantDiasCobro]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output].Columns[NU_CantDiasCobro]"
+                      name="NU_CantDiasCobro"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("dd",#{Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[FC_Factura]},#{Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("dd",FC_Factura,FECHACOBRO)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FechaCobro\FechaCobro"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="FechaCobro"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+CAST(RPDOC AS INT) AS RPDOC,
+ltrim(rtrim(RPSKCO)) as RPSKCO,
+ltrim(rtrim(RPDCT)) as RPDCT,
+CASE
+WHEN min(CAST(DATEADD(dd,((F03B11.RPJCL % 1000) - 1),(cast(cast(1900+( F03B11.RPJCL/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS DATE))='1899-12-31' THEN NULL
+ELSE min(CAST(DATEADD(dd,((F03B11.RPJCL % 1000) - 1),(cast(cast(1900+( F03B11.RPJCL/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS DATE))
+END AS FECHACOBRO
+FROM PRODDTA.F03B11
+GROUP BY RPDOC,
+RPDCT,
+RPSKCO</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT
+CAST(RPDOC AS INT) AS RPDOC,
+ltrim(rtrim(RPSKCO)) as RPSKCO,
+ltrim(rtrim(RPDCT)) as RPDCT,
+CASE
+WHEN min(CAST(DATEADD(dd,((F03B11.RPJCL % 1000) - 1),(cast(cast(1900+( F03B11.RPJCL/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS DATE))='1899-12-31' THEN NULL
+ELSE min(CAST(DATEADD(dd,((F03B11.RPJCL % 1000) - 1),(cast(cast(1900+( F03B11.RPJCL/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS DATE))
+END AS FECHACOBRO
+FROM PRODDTA.F03B11
+GROUP BY RPDOC,
+RPDCT,
+RPSKCO) [refTable]
+where [refTable].[RPDOC] = ? and [refTable].[RPSKCO] = ? and [refTable].[RPDCT] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="RPDOC" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RPSKCO" dataType="DT_STR" length="5" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="RPDCT" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="FECHACOBRO" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDOC]};#{Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDKCO]};#{Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDCT]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FechaCobro\FechaCobro.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input].Columns[SDDOC]"
+                      cachedDataType="i4"
+                      cachedName="SDDOC"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDOC]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">RPDOC</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input].Columns[SDKCO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="SDKCO"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDKCO]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">RPSKCO</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input].Columns[SDDCT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="SDDCT"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDCT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">RPDCT</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output].Columns[FECHACOBRO]"
+                      name="FECHACOBRO"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FECHACOBRO</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_FechaCobro\Ventas"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Ventas"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+'NumeroOrdendeVenta'           = cast(F42119.SDDOCO as int),
+'TipodeOrden'                  = cast(RTRIM(F42119.SDDCTO) as nvarchar(5)),
+'NumerodeLinea'                = cast(F42119.SDLNID as int),
+CAST(SDDOC AS INT)  AS SDDOC
+,LTRIM(RTRIM(SDKCO)) AS SDKCO
+,LTRIM(RTRIM(SDDCT)) AS SDDCT
+ FROM [PRODDTA].[F42119]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+'NumeroOrdendeVenta'           = cast(F42119.SDDOCO as int),
+'TipodeOrden'                  = cast(RTRIM(F42119.SDDCTO) as nvarchar(5)),
+'NumerodeLinea'                = cast(F42119.SDLNID as int),
+CAST(SDDOC AS INT)  AS SDDOC
+,LTRIM(RTRIM(SDKCO)) AS SDKCO
+,LTRIM(RTRIM(SDDCT)) AS SDDCT
+ FROM [PRODDTA].[F42119]) [refTable]
+where [refTable].[NumeroOrdendeVenta] = ? and [refTable].[NumerodeLinea] = ? and [refTable].[TipodeOrden] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="NumeroOrdendeVenta" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TipodeOrden" dataType="DT_WSTR" length="5" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NumerodeLinea" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SDDOC" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SDKCO" dataType="DT_STR" length="5" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SDDCT" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroOrden]};#{Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroLinea]};#{Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[VC_TipoOrden]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_FechaCobro\Ventas.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input].Columns[NU_NumeroOrden]"
+                      cachedDataType="i4"
+                      cachedName="NU_NumeroOrden"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroOrden]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">NumeroOrdendeVenta</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input].Columns[NU_NumeroLinea]"
+                      cachedDataType="i4"
+                      cachedName="NU_NumeroLinea"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[NU_NumeroLinea]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">NumerodeLinea</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input].Columns[VC_TipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_TipoOrden"
+                      lineageId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output].Columns[VC_TipoOrden]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">TipodeOrden</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDOC]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDOC]"
+                      name="SDDOC"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SDDOC</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDKCO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="5"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDKCO]"
+                      name="SDKCO"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SDKCO</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDCT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="2"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output].Columns[SDDCT]"
+                      name="SDDCT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SDDCT</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_FechaCobro.Paths[Derived Column Output]"
+              endId="Package\Carga STG_FechaCobro\Carga STG_FechaCobro.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga STG_FechaCobro\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga STG_FechaCobro.Paths[Lookup Match Output]"
+              endId="Package\Carga STG_FechaCobro\FechaCobro.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga STG_FechaCobro\Ventas.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga STG_FechaCobro.Paths[Lookup Match Output1]"
+              endId="Package\Carga STG_FechaCobro\Conditional Split.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga STG_FechaCobro\FechaCobro.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga STG_FechaCobro.Paths[Not_Null]"
+              endId="Package\Carga STG_FechaCobro\Derived Column.Inputs[Derived Column Input]"
+              name="Not_Null"
+              startId="Package\Carga STG_FechaCobro\Conditional Split.Outputs[Not_Null]" />
+            <path
+              refId="Package\Carga STG_FechaCobro.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_FechaCobro\Ventas.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_FechaCobro\BT_Facturacion.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BFC4D2B7-21BF-4319-8E4C-76B74451FC50}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_FechaCobro" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{303DC126-EABF-4210-BBE1-842B06DAFF17}"
+      DTS:From="Package\Truncate Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_FechaCobro" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="191,43"
+          Id="Package\Carga STG_FechaCobro"
+          TopLeft="233.124996526167,123.499997791648" />
+        <NodeLayout
+          Size="151,43"
+          Id="Package\Truncate Table"
+          TopLeft="248.12499630265,25.9999995350838" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="325.958329747741,68.6666662017504">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.8333315898975"
+              Start="0,0"
+              End="0,47.3333315898975">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.3333315898975" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_FechaCobro">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="112,43"
+          Id="Package\Carga STG_FechaCobro\Ventas"
+          TopLeft="262.499996088445,139.749997501075" />
+        <NodeLayout
+          Size="156,43"
+          Id="Package\Carga STG_FechaCobro\Conditional Split"
+          TopLeft="241.874996395782,315.099994723201" />
+        <NodeLayout
+          Size="155,43"
+          Id="Package\Carga STG_FechaCobro\Derived Column"
+          TopLeft="243.749996367842,399.11666140149" />
+        <NodeLayout
+          Size="135,43"
+          Id="Package\Carga STG_FechaCobro\FechaCobro"
+          TopLeft="250.624996265397,230.099995885491" />
+        <NodeLayout
+          Size="152,43"
+          Id="Package\Carga STG_FechaCobro\BT_Facturacion"
+          TopLeft="241.249996405095,56.5499989888072" />
+        <NodeLayout
+          Size="191,43"
+          Id="Package\Carga STG_FechaCobro\Carga STG_FechaCobro"
+          TopLeft="224.999996647239,475.316661540965" />
+        <EdgeLayout
+          Id="Package\Carga STG_FechaCobro.Paths[OLE DB Source Output]"
+          TopLeft="317.87499624677,99.2166656554739">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.5333318456015"
+              Start="0,0"
+              End="0,33.0333318456015">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.0333318456015" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_FechaCobro.Paths[Not_Null]"
+          TopLeft="320.479163048478,357.766661389868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.3500000116228"
+              Start="0,0"
+              End="0,33.8500000116228">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.8500000116228" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-19.15212890625,11.3937500058114,38.3042578125,11.0625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_FechaCobro.Paths[Lookup Match Output1]"
+          TopLeft="319.083329663922,272.766662552158">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.3333321710429"
+              Start="0,0"
+              End="0,34.8333321710429">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.8333321710429" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,11.6119785855214,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_FechaCobro.Paths[Lookup Match Output]"
+          TopLeft="318.395829510254,182.416664167742">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.6833317177494"
+              Start="0,0"
+              End="0,40.1833317177494">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.1833317177494" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,14.2869783588747,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_FechaCobro.Paths[Derived Column Output]"
+          TopLeft="320.708329840874,441.783328068157">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.5333334728085"
+              Start="0,0"
+              End="0,26.0333334728085">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.0333334728085" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FechaCobro\Ventas">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FechaCobro\FechaCobro">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FechaCobro\BT_Facturacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_FechaCobro\Carga STG_FechaCobro">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1560 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/14/2020 12:18:30 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{0001B6C3-DAB5-4AC4-8EE1-8F95B7F46A99}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_OrdenCompraCustomComex"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{0D8C5051-C67E-4508-A94D-869500EDCFA3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CARGA STG_OICustomComex"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{39069F5C-4D4D-4463-971F-A789B5E8E6FF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA STG_OICustomComex"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA STG_OICustomComex\F564301"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="F564301"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+	 CAST(LTRIM(RTRIM(TGKCOO)) as NVARCHAR(5)) AS NroCompania
+	,TGDOCO AS NroOrden
+	,CAST(LTRIM(RTRIM(TGDCTO)) AS NVARCHAR(4)) AS TipoOrden
+	,CAST(LTRIM(RTRIM(TGSFXO))  AS NVARCHAR(4)) AS NroSufijo
+	,CAST(LTRIM(RTRIM(TG_1CFE)) AS NVARCHAR(5)) AS MetodoEmbarque
+	,DATEADD(dd,((TG_1FECSAL % 1000) - 1),(cast(cast(1900+(TG_1FECSAL/1000) as decimal(40)) as varchar(4)) + '01' + '01'))   AS FechaSal
+	,DATEADD(dd,((TG_1FECLLEG % 1000) - 1),(cast(cast(1900+(TG_1FECLLEG/1000) as decimal(40)) as varchar(4)) + '01' + '01')) AS FechaLleg
+	,CAST(LTRIM(RTRIM(TG_1DESPO)) AS NVARCHAR(15)) AS NroDespacho
+FROM PRODDTA.F564301</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG_OICustomComex\F564301.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      name="NroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaSal]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[FechaSal]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaSal]"
+                      name="FechaSal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaLleg]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[FechaLleg]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaLleg]"
+                      name="FechaLleg"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      length="4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      name="TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroSufijo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroSufijo]"
+                      length="4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroSufijo]"
+                      name="NroSufijo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroDespacho]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroDespacho]"
+                      length="15"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroDespacho]"
+                      name="NroDespacho"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroCompania]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroCompania]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroCompania]"
+                      name="NroCompania"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroCompania]"
+                      dataType="wstr"
+                      length="5"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      dataType="r8"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="4"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroSufijo]"
+                      dataType="wstr"
+                      length="4"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      dataType="wstr"
+                      length="5"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[FechaSal]"
+                      dataType="dbTimeStamp"
+                      name="FechaSal" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[FechaLleg]"
+                      dataType="dbTimeStamp"
+                      name="FechaLleg" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].ExternalColumns[NroDespacho]"
+                      dataType="wstr"
+                      length="15"
+                      name="NroDespacho" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      dataType="r8"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      name="NroOrden" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[FechaSal]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[FechaSal]"
+                      name="FechaSal" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[FechaLleg]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[FechaLleg]"
+                      name="FechaLleg" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      name="TipoOrden" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroSufijo]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroSufijo]"
+                      name="NroSufijo" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroDespacho]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroDespacho]"
+                      name="NroDespacho" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroCompania]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Error Output].Columns[NroCompania]"
+                      name="NroCompania" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_CabeceraOICustomComex"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_CabeceraOICustomComex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[NroCompania]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="NroCompania"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroCompania]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroCompania]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[NroOrden]"
+                      cachedDataType="r8"
+                      cachedName="NroOrden"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroOrden]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[TipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="TipoOrden"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[TipoOrden]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[NroSufijo]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="NroSufijo"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroSufijo]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroSufijo]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[MetodoEmbarque]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="MetodoEmbarque"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[FechaSal]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaSal"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[FechaSal]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaSal]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[FechaLleg]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaLleg"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[FechaLleg]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[FechaLleg]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].Columns[NroDespacho]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="NroDespacho"
+                      externalMetadataColumnId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroDespacho]"
+                      lineageId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output].Columns[NroDespacho]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroCompania]"
+                      dataType="wstr"
+                      length="5"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      dataType="i4"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="2"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroSufijo]"
+                      dataType="wstr"
+                      length="3"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      dataType="wstr"
+                      length="10"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[FechaSal]"
+                      dataType="dbDate"
+                      name="FechaSal" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[FechaLleg]"
+                      dataType="dbDate"
+                      name="FechaLleg" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input].ExternalColumns[NroDespacho]"
+                      dataType="wstr"
+                      length="20"
+                      name="NroDespacho" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA STG_OICustomComex.Paths[OLE DB Source Output]"
+              endId="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STG_OICustomComex\F564301.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\CARGA STG_OrdenesComexCustomLineas"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DEA1C7A1-FCC5-49E5-B03C-F7EC30AE1D46}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA STG_OrdenesComexCustomLineas"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="F564311"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+	 LTRIM(RTRIM(QGKCOO)) AS NroCompania
+	,QGDOCO AS NroOrden
+	,LTRIM(RTRIM(QGDCTO))  AS TipoOrden
+	,LTRIM(RTRIM(QGSFXO))  AS NroSufijo
+	,QGLNID AS NroLinea
+	,LTRIM(RTRIM(QG_1CFE)) AS MetodoEmbarque
+	,LTRIM(RTRIM(QG_1MEM)) AS MEM
+	,LTRIM(RTRIM(QG_1TEM)) AS TEM
+	,LTRIM(RTRIM(QG_1NUU)) AS NUU
+	,LTRIM(RTRIM(QG_1EXF)) AS EXF
+	,DATEADD(dd,((QG_1FRP % 1000) - 1),(cast(cast(1900+(QG_1FRP/1000) as decimal(40)) as varchar(4)) + '01' + '01'))	 	AS FechaRequerida
+	,DATEADD(dd,((QG_1FPR % 1000) - 1),(cast(cast(1900+(QG_1FPR/1000) as decimal(40)) as varchar(4)) + '01' + '01'))		AS FechaPrometida
+	,DATEADD(dd,((QG_1FORZF % 1000) - 1),(cast(cast(1900+(QG_1FORZF/1000) as decimal(40)) as varchar(4)) + '01' + '01'))	AS FechaZonaFranca 
+	,DATEADD(dd,((QG_1FP % 1000) - 1),(cast(cast(1900+(QG_1FP/1000) as decimal(40)) as varchar(4)) + '01' + '01'))			AS FechaEnPlanta
+	,DATEADD(dd,((QGRQDJ % 1000) - 1),(cast(cast(1900+(QGRQDJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))			AS FechaEsperada
+	,DATEADD(dd,((QG_1FRC % 1000) - 1),(cast(cast(1900+(QG_1FRC/1000) as decimal(40)) as varchar(4)) + '01' + '01'))		AS FechaRecepConsolidada
+	,DATEADD(dd,((QG_1FC % 1000) - 1),(cast(cast(1900+(QG_1FC/1000) as decimal(40)) as varchar(4)) + '01' + '01'))			AS FechaConfirmacion
+	,DATEADD(dd,((QG_1FLP % 1000) - 1),(cast(cast(1900+(QG_1FLP/1000) as decimal(40)) as varchar(4)) + '01' + '01'))		AS FechaLlegadaPuerto
+FROM  PRODDTA.F564311</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroCompania]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroCompania]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroCompania]"
+                      name="NroCompania"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      name="NroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      length="2"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      name="TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroSufijo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroSufijo]"
+                      length="3"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroSufijo]"
+                      name="NroSufijo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroLinea]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroLinea]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroLinea]"
+                      name="NroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      length="10"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MEM]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[MEM]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MEM]"
+                      name="MEM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TEM]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[TEM]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TEM]"
+                      name="TEM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NUU]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NUU]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NUU]"
+                      name="NUU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[EXF]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[EXF]"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[EXF]"
+                      name="EXF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRequerida]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaRequerida]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRequerida]"
+                      name="FechaRequerida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaPrometida]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaPrometida]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaPrometida]"
+                      name="FechaPrometida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaZonaFranca]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaZonaFranca]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaZonaFranca]"
+                      name="FechaZonaFranca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEnPlanta]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaEnPlanta]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEnPlanta]"
+                      name="FechaEnPlanta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEsperada]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaEsperada]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEsperada]"
+                      name="FechaEsperada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRecepConsolidada]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaRecepConsolidada]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRecepConsolidada]"
+                      name="FechaRecepConsolidada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaLlegadaPuerto]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaLlegadaPuerto]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaLlegadaPuerto]"
+                      name="FechaLlegadaPuerto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaConfirmacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaConfirmacion]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaConfirmacion]"
+                      name="FechaConfirmacion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroCompania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      dataType="r8"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroSufijo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NroLinea]"
+                      dataType="r8"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[MEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="MEM" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[TEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="TEM" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[NUU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="NUU" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[EXF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="EXF" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaRequerida]"
+                      dataType="dbTimeStamp"
+                      name="FechaRequerida" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaPrometida]"
+                      dataType="dbTimeStamp"
+                      name="FechaPrometida" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaZonaFranca]"
+                      dataType="dbTimeStamp"
+                      name="FechaZonaFranca" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaEnPlanta]"
+                      dataType="dbTimeStamp"
+                      name="FechaEnPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaEsperada]"
+                      dataType="dbTimeStamp"
+                      name="FechaEsperada" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaRecepConsolidada]"
+                      dataType="dbTimeStamp"
+                      name="FechaRecepConsolidada" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaLlegadaPuerto]"
+                      dataType="dbTimeStamp"
+                      name="FechaLlegadaPuerto" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].ExternalColumns[FechaConfirmacion]"
+                      dataType="dbTimeStamp"
+                      name="FechaConfirmacion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroCompania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroCompania]"
+                      name="NroCompania" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      dataType="r8"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      name="NroOrden" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      name="TipoOrden" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroSufijo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroSufijo]"
+                      name="NroSufijo" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroLinea]"
+                      dataType="r8"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NroLinea]"
+                      name="NroLinea" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[MEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[MEM]"
+                      name="MEM" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[TEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[TEM]"
+                      name="TEM" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NUU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[NUU]"
+                      name="NUU" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[EXF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[EXF]"
+                      name="EXF" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaRequerida]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaRequerida]"
+                      name="FechaRequerida" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaPrometida]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaPrometida]"
+                      name="FechaPrometida" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaZonaFranca]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaZonaFranca]"
+                      name="FechaZonaFranca" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaEnPlanta]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaEnPlanta]"
+                      name="FechaEnPlanta" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaEsperada]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaEsperada]"
+                      name="FechaEsperada" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaRecepConsolidada]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaRecepConsolidada]"
+                      name="FechaRecepConsolidada" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaLlegadaPuerto]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaLlegadaPuerto]"
+                      name="FechaLlegadaPuerto" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaConfirmacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Error Output].Columns[FechaConfirmacion]"
+                      name="FechaConfirmacion" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_OrdenesComexCustomLineas"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_OrdenesComexCustomLineas]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[NroCompania]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="NroCompania"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroCompania]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroCompania]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[NroOrden]"
+                      cachedDataType="r8"
+                      cachedName="NroOrden"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroOrden]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[TipoOrden]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TipoOrden"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TipoOrden]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[NroSufijo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="NroSufijo"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroSufijo]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroSufijo]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[NroLinea]"
+                      cachedDataType="r8"
+                      cachedName="NroLinea"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NroLinea]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[MetodoEmbarque]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="MetodoEmbarque"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[MEM]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="MEM"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[MEM]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[MEM]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[TEM]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="TEM"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[TEM]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[TEM]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[NUU]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="NUU"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NUU]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[NUU]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[EXF]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="EXF"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[EXF]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[EXF]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaRequerida]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaRequerida"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaRequerida]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRequerida]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaPrometida]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaPrometida"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaPrometida]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaPrometida]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaZonaFranca]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaZonaFranca"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaZonaFranca]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaZonaFranca]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaEnPlanta]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEnPlanta"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnPlanta]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEnPlanta]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaEsperada]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEsperada"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaEsperada]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaEsperada]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaRecepConsolidada]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaRecepConsolidada"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaRecepConsolidada]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaRecepConsolidada]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaLlegadaPuerto]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaLlegadaPuerto"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaLlegadaPuerto]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaLlegadaPuerto]" />
+                    <inputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].Columns[FechaConfirmacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaConfirmacion"
+                      externalMetadataColumnId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaConfirmacion]"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output].Columns[FechaConfirmacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroCompania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      dataType="r8"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroSufijo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      dataType="r8"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[MEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="MEM" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[TEM]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="TEM" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[NUU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="NUU" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[EXF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="EXF" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaRequerida]"
+                      dataType="dbDate"
+                      name="FechaRequerida" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaPrometida]"
+                      dataType="dbDate"
+                      name="FechaPrometida" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaZonaFranca]"
+                      dataType="dbDate"
+                      name="FechaZonaFranca" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnPlanta]"
+                      dataType="dbDate"
+                      name="FechaEnPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaEsperada]"
+                      dataType="dbDate"
+                      name="FechaEsperada" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaRecepConsolidada]"
+                      dataType="dbDate"
+                      name="FechaRecepConsolidada" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaConfirmacion]"
+                      dataType="dbDate"
+                      name="FechaConfirmacion" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input].ExternalColumns[FechaLlegadaPuerto]"
+                      dataType="dbDate"
+                      name="FechaLlegadaPuerto" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA STG_OrdenesComexCustomLineas.Paths[OLE DB Source Output]"
+              endId="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STG_OrdenesComexCustomLineas\F564311.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE STG_OrdenCompraCustomComex"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6B2C62DF-77A2-42BB-9478-2A3A6F7C526A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE STG_OrdenCompraCustomComex"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_CabeceraOICustomComex;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE STG_OrdenesComexCustom"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{94F9AF82-D6E5-46AF-92DD-FE92C23742AD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE STG_OrdenesComexCustom"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_OrdenesComexCustomLineas;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{0B093418-39DB-4274-AE94-32D1D9798AC9}"
+      DTS:From="Package\TRUNCATE TABLE STG_OrdenCompraCustomComex"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\CARGA STG_OICustomComex" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{0362D5DE-1662-41EE-B89C-1B7DC96D6805}"
+      DTS:From="Package\TRUNCATE TABLE STG_OrdenesComexCustom"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\CARGA STG_OrdenesComexCustomLineas" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="219,42"
+          Id="Package\CARGA STG_OICustomComex"
+          TopLeft="228,174" />
+        <NodeLayout
+          Size="277,42"
+          Id="Package\CARGA STG_OrdenesComexCustomLineas"
+          TopLeft="663,175" />
+        <NodeLayout
+          Size="326,42"
+          Id="Package\TRUNCATE TABLE STG_OrdenCompraCustomComex"
+          TopLeft="177,70" />
+        <NodeLayout
+          Size="300,42"
+          Id="Package\TRUNCATE TABLE STG_OrdenesComexCustom"
+          TopLeft="651,69" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="338.75,112">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="801.25,111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CARGA STG_OICustomComex">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="227,42"
+          Id="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex"
+          TopLeft="296,161" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\CARGA STG_OICustomComex\F564301"
+          TopLeft="343,55" />
+        <EdgeLayout
+          Id="Package\CARGA STG_OICustomComex.Paths[OLE DB Source Output]"
+          TopLeft="406.25,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG_OICustomComex\F564301">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG_OICustomComex\STG_CabeceraOICustomComex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\CARGA STG_OrdenesComexCustomLineas">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="240,42"
+          Id="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas"
+          TopLeft="320,171" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\CARGA STG_OrdenesComexCustomLineas\F564311"
+          TopLeft="376,78" />
+        <EdgeLayout
+          Id="Package\CARGA STG_OrdenesComexCustomLineas.Paths[OLE DB Source Output]"
+          TopLeft="438,120">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG_OrdenesComexCustomLineas\F564311">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STG_OrdenesComexCustomLineas\STG_OrdenesComexCustomLineas">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

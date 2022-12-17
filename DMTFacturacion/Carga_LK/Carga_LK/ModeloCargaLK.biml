@@ -1,0 +1,320 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <FlatFileConnection Name="D:\REJ\Rej_LK_Activo.csv" FilePath="D:\REJ\Rej_LK_Activo.csv" FileFormat="D:\REJ\Rej_LK_Activo.csv" />
+        <Connection Name="ImportedProjectConnection1" CreateInProject="true" ConnectionString="" />
+        <Connection Name="ImportedProjectConnection2" CreateInProject="true" ConnectionString="" />
+    </Connections>
+    <Packages>
+        <Package Name="Carga_LK_Activo" Language="None" ConstraintMode="LinearOnCompletion" ProtectionLevel="EncryptSensitiveWithUserKey">
+            <Events>
+                <Event Name="OnError" ConstraintMode="LinearOnCompletion" EventType="OnError">
+                    <Tasks>
+                        <ExecuteSQL Name="DW_SP_AUD_LOG_UPD" ConnectionName="ImportedProjectConnection1">
+                            <Parameters>
+                                <Parameter Name="0" VariableName="User.vPkAudPackage" Length="-1" DataType="Int32" />
+                                <Parameter Name="1" VariableName="" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="2" VariableName="System.ErrorCode" Length="-1" DataType="Int32" />
+                                <Parameter Name="3" VariableName="System.ErrorDescription" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="4" VariableName="User.vRowsCount" Length="-1" DataType="Int32" />
+                                <Parameter Name="5" VariableName="User.vRowsInserted" Length="-1" DataType="Int32" />
+                                <Parameter Name="6" VariableName="User.vRowsRejected" Length="-1" DataType="Int32" />
+                                <Parameter Name="7" VariableName="User.vRowsUpdate" Length="-1" DataType="Int32" />
+                                <Parameter Name="8" VariableName="User.vRowsNoUpdate" Length="-1" DataType="Int32" />
+                            </Parameters>
+                            <DirectInput>EXEC SP_DW_AUD_LOG_UPD ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?</DirectInput>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Event>
+                <Event Name="OnPostExecute" EventType="OnPostExecute">
+                    <Tasks>
+                        <Container Name="DUMMY REJ" />
+                        <ExecuteSQL Name="SP_DW_MAI_MAIL_INS" ConnectionName="ImportedProjectConnection1">
+                            <PrecedenceConstraints>
+                                <Inputs>
+                                    <Input OutputPathName="DUMMY REJ.Output" EvaluationOperation="ExpressionAndConstraint" Expression="(@[System::PackageID] == @[System::SourceID]) &amp;&amp; (@[User::vRowsRejected] &gt; 0)" />
+                                </Inputs>
+                            </PrecedenceConstraints>
+                            <Parameters>
+                                <Parameter Name="0" VariableName="" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="1" VariableName="" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="2" VariableName="" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="3" VariableName="User.vMailSubject" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="4" VariableName="User.vMailBody" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="5" VariableName="System.PackageName" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="6" VariableName="" Length="-1" DataType="AnsiString" />
+                            </Parameters>
+                            <DirectInput>EXEC SP_DW_MAI_MAIL_INS ?,?,?,?,?,NULL,?,?</DirectInput>
+                        </ExecuteSQL>
+                        <Container Name="DUMMY" />
+                        <ExecuteSQL Name="DW_SP_AUD_LOG_UPD" ConnectionName="ImportedProjectConnection1">
+                            <PrecedenceConstraints>
+                                <Inputs>
+                                    <Input OutputPathName="DUMMY.Output" EvaluationOperation="ExpressionAndConstraint" Expression="@[System::PackageID] ==  @[System::SourceID]" />
+                                </Inputs>
+                            </PrecedenceConstraints>
+                            <Parameters>
+                                <Parameter Name="0" VariableName="User.vPkAudPackage" Length="-1" DataType="Int32" />
+                                <Parameter Name="1" VariableName="" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="2" VariableName="User.vRowsCount" Length="-1" DataType="Int32" />
+                                <Parameter Name="3" VariableName="User.vRowsInserted" Length="-1" DataType="Int32" />
+                                <Parameter Name="4" VariableName="User.vRowsRejected" Length="-1" DataType="Int32" />
+                                <Parameter Name="5" VariableName="User.vRowsUpdate" Length="-1" DataType="Int32" />
+                                <Parameter Name="6" VariableName="User.vRowsNoUpdate" Length="-1" DataType="Int32" />
+                            </Parameters>
+                            <DirectInput>DECLARE @now datetime
+SELECT @now = GETDATE()
+EXEC SP_DW_AUD_LOG_UPD ?, @now, ?, NULL, NULL, ?, ?, ?, ?, ?</DirectInput>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Event>
+                <Event Name="OnPreExecute" EventType="OnPreExecute">
+                    <Tasks>
+                        <Container Name="DUMMY" />
+                        <ExecuteSQL Name="DW_SP_AUD_LOG_INS" ConnectionName="ImportedProjectConnection1" ResultSet="SingleRow">
+                            <PrecedenceConstraints>
+                                <Inputs>
+                                    <Input OutputPathName="DUMMY.Output" EvaluationOperation="ExpressionAndConstraint" Expression="@[System::PackageID] ==  @[System::SourceID]" />
+                                </Inputs>
+                            </PrecedenceConstraints>
+                            <Results>
+                                <Result Name="PkAudLog" VariableName="User.vPkAudLog" />
+                            </Results>
+                            <Parameters>
+                                <Parameter Name="0" VariableName="User.vPkAudPackage" Length="-1" DataType="Int32" />
+                                <Parameter Name="1" VariableName="System.PackageName" Length="-1" DataType="AnsiString" />
+                                <Parameter Name="2" VariableName="System.StartTime" Length="-1" DataType="Date" />
+                                <Parameter Name="3" VariableName="" Length="-1" DataType="AnsiString" />
+                            </Parameters>
+                            <DirectInput>EXEC SP_DW_AUD_LOG_INS ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL</DirectInput>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Event>
+            </Events>
+            <Variables>
+                <Variable Name="vMailBody" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">REPLACE(REPLACE(@[$Project::GENERIC_MAIL_BODY],&quot;#PACKAGE_NAME#&quot;,@[System::PackageName]),&quot;#REJ_FILE_PATH#&quot;, @[User::vRejFile] )</Variable>
+                <Variable Name="vMailSubject" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">REPLACE(REPLACE(@[$Project::GENERIC_MAIL_SUBJECT],&quot;#PACKAGE_NAME#&quot;, @[System::PackageName]),&quot;#DATE#&quot;,(DT_WSTR, 50)(DT_DBDATE)GETDATE())</Variable>
+                <Variable Name="vPkAudLog" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+                <Variable Name="vPkAudPackage" DataType="Int32" IncludeInDebugDump="Include">4</Variable>
+                <Variable Name="vRejFile" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::PATH_REJ]+ &quot;Rej_LK_Activo.csv&quot;</Variable>
+                <Variable Name="vRowsCount" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+                <Variable Name="vRowsInserted" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+                <Variable Name="vRowsNoUpdate" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+                <Variable Name="vRowsRejected" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+                <Variable Name="vRowsUpdate" DataType="Int32" IncludeInDebugDump="Include">0</Variable>
+            </Variables>
+            <Tasks>
+                <Dataflow Name="Carga_LK_Activo">
+                    <Transformations>
+                        <OleDbSource Name="Input STG_Activo" ConnectionName="ImportedProjectConnection2">
+                            <Columns>
+                                <Column SourceColumn="compania" IsUsed="false" />
+                                <Column SourceColumn="numeroCortoActivosFijos" IsUsed="false" />
+                                <Column SourceColumn="equipoPadre" IsUsed="false" />
+                                <Column SourceColumn="fk_stgarticulos_articuloInventario" IsUsed="false" />
+                            </Columns>
+                            <ExternalTableInput Table="[dbo].[STG_Activo]" />
+                        </OleDbSource>
+                        <RowCount Name="vRowsCount" VariableName="User.vRowsCount" />
+                        <DerivedColumns Name="Reject Fields">
+                            <Columns>
+                                <Column Name="rej_interno" DataType="Boolean">ISNULL(interno)</Column>
+                                <Column Name="rej_numeroSerie" DataType="Boolean">ISNULL(numeroSerie)</Column>
+                                <Column Name="rej_modelo" DataType="Boolean">ISNULL(modelo)</Column>
+                            </Columns>
+                        </DerivedColumns>
+                        <DerivedColumns Name="Format Validator">
+                            <Columns>
+                                <Column Name="id_interno" DataType="String" Length="50">TRIM(interno)</Column>
+                                <Column Name="VC_ATV_NumeroSerie" DataType="String" Length="50">numeroSerie == &quot;&quot; || ISNULL(numeroSerie) ? &quot;*sin dato*&quot; : numeroSerie</Column>
+                                <Column Name="VC_ATV_Modelo" DataType="String" Length="50">modelo == &quot;&quot; || ISNULL(modelo) ? &quot;*sin dato*&quot; : modelo</Column>
+                                <Column Name="VC_ATV_DescModelo" DataType="String" Length="50">descModelo == &quot;&quot; || ISNULL(descModelo) ? &quot;*sin dato*&quot; : descModelo</Column>
+                                <Column Name="VC_ATV_Fabricante" DataType="String" Length="50">fabricante == &quot;&quot; || ISNULL(fabricante) ? &quot;*sin dato*&quot; : fabricante</Column>
+                                <Column Name="VC_ATV_DescFabricante" DataType="String" Length="50">descFabricante == &quot;&quot; || ISNULL(descFabricante) ? &quot;*sin dato*&quot; : descFabricante</Column>
+                                <Column Name="VC_ATV_IngresoAFlota" DataType="String" Length="50">ingresoAFlota == &quot;&quot; || ISNULL(ingresoAFlota) ? &quot;*sin dato*&quot; : ingresoAFlota</Column>
+                                <Column Name="VC_ATV_DescIngresoAFlota" DataType="String" Length="50">descIngresoAFlota == &quot;&quot; || ISNULL(descIngresoAFlota) ? &quot;*sin dato*&quot; : descIngresoAFlota</Column>
+                                <Column Name="VC_ATV_Uso" DataType="String" Length="10">uso == &quot;&quot; || ISNULL(uso) ? &quot;*sin dato*&quot; : uso</Column>
+                                <Column Name="VC_ATV_DescUso" DataType="String" Length="50">descUso == &quot;&quot; || ISNULL(descUso) ? &quot;*sin dato*&quot; : descUso</Column>
+                                <Column Name="VC_ATV_Descripcion1" DataType="String" Length="100">descripcion1 == &quot;&quot; || ISNULL(descripcion1) ? &quot;*sin dato*&quot; : descripcion1</Column>
+                                <Column Name="VC_ATV_Descripcion2" DataType="String" Length="100">descripcion2 == &quot;&quot; || ISNULL(descripcion2) ? &quot;*sin dato*&quot; : descripcion2</Column>
+                                <Column Name="VC_ATV_Descripcion3" DataType="String" Length="100">descripcion3 == &quot;&quot; || ISNULL(descripcion3) ? &quot;*sin dato*&quot; : descripcion3</Column>
+                                <Column Name="FC_ATV_FechaAdquisicion" DataType="String" Length="50">fechaAdquisicion == &quot;&quot; || ISNULL(fechaAdquisicion) ? &quot;01/01/1970&quot; : fechaAdquisicion</Column>
+                                <Column Name="FC_ATV_FechaRetiro" DataType="String" Length="50">fechaRertiro == &quot;&quot; || ISNULL(fechaRertiro) ? &quot;01/01/1970&quot; : fechaRertiro</Column>
+                                <Column Name="VC_ATV_EstadoEquipo" DataType="String" Length="10">estadoEquipo == &quot;&quot; || ISNULL(estadoEquipo) ? &quot;*sin dato*&quot; : estadoEquipo</Column>
+                                <Column Name="VC_ATV_descEstadoEquipo" DataType="String" Length="50">descEstadoEquipo == &quot;&quot; || ISNULL(descEstadoEquipo) ? &quot;*sin dato*&quot; : descEstadoEquipo</Column>
+                                <Column Name="VC_ATV_TipoEquipo" DataType="String" Length="10">tipoEquipo == &quot;&quot; || ISNULL(tipoEquipo) ? &quot;*sin dato*&quot; : tipoEquipo</Column>
+                                <Column Name="VC_ATV_DescTipoEquipo" DataType="String" Length="50">descTipoEquipo == &quot;&quot; || ISNULL(descTipoEquipo) ? &quot;*sin dato*&quot; : descTipoEquipo</Column>
+                                <Column Name="VC_ATV_DescLargaActivosFijos" DataType="String" Length="4000">descLargaActivosFijos == &quot;&quot; || ISNULL(descLargaActivosFijos) ? &quot;*sin dato*&quot; : descLargaActivosFijos</Column>
+                            </Columns>
+                        </DerivedColumns>
+                        <ConditionalSplit Name="Rechazo existe?">
+                            <OutputPaths>
+                                <OutputPath Name="Rechazo">
+                                    <Expression>rej_interno || rej_numeroSerie || rej_modelo</Expression>
+                                </OutputPath>
+                            </OutputPaths>
+                        </ConditionalSplit>
+                        <RowCount Name="vRowsReject" VariableName="User.vRowsRejected">
+                            <InputPath OutputPathName="Rechazo existe?.Rechazo" />
+                        </RowCount>
+                        <Multicast Name="Multicast">
+                            <OutputPaths>
+                                <OutputPath Name="Multicast Output 2" />
+                                <OutputPath Name="Multicast Output 3" />
+                            </OutputPaths>
+                        </Multicast>
+                        <UnionAll Name="Union All">
+                            <InputPaths>
+                                <InputPath OutputPathName="Rechazo existe?.Default" />
+                                <InputPath OutputPathName="Multicast.Multicast Output 3" />
+                            </InputPaths>
+                        </UnionAll>
+                        <CustomComponent Name="CHK" ComponentTypeName="Konesans.ChecksumTransformation" Version="4" ContactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com">
+                            <CustomProperties>
+                                <CustomProperty Name="ChecksumAlgorithm" DataType="System.Int32" TypeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b" Description="The Checksum Transformation algorithm used to produce the resulting checksum value.">2</CustomProperty>
+                            </CustomProperties>
+                            <OutputPaths>
+                                <OutputPath Name="ChecksumOutput" SynchronousInput="ChecksumInput" ExclusionGroup="1">
+                                    <OutputColumns>
+                                        <OutputColumn Name="CHK_ORIGEN">
+                                            <CustomProperties>
+                                                <Property Name="Checksum" DataType="System.String" Description="Checksum transformation result column indicator.">Checksum</Property>
+                                            </CustomProperties>
+                                        </OutputColumn>
+                                    </OutputColumns>
+                                </OutputPath>
+                            </OutputPaths>
+                        </CustomComponent>
+                        <DerivedColumns Name="Fechas Auditoria">
+                            <Columns>
+                                <Column Name="FechaCreacion" DataType="DateTime">GETDATE()</Column>
+                                <Column Name="FechaModificacion" DataType="DateTime">GETDATE()</Column>
+                            </Columns>
+                        </DerivedColumns>
+                        <Lookup Name="Lookup existe?" OleDbConnectionName="ImportedProjectConnection1" NoMatchBehavior="RedirectRowsToNoMatchOutput">
+                            <Outputs>
+                                <Column SourceColumn="CH_CHECKSUM" TargetColumn="LK_CHECKSUM" />
+                            </Outputs>
+                            <Parameters>
+                                <Parameter SourceColumn="id_interno" />
+                            </Parameters>
+                            <Inputs>
+                                <Column SourceColumn="id_interno" TargetColumn="CD_ID_Origen" />
+                            </Inputs>
+                            <DirectInput>select * from [dbo].[LK_Activo]</DirectInput>
+                            <ParameterizedQuery>select * from (select * from [dbo].[LK_Activo]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</ParameterizedQuery>
+                        </Lookup>
+                        <ConditionalSplit Name="Cambió?">
+                            <OutputPaths>
+                                <OutputPath Name="SI">
+                                    <Expression>CHK_ORIGEN != LK_CHECKSUM</Expression>
+                                </OutputPath>
+                            </OutputPaths>
+                        </ConditionalSplit>
+                        <RowCount Name="vRowsNoUpdate" VariableName="User.vRowsNoUpdate" />
+                        <RowCount Name="vRowsUpdate" VariableName="User.vRowsUpdate">
+                            <InputPath OutputPathName="Cambió?.SI" />
+                        </RowCount>
+                        <OleDbCommand Name="UPDATE" ConnectionName="ImportedProjectConnection1">
+                            <Parameters>
+                                <Parameter SourceColumn="id_interno" TargetColumn="Param_21" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="FechaModificacion" TargetColumn="Param_20" DataType="DateTime" />
+                                <Parameter SourceColumn="CHK_ORIGEN" TargetColumn="Param_19" DataType="Int64" />
+                                <Parameter SourceColumn="VC_ATV_Descripcion1" TargetColumn="Param_9" DataType="StringFixedLength" Length="100" />
+                                <Parameter SourceColumn="VC_ATV_Descripcion2" TargetColumn="Param_10" DataType="StringFixedLength" Length="100" />
+                                <Parameter SourceColumn="VC_ATV_Descripcion3" TargetColumn="Param_11" DataType="StringFixedLength" Length="100" />
+                                <Parameter SourceColumn="FC_ATV_FechaAdquisicion" TargetColumn="Param_12" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="FC_ATV_FechaRetiro" TargetColumn="Param_13" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_EstadoEquipo" TargetColumn="Param_14" DataType="StringFixedLength" Length="10" />
+                                <Parameter SourceColumn="VC_ATV_descEstadoEquipo" TargetColumn="Param_15" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_TipoEquipo" TargetColumn="Param_16" DataType="StringFixedLength" Length="10" />
+                                <Parameter SourceColumn="VC_ATV_DescTipoEquipo" TargetColumn="Param_17" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_DescLargaActivosFijos" TargetColumn="Param_18" DataType="StringFixedLength" Length="4000" />
+                                <Parameter SourceColumn="VC_ATV_DescModelo" TargetColumn="Param_0" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_Fabricante" TargetColumn="Param_1" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_DescFabricante" TargetColumn="Param_2" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_IngresoAFlota" TargetColumn="Param_3" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_NumeroSerie" TargetColumn="Param_4" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_DescIngresoAFlota" TargetColumn="Param_5" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_Uso" TargetColumn="Param_6" DataType="StringFixedLength" Length="10" />
+                                <Parameter SourceColumn="VC_ATV_DescUso" TargetColumn="Param_7" DataType="StringFixedLength" Length="50" />
+                                <Parameter SourceColumn="VC_ATV_Modelo" TargetColumn="Param_8" DataType="StringFixedLength" Length="50" />
+                            </Parameters>
+                            <DirectInput>UPDATE LK_Activo
+SET VC_ATV_DescModelo  = ?,
+VC_ATV_Fabricante  = ?,
+VC_ATV_DescFabricante  = ?,
+VC_ATV_IngresoAFlota  = ?,
+VC_ATV_NumeroSerie  = ?,
+VC_ATV_DescIngresoAFlota  = ?,
+VC_ATV_Uso  = ?,
+VC_ATV_descUso  = ?,
+VC_ATV_Modelo  = ?,
+VC_ATV_Descripcion1  = ?,
+VC_ATV_Descripcion2  = ?,
+VC_ATV_Descripcion3  = ?,
+FC_ATV_FechaAdquisicion = ?,
+FC_ATV_FechaRetiro = ?,
+VC_ATV_EstadoEquipo  = ?,
+VC_ATV_DescEstadoEquipo  = ?,
+VC_ATV_TipoEquipo  = ?,
+VC_ATV_DescTipoEquipo  = ?,
+VC_ATV_DescLargaActivosFijos  = ?,
+CH_CHECKSUM = ?,
+Fecha_Ultima_Modificacion = ?
+WHERE 
+CD_ID_ORIGEN = ?</DirectInput>
+                        </OleDbCommand>
+                        <RowCount Name="vRowsInserted" VariableName="User.vRowsInserted">
+                            <InputPath OutputPathName="Lookup existe?.NoMatch" />
+                        </RowCount>
+                        <OleDbDestination Name="Insert LK_Activo" ConnectionName="ImportedProjectConnection1" UseFastLoadIfAvailable="false">
+                            <Columns>
+                                <Column SourceColumn="VC_ATV_DescUso" TargetColumn="VC_ATV_descUso" />
+                                <Column SourceColumn="VC_ATV_descEstadoEquipo" TargetColumn="VC_ATV_DescEstadoEquipo" />
+                                <Column SourceColumn="id_interno" TargetColumn="CD_ID_Origen" />
+                                <Column SourceColumn="CHK_ORIGEN" TargetColumn="CH_CHECKSUM" />
+                                <Column SourceColumn="FechaCreacion" TargetColumn="Fecha_Creacion" />
+                                <Column SourceColumn="FechaModificacion" TargetColumn="Fecha_Ultima_Modificacion" />
+                            </Columns>
+                            <ExternalTableOutput Table="[dbo].[LK_Activo]" />
+                        </OleDbDestination>
+                        <DerivedColumns Name="Descripcion Rechazos">
+                            <InputPath OutputPathName="Multicast.Multicast Output 2" />
+                            <Columns>
+                                <Column Name="Desc_Rej_Interno" DataType="String" Length="28">rej_interno ? &quot;Valor del campo Interno Nulo&quot; : &quot;&quot;</Column>
+                                <Column Name="Desc_Rej_Numero_Serie" DataType="String" Length="36">rej_numeroSerie ? &quot;Valor del campo Numero de Serie nulo&quot; : &quot;&quot;</Column>
+                                <Column Name="Desc_Rej_Modelo" DataType="String" Length="27">rej_modelo ? &quot;Valor del campo Modelo nulo&quot; : &quot;&quot;</Column>
+                            </Columns>
+                        </DerivedColumns>
+                        <FlatFileDestination Name="Flat File Destination" LocaleId="None" ConnectionName="D:\REJ\Rej_LK_Activo.csv">
+                            <Header></Header>
+                        </FlatFileDestination>
+                    </Transformations>
+                </Dataflow>
+            </Tasks>
+            <Connections>
+                <Connection ConnectionName="D:\REJ\Rej_LK_Activo.csv">
+                    <Expressions>
+                        <Expression ExternalProperty="Name">@[User::vRejFile]</Expression>
+                    </Expressions>
+                </Connection>
+            </Connections>
+        </Package>
+    </Packages>
+    <FileFormats>
+        <FlatFileFormat Name="D:\REJ\Rej_LK_Activo.csv" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="interno" Length="50" DataType="String" Delimiter="VerticalBar" MaximumWidth="50" />
+                <Column Name="numeroSerie" Length="50" DataType="String" Delimiter="VerticalBar" MaximumWidth="50" />
+                <Column Name="modelo" Length="50" DataType="String" Delimiter="VerticalBar" MaximumWidth="50" />
+                <Column Name="rej_interno" DataType="Boolean" Delimiter="VerticalBar" />
+                <Column Name="rej_numeroSerie" DataType="Boolean" Delimiter="VerticalBar" />
+                <Column Name="rej_modelo" DataType="Boolean" Delimiter="VerticalBar" />
+                <Column Name="Desc_Rej_Interno" Length="28" DataType="String" Delimiter="VerticalBar" MaximumWidth="28" />
+                <Column Name="Desc_Rej_Numero_Serie" Length="36" DataType="String" Delimiter="VerticalBar" MaximumWidth="36" />
+                <Column Name="Desc_Rej_Modelo" Length="27" DataType="String" Delimiter="CRLF" MaximumWidth="27" />
+            </Columns>
+        </FlatFileFormat>
+    </FileFormats>
+</Biml>

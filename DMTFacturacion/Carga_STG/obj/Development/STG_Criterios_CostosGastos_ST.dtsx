@@ -1,0 +1,938 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/24/2021 2:39:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{DEB6DF16-EA2B-4355-B4A5-0AA4C76C3D41}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Criterios_CostosGastos_ST"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{0DEE7EB3-E853-4ED7-8005-4D3F19997450}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{26D17FE0-6958-4A4B-A2E0-451BC2949833}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Sullair\DWH\DataMart Facturacion\Desarrollo\Input\ServicioTecnico\TablaCriteriosST.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager 1]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{05D33E3C-CA6F-45BA-B951-37CF9693BD10}"
+      DTS:ObjectName="Excel Connection Manager 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Sullair\DWH\DataMart Facturacion\Desarrollo\Input\ServicioTecnico\TablaCCSucursal.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Criterios_CostosGastos_ST"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C2917004-05EE-46CA-86B3-E63C8551133F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Criterios_CostosGastos_ST"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Input TablaCriteriosST"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Hoja1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Cuenta]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Cuenta]"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Cuenta]"
+                      name="Cuenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Clasificacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Clasificacion]"
+                      length="255"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Clasificacion]"
+                      name="Clasificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Division]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Division]"
+                      length="255"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Division]"
+                      name="Division"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Cuenta]"
+                      dataType="r8"
+                      name="Cuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Clasificacion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Clasificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].ExternalColumns[Division]"
+                      dataType="wstr"
+                      length="255"
+                      name="Division" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Cuenta]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Cuenta]"
+                      name="Cuenta" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Clasificacion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Clasificacion]"
+                      name="Clasificacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Division]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[Division]"
+                      name="Division" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_Criterios_CostosGastos_ST"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Criterios_CostosGastos_ST]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].Columns[Cuenta]"
+                      cachedDataType="r8"
+                      cachedName="Cuenta"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Cuenta]"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Cuenta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].Columns[Clasificacion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Clasificacion"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Clasificacion]"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Clasificacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].Columns[Division]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Division"
+                      externalMetadataColumnId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Division]"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output].Columns[Division]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Cuenta]"
+                      dataType="i4"
+                      name="Cuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Clasificacion]"
+                      dataType="wstr"
+                      length="50"
+                      name="Clasificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input].ExternalColumns[Division]"
+                      dataType="wstr"
+                      length="25"
+                      name="Division" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Criterios_CostosGastos_ST.Paths[Excel Source Output]"
+              endId="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST.Inputs[OLE DB Destination Input]"
+              name="Excel Source Output"
+              startId="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Sucursal_CostoGastosST"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{68D28552-0C5B-4C16-8EF4-672FAC644C13}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Sucursal_CostoGastosST"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Input TablaCCSucursal"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Hoja1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 1]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 1]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[CentroCostos]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[CentroCostos]"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[CentroCostos]"
+                      name="CentroCostos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[Sucursal]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[Sucursal]"
+                      length="255"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[Sucursal]"
+                      name="Sucursal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[ZonaServicio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[ZonaServicio]"
+                      length="255"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[ZonaServicio]"
+                      name="ZonaServicio"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[CentroCostos]"
+                      dataType="r8"
+                      name="CentroCostos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[Sucursal]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].ExternalColumns[ZonaServicio]"
+                      dataType="wstr"
+                      length="255"
+                      name="ZonaServicio" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[CentroCostos]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[CentroCostos]"
+                      name="CentroCostos" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[Sucursal]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[Sucursal]"
+                      name="Sucursal" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ZonaServicio]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ZonaServicio]"
+                      name="ZonaServicio" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Sucursal_CostoGastosST]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CentroCostos]"
+                      cachedDataType="r8"
+                      cachedName="CentroCostos"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CentroCostos]"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[CentroCostos]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Sucursal]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sucursal"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Sucursal]"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[Sucursal]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ZonaServicio]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ZonaServicio"
+                      externalMetadataColumnId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ZonaServicio]"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output].Columns[ZonaServicio]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CentroCostos]"
+                      dataType="wstr"
+                      length="10"
+                      name="CentroCostos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Sucursal]"
+                      dataType="wstr"
+                      length="50"
+                      name="Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ZonaServicio]"
+                      dataType="wstr"
+                      length="255"
+                      name="ZonaServicio" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Sucursal_CostoGastosST.Paths[Excel Source Output]"
+              endId="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Excel Source Output"
+              startId="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE Criterios"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BDC37030-47A7-48A4-AD9F-28341196545C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE Criterios"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_Criterios_CostosGastos_ST" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE Sucursal"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{4043e7bc-930f-4837-98e3-7f8e79a43eac}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE Sucursal"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_Sucursal_CostoGastosST" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F06AAD2E-D4A3-4C98-AF5E-6A433362EAF2}"
+      DTS:From="Package\TRUNCATE TABLE Criterios"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_Criterios_CostosGastos_ST" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{6D4707E5-E5CE-42DB-9E9C-6F0D9EB63E66}"
+      DTS:From="Package\Carga STG_Criterios_CostosGastos_ST"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\TRUNCATE TABLE Sucursal" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{07E33A9D-4607-4835-B7CD-309C1B70B888}"
+      DTS:From="Package\TRUNCATE TABLE Sucursal"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Carga STG_Sucursal_CostoGastosST" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="259.333333333334,42"
+          Id="Package\Carga STG_Criterios_CostosGastos_ST"
+          TopLeft="97.9166652075947,134.333330931266" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Carga STG_Sucursal_CostoGastosST"
+          TopLeft="106.249998416752,292.133328777154" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\TRUNCATE TABLE Criterios"
+          TopLeft="132.499998025596,37.6999993258715" />
+        <NodeLayout
+          Size="207.333333333334,42"
+          Id="Package\TRUNCATE TABLE Sucursal"
+          TopLeft="126.666664779186,212.933331349691" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="231.541664949929,79.6999993258715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.6333316053945"
+              Start="0,0"
+              End="0,47.1333316053945">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.1333316053945" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="228.958331660057,176.333330931266">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.6000004184246"
+              Start="0,0"
+              End="0,29.1000004184246">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.1000004184246" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="230.791664931302,254.933331349691">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.1999974274637"
+              Start="0,0"
+              End="0,29.6999974274637">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.6999974274637" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_Criterios_CostosGastos_ST">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="184.666666666667,42"
+          Id="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST"
+          TopLeft="159.999997615814,47.2333324887355" />
+        <NodeLayout
+          Size="264.666666666667,42"
+          Id="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST"
+          TopLeft="121.583331750085,152.533330605825" />
+        <EdgeLayout
+          Id="Package\Carga STG_Criterios_CostosGastos_ST.Paths[Excel Source Output]"
+          TopLeft="253.124998016283,89.2333324887355">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.2999981170894"
+              Start="0,0"
+              End="0,55.7999981170894">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.7999981170894" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Criterios_CostosGastos_ST\Input TablaCriteriosST">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Criterios_CostosGastos_ST\Output STG_Criterios_CostosGastos_ST">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga STG_Sucursal_CostoGastosST">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal"
+          TopLeft="157.499997653067,42.8999992328882" />
+        <NodeLayout
+          Size="171.333333333334,42"
+          Id="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination"
+          TopLeft="159.166664294899,136.49999755919" />
+        <EdgeLayout
+          Id="Package\Carga STG_Sucursal_CostoGastosST.Paths[Excel Source Output]"
+          TopLeft="247.666664307316,84.8999992328882">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.5999983263018"
+              Start="0,0"
+              End="0,44.0999983263018">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.0999983263018" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Sucursal_CostoGastosST\Input TablaCCSucursal">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Sucursal_CostoGastosST\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

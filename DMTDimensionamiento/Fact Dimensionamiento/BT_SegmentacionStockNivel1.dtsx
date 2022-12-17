@@ -1,0 +1,2111 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/24/2019 10:39:41 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PCSBAS1348"
+  DTS:CreatorName="SULLAIR\rnaspleda"
+  DTS:DTSID="{B886C50F-33BA-4A6D-9287-AAA836C6E691}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="BT_SegmentacionStockNivel1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="70"
+  DTS:VersionGUID="{6C8D5C3F-F8FB-40BA-9913-F729A4A08EC9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{52E86CDA-E7CF-49BE-9659-73C082D178E7}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="AñosAlquileres">
+      <DTS:VariableValue
+        DTS:DataType="3">1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{25F6823A-1D90-452C-B28D-648C44D5F421}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="AñosVentas">
+      <DTS:VariableValue
+        DTS:DataType="3">5</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A09DA02C-1118-45EF-A454-F86DC0BEE664}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_WSTR, 8) ( @[User::MesCorrida] *100 + 1)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaTopeAnalisis">
+      <DTS:VariableValue
+        DTS:DataType="8">20191201</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E0EAE229-EE25-40F9-98BE-AD6FF4732101}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="MesCorrida">
+      <DTS:VariableValue
+        DTS:DataType="3">201912</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B463D5E9-1C34-423C-BED9-0D4EE7A4D5B1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT &#xA;&#x9;cast(1 as smallint) as SK_NIV_NivelAnalisis,&#xA;&#x9;SK_CLI_Cliente,&#xA;&#x9;IIF(DATEDIFF(MM,FP_FACT_Venta,'&quot; + @[User::FechaTopeAnalisis]  + &quot;') &lt;= 12*&quot; + (DT_WSTR,1)@[User::AñosVentas] + &quot; OR DATEDIFF(MM,FP_FACT_Alquiler,'&quot; + @[User::FechaTopeAnalisis]  + &quot;') &lt;= 12*&quot; + (DT_WSTR,1)@[User::AñosAlquileres] + &quot; , (SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CL'), (SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PA')) as SK_SCL_Segmentacion,&#xA;&#x9;CAST(-1 AS bigint) AS SK_OFC_Codigo,&#xA;&#x9;CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,&#xA;&#x9;CAST(-1 AS bigint) AS SK_SUC_Sucursal,&#xA;&#x9;CAST(1 as bigint) as NU_Cantidad&#xA;&#xA;FROM BT_Clientes C&#xA;WHERE&#xA;&#x9;EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2))&#xA;&#x9;AND SK_Mes =  &quot; + (DT_WSTR,6) @[User::MesCorrida] + &quot;&#xA;UNION&#xA;SELECT &#xA;&#x9;cast(1 as smallint) as SK_NIV_NivelAnalisis,&#xA;&#x9;-1 AS SK_CLI_Cliente,&#xA;&#x9;(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PR') as SK_SCL_Segmentacion,&#xA;&#x9;CAST(-1 AS bigint) AS SK_OFC_Codigo,&#xA;&#x9;CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,&#xA;&#x9;CAST(-1 AS bigint) AS SK_SUC_Sucursal,&#xA;&#x9;SUM(NU_CantidadPotenciales) as NU_Cantidad&#xA;&#xA;FROM BT_DIMENSIONAMIENTO D&#xA;WHERE&#xA;&#x9;EXISTS(SELECT SK_ACE_CODIGO FROM LK_Cliente C WHERE EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2)) AND D.SK_ACE_Codigo = C.SK_ACE_Codigo)&#xA;&#x9;AND SK_Mes =  &quot; + (DT_WSTR,6) @[User::MesCorrida]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryExtractNivel1">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 
+	cast(1 as smallint) as SK_NIV_NivelAnalisis,
+	SK_CLI_Cliente,
+	IIF(DATEDIFF(MM,FP_FACT_Venta,'20191201') &lt;= 12*5 OR DATEDIFF(MM,FP_FACT_Alquiler,'20191201') &lt;= 12*1 , (SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CL'), (SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PA')) as SK_SCL_Segmentacion,
+	CAST(-1 AS bigint) AS SK_OFC_Codigo,
+	CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+	CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+	CAST(1 as bigint) as NU_Cantidad
+
+FROM BT_Clientes C
+WHERE
+	EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2))
+	AND SK_Mes =  201912
+UNION
+SELECT 
+	cast(1 as smallint) as SK_NIV_NivelAnalisis,
+	-1 AS SK_CLI_Cliente,
+	(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PR') as SK_SCL_Segmentacion,
+	CAST(-1 AS bigint) AS SK_OFC_Codigo,
+	CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+	CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+	SUM(NU_CantidadPotenciales) as NU_Cantidad
+
+FROM BT_DIMENSIONAMIENTO D
+WHERE
+	EXISTS(SELECT SK_ACE_CODIGO FROM LK_Cliente C WHERE EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2)) AND D.SK_ACE_Codigo = C.SK_ACE_Codigo)
+	AND SK_Mes =  201912</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F581B1BA-78CF-4FF9-863F-1995697DBC16}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT &#xA;&#x9;cast(2 as smallint) as SK_NIV_NivelAnalisis,&#xA;&#x9;SK_CLI_Cliente,&#xA;&#x9;IIF((DATEDIFF(MM,iif(sk_ofc_codigo = 1,FP_FACT_Alquiler,FP_FACT_Venta), '&quot; + @[User::FechaTopeAnalisis]  + &quot;') &lt;= 12*iif(sk_ofc_codigo = 1, &quot; + (DT_WSTR,1)@[User::AñosAlquileres] + &quot;,&quot; +(DT_WSTR,1) @[User::AñosVentas] + &quot;)),(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CL') , iif(iif(sk_ofc_codigo = 1,FP_FACT_Alquiler,FP_FACT_Venta) &gt; '1970-01-01',(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PA') ,iif(iif(sk_ofc_codigo = 1,FP_FACT_Venta,FP_FACT_Alquiler) &gt; '1970-01-01',(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CN'),(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PR')))) as SK_SCL_Segmentacion,&#xA;&#x9;SK_OFC_Codigo,&#xA;&#x9;CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,&#xA;&#x9;CAST(-1 AS bigint) AS SK_SUC_Sucursal,&#xA;&#x9;CAST(1 as bigint) as NU_Cantidad&#xA;FROM BT_Clientes C&#xA;&#x9;cross join (select sk_ofc_codigo from LK_OrigenFacturacion where sk_ofc_codigo in (1,2)) o&#xA;WHERE&#xA;&#x9;EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2) AND FC_Factura &lt;= '&quot; + @[User::FechaTopeAnalisis] + &quot;')&#xA;&#x9;AND SK_Mes = &quot; + (DT_WSTR,6) @[User::MesCorrida]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryExtractNivel2New">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 
+	cast(2 as smallint) as SK_NIV_NivelAnalisis,
+	SK_CLI_Cliente,
+	IIF((DATEDIFF(MM,iif(sk_ofc_codigo = 1,FP_FACT_Alquiler,FP_FACT_Venta), '20191201') &lt;= 12*iif(sk_ofc_codigo = 1, 1,5)),(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CL') , iif(iif(sk_ofc_codigo = 1,FP_FACT_Alquiler,FP_FACT_Venta) &gt; '1970-01-01',(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PA') ,iif(iif(sk_ofc_codigo = 1,FP_FACT_Venta,FP_FACT_Alquiler) &gt; '1970-01-01',(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'CN'),(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PR')))) as SK_SCL_Segmentacion,
+	SK_OFC_Codigo,
+	CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+	CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+	CAST(1 as bigint) as NU_Cantidad
+FROM BT_Clientes C
+	cross join (select sk_ofc_codigo from LK_OrigenFacturacion where sk_ofc_codigo in (1,2)) o
+WHERE
+	EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2) AND FC_Factura &lt;= '20191201')
+	AND SK_Mes = 201912</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga nivel 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4F52B28D-BAE7-44C2-9C32-6C0CF2457994}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga nivel 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="BTs Clientes y Dimensionamiento"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Segmentacion]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+	cast(1 as smallint) as SK_NIV_NivelAnalisis,
+	SK_CLI_Cliente,
+	--FP_FACT_Total,
+	IIF(DATEDIFF(MM,FP_FACT_Total,GETDATE()) &lt;= 12*?, 0, 1) as SK_SCL_Segmentacion,
+	CAST(-1 AS bigint) AS SK_OFC_Codigo,
+	CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+	CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+	CAST(1 as bigint) as NU_Cantidad
+
+FROM BT_Clientes_Set_1 C
+WHERE
+	EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2))
+	AND SK_Mes = ?
+UNION
+SELECT 
+	cast(1 as smallint) as SK_NIV_NivelAnalisis,
+	-1 AS SK_CLI_Cliente,
+	2 as SK_SCL_Segmentacion,
+	CAST(-1 AS bigint) AS SK_OFC_Codigo,
+	CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+	CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+	SUM(NU_CantidadMercado) as NU_Cantidad
+
+FROM BT_DIMENSIONAMIENTO D
+WHERE
+	EXISTS(SELECT SK_ACE_CODIGO FROM LK_Cliente C WHERE EXISTS(SELECT 1 FROM BT_Facturacion F WHERE F.SK_CLI_Cliente = C.SK_CLI_Cliente AND SK_OFC_Codigo IN (1,2)) AND D.SK_ACE_Codigo = C.SK_ACE_Codigo)
+	AND SK_Mes = ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::QryExtractNivel1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{25F6823A-1D90-452C-B28D-648C44D5F421};"Parameter1:Input",{E0EAE229-EE25-40F9-98BE-AD6FF4732101};"Parameter2:Input",{E0EAE229-EE25-40F9-98BE-AD6FF4732101};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Connections[OleDbConnection]"
+                  connectionManagerID="{95195AA0-9BE1-4925-8DF1-4480A123C026}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_Codigo]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]"
+                      name="SK_OFC_Codigo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      name="SK_NIV_NivelAnalisis" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      name="SK_SCL_Segmentacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_Codigo]"
+                      dataType="i8"
+                      name="SK_OFC_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      name="SK_SUC_Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      dataType="i8"
+                      name="NU_Cantidad" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_OFC_Codigo]"
+                      dataType="i8"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_OFC_Codigo]"
+                      name="SK_OFC_Codigo" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga nivel 1\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_SegmentacionStock]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga nivel 1\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{95195AA0-9BE1-4925-8DF1-4480A123C026}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_NIV_NivelAnalisis]"
+                      cachedDataType="i2"
+                      cachedName="SK_NIV_NivelAnalisis"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_SCL_Segmentacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_SCL_Segmentacion"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_SCL_Segmentacion]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_OFC_Codigo]"
+                      cachedDataType="i8"
+                      cachedName="SK_OFC_Codigo"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_FAM_FamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_FamiliaHistorico"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_SUC_Sucursal]"
+                      cachedDataType="i8"
+                      cachedName="SK_SUC_Sucursal"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NU_Cantidad]"
+                      cachedDataType="i8"
+                      cachedName="NU_Cantidad"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Cantidad]"
+                      lineageId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]" />
+                    <inputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      name="SK_NIV_NivelAnalisis" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_SCL_Segmentacion]"
+                      dataType="i8"
+                      name="SK_SCL_Segmentacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                      dataType="i8"
+                      name="SK_OFC_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      name="SK_SUC_Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_Cantidad]"
+                      dataType="i8"
+                      name="NU_Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga nivel 1\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga nivel 1\SK_Mes"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="SK_Mes"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga nivel 1\SK_Mes.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga nivel 1\SK_Mes.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]"
+                      name="SK_Mes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::MesCorrida]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::MesCorrida]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga nivel 1\SK_Mes.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga nivel 1.Paths[Derived Column Output]"
+              endId="Package\Carga nivel 1\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga nivel 1\SK_Mes.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga nivel 1.Paths[OLE DB Source Output]"
+              endId="Package\Carga nivel 1\SK_Mes.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga nivel 1\BTs Clientes y Dimensionamiento.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga Nivel 2"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E41637D3-F591-4174-A585-A7820E931E1B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Nivel 2"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Nivel 2\BT Segmentacion STOCK"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="BT Segmentacion STOCK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_SegmentacionStock]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Connections[OleDbConnection]"
+                  connectionManagerID="{95195AA0-9BE1-4925-8DF1-4480A123C026}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_NIV_NivelAnalisis]"
+                      cachedDataType="i2"
+                      cachedName="SK_NIV_NivelAnalisis"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_NIV_NivelAnalisis]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_CLI_Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_SCL_Segmentacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_SCL_Segmentacion"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_SCL_Segmentacion]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SCL_Segmentacion]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_OFC_Codigo]"
+                      cachedDataType="i4"
+                      cachedName="SK_OFC_Codigo"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_OFC_Codigo]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_FAM_FamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_FamiliaHistorico"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_FAM_FamiliaHistorico]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_SUC_Sucursal]"
+                      cachedDataType="i8"
+                      cachedName="SK_SUC_Sucursal"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SUC_Sucursal]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[NU_Cantidad]"
+                      cachedDataType="i8"
+                      cachedName="NU_Cantidad"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[NU_Cantidad]"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[NU_Cantidad]" />
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      name="SK_NIV_NivelAnalisis" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_SCL_Segmentacion]"
+                      dataType="i8"
+                      name="SK_SCL_Segmentacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_OFC_Codigo]"
+                      dataType="i8"
+                      name="SK_OFC_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      name="SK_SUC_Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[NU_Cantidad]"
+                      dataType="i8"
+                      name="NU_Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\BT Segmentacion STOCK.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\BT Segmentacion STOCK.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\BT Segmentacion STOCK.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Nivel 2\CLIENTES - BT Clientes"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="CLIENTES - BT Clientes"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::QryExtractNivel2New</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Connections[OleDbConnection]"
+                  connectionManagerID="{95195AA0-9BE1-4925-8DF1-4480A123C026}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_Codigo]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]"
+                      name="SK_OFC_Codigo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      name="SK_NIV_NivelAnalisis" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      name="SK_SCL_Segmentacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_Codigo]"
+                      dataType="i4"
+                      name="SK_OFC_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      name="SK_SUC_Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      dataType="i8"
+                      name="NU_Cantidad" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_OFC_Codigo]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_OFC_Codigo]"
+                      name="SK_OFC_Codigo" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="PROSPECTOS - BT Dimensionamiento"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DI.SK_NIV_NivelAnalisis, SK_CLI_Cliente, SK_SCL_Segmentacion, O.SK_OFC_CODIGO, SK_FAM_FamiliaHistorico, SK_SUC_Sucursal, NU_Cantidad
+FROM 
+		(SELECT 
+			cast(2 as smallint) as SK_NIV_NivelAnalisis,
+			-1 AS SK_CLI_Cliente,
+			(SELECT SK_SCL_SEGMENTACION FROM LK_SegmentacionClientes WHERE VC_SCL_CODIGO = 'PR') as SK_SCL_Segmentacion,
+			CAST(-1 AS bigint) AS SK_FAM_FamiliaHistorico,
+			CAST(-1 AS bigint) AS SK_SUC_Sucursal,
+			SUM(NU_CantidadMercado) as NU_Cantidad
+		
+		FROM BT_DIMENSIONAMIENTO D
+		WHERE
+			EXISTS(SELECT SK_ACE_CODIGO 
+					FROM LK_Cliente C 
+					WHERE 
+						EXISTS(SELECT 1 
+						 	   FROM BT_Facturacion F 
+						 	   WHERE 
+									F.SK_CLI_Cliente = C.SK_CLI_Cliente 
+						 	   		AND SK_OFC_Codigo IN (1,2)
+								) 
+						AND D.SK_ACE_Codigo = C.SK_ACE_Codigo)
+			AND SK_Mes = ?
+		) DI 
+	CROSS JOIN (select sk_ofc_codigo 
+				from LK_OrigenFacturacion 
+				where sk_ofc_codigo in (1,2)) o</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{E0EAE229-EE25-40F9-98BE-AD6FF4732101};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Connections[OleDbConnection]"
+                  connectionManagerID="{95195AA0-9BE1-4925-8DF1-4480A123C026}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_CODIGO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_CODIGO]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_CODIGO]"
+                      name="SK_OFC_CODIGO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      name="SK_NIV_NivelAnalisis" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_CLI_Cliente]"
+                      dataType="i4"
+                      name="SK_CLI_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      name="SK_SCL_Segmentacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_OFC_CODIGO]"
+                      dataType="i4"
+                      name="SK_OFC_CODIGO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      name="SK_SUC_Sucursal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].ExternalColumns[NU_Cantidad]"
+                      dataType="i8"
+                      name="NU_Cantidad" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_OFC_CODIGO]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_OFC_CODIGO]"
+                      name="SK_OFC_CODIGO" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[NU_Cantidad]"
+                      name="NU_Cantidad" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Nivel 2\SK_Mes"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="SK_Mes"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga Nivel 2\SK_Mes.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga Nivel 2\SK_Mes.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Output].Columns[SK_Mes]"
+                      name="SK_Mes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::MesCorrida]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::MesCorrida]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga Nivel 2\SK_Mes.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Nivel 2\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_NIV_NivelAnalisis]"
+                      cachedDataType="i2"
+                      cachedName="SK_NIV_NivelAnalisis"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_NIV_NivelAnalisis]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_CLI_Cliente]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_SCL_Segmentacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_SCL_Segmentacion"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SCL_Segmentacion]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_OFC_Codigo]"
+                      cachedDataType="i4"
+                      cachedName="SK_OFC_Codigo"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_OFC_Codigo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_OFC_Codigo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_FAM_FamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_FamiliaHistorico"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_FAM_FamiliaHistorico]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[SK_SUC_Sucursal]"
+                      cachedDataType="i8"
+                      cachedName="SK_SUC_Sucursal"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SUC_Sucursal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1].Columns[NU_Cantidad]"
+                      cachedDataType="i8"
+                      cachedName="NU_Cantidad"
+                      lineageId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output].Columns[NU_Cantidad]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[NU_Cantidad]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_NIV_NivelAnalisis]"
+                      cachedDataType="i2"
+                      cachedName="SK_NIV_NivelAnalisis"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_NIV_NivelAnalisis]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_NIV_NivelAnalisis]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_SCL_Segmentacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_SCL_Segmentacion"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SCL_Segmentacion]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SCL_Segmentacion]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_FAM_FamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_FAM_FamiliaHistorico"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_FAM_FamiliaHistorico]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_FAM_FamiliaHistorico]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_SUC_Sucursal]"
+                      cachedDataType="i8"
+                      cachedName="SK_SUC_Sucursal"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_SUC_Sucursal]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SUC_Sucursal]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[NU_Cantidad]"
+                      cachedDataType="i8"
+                      cachedName="NU_Cantidad"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[NU_Cantidad]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[NU_Cantidad]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_CLI_Cliente]"
+                      cachedDataType="i8"
+                      cachedName="SK_CLI_Cliente"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_CLI_Cliente]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_CLI_Cliente]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2].Columns[SK_OFC_CODIGO]"
+                      cachedDataType="i4"
+                      cachedName="SK_OFC_CODIGO"
+                      lineageId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output].Columns[SK_OFC_CODIGO]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_OFC_Codigo]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_NIV_NivelAnalisis]"
+                      dataType="i2"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_NIV_NivelAnalisis]"
+                      name="SK_NIV_NivelAnalisis" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_CLI_Cliente]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_CLI_Cliente]"
+                      name="SK_CLI_Cliente" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SCL_Segmentacion]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SCL_Segmentacion]"
+                      name="SK_SCL_Segmentacion" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_OFC_Codigo]"
+                      dataType="i4"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_OFC_Codigo]"
+                      name="SK_OFC_Codigo" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_FAM_FamiliaHistorico]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_FAM_FamiliaHistorico]"
+                      name="SK_FAM_FamiliaHistorico" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SUC_Sucursal]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[SK_SUC_Sucursal]"
+                      name="SK_SUC_Sucursal" />
+                    <outputColumn
+                      refId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[NU_Cantidad]"
+                      dataType="i8"
+                      lineageId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1].Columns[NU_Cantidad]"
+                      name="NU_Cantidad" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Nivel 2.Paths[Derived Column Output]"
+              endId="Package\Carga Nivel 2\BT Segmentacion STOCK.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga Nivel 2\SK_Mes.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga Nivel 2.Paths[OLE DB Source Output]"
+              endId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Carga Nivel 2\CLIENTES - BT Clientes.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga Nivel 2.Paths[OLE DB Source Output1]"
+              endId="Package\Carga Nivel 2\Union All.Inputs[Union All Input 2]"
+              name="OLE DB Source Output"
+              startId="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga Nivel 2.Paths[Union All Output 1]"
+              endId="Package\Carga Nivel 2\SK_Mes.Inputs[Derived Column Input]"
+              name="Union All Output 1"
+              startId="Package\Carga Nivel 2\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FechaCorrida"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{60749F90-1D82-400D-82BF-8BEEA3C4FF7F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FechaCorrida"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{95195AA0-9BE1-4925-8DF1-4480A123C026}"
+          SQLTask:SqlStatementSource="select cast(year(FC_Desde) as nvarchar(4)) + right('00' + cast(month(FC_Desde) as nvarchar(2)),2) as FC_Desde from DW_AUD_Fecha_Proceso WHERE idModulo = 2"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="FC_Desde"
+            SQLTask:DtsVariableName="User::MesCorrida" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{A0E9F02C-E3B7-4B7F-9067-4EF52FD0DE03}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{95195AA0-9BE1-4925-8DF1-4480A123C026}"
+          SQLTask:SqlStatementSource="truncate table bt_segmentacionStock" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{5446FA8C-6673-43C0-B0A1-EDA0E3A9F215}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga nivel 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A319F1A8-B988-4A35-A500-7AA5205155E9}"
+      DTS:From="Package\Carga nivel 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Carga Nivel 2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{07A950BA-45D4-46CD-9C46-7D9AA7587880}"
+      DTS:From="Package\FechaCorrida"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Carga nivel 1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Carga nivel 1"
+          TopLeft="423,126" />
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Carga Nivel 2"
+          TopLeft="420,224" />
+        <NodeLayout
+          Size="140,42"
+          Id="Package\FechaCorrida"
+          TopLeft="317,39" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\TRUNCATE"
+          TopLeft="511,39" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="576.5,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-60.8333333333334,45"
+              Start="0,0"
+              End="-60.8333333333334,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.6970546984572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.6970546984572"
+                    Point2="0,26.6970546984572"
+                    Point3="-4,26.6970546984572" />
+                  <mssgle:LineSegment
+                    End="-56.8333333333334,26.6970546984572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-56.8333333333334,26.6970546984572"
+                    Point2="-60.8333333333334,26.6970546984572"
+                    Point3="-60.8333333333334,30.6970546984572" />
+                  <mssgle:LineSegment
+                    End="-60.8333333333334,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="492.25,168">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="387,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="84.3333333333333,45"
+              Start="0,0"
+              End="84.3333333333333,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.6970546984572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.6970546984572"
+                    Point2="0,26.6970546984572"
+                    Point3="4,26.6970546984572" />
+                  <mssgle:LineSegment
+                    End="80.3333333333333,26.6970546984572" />
+                  <mssgle:CubicBezierSegment
+                    Point1="80.3333333333333,26.6970546984572"
+                    Point2="84.3333333333333,26.6970546984572"
+                    Point3="84.3333333333333,30.6970546984572" />
+                  <mssgle:LineSegment
+                    End="84.3333333333333,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga nivel 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Carga nivel 1\OLE DB Destination"
+          TopLeft="370,245" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Carga nivel 1\BTs Clientes y Dimensionamiento"
+          TopLeft="337,37" />
+        <NodeLayout
+          Size="116,42"
+          Id="Package\Carga nivel 1\SK_Mes"
+          TopLeft="395,140" />
+        <EdgeLayout
+          Id="Package\Carga nivel 1.Paths[OLE DB Source Output]"
+          TopLeft="453.75,79">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga nivel 1.Paths[Derived Column Output]"
+          TopLeft="454.25,182">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63"
+              Start="0,0"
+              End="0,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga nivel 1\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga nivel 1\BTs Clientes y Dimensionamiento">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga Nivel 2">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="121,42"
+          Id="Package\Carga Nivel 2\Union All"
+          TopLeft="321,169" />
+        <NodeLayout
+          Size="116,42"
+          Id="Package\Carga Nivel 2\SK_Mes"
+          TopLeft="320,263" />
+        <NodeLayout
+          Size="273,42"
+          Id="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento"
+          TopLeft="397,50" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Carga Nivel 2\BT Segmentacion STOCK"
+          TopLeft="280,355" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Carga Nivel 2\CLIENTES - BT Clientes"
+          TopLeft="146.5,48.5" />
+        <EdgeLayout
+          Id="Package\Carga Nivel 2.Paths[Union All Output 1]"
+          TopLeft="379.75,211">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Nivel 2.Paths[OLE DB Source Output1]"
+          TopLeft="533.5,92">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-133.166666666667,77"
+              Start="0,0"
+              End="-133.166666666667,69.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5970636215334" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,41.5970636215334"
+                    Point2="0,45.5970636215334"
+                    Point3="-4,45.5970636215334" />
+                  <mssgle:LineSegment
+                    End="-129.166666666667,45.5970636215334" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-129.166666666667,45.5970636215334"
+                    Point2="-133.166666666667,45.5970636215334"
+                    Point3="-133.166666666667,49.5970636215334" />
+                  <mssgle:LineSegment
+                    End="-133.166666666667,69.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Nivel 2.Paths[OLE DB Source Output]"
+          TopLeft="246,90.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="116.666666666667,78.5"
+              Start="0,0"
+              End="116.666666666667,71">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.4853181076672" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,42.4853181076672"
+                    Point2="0,46.4853181076672"
+                    Point3="4,46.4853181076672" />
+                  <mssgle:LineSegment
+                    End="112.666666666667,46.4853181076672" />
+                  <mssgle:CubicBezierSegment
+                    Point1="112.666666666667,46.4853181076672"
+                    Point2="116.666666666667,46.4853181076672"
+                    Point3="116.666666666667,50.4853181076672" />
+                  <mssgle:LineSegment
+                    End="116.666666666667,71" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Nivel 2.Paths[Derived Column Output]"
+          TopLeft="378.25,305">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Nivel 2\BT Segmentacion STOCK">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Nivel 2\PROSPECTOS - BT Dimensionamiento">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Nivel 2\CLIENTES - BT Clientes">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

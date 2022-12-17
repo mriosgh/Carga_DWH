@@ -1,0 +1,45 @@
+﻿<# var sourceConnection = RootNode.DbConnections["Source"]; #>
+<# var targetConnection = RootNode.DbConnections["Target"]; #>
+
+<# var importResults = sourceConnection.ImportDB(); #>
+<# var targetResults = targetConnection.ImportDB(); #>
+
+<# string[] targetResultsArray = new string[200]; #>
+<# foreach (var targetTable in targetResults.TableNodes) { #>
+<#    Console.WriteLine(targetTable);#>
+<#    targetResultsArray.Append(targetTable.Name.ToString());#>
+<# } #>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <# foreach (var table in importResults.TableNodes) { #>
+            <# if (table.ToString().Contains("STG_LK") && !(table.ToString().Contains("Candidato")) && !(table.ToString().Contains("Oportunidad")) && !(table.ToString().Contains("Rubro"))) { #>
+        <Package Name="Carga <#=table.Name#>" ConstraintMode="Linear">
+            <Tasks>
+                <ExecuteSQL Name="Truncate <#=table.Name#>" ConnectionName="Source">
+                    <VariableInput VariableName="User.truncateQry" />
+                    <Variables>
+                        <Variable Name="truncateQry" DataType="String"> TRUNCATE TABLE <#=table.Name#>
+                        </Variable>
+                        <Variable Name="Result" DataType="Object"></Variable>
+                    </Variables>
+                    <Results>
+                        <Result Name="Result" VariableName="User.Result" />
+                    </Results>
+                </ExecuteSQL>
+                <Dataflow Name="DFT_CopyData">
+                    <Transformations>
+                        <OleDbSource Name="Retrieve Rows" ConnectionName="Source">
+                            <DirectInput>SELECT * FROM dbo.<#=table.Name#></DirectInput>
+                        </OleDbSource>
+                        <OleDbDestination Name="Load Rows" ConnectionName="Target">
+                            <ExternalTableOutput Table="<#=table.Name.Replace("STG_","")#>" />
+                        </OleDbDestination>
+                    </Transformations>
+                </Dataflow>
+            </Tasks>
+        </Package>
+            <# } #>
+        <# } #>
+    </Packages>
+</Biml>

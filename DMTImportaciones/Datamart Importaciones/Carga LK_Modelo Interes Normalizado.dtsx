@@ -1,0 +1,2048 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/14/2018 4:06:16 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{665B901D-0037-4D35-8EFA-ACFD1AE9389E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga LK_Modelo Interes Normalizado"
+  DTS:PackageType="5"
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{73E7540B-C49B-47FA-AB6A-787AEE5C388A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{15985597-169A-41EF-952A-D26030451F80}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\Actualiza como interes"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Actualiza como interes"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE LK_Modelo
+SET
+ VC_MOD_SubFamilia = ? , 
+ VC_MOD_Familia = ? ,
+ SK_SFM_SubFamiliaHistorico = ? ,
+ FG_MOD_InteresSullair = 'Y' ,
+ CH_CHECKSUM = ? ,
+ FECHA_ULTIMA_MODIFICACION = ? ,
+ VC_MOD_MarcaNormalizada = ? ,
+ VC_MOD_ModeloNormalizado = ?,
+ VC_MOD_MarcaYModelo = ? ,
+ VC_MOD_MarcaYModeloNormalizados = ? 
+WHERE 
+ VC_MOD_Marca = ? AND 
+ VC_MOD_Modelo = ?
+
+</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Actualiza como interes.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_SubFamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_SubFamilia"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_Familia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Familia"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Familia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[SK_SFM_SubFamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_SFM_SubFamiliaHistorico"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[CHECKSUM]"
+                      cachedDataType="i4"
+                      cachedName="CHECKSUM"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput].Columns[CHECKSUM]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_ULTIMA_MODIFICACION"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_Mod_MarcaYModelo]"
+                      cachedDataType="wstr"
+                      cachedLength="511"
+                      cachedName="VC_Mod_MarcaYModelo"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModelo]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].Columns[VC_Mod_MarcaYModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="511"
+                      cachedName="VC_Mod_MarcaYModeloNormalizado"
+                      externalMetadataColumnId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModeloNormalizado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i8"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="i8"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="dbTimeStamp"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Actualiza como interes.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_SubFamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_SubFamilia"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_Familia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Familia"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Familia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\CHK.Inputs[ChecksumInput].Columns[FG_MOD_InteresSullair]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="FG_MOD_InteresSullair"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Data Flow Task\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput].Columns[CHECKSUM]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput].Columns[CHECKSUM]"
+                      name="CHECKSUM">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\DATES &amp; FORMAT"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DATES &amp; FORMAT"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER](#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(VC_MOD_Modelo)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER](#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(VC_MOD_Marca)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER](#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(VC_MOD_ModeloNormalizado)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER](#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(VC_MOD_MarcaNormalizada)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_CREACION]"
+                      name="FECHA_CREACION"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      name="FECHA_ULTIMA_MODIFICACION"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]"
+                      name="FG_MOD_InteresSullair"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_WSTR,1)"Y"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,1)"Y"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Modelo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Modelo]) [refTable]
+where [refTable].[VC_MOD_Modelo] = ? and [refTable].[VC_MOD_Marca] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_MOD_Modelo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Modelo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Marca" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_SubFamilia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Familia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaMKT" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FG_MOD_InteresSullair" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_CREACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ULTIMA_MODIFICACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_ModeloNormalizado" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_MarcaNormalizada" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Data Flow Task\384:invalid};#{Package\Data Flow Task\385:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Existe?.Inputs[Lookup Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_Modelo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Existe?.Inputs[Lookup Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_Marca</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Data Flow Task\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Data Flow Task\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Data Flow Task\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\LK_MODELO"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LK_MODELO"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_MODELO]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\LK_MODELO.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Modelo]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Marca]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_SubFamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_SubFamilia"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_SubFamilia]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_Familia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Familia"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Familia]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Familia]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FECHA_CREACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_CREACION"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_CREACION]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_ULTIMA_MODIFICACION"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[SK_SFM_SubFamiliaHistorico]"
+                      cachedDataType="i8"
+                      cachedName="SK_SFM_SubFamiliaHistorico"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaHistorico]"
+                      lineageId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FG_MOD_InteresSullair]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="FG_MOD_InteresSullair"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_InteresSullair]"
+                      lineageId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[CHECKSUM]"
+                      cachedDataType="i4"
+                      cachedName="CHECKSUM"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput].Columns[CHECKSUM]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[NU_MOD_PotenciaHP]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_PotenciaHP"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_PotenciaHP]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_PotenciaHP]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].Columns[NU_MOD_CaudalM3PorMin]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_CaudalM3PorMin"
+                      externalMetadataColumnId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_CaudalM3PorMin]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_MOD_Modelo]"
+                      dataType="i8"
+                      name="SK_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_SubFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_SFM_SubFamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaMKT]"
+                      dataType="i8"
+                      name="SK_SFM_SubFamiliaMKT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_InteresSullair]"
+                      dataType="wstr"
+                      length="1"
+                      name="FG_MOD_InteresSullair" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_CREACION" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ULTIMA_MODIFICACION" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      name="NU_MOD_PotenciaHP" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      name="NU_MOD_CaudalM3PorMin" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_OilFree]"
+                      dataType="wstr"
+                      length="1"
+                      name="FG_MOD_OilFree" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_fobCustom]"
+                      dataType="i4"
+                      name="NU_MOD_fobCustom" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\LK_MODELO.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\LK_SUBFAMILIA"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_SUBFAMILIA"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT * 
+FROM LK_SUBFAMILIAHISTORICO
+
+/* WHERE 
+	FL_ActualHistorico = 1*/</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT * 
+FROM LK_SUBFAMILIAHISTORICO
+
+/* WHERE 
+	FL_ActualHistorico = 1*/) [refTable]
+where [refTable].[VC_SFM_DescripcionHistorico] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SFM_DescripcionHistorico" dataType="DT_STR" length="60" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_FAM_FamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FC_VigenciaDesdeHistorico" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FC_VigenciaHastaHistorico" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FL_ActualHistorico" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output].Columns[Copy of VC_MOD_SubFamilia]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\LK_SUBFAMILIA.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input].Columns[Copy of VC_MOD_SubFamilia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of VC_MOD_SubFamilia"
+                      lineageId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output].Columns[Copy of VC_MOD_SubFamilia]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_SFM_DescripcionHistorico</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output].Columns[SK_SFM_SubFamiliaHistorico]"
+                      name="SK_SFM_SubFamiliaHistorico"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_SFM_SubFamiliaHistorico</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Marca&amp;Modelo"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Marca&amp;Modelo"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="511"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModelo]"
+                      name="VC_Mod_MarcaYModelo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]} + " " + #{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">VC_MOD_Marca + " " + VC_MOD_Modelo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModeloNormalizado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="511"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output].Columns[VC_Mod_MarcaYModeloNormalizado]"
+                      name="VC_Mod_MarcaYModeloNormalizado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]} + " " + #{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">VC_MOD_MarcaNormalizada + " " + VC_MOD_ModeloNormalizado</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Origen STG_ModelosNormalizados"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen STG_ModelosNormalizados"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_ModelosNormalizados]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Connections[OleDbConnection]"
+                  connectionManagerID="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STGConnectionDB]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Marca]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Modelo]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Familia]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_Familia]"
+                      name="VC_MOD_Familia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_SubFamilia]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]"
+                      name="VC_MOD_SubFamilia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      name="VC_MOD_MarcaNormalizada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      name="VC_MOD_ModeloNormalizado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[NU_MOD_PotenciaHP]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_SubFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      name="NU_MOD_PotenciaHP" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      name="NU_MOD_CaudalM3PorMin" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_Familia]"
+                      name="VC_MOD_Familia" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_SubFamilia]"
+                      name="VC_MOD_SubFamilia" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\SFM CAST"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="SFM CAST"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\SFM CAST.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\SFM CAST.Inputs[Data Conversion Input].Columns[VC_MOD_SubFamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_SubFamilia"
+                      lineageId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Data Flow Task\SFM CAST.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output].Columns[Copy of VC_MOD_SubFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output].Columns[Copy of VC_MOD_SubFamilia]"
+                      name="Copy of VC_MOD_SubFamilia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB].Columns[VC_MOD_SubFamilia]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Data Flow Task\SFM CAST.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[ChecksumOutput]"
+              endId="Package\Data Flow Task\Existe?.Inputs[Lookup Input]"
+              name="ChecksumOutput"
+              startId="Package\Data Flow Task\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Data Conversion Output]"
+              endId="Package\Data Flow Task\LK_SUBFAMILIA.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\Data Flow Task\SFM CAST.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Derived Column Output]"
+              endId="Package\Data Flow Task\Marca&amp;Modelo.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task\DATES &amp; FORMAT.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Derived Column Output1]"
+              endId="Package\Data Flow Task\SFM CAST.Inputs[Data Conversion Input]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task\Marca&amp;Modelo.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output]"
+              endId="Package\Data Flow Task\Actualiza como interes.Inputs[OLE DB Command Input]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\Existe?.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output1]"
+              endId="Package\Data Flow Task\CHK.Inputs[ChecksumInput]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\LK_SUBFAMILIA.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup No Match Output]"
+              endId="Package\Data Flow Task\LK_MODELO.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Data Flow Task\Existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Salida de origen de OLE DB]"
+              endId="Package\Data Flow Task\DATES &amp; FORMAT.Inputs[Derived Column Input]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Data Flow Task\Origen STG_ModelosNormalizados.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="286,78" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Data Flow Task\Marca&amp;Modelo"
+          TopLeft="330.333333333333,296.666666666667" />
+        <NodeLayout
+          Size="253,42"
+          Id="Package\Data Flow Task\Origen STG_ModelosNormalizados"
+          TopLeft="274,90" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\Data Flow Task\CHK"
+          TopLeft="348.666666666667,574.333333333332" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Data Flow Task\LK_MODELO"
+          TopLeft="329.666666666667,737.333333333333" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Data Flow Task\DATES &amp; FORMAT"
+          TopLeft="313,205.666666666667" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Data Flow Task\LK_SUBFAMILIA"
+          TopLeft="321.666666666667,477.333333333332" />
+        <NodeLayout
+          Size="127,42"
+          Id="Package\Data Flow Task\SFM CAST"
+          TopLeft="338.333333333333,390.666666666665" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Data Flow Task\Actualiza como interes"
+          TopLeft="657,654" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Data Flow Task\Existe?"
+          TopLeft="335.666666666667,650.333333333332" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output1]"
+          TopLeft="398.666666666667,519.333333333332">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
+          TopLeft="447.666666666667,673.166666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="209.333333333333,0"
+              Start="0,0"
+              End="201.833333333333,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="201.833333333333,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="52.7252799479165,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output1]"
+          TopLeft="403.083333333333,338.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.999999999998"
+              Start="0,0"
+              End="0,44.499999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.499999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="402.416666666667,247.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
+          TopLeft="400.5,432.666666666665">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.666666666667"
+              Start="0,0"
+              End="0,37.166666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.166666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[ChecksumOutput]"
+          TopLeft="394.916666666667,616.333333333332">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Salida de origen de OLE DB]"
+          TopLeft="400.5,132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,73.666666666667"
+              Start="0,0"
+              End="0,66.166666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.166666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup No Match Output]"
+          TopLeft="395.166666666667,692.333333333332">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.000000000001"
+              Start="0,0"
+              End="0,37.500000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.500000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,12.9453125000005,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Origen STG_ModelosNormalizados">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\LK_MODELO">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\LK_SUBFAMILIA">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Modelo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

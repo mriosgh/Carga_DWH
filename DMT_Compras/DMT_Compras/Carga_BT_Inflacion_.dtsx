@@ -1,0 +1,958 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/20/2020 4:13:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis4"
+  DTS:DTSID="{33A7334B-8B5A-4CBE-AB15-B4DA8A4762C6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_BT_Inflacion_"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{87E6488D-4684-4C56-A61E-06357726B912}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A363A8AF-393C-44D2-ACE6-3FAAD6A8B1B0}"
+      DTS:ObjectName="SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SVRBIQA\SULLAIRBI;User ID=usersqlbi1;Initial Catalog=DWH_Dev;Provider=SQLNCLI11.1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAtmH0TmqSjkWO3rK87djQXwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADM0q5b8BuCRKAsGYmtiqXXAAAAAASAAACgAAAAEAAAAB99JtnpctDIv1Pu1f7HrIUYAAAAC7gIQhEiWagUWSnctON/vmFAKurzzrozFAAAANnzBKc6ZYI+ZYG3JM565gtxbXcZ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CARGA LK_INFLACION_"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CDB0C8C5-A2DA-4AF1-BF8F-CAE3C0BD1CD0}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA LK_INFLACION_"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA LK_INFLACION_\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA LK_INFLACION_\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Derived Column.Inputs[Derived Column Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]},"0,0")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(NU_INF_Variacion,"0,0")</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA LK_INFLACION_\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Inflacion_]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA LK_INFLACION_\Insert Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  connectionManagerRefId="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]" />
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].Columns[NU_INF_Valor]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Valor"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]" />
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Variacion]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_INF_Inflacion]"
+                      dataType="i4"
+                      name="SK_INF_Inflacion" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Variacion]"
+                      dataType="r8"
+                      name="NU_INF_Variacion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Insert Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA LK_INFLACION_\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[BT_Inflacion_] SET [NU_INF_Valor] = ?,[NU_INF_Variacion] = ? WHERE [SK_Mes] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  connectionManagerRefId="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].Columns[NU_INF_Valor]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Valor"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]" />
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]" />
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="r8"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="r8"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA LK_INFLACION_\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_BT_Inflacion_]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT A.[SK_Mes]
+      ,A.[NU_INF_Valor]
+      ,CAST(A.[NU_INF_Valor] AS FLOAT) - CAST((SELECT N.[NU_INF_Valor] FROM [STG].[dbo].[STG_BT_Inflacion_] N WHERE N.SK_Mes = A.SK_Mes -1) AS FLOAT) AS NU_INF_Variacion
+  FROM [STG].[dbo].[STG_BT_Inflacion_] A
+  ORDER BY [SK_Mes]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{96F73960-920B-4B77-A157-9830B71CFEE8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      name="SK_Mes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Variacion]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      name="NU_INF_Variacion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Variacion]"
+                      dataType="r8"
+                      name="NU_INF_Variacion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      name="SK_Mes" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NU_INF_Variacion]"
+                      dataType="r8"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NU_INF_Variacion]"
+                      name="NU_INF_Variacion" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Slowly Changing Dimension;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Updates a SQL Server Analysis Services data warehouse dimension. Update dimension records that are already present and  insert dimension records that aren't. For example, update the DimProduct table of the AdventureWorksDW OLAP database with data from the Products table in the AdventureWorks OLTP database."
+              name="Slowly Changing Dimension"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SELECT statement used to create a schema rowset."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [NU_INF_Valor], [NU_INF_Variacion], [SK_Mes] FROM [dbo].[BT_Inflacion_]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the WHERE clause in the SELECT statement that selects the current row among rows with identical business keys."
+                  name="CurrentRowWhere"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether historical attribute updates are directed to the transformation output for changing attribute updates."
+                  name="UpdateChangingAttributeHistory">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when columns with fixed attributes contain changes."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the column name for the inferred member."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether inferred member updates are detected."
+                  name="EnableInferredMember">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when a lookup of an existing record fails."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies that all rows in the input are new or the transformation detects the change type."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Connections[LookupConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  connectionManagerRefId="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+                  description="Defines the connection to use for lookups in the dimension table"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
+                  name="Slowly Changing Dimension Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[NU_INF_Valor]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Valor"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[NU_INF_Variacion]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[NU_INF_Variacion]"
+                      dataType="r8"
+                      name="NU_INF_Variacion" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Unchanged Output]"
+                  description="Unchanged rows"
+                  exclusionGroup="1"
+                  name="Unchanged Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[New Output]"
+                  description="New rows"
+                  exclusionGroup="1"
+                  name="New Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Fixed Attribute Output]"
+                  description="Rows with changes in columns tagged FixedAttribute"
+                  exclusionGroup="1"
+                  name="Fixed Attribute Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Changing Attribute Updates Output]"
+                  description="These rows contain new information for ChangingAttribute (Type 1) column changes"
+                  exclusionGroup="1"
+                  name="Changing Attribute Updates Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Historical Attribute Inserts Output]"
+                  description="HistoricalAttribute (Type 2) changes result in these new rows"
+                  exclusionGroup="2"
+                  name="Historical Attribute Inserts Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Inferred Member Updates Output]"
+                  description="Information to update unpopulated initial dimension row"
+                  exclusionGroup="1"
+                  name="Inferred Member Updates Output"
+                  synchronousInputId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA LK_INFLACION_.Paths[Changing Attribute Updates Output]"
+              endId="Package\CARGA LK_INFLACION_\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Changing Attribute Updates Output"
+              startId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[Changing Attribute Updates Output]" />
+            <path
+              refId="Package\CARGA LK_INFLACION_.Paths[Derived Column Output]"
+              endId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
+              name="Derived Column Output"
+              startId="Package\CARGA LK_INFLACION_\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\CARGA LK_INFLACION_.Paths[New Output]"
+              endId="Package\CARGA LK_INFLACION_\Insert Destination.Inputs[OLE DB Destination Input]"
+              name="New Output"
+              startId="Package\CARGA LK_INFLACION_\Slowly Changing Dimension.Outputs[New Output]" />
+            <path
+              refId="Package\CARGA LK_INFLACION_.Paths[OLE DB Source Output]"
+              endId="Package\CARGA LK_INFLACION_\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA LK_INFLACION_\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="192,42"
+          Id="Package\CARGA LK_INFLACION_"
+          TopLeft="184,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CARGA LK_INFLACION_">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="154,42"
+          Id="Package\CARGA LK_INFLACION_\Derived Column"
+          TopLeft="235,112.5" />
+        <NodeLayout
+          Size="130,47"
+          Id="Package\CARGA LK_INFLACION_\OLE DB Source"
+          TopLeft="247,5.5" />
+        <EdgeLayout
+          Id="Package\CARGA LK_INFLACION_.Paths[OLE DB Source Output]"
+          TopLeft="312,52.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="209,42"
+          Id="Package\CARGA LK_INFLACION_\Slowly Changing Dimension"
+          TopLeft="207.5,214.5" />
+        <EdgeLayout
+          Id="Package\CARGA LK_INFLACION_.Paths[Derived Column Output]"
+          TopLeft="312,154.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="163,42"
+          Id="Package\CARGA LK_INFLACION_\Insert Destination"
+          TopLeft="5.50000000000006,316.5" />
+        <EdgeLayout
+          Id="Package\CARGA LK_INFLACION_.Paths[New Output]"
+          TopLeft="278.5,256.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-191.5,60"
+              Start="0,0"
+              End="-191.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2735042735043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2735042735043"
+                    Point2="0,24.2735042735043"
+                    Point3="-4,24.2735042735043" />
+                  <mssgle:LineSegment
+                    End="-187.5,24.2735042735043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-187.5,24.2735042735043"
+                    Point2="-191.5,24.2735042735043"
+                    Point3="-191.5,28.2735042735043" />
+                  <mssgle:LineSegment
+                    End="-191.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-122.84138671875,29.2735042735043,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="166,42"
+          Id="Package\CARGA LK_INFLACION_\OLE DB Command"
+          TopLeft="389,316.5" />
+        <EdgeLayout
+          Id="Package\CARGA LK_INFLACION_.Paths[Changing Attribute Updates Output]"
+          TopLeft="345.5,256.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="126.5,60"
+              Start="0,0"
+              End="126.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2735042735043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2735042735043"
+                    Point2="0,24.2735042735043"
+                    Point3="4,24.2735042735043" />
+                  <mssgle:LineSegment
+                    End="122.5,24.2735042735043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="122.5,24.2735042735043"
+                    Point2="126.5,24.2735042735043"
+                    Point3="126.5,28.2735042735043" />
+                  <mssgle:LineSegment
+                    End="126.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-15.28390625,29.2735042735043,157.0678125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA LK_INFLACION_\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA LK_INFLACION_\Slowly Changing Dimension">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{A363A8AF-393C-44D2-ACE6-3FAAD6A8B1B0}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[dbo].[BT_Inflacion_]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;NU_INF_Valor&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;OLE DB Source.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;NU_INF_Variacion&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;OLE DB Source.Outputs[OLE DB Source Output].Columns[SK_Mes]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;SK_Mes&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

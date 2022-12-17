@@ -1,0 +1,1524 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/15/2019 1:00:50 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{0E7845ED-9FC9-4229-AFB8-CBB123FA1C74}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="BT_Costo_Equipo"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{9AC9690A-8318-4D02-88C9-E7A1A829B618}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga_BT_Costo_Equipo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{9A20286F-8DFC-4948-9CAF-EE8C8175F205}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga_BT_Costo_Equipo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\Format Validator"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format Validator"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input].Columns[costoEstandar]"
+                      cachedDataType="r8"
+                      cachedName="costoEstandar"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(costoEstandar,0)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input].Columns[costoReal]"
+                      cachedDataType="r8"
+                      cachedName="costoReal"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(costoReal,0)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_ART_Articulo,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input].Columns[SK_UNI_UnidadNegocio]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocio"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_UNI_UnidadNegocio,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input].Columns[NU_CambioVentas]"
+                      cachedDataType="r8"
+                      cachedName="NU_CambioVentas"
+                      lineageId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output].Columns[NU_CambioVentas]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FC_Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FC_Fecha]"
+                      name="FC_Fecha"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoEstandarUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoEstandarUSD]"
+                      name="costoEstandarUSD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]} / [REPLACENULL](#{Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output].Columns[NU_CambioVentas]},1),0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(costoEstandar / REPLACENULL(NU_CambioVentas,1),0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoRealUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoRealUSD]"
+                      name="costoRealUSD"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]} / [REPLACENULL](#{Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output].Columns[NU_CambioVentas]},1),0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(costoReal / REPLACENULL(NU_CambioVentas,1),0)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_ART_Articulo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Articulo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Articulo]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_ART_Articulo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_ASF_MaestroArticulo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_SndItemNumber" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_TrdItemNumber" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Description1" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Description2" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Abastecimiento" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescAbastecimiento" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Segmento" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescSegmento" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Procedencia" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescProcedencia" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Rubro" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescRubro" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Tipo" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescTipo" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_FamiliaPlanificacion" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescFamiliaPlanificacion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Producto" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescProducto" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_UnidadMedidaPrincipal" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_UnidadMedidaPrecio" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_TipoStock" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_TipoLinea" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_NumeroSerie" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescripcionLarga" dataType="DT_WSTR" length="4000" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Ultima_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_CV3_CodigoVenta3" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_TAR_TipoArticulo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_PlanificacionFamilia" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_GrupoProcesoDeAlmacen1" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_GrupoProcesoDeAlmacen3" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_CodCategoria10" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_Categoria" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_RubroPlataforma" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescripcionRubroPlataforma" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_FamiliaPlanificacionMaestro" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ART_DescripcionFamiliaPlanificacionMaestro" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[numeroArticulo]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Connections[OleDbConnection]"
+                  connectionManagerID="{F11F9ACD-4A6B-49DA-BD8E-E294A34E9E2A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input].Columns[numeroArticulo]"
+                      cachedDataType="i4"
+                      cachedName="numeroArticulo"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[numeroArticulo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      name="SK_ART_Articulo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_ART_Articulo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_UNI_UnidadNegocio"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_UnidadNegocio]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_UnidadNegocio]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_UNI_UnidadNegocio" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_UNI_Gerencia" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_UNI_TipoUnidadNegocio" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_UNI_Descripcion" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_TIP_TipoUN" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Ultima_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_UNI_Familia" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_UNI_Sucursal" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_SUC_Sucursal" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_FAM_Familia" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[unidadNegocio]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Connections[OleDbConnection]"
+                  connectionManagerID="{F11F9ACD-4A6B-49DA-BD8E-E294A34E9E2A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input].Columns[unidadNegocio]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="unidadNegocio"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[unidadNegocio]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      name="SK_UNI_UnidadNegocio"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_UNI_UnidadNegocio</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Costo_Equipo"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Costo_Equipo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Connections[OleDbConnection]"
+                  connectionManagerID="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[ID_Costo_Equipo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[ID_Costo_Equipo]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[ID_Costo_Equipo]"
+                      name="ID_Costo_Equipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[nroDeSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[nroDeSerie]"
+                      length="30"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[nroDeSerie]"
+                      name="nroDeSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[numeroArticulo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[numeroArticulo]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[numeroArticulo]"
+                      name="numeroArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[unidadNegocio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[unidadNegocio]"
+                      length="15"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[unidadNegocio]"
+                      name="unidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[fechaOrden]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[fechaOrden]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[fechaOrden]"
+                      name="fechaOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[costoEstandar]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]"
+                      name="costoEstandar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[costoReal]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]"
+                      name="costoReal"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[ID_Costo_Equipo]"
+                      dataType="i4"
+                      name="ID_Costo_Equipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[nroDeSerie]"
+                      dataType="wstr"
+                      length="30"
+                      name="nroDeSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[numeroArticulo]"
+                      dataType="i4"
+                      name="numeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[unidadNegocio]"
+                      dataType="wstr"
+                      length="15"
+                      name="unidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[fechaOrden]"
+                      dataType="dbDate"
+                      name="fechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[costoEstandar]"
+                      dataType="r8"
+                      name="costoEstandar" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].ExternalColumns[costoReal]"
+                      dataType="r8"
+                      name="costoReal" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ID_Costo_Equipo]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ID_Costo_Equipo]"
+                      name="ID_Costo_Equipo" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[nroDeSerie]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[nroDeSerie]"
+                      name="nroDeSerie" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[numeroArticulo]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[numeroArticulo]"
+                      name="numeroArticulo" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[unidadNegocio]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[unidadNegocio]"
+                      name="unidadNegocio" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[fechaOrden]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[fechaOrden]"
+                      name="fechaOrden" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[costoEstandar]"
+                      dataType="r8"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[costoEstandar]"
+                      name="costoEstandar" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[costoReal]"
+                      dataType="r8"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[costoReal]"
+                      name="costoReal" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="INSERT BT_Costo_Equipo"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Costo_Equipo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Connections[OleDbConnection]"
+                  connectionManagerID="{F11F9ACD-4A6B-49DA-BD8E-E294A34E9E2A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[SK_UNI_UnidadNegocio]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocio"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[FC_Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_Fecha"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FC_Fecha]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[nroDeSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="nroDeSerie"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[VC_Numero_Serie]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[nroDeSerie]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[fechaOrden]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaOrden"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_FechaOrden]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[fechaOrden]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[costoEstandar]"
+                      cachedDataType="r8"
+                      cachedName="costoEstandar"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Estandar]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoEstandar]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[costoReal]"
+                      cachedDataType="r8"
+                      cachedName="costoReal"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Real]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[costoReal]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha_Creacion]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[costoEstandarUSD]"
+                      cachedDataType="r8"
+                      cachedName="costoEstandarUSD"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Estandar_USD]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoEstandarUSD]" />
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[costoRealUSD]"
+                      cachedDataType="r8"
+                      cachedName="costoRealUSD"
+                      externalMetadataColumnId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Real_USD]"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output].Columns[costoRealUSD]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[SK_Costo_Equipo]"
+                      dataType="i4"
+                      name="SK_Costo_Equipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      dataType="i4"
+                      name="SK_ART_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[VC_Numero_Serie]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_Numero_Serie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      name="SK_UNI_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_FechaOrden]"
+                      dataType="dbDate"
+                      name="FC_FechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Estandar]"
+                      dataType="r8"
+                      name="NU_Costo_Estandar" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Real]"
+                      dataType="r8"
+                      name="NU_Costo_Real" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="FC_Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Estandar_USD]"
+                      dataType="r8"
+                      name="NU_Costo_Estandar_USD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[NU_Costo_Real_USD]"
+                      dataType="r8"
+                      name="NU_Costo_Real_USD" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="VW_Cotizacion"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[VW_Cotizacion]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[VW_Cotizacion]) [refTable]
+where [refTable].[FC_Fecha] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="FC_Fecha" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CambioVentas" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CambioAlquileres" dataType="DT_NUMERIC" length="0" precision="18" scale="4" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[fechaOrden]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Connections[OleDbConnection]"
+                  connectionManagerID="{F11F9ACD-4A6B-49DA-BD8E-E294A34E9E2A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input].Columns[fechaOrden]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaOrden"
+                      lineageId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output].Columns[fechaOrden]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">FC_Fecha</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output].Columns[NU_CambioVentas]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output].Columns[NU_CambioVentas]"
+                      name="NU_CambioVentas"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">NU_CambioVentas</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga_BT_Costo_Equipo.Paths[Derived Column Output]"
+              endId="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga_BT_Costo_Equipo\Format Validator.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output]"
+              endId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output1]"
+              endId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output2]"
+              endId="Package\Carga_BT_Costo_Equipo\Format Validator.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga_BT_Costo_Equipo\VW_Cotizacion.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_BT_Costo_Equipo.Paths[OLE DB Source Output]"
+              endId="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A084B184-DBBB-4D38-BBB3-07EB6CD971AE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F11F9ACD-4A6B-49DA-BD8E-E294A34E9E2A}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE BT_COSTO_EQUIPO;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D84ABA02-1D74-4952-B12A-A3A878685B93}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga_BT_Costo_Equipo" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Carga_BT_Costo_Equipo"
+          TopLeft="285,119" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\TRUNCATE"
+          TopLeft="312,38" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="380,80">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga_BT_Costo_Equipo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo"
+          TopLeft="252,560" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo"
+          TopLeft="269,168" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo"
+          TopLeft="258,82" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Carga_BT_Costo_Equipo\Format Validator"
+          TopLeft="274,464" />
+        <NodeLayout
+          Size="214,42"
+          Id="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio"
+          TopLeft="247,265" />
+        <EdgeLayout
+          Id="Package\Carga_BT_Costo_Equipo.Paths[Derived Column Output]"
+          TopLeft="352.5,506">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_BT_Costo_Equipo.Paths[OLE DB Source Output]"
+          TopLeft="357.75,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output]"
+          TopLeft="356.5,210">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Carga_BT_Costo_Equipo\VW_Cotizacion"
+          TopLeft="283,362" />
+        <EdgeLayout
+          Id="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output1]"
+          TopLeft="355.5,307">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,17.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_BT_Costo_Equipo.Paths[Lookup Match Output2]"
+          TopLeft="354.75,404">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_BT_Costo_Equipo\GET SK_UNI_UnidadNegocio">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_UnidadNegocio]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_BT_Costo_Equipo\GET SK_ART_Articulo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Articulo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_BT_Costo_Equipo\Input STG_Costo_Equipo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_BT_Costo_Equipo\INSERT BT_Costo_Equipo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_BT_Costo_Equipo\VW_Cotizacion">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[VW_Cotizacion]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">1</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

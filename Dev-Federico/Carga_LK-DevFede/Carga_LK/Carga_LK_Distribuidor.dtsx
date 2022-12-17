@@ -1,0 +1,2352 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2019 4:04:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{ECBC5369-DF41-4C10-84C7-A6D0A0B59BC6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_LK_Distribuidor"
+  DTS:PackageType="5"
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{F362EEFB-6038-4C6F-9F8B-DA09A0E26FA1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CT LK_Distribuidores]"
+      DTS:CreationName="CACHE"
+      DTS:DTSID="{C35C85F4-7EBE-410E-8F08-B48377AC24EE}"
+      DTS:ObjectName="CT LK_Distribuidores">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::CTLK_Distribuidores_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:UseFile="True"
+          DTS:ConnectionString="D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Distribuidores.caw">
+          <DTS:CacheColumns>
+            <DTS:CacheColumn
+              DTS:DataType="20"
+              DTS:ObjectName="SK_DIS_Distribuidores"
+              DTS:DTSID="{F60C5D61-3147-4A86-8D58-F95DECAC355D}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="3"
+              DTS:IndexPosition="1"
+              DTS:ObjectName="CD_ID_Origen"
+              DTS:DTSID="{2CF59BD8-4FF9-462E-96B0-500953D60995}"
+              DTS:CreationName="" />
+          </DTS:CacheColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{15C8FF8B-4320-4671-AF77-A573F9CB53E9}"
+      DTS:ObjectName="CTLK_Distribuidores_ConnectionString"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Distribuidores.caw</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1BFD7E1C-5090-49F4-9711-553A7FEC928D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudLog">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{58F243E0-DE6F-4E52-AD2A-AD91846ED488}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vPkAudPackage">
+      <DTS:VariableValue
+        DTS:DataType="3">21</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0B3692D2-5102-4B3A-A38A-3A17DFEF3EF9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F72A4C3A-3931-4482-9F9F-65B57A3E129A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsInserted">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F4C4C5F8-DA3D-411B-97B1-A33293DDA4BA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsNoUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D186D9CE-D52B-4E66-A592-62AB8D616CA8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsRejected">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B8733F56-B445-40E9-8D4E-B6186FB95BB2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="vRowsUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga cache LK_Distribuidores"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DB3F8751-154C-4A84-96C8-0D59AF0435F5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga cache LK_Distribuidores"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores"
+              componentClassID="Microsoft.Cache"
+              contactInfo="Cache Transform;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Writes data to a cache (a .caw file) with the Cache Connection Manager. Reuse the cache between multiple Lookup transforms to reduce database load. Share the cache to reduce memory usage. Note: cache data is stored in clear text and not recommended for sensitive data."
+              name="CT LK_Distribuidores"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Connections[CacheConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CT LK_Distribuidores]"
+                  connectionManagerRefId="Package.ConnectionManagers[CT LK_Distribuidores]"
+                  description="The connection used to access the cache."
+                  name="CacheConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Inputs[Cache Input]"
+                  hasSideEffects="true"
+                  name="Cache Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Inputs[Cache Input].Columns[SK_DIS_Distribuidores]"
+                      cachedDataType="i8"
+                      cachedName="SK_DIS_Distribuidores"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[SK_DIS_Distribuidores]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">SK_DIS_Distribuidores</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Inputs[Cache Input].Columns[CD_ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="CD_ID_Origen"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">CD_ID_Origen</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Outputs[Cache Output]"
+                  name="Cache Output"
+                  synchronousInputId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Inputs[Cache Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LK_Distribuidores"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+SK_DIS_Distribuidores,
+CD_ID_Origen
+FROM LK_Distribuidores</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[SK_DIS_Distribuidores]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[SK_DIS_Distribuidores]"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[SK_DIS_Distribuidores]"
+                      name="SK_DIS_Distribuidores"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[SK_DIS_Distribuidores]"
+                      dataType="i8"
+                      name="SK_DIS_Distribuidores" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[SK_DIS_Distribuidores]"
+                      dataType="i8"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[SK_DIS_Distribuidores]"
+                      name="SK_DIS_Distribuidores" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga cache LK_Distribuidores.Paths[OLE DB Source Output]"
+              endId="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores.Inputs[Cache Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga cache LK_Distribuidores\LK_Distribuidores.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga_LK_Distribuidores"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{e28ccb90-c6f9-4c93-af29-db8d0e42bb74}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga_LK_Distribuidores"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Cambio?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Cambio?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      lineageId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input].Columns[LK_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="LK_CHECKSUM"
+                      lineageId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[SI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SI"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]} != #{Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CHK_ORIGEN != LK_CHECKSUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[NO]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="NO"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput].Columns[VC_DIS_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_ApellidoNombre"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput].Columns[VC_DIS_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_Descripcion"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput].Columns[idDistribuidor]"
+                      cachedDataType="i4"
+                      cachedName="idDistribuidor"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      name="CHK_ORIGEN">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Fechas Auditoria"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Fechas Auditoria"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]"
+                      name="FechaModificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Format Validator"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format Validator"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input].Columns[apellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="apellidoNombre"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="descripcion"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_ApellidoNombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_ApellidoNombre]"
+                      name="VC_DIS_ApellidoNombre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]} == "" || [ISNULL](#{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">apellidoNombre == "" || ISNULL(apellidoNombre) ? @[$Project::DEF_UNK_STR] : apellidoNombre</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_Descripcion]"
+                      name="VC_DIS_Descripcion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]} == "" || [ISNULL](#{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]}) || #{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]} == "." ? @[$Project::DEF_UNK_STR] : #{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">descripcion == "" || ISNULL(descripcion) || descripcion == "." ? @[$Project::DEF_UNK_STR] : descripcion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Distribuidores"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Distribuidores]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[idDistribuidor]"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]"
+                      name="idDistribuidor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[apellidoNombre]"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[apellidoNombre]"
+                      name="apellidoNombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[descripcion]"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[descripcion]"
+                      name="descripcion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[idDistribuidor]"
+                      dataType="i4"
+                      name="idDistribuidor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[apellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="apellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].ExternalColumns[descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="descripcion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[idDistribuidor]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[idDistribuidor]"
+                      name="idDistribuidor" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[apellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[apellidoNombre]"
+                      name="apellidoNombre" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[descripcion]"
+                      name="descripcion" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert LK_Distribuidores"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_Distribuidores]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[VC_DIS_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_ApellidoNombre"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[VC_DIS_ApellidoNombre]"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[VC_DIS_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_Descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[VC_DIS_Descripcion]"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[idDistribuidor]"
+                      cachedDataType="i4"
+                      cachedName="idDistribuidor"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[SK_DIS_Distribuidores]"
+                      dataType="i8"
+                      name="SK_DIS_Distribuidores" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[VC_DIS_ApellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_DIS_ApellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[VC_DIS_Descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_DIS_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Ultima_Modificacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Ultima_Modificacion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Distribuidores]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Distribuidores]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_DIS_Distribuidores" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_DIS_ApellidoNombre" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_DIS_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Ultima_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Distribuidores\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input].Columns[idDistribuidor]"
+                      cachedDataType="i4"
+                      cachedName="idDistribuidor"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      name="LK_CHECKSUM"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CH_CHECKSUM</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE LK_Distribuidores
+SET VC_DIS_ApellidoNombre = ?,
+VC_DIS_Descripcion = ?,
+CH_CHECKSUM = ?,
+Fecha_Ultima_Modificacion = ?
+WHERE CD_ID_Origen = ?;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Distribuidores\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].Columns[VC_DIS_ApellidoNombre]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_ApellidoNombre"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_ApellidoNombre]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].Columns[VC_DIS_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="VC_DIS_Descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output].Columns[VC_DIS_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].Columns[LK_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="LK_CHECKSUM"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].Columns[FechaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output].Columns[FechaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].Columns[idDistribuidor]"
+                      cachedDataType="i4"
+                      cachedName="idDistribuidor"
+                      externalMetadataColumnId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output].Columns[idDistribuidor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i8"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="dbTimeStamp"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Distribuidores\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\vRowsCount"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsCount">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\vRowsCount.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\vRowsCount.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\vRowsCount.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\vRowsInserted"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsInserted">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsInserted</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\vRowsInserted.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\vRowsInserted.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\vRowsInserted.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\vRowsNoUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsNoUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsNoUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\vRowsNoUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\vRowsNoUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\vRowsNoUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Distribuidores\vRowsUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="vRowsUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::vRowsUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Distribuidores\vRowsUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Distribuidores\vRowsUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga_LK_Distribuidores\vRowsUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[ChecksumOutput]"
+              endId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Inputs[Derived Column Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga_LK_Distribuidores\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Derived Column Output]"
+              endId="Package\Carga_LK_Distribuidores\CHK.Inputs[ChecksumInput]"
+              name="Derived Column Output"
+              startId="Package\Carga_LK_Distribuidores\Format Validator.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Derived Column Output1]"
+              endId="Package\Carga_LK_Distribuidores\Lookup.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Carga_LK_Distribuidores\Fechas Auditoria.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Lookup Match Output]"
+              endId="Package\Carga_LK_Distribuidores\Cambio?.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Lookup No Match Output]"
+              endId="Package\Carga_LK_Distribuidores\vRowsInserted.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\Carga_LK_Distribuidores\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[NO]"
+              endId="Package\Carga_LK_Distribuidores\vRowsNoUpdate.Inputs[Row Count Input 1]"
+              name="NO"
+              startId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[NO]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[OLE DB Source Output]"
+              endId="Package\Carga_LK_Distribuidores\vRowsCount.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Carga_LK_Distribuidores\Input STG_Distribuidores.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Row Count Output 1]"
+              endId="Package\Carga_LK_Distribuidores\Format Validator.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Distribuidores\vRowsCount.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Row Count Output 11]"
+              endId="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Distribuidores\vRowsInserted.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[Row Count Output 12]"
+              endId="Package\Carga_LK_Distribuidores\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga_LK_Distribuidores\vRowsUpdate.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga_LK_Distribuidores.Paths[SI]"
+              endId="Package\Carga_LK_Distribuidores\vRowsUpdate.Inputs[Row Count Input 1]"
+              name="SI"
+              startId="Package\Carga_LK_Distribuidores\Cambio?.Outputs[SI]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6F428F7D-BFF0-45F4-88BE-C36A9C885EB7}"
+      DTS:From="Package\Carga_LK_Distribuidores"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga cache LK_Distribuidores" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{2160AE5B-2CB2-4AA2-8694-91B9A1294817}"
+      DTS:EventID="1564826500"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{EB29E69F-8BC5-4B5E-A520-73E47169C836}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{acc57309-7158-471b-b9bf-b19c13f6599f}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_UPD ?, NULL, ?, ?, ?, ?, ?, NULL, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_ERROR_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="6"
+                SQLTask:DtsVariableName="User::vRowsRejected"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="7"
+                SQLTask:DtsVariableName="User::vRowsUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="8"
+                SQLTask:DtsVariableName="User::vRowsNoUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPostExecute]"
+      DTS:CreationName="OnPostExecute"
+      DTS:DTSID="{B60CD221-74F6-47CA-A34F-FE7D6C5B0A59}"
+      DTS:EventID="1013772244"
+      DTS:EventName="OnPostExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{346A8740-63EB-4108-A26D-BEC1D680D106}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{fa40be7b-dba0-4a3c-9bfd-0938ba9eba2a}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7cf82030-76c1-492a-bc98-11350ee9e5be}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_UPD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="DECLARE @now datetime&#xA;SELECT @now = GETDATE()&#xA;EXEC SP_DW_AUD_LOG_UPD ?, @now, ?, NULL, NULL, ?, ?, NULL, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::AUD_FINISHED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::vRowsCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::vRowsInserted"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::vRowsUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::vRowsNoUpdate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{dfcc78a9-a9ad-4969-b2db-861f32854500}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPostExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnPreExecute]"
+      DTS:CreationName="OnPreExecute"
+      DTS:DTSID="{0D563653-660A-476D-97F4-61A7D16CE9F9}"
+      DTS:EventID="0"
+      DTS:EventName="OnPreExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{696D3BC8-F621-4CE6-996D-D557DCE7C1B6}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{3ad25bfe-905a-4f9f-9b53-39e9a91c853d}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DUMMY">
+          <DTS:Variables />
+          <DTS:Executables />
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{2ba17982-263f-4758-8c26-d660477854cc}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW_SP_AUD_LOG_INS"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}"
+              SQLTask:SqlStatementSource="EXEC SP_DW_AUD_LOG_INS ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="PkAudLog"
+                SQLTask:DtsVariableName="User::vPkAudLog" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::vPkAudPackage"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::StartTime"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="$Project::AUD_STARTED_STATUS"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{3adfdaa5-a7a8-4f7e-9792-82bdfd713a4e}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[System::PackageID] ==  @[System::SourceID]"
+          DTS:From="Package.EventHandlers[OnPreExecute]\DUMMY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS" />
+      </DTS:PrecedenceConstraints>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="222,42"
+          Id="Package\Carga cache LK_Distribuidores"
+          TopLeft="284,233" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Carga_LK_Distribuidores"
+          TopLeft="294,132" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="393,174">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnError]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPostExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPostExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package.EventHandlers[OnPostExecute]\DW_SP_AUD_LOG_UPD"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPostExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="154.5,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="150,50"
+          Size="150,93"
+          Id="Package.EventHandlers[OnPreExecute]\DUMMY"
+          TopLeft="78,60" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package.EventHandlers[OnPreExecute]\DW_SP_AUD_LOG_INS"
+          TopLeft="60,212" />
+        <EdgeLayout
+          Id="Package.EventHandlers[OnPreExecute].PrecedenceConstraints[Constraint]"
+          TopLeft="153.75,153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,17.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Carga cache LK_Distribuidores">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Carga cache LK_Distribuidores\LK_Distribuidores"
+          TopLeft="401,65" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Carga cache LK_Distribuidores\CT LK_Distribuidores"
+          TopLeft="399,175" />
+        <EdgeLayout
+          Id="Package\Carga cache LK_Distribuidores.Paths[OLE DB Source Output]"
+          TopLeft="484.5,107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga cache LK_Distribuidores\LK_Distribuidores">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga_LK_Distribuidores">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Carga_LK_Distribuidores\Lookup"
+          TopLeft="414,584" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Carga_LK_Distribuidores\Fechas Auditoria"
+          TopLeft="390,504" />
+        <NodeLayout
+          Size="104,42"
+          Id="Package\Carga_LK_Distribuidores\CHK"
+          TopLeft="416.5,423.5" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Carga_LK_Distribuidores\vRowsUpdate"
+          TopLeft="409,800" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Carga_LK_Distribuidores\vRowsNoUpdate"
+          TopLeft="693,691" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Carga_LK_Distribuidores\Input STG_Distribuidores"
+          TopLeft="364,62" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Carga_LK_Distribuidores\vRowsInserted"
+          TopLeft="690,587" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Carga_LK_Distribuidores\OLE DB Command"
+          TopLeft="400,896" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Carga_LK_Distribuidores\vRowsCount"
+          TopLeft="395,195" />
+        <NodeLayout
+          Size="119,42"
+          Id="Package\Carga_LK_Distribuidores\Cambio?"
+          TopLeft="418,691" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores"
+          TopLeft="931,591" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Carga_LK_Distribuidores\Format Validator"
+          TopLeft="388,337" />
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[SI]"
+          TopLeft="479,733">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.2351953125,24.98291015625,10.470390625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Row Count Output 12]"
+          TopLeft="481.75,842">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Row Count Output 11]"
+          TopLeft="839,610">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="92,0"
+              Start="0,0"
+              End="84.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Row Count Output 1]"
+          TopLeft="465,237">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,100"
+              Start="0,0"
+              End="0,92.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[OLE DB Source Output]"
+          TopLeft="463,104">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,91"
+              Start="0,0"
+              End="0,83.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,83.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[NO]"
+          TopLeft="537,712">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156,0"
+              Start="0,0"
+              End="148.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="148.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="66.9071875,5,14.685625,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Lookup No Match Output]"
+          TopLeft="527,606.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="163,0"
+              Start="0,0"
+              End="155.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="155.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="21.94361328125,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Lookup Match Output]"
+          TopLeft="474,626">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,22.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Derived Column Output1]"
+          TopLeft="469.5,546">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[Derived Column Output]"
+          TopLeft="467.5,379">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.5"
+              Start="0,0"
+              End="0,37">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Distribuidores.Paths[ChecksumOutput]"
+          TopLeft="468.5,465.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5"
+              Start="0,0"
+              End="0,31">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Distribuidores\Insert LK_Distribuidores">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

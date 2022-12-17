@@ -1,0 +1,1446 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/25/2021 4:08:19 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{F40BF253-9DB6-4860-86EA-3A7BCD2AF64C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga BT_Expo_Sullair_Comex"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{2E1F2B99-CDA5-44C3-92A7-5599A6602D35}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga BT_Exco_Sullair_Comex"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6ba98222-b592-49e3-9620-578d610af433}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga BT_Exco_Sullair_Comex"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_PAI_Pais_Destino"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT SK_PAI_PAIS
+,UPPER(LTRIM(RTRIM(VC_PAI_PAIS))) AS VC_PAI_PAIS
+FROM LK_PAIS</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT SK_PAI_PAIS
+,UPPER(LTRIM(RTRIM(VC_PAI_PAIS))) AS VC_PAI_PAIS
+FROM LK_PAIS) [refTable]
+where [refTable].[VC_PAI_PAIS] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_PAI_PAIS" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PAI_PAIS" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[PaisDestino]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input].Columns[PaisDestino]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="PaisDestino"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[PaisDestino]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_PAI_PAIS</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]"
+                      name="SK_PAI_PAIS_Destino"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_PAI_PAIS</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_POCX_PosicionArancelariaComex"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  SK_POCX_PosicionArancelariaComex
+	  ,LTRIM(RTRIM([CD_ID_Origen])) AS CD_ID_Origen
+  FROM [dbo].[LK_PosicionArancelaria_Comex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT  SK_POCX_PosicionArancelariaComex
+	  ,LTRIM(RTRIM([CD_ID_Origen])) AS CD_ID_Origen
+  FROM [dbo].[LK_PosicionArancelaria_Comex]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_POCX_PosicionArancelariaComex" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Pos_Arancelaria]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input].Columns[Pos_Arancelaria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Pos_Arancelaria"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Pos_Arancelaria]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]"
+                      name="SK_POCX_PosicionArancelariaComex"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_POCX_PosicionArancelariaComex</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Expo_Comex"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Fecha]
+      ,LTRIM(RTRIM([Despacho])) AS Despacho
+      ,LTRIM(RTRIM([Pos_Arancelaria])) AS Pos_Arancelaria
+      ,LTRIM(RTRIM([Marca])) AS Marca
+      ,LTRIM(RTRIM([Modelo])) AS Modelo
+      ,[Cantidad]
+      ,[ValorFobUSD]
+	  ,[ValorFleteUSD]
+	  ,[ValorSeguroUSD]
+	  ,[ValorCifUSD]
+      ,CASE 
+	  WHEN LTRIM(RTRIM([PaisDestino])) = 'ESTADOS UNIDOS' THEN 'ESTADOS UNIDOS DE AMÉRICA'
+	  WHEN LTRIM(RTRIM([PaisDestino])) = 'HUNGRIA' THEN 'HUNGRÍA'
+	  ELSE LTRIM(RTRIM([PaisDestino])) END PaisDestino
+	  ,LTRIM(RTRIM(Aduana)) as Aduana
+	  ,LTRIM(RTRIM(UsoComercial)) as UsoComercial
+	  ,LTRIM(RTRIM(TipoDocumento)) as TipoDocumento
+,LTRIM(RTRIM(Divisa)) as Divisa
+,ValorFobDivisa
+  FROM [STG].[dbo].[STG_Expo_Comex]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Connections[OleDbConnection]"
+                  connectionManagerID="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STGConnectionDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      name="Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Despacho]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Despacho]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Despacho]"
+                      name="Despacho"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Pos_Arancelaria]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Pos_Arancelaria]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Pos_Arancelaria]"
+                      name="Pos_Arancelaria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Marca]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]"
+                      name="Marca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Modelo]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]"
+                      name="Modelo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFobUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFobUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFobUSD]"
+                      name="ValorFobUSD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[PaisDestino]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[PaisDestino]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[PaisDestino]"
+                      name="PaisDestino"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFleteUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFleteUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFleteUSD]"
+                      name="ValorFleteUSD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorSeguroUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorSeguroUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorSeguroUSD]"
+                      name="ValorSeguroUSD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorCifUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorCifUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorCifUSD]"
+                      name="ValorCifUSD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Aduana]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Aduana]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Aduana]"
+                      name="Aduana"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[UsoComercial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[UsoComercial]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[UsoComercial]"
+                      name="UsoComercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[TipoDocumento]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[TipoDocumento]"
+                      name="TipoDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Divisa]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Divisa]"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Divisa]"
+                      name="Divisa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFobDivisa]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFobDivisa]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFobDivisa]"
+                      name="ValorFobDivisa"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      dataType="dbDate"
+                      name="Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Despacho]"
+                      dataType="wstr"
+                      length="255"
+                      name="Despacho" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Pos_Arancelaria]"
+                      dataType="wstr"
+                      length="255"
+                      name="Pos_Arancelaria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFobUSD]"
+                      dataType="r8"
+                      name="ValorFobUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[PaisDestino]"
+                      dataType="wstr"
+                      length="255"
+                      name="PaisDestino" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFleteUSD]"
+                      dataType="r8"
+                      name="ValorFleteUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorSeguroUSD]"
+                      dataType="r8"
+                      name="ValorSeguroUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorCifUSD]"
+                      dataType="r8"
+                      name="ValorCifUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Aduana]"
+                      dataType="wstr"
+                      length="255"
+                      name="Aduana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[UsoComercial]"
+                      dataType="wstr"
+                      length="255"
+                      name="UsoComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[TipoDocumento]"
+                      dataType="wstr"
+                      length="255"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[Divisa]"
+                      dataType="wstr"
+                      length="255"
+                      name="Divisa" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].ExternalColumns[ValorFobDivisa]"
+                      dataType="r8"
+                      name="ValorFobDivisa" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      name="Fecha" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Despacho]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Despacho]"
+                      name="Despacho" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Pos_Arancelaria]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Pos_Arancelaria]"
+                      name="Pos_Arancelaria" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Marca]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Marca]"
+                      name="Marca" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Modelo]"
+                      name="Modelo" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      name="Cantidad" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFobUSD]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFobUSD]"
+                      name="ValorFobUSD" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFleteUSD]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFleteUSD]"
+                      name="ValorFleteUSD" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorSeguroUSD]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorSeguroUSD]"
+                      name="ValorSeguroUSD" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorCifUSD]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorCifUSD]"
+                      name="ValorCifUSD" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[PaisDestino]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[PaisDestino]"
+                      name="PaisDestino" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Aduana]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Aduana]"
+                      name="Aduana" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[UsoComercial]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[UsoComercial]"
+                      name="UsoComercial" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[TipoDocumento]"
+                      name="TipoDocumento" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Divisa]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[Divisa]"
+                      name="Divisa" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFobDivisa]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ValorFobDivisa]"
+                      name="ValorFobDivisa" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output BT_Expo_Sullair_Comex"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Expo_Sullair_Comex]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[SK_POCX_PosicionArancelariaComex]"
+                      cachedDataType="i8"
+                      cachedName="SK_POCX_PosicionArancelariaComex"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[SK_POCX_PosicionArancelariaComex]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="Fecha"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FC_EXCO_Fecha]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Fecha]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Despacho]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Despacho"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Despacho]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Despacho]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Marca"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Marca]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Modelo"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Modelo]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Cantidad]"
+                      cachedDataType="i4"
+                      cachedName="Cantidad"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_Cantidad]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[ValorFobUSD]"
+                      cachedDataType="r8"
+                      cachedName="ValorFobUSD"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorFobUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFobUSD]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[SK_PAI_PAIS_Destino]"
+                      cachedDataType="i8"
+                      cachedName="SK_PAI_PAIS_Destino"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[SK_PAI_PaisDestino]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[ValorFleteUSD]"
+                      cachedDataType="r8"
+                      cachedName="ValorFleteUSD"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorFleteUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorFleteUSD]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[ValorSeguroUSD]"
+                      cachedDataType="r8"
+                      cachedName="ValorSeguroUSD"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorSeguroUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorSeguroUSD]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[ValorCifUSD]"
+                      cachedDataType="r8"
+                      cachedName="ValorCifUSD"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorCifUSD]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[ValorCifUSD]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[Aduana]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Aduana"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Aduana]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Aduana]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[UsoComercial]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="UsoComercial"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_UsoComercial]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[UsoComercial]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].Columns[TipoDocumento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TipoDocumento"
+                      externalMetadataColumnId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_TipoDocumento]"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[TipoDocumento]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[SK_POCX_PosicionArancelariaComex]"
+                      dataType="i8"
+                      name="SK_POCX_PosicionArancelariaComex" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[FC_EXCO_Fecha]"
+                      dataType="dbDate"
+                      name="FC_EXCO_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Despacho]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_Despacho" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_Cantidad]"
+                      dataType="i4"
+                      name="NU_EXCO_Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorFobUSD]"
+                      dataType="r8"
+                      name="NU_EXCO_ValorFobUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[SK_PAI_PaisDestino]"
+                      dataType="i8"
+                      name="SK_PAI_PaisDestino" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorFleteUSD]"
+                      dataType="r8"
+                      name="NU_EXCO_ValorFleteUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorSeguroUSD]"
+                      dataType="r8"
+                      name="NU_EXCO_ValorSeguroUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[NU_EXCO_ValorCifUSD]"
+                      dataType="r8"
+                      name="NU_EXCO_ValorCifUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_Aduana]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_Aduana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_UsoComercial]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_UsoComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input].ExternalColumns[VC_EXCO_TipoDocumento]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_EXCO_TipoDocumento" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="SK NULL"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input].Columns[SK_POCX_PosicionArancelariaComex]"
+                      cachedDataType="i8"
+                      cachedName="SK_POCX_PosicionArancelariaComex"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]}) ? -1 : #{Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output].Columns[SK_POCX_PosicionArancelariaComex]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_POCX_PosicionArancelariaComex) ? -1 : SK_POCX_PosicionArancelariaComex</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input].Columns[SK_PAI_PAIS_Destino]"
+                      cachedDataType="i8"
+                      cachedName="SK_PAI_PAIS_Destino"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]}) ? -1 : #{Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output].Columns[SK_PAI_PAIS_Destino]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_PAI_PAIS_Destino) ? -1 : SK_PAI_PAIS_Destino</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input].Columns[Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Marca"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]}) ? "*sin dato*" : #{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Marca]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Marca) ? "*sin dato*" : Marca</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input].Columns[Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Modelo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]}) ? "*sin dato*" : #{Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output].Columns[Modelo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Modelo) ? "*sin dato*" : Modelo</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga BT_Exco_Sullair_Comex.Paths[Derived Column Output]"
+              endId="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_Exco_Sullair_Comex.Paths[Lookup Match Output]"
+              endId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_Exco_Sullair_Comex.Paths[Lookup Match Output1]"
+              endId="Package\Carga BT_Exco_Sullair_Comex\SK NULL.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_Exco_Sullair_Comex.Paths[OLE DB Source Output]"
+              endId="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DELETE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{f095530f-fcf3-414e-b80a-3fae03108003}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}"
+          SQLTask:SqlStatementSource="DELETE FROM BT_Expo_Sullair_Comex&#xA;WHERE FC_EXCO_FECHA BETWEEN  (SELECT MIN (FECHA) FROM STG.DBO.STG_IMPO_COMEX) AND (SELECT MAX (FECHA) FROM STG.DBO.STG_IMPO_COMEX) " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{63fb43e4-3d44-439c-92ea-40d993464d87}"
+      DTS:From="Package\DELETE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga BT_Exco_Sullair_Comex" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="222,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex"
+          TopLeft="60,150.133331721624" />
+        <NodeLayout
+          Size="115.333333333334,42"
+          Id="Package\DELETE"
+          TopLeft="107.499999292195,60" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="168.083332979431,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.1333317216238"
+              Start="0,0"
+              End="0,40.6333317216238">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.6333317216238" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga BT_Exco_Sullair_Comex">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="228.666666666667,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex"
+          TopLeft="124.70237909417,401.015868263396" />
+        <NodeLayout
+          Size="119.333333333334,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex\SK NULL"
+          TopLeft="180.059521126427,317.444441186341" />
+        <NodeLayout
+          Size="274,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex\GET SK_POCX_PosicionArancelariaComex"
+          TopLeft="104.285712731736,131.485711934567" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino"
+          TopLeft="134.940474179707,213.619046711354" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex"
+          TopLeft="137.083331290632,47.2333324887355" />
+        <EdgeLayout
+          Id="Package\Carga BT_Exco_Sullair_Comex.Paths[OLE DB Source Output]"
+          TopLeft="237.684522011184,89.2333324887355">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.2523794458315"
+              Start="0,0"
+              End="0,34.7523794458315">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7523794458315" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exco_Sullair_Comex.Paths[Lookup Match Output1]"
+          TopLeft="237.8333309864,255.619046711354">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.8253944749871"
+              Start="0,0"
+              End="0,54.3253944749871">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.3253944749871" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,21.3580097374935,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exco_Sullair_Comex.Paths[Lookup Match Output]"
+          TopLeft="238.613093455721,173.485711934567">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.133334776787"
+              Start="0,0"
+              End="0,32.633334776787">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.633334776787" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,10.5119798883935,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Exco_Sullair_Comex.Paths[Derived Column Output]"
+          TopLeft="239.380950110299,359.444441186341">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.571427077055"
+              Start="0,0"
+              End="0,34.071427077055">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.071427077055" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exco_Sullair_Comex\Input STG_Expo_Comex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exco_Sullair_Comex\GET SK_PAI_Pais_Destino">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Exco_Sullair_Comex\Output BT_Expo_Sullair_Comex">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

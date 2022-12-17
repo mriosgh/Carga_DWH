@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/9/2020 6:50:47 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis4"
+  DTS:DTSID="{D9D0E19E-A782-4F45-9AD2-326EDE8E538B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_Obj_Acuerdos_Proveedores"
+  DTS:PackageType="5"
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{D952FE0A-DFDE-4E57-8BA2-3BAA2CCE307D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Acuerdos con Proveedores 1 OBJ 54"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7A6585C5-CFD1-416E-B887-752AC78C2D5D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Acuerdos con Proveedores 1 OBJ 54"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Acuerdos con Proveedores"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select
+SK_OBJ_ObjetivoComprador, 
+getdate() FC_OBJ_Ejecucion ,
+[FC_PrimerDia] FC_OBJ_FechaEvaluacion,
+(Select Count(*) OB
+From(
+SELECT  Distinct CAB.Compania, CAB.NroOrdenCompra, CAB.TipoDeOrden, CAB.SufijoOrdenCompra
+  FROM [STG_OrdenCompraCabecera] CAB
+  Join STG_OrdenCompraLineas DET
+ON CAB.Compania =  DET.Compania
+AND CAB.NroOrdenCompra = det.NroOrdenCompra
+AND CAB.TipoDeOrden = DET.TipoDeOrden
+AND CAB.SufijoOrdenCompra = DET.SufijoOrdenCompra
+  And DET.TipoDeOrden ='OB'
+  AND FechaLinea &lt;= [FC_PrimerDia] 
+  and DET.FechaCancelacion &gt;= [FC_UltimoDia]
+  AND ltrim(rtrim(CAB.UnidadDeNegocio)) IN ('401' , '402' , '403' , '407' , '5000' , '5230' , '5300' , '5311' , '5320' , '5330' , '5410' , '5411' , '5412' , '5500' , '5511' , '5512' , '5522' , '408','8900' , '8901' , '8904' , '8905' , '8906' , '8907' , '8908','8100' , '8110' , '8120' , '8130' , '8200' , '8210' , '8220' , '8300' , '8400' , '8902' , '8000' , '8910' , '8911' , '8912' ,'8010' , '8020' , '8030' , '8040' , '8050' , '8060' , '8070' , '8903' , '8909','8640' , '8660' , '8670' , '8680' , '8690' , '8700' , '8710' , '8720' , '8730' , '8740' , '8750' , '8760' , '8770' , '8780' , '8621' , '8520' , '460' , '461' , '463' , '464' , '465' , '466' , '467' , '468' , '469' , '470' , '471' , '472' , '473' , '8630' , '474', '1200')
+  )Aux
+  )+
+  (Select COUNT(Distinct NombreCatalogo) LP
+	From STG_BT_AcuerdosPrecioLP LP
+	Where LP.FC_OBLP_FechaLinea &gt;= [FC_PrimerDia] 
+	and LP.FC_OBLP_FechaFin &lt;= [FC_UltimoDia]
+	And ltrim(rtrim([cd_UNI_UnidadNegocio])) IN ('401' , '402' , '403' , '407' , '5000' , '5230' , '5300' , '5311' , '5320' , '5330' , '5410' , '5411' , '5412' , '5500' , '5511' , '5512' , '5522' , '408','8900' , '8901' , '8904' , '8905' , '8906' , '8907' , '8908','8100' , '8110' , '8120' , '8130' , '8200' , '8210' , '8220' , '8300' , '8400' , '8902' , '8000' , '8910' , '8911' , '8912' ,'8010' , '8020' , '8030' , '8040' , '8050' , '8060' , '8070' , '8903' , '8909','8640' , '8660' , '8670' , '8680' , '8690' , '8700' , '8710' , '8720' , '8730' , '8740' , '8750' , '8760' , '8770' , '8780' , '8621' , '8520' , '460' , '461' , '463' , '464' , '465' , '466' , '467' , '468' , '469' , '470' , '471' , '472' , '473' , '8630' , '474', '1200') 
+	) Calculo,
+
+nu_OBJ_ValorObjetivo,
+Cast('*Sin Dato*' as nvarchar(100)) SD,
+Cast('*Sin Dato*' as nvarchar(100)) SND,
+FC_OBJ_InicioMedicion FC_OBJ_Fecha,
+FC_OBJ_InicioMedicion, 
+FC_OBJ_FinMedición,
+case
+ when datepart (month , [FC_OBJ_InicioMedicion]) &lt;&gt; datepart (month , [FC_OBJ_FinMedición]) then 'Parcial'
+ else 'Total'
+ end tipo
+ FROM .STG_LK_ObjetivoComprador m 
+ inner join STG_LK_ObjetivoCompra j  on j.SK_OBJ_ObjetivoCompra = m.SK_OBJ_ObjetivoCompra
+ inner join STG_LK_Mes mes on [FC_PrimerDia]&gt; = FC_OBJ_InicioMedicion and [FC_UltimoDia] &lt;=FC_OBJ_FinMedición
+ where j.sk_obj_objetivocompra = 53 aND [FC_PrimerDia] &lt;= EOMONTH( Getdate())</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Connections[OleDbConnection]"
+                  connectionManagerID="{E1F4CD4B-EA92-4C16-913A-10426980F5E4}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SK_OBJ_ObjetivoComprador]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SK_OBJ_ObjetivoComprador]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SK_OBJ_ObjetivoComprador]"
+                      name="SK_OBJ_ObjetivoComprador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Ejecucion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_Ejecucion]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Ejecucion]"
+                      name="FC_OBJ_Ejecucion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FechaEvaluacion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_FechaEvaluacion]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FechaEvaluacion]"
+                      name="FC_OBJ_FechaEvaluacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[nu_OBJ_ValorObjetivo]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[nu_OBJ_ValorObjetivo]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[nu_OBJ_ValorObjetivo]"
+                      name="nu_OBJ_ValorObjetivo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SD]"
+                      length="100"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SD]"
+                      name="SD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SND]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SND]"
+                      length="100"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SND]"
+                      name="SND"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_Fecha]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Fecha]"
+                      name="FC_OBJ_Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_InicioMedicion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_InicioMedicion]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_InicioMedicion]"
+                      name="FC_OBJ_InicioMedicion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FinMedición]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_FinMedición]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FinMedición]"
+                      name="FC_OBJ_FinMedición"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[tipo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[tipo]"
+                      length="7"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[tipo]"
+                      name="tipo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[Calculo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[Calculo]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[Calculo]"
+                      name="Calculo"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SK_OBJ_ObjetivoComprador]"
+                      dataType="i4"
+                      name="SK_OBJ_ObjetivoComprador" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_Ejecucion]"
+                      dataType="dbTimeStamp"
+                      name="FC_OBJ_Ejecucion" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_FechaEvaluacion]"
+                      dataType="dbDate"
+                      name="FC_OBJ_FechaEvaluacion" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[nu_OBJ_ValorObjetivo]"
+                      dataType="r8"
+                      name="nu_OBJ_ValorObjetivo" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SD]"
+                      dataType="wstr"
+                      length="100"
+                      name="SD" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[SND]"
+                      dataType="wstr"
+                      length="100"
+                      name="SND" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_Fecha]"
+                      dataType="dbDate"
+                      name="FC_OBJ_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_InicioMedicion]"
+                      dataType="dbDate"
+                      name="FC_OBJ_InicioMedicion" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[FC_OBJ_FinMedición]"
+                      dataType="dbDate"
+                      name="FC_OBJ_FinMedición" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[tipo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="tipo" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].ExternalColumns[Calculo]"
+                      dataType="i4"
+                      name="Calculo" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SK_OBJ_ObjetivoComprador]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SK_OBJ_ObjetivoComprador]"
+                      name="SK_OBJ_ObjetivoComprador" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_Ejecucion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_Ejecucion]"
+                      name="FC_OBJ_Ejecucion" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_FechaEvaluacion]"
+                      dataType="dbDate"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_FechaEvaluacion]"
+                      name="FC_OBJ_FechaEvaluacion" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[Calculo]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[Calculo]"
+                      name="Calculo" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[nu_OBJ_ValorObjetivo]"
+                      dataType="r8"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[nu_OBJ_ValorObjetivo]"
+                      name="nu_OBJ_ValorObjetivo" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SD]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SD]"
+                      name="SD" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SND]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[SND]"
+                      name="SND" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_Fecha]"
+                      dataType="dbDate"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_Fecha]"
+                      name="FC_OBJ_Fecha" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_InicioMedicion]"
+                      dataType="dbDate"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_InicioMedicion]"
+                      name="FC_OBJ_InicioMedicion" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_FinMedición]"
+                      dataType="dbDate"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[FC_OBJ_FinMedición]"
+                      name="FC_OBJ_FinMedición" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[tipo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[tipo]"
+                      name="tipo" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="BT_ObjetivoComprador"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_ObjetivoComprador]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Connections[OleDbConnection]"
+                  connectionManagerID="{141109AF-7266-445B-9680-2E676EDFDAC3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH_Dev]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[SK_OBJ_ObjetivoComprador]"
+                      cachedDataType="i4"
+                      cachedName="SK_OBJ_ObjetivoComprador"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[SK_OBJ_ObjetivoComprador]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SK_OBJ_ObjetivoComprador]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[FC_OBJ_Ejecucion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_OBJ_Ejecucion"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_Ejecucion]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Ejecucion]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[FC_OBJ_FechaEvaluacion]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OBJ_FechaEvaluacion"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_FechaEvaluacion]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FechaEvaluacion]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[FC_OBJ_Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OBJ_Fecha"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_Fecha]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_Fecha]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[SD]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="SD"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[VC_OBJ_ValorParcial]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SD]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[SND]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="SND"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[VC_OBJ_ValorAComparar]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[SND]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[nu_OBJ_ValorObjetivo]"
+                      cachedDataType="r8"
+                      cachedName="nu_OBJ_ValorObjetivo"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorObjetivo]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[nu_OBJ_ValorObjetivo]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[NU_OBJ_ValorParcial]"
+                      cachedDataType="i4"
+                      cachedName="NU_OBJ_ValorParcial"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorParcial]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_OBJ_ValorParcial]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].Columns[NU_obj_ValorAcomparar]"
+                      cachedDataType="i4"
+                      cachedName="NU_obj_ValorAcomparar"
+                      externalMetadataColumnId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorACompara]"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_obj_ValorAcomparar]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[SK_OBJ_EvaluacionObjetivo]"
+                      dataType="i4"
+                      name="SK_OBJ_EvaluacionObjetivo" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[SK_OBJ_ObjetivoComprador]"
+                      dataType="i4"
+                      name="SK_OBJ_ObjetivoComprador" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_Ejecucion]"
+                      dataType="dbDate"
+                      name="FC_OBJ_Ejecucion" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_FechaEvaluacion]"
+                      dataType="dbDate"
+                      name="FC_OBJ_FechaEvaluacion" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorParcial]"
+                      dataType="r8"
+                      name="NU_OBJ_ValorParcial" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorACompara]"
+                      dataType="r8"
+                      name="NU_OBJ_ValorACompara" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[NU_OBJ_ValorObjetivo]"
+                      dataType="r8"
+                      name="NU_OBJ_ValorObjetivo" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[VC_OBJ_ValorParcial]"
+                      dataType="wstr"
+                      length="100"
+                      name="VC_OBJ_ValorParcial" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[VC_OBJ_ValorAComparar]"
+                      dataType="wstr"
+                      length="100"
+                      name="VC_OBJ_ValorAComparar" />
+                    <externalMetadataColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input].ExternalColumns[FC_OBJ_Fecha]"
+                      dataType="dbDate"
+                      name="FC_OBJ_Fecha" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input].Columns[tipo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="tipo"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[tipo]" />
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input].Columns[Calculo]"
+                      cachedDataType="i4"
+                      cachedName="Calculo"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[Calculo]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_OBJ_ValorParcial]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_OBJ_ValorParcial]"
+                      name="NU_OBJ_ValorParcial"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[tipo]} == "Parcial" ? #{Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[Calculo]} : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">tipo == "Parcial" ? Calculo : 0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_obj_ValorAcomparar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output].Columns[NU_obj_ValorAcomparar]"
+                      name="NU_obj_ValorAcomparar"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[tipo]} == "Total" ? #{Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[Calculo]} : 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">tipo == "Total" ? Calculo : 0</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select Distinct b.FC_OBJ_FechaEvaluacion
+From BT_ObjetivoComprador b
+
+Join  LK_ObjetivoComprador c 
+ON b.SK_OBJ_ObjetivoComprador = c.SK_OBJ_ObjetivoComprador
+
+Join LK_ObjetivoCompra oco
+ On oco.SK_OBJ_ObjetivoCompra= c.SK_OBJ_ObjetivoCompra
+ where OCO.sk_obj_objetivocompra = 53</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (Select Distinct b.FC_OBJ_FechaEvaluacion
+From BT_ObjetivoComprador b
+
+Join  LK_ObjetivoComprador c 
+ON b.SK_OBJ_ObjetivoComprador = c.SK_OBJ_ObjetivoComprador
+
+Join LK_ObjetivoCompra oco
+ On oco.SK_OBJ_ObjetivoCompra= c.SK_OBJ_ObjetivoCompra
+ where OCO.sk_obj_objetivocompra = 53) [refTable]
+where [refTable].[FC_OBJ_FechaEvaluacion] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="FC_OBJ_FechaEvaluacion" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FechaEvaluacion]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{141109AF-7266-445B-9680-2E676EDFDAC3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH_Dev]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input].Columns[FC_OBJ_FechaEvaluacion]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OBJ_FechaEvaluacion"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output].Columns[FC_OBJ_FechaEvaluacion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">FC_OBJ_FechaEvaluacion</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[Derived Column Output]"
+              endId="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[Lookup No Match Output]"
+              endId="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[OLE DB Source Output]"
+              endId="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="249,42"
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54"
+          TopLeft="433,175" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Acuerdos con Proveedores 1 OBJ 54">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup"
+          TopLeft="399,95" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores"
+          TopLeft="353,15" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador"
+          TopLeft="365,238" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54\Derived Column"
+          TopLeft="373,163" />
+        <EdgeLayout
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[OLE DB Source Output]"
+          TopLeft="455,57">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[Lookup No Match Output]"
+          TopLeft="452.75,137">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,3.4453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Acuerdos con Proveedores 1 OBJ 54.Paths[Derived Column Output]"
+          TopLeft="450,205">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.5,33"
+              Start="0,0"
+              End="9.5,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.5"
+                    Point2="0,16.5"
+                    Point3="4,16.5" />
+                  <mssgle:LineSegment
+                    End="5.5,16.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.5,16.5"
+                    Point2="9.5,16.5"
+                    Point3="9.5,20.5" />
+                  <mssgle:LineSegment
+                    End="9.5,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Acuerdos con Proveedores 1 OBJ 54\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Acuerdos con Proveedores 1 OBJ 54\Acuerdos con Proveedores">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Acuerdos con Proveedores 1 OBJ 54\BT_ObjetivoComprador">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

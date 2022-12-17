@@ -1,0 +1,729 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/24/2019 3:12:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-0BMVGN8"
+  DTS:CreatorName="DESKTOP-0BMVGN8\Dthink"
+  DTS:DTSID="{94569CF7-5340-41FF-830E-0C3D83B2F172}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Costos"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{0C3F1908-B8DA-434B-B624-2B3333D4F26D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_Costos"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{3D226DB2-5DB9-4A47-8F13-B7DFA12827E5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_Costos"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_Costos\Costo y FechaEjecucion"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Costo y FechaEjecucion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_Costos\Costo y FechaEjecucion.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_Costos\Costo y FechaEjecucion.Inputs[Entrada de columna derivada].Columns[costo]"
+                      cachedDataType="r8"
+                      cachedName="costo"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[costo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">#{Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[costo]} / 10000</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">costo / 10000</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\STG_Costos\Costo y FechaEjecucion.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de columna derivada].Columns[fechaEjecucion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de columna derivada].Columns[fechaEjecucion]"
+                      name="fechaEjecucion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\STG_Costos\Costo y FechaEjecucion.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_Costos\INPUT Costos"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="INPUT Costos"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT	LTRIM(RTRIM(C.COMCU)) AS unidadNegocio
+		,LTRIM(RTRIM(A.IMITM)) AS numeroArticulo
+		,LTRIM(RTRIM(A.IMLITM)) AS segundoNumeroArticulo
+		,DATEADD(dd,((LTRIM(RTRIM(C.COUPMJ)) % 1000) - 1),(cast(cast(1900+(LTRIM(RTRIM(C.COUPMJ))/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) as fechaActualizacion
+		,LTRIM(RTRIM(C.COLEDG)) AS tipoCosto
+		,C.COUNCS AS costo
+FROM [PRODDTA].[F4101] A
+LEFT JOIN [PRODDTA].[F4105] C
+ON A.IMITM = C.COITM
+WHERE (LTRIM(RTRIM(C.COMCU)) LIKE '901%'
+OR LTRIM(RTRIM(C.COMCU)) LIKE '201%')
+AND LTRIM(RTRIM(C.COLEDG)) = '07'
+ORDER BY LTRIM(RTRIM(A.IMITM));</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_Costos\INPUT Costos.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[unidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[unidadNegocio]"
+                      length="12"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[unidadNegocio]"
+                      name="unidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[fechaActualizacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[fechaActualizacion]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[fechaActualizacion]"
+                      name="fechaActualizacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[tipoCosto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[tipoCosto]"
+                      length="2"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[tipoCosto]"
+                      name="tipoCosto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[numeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[numeroArticulo]"
+                      length="23"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[numeroArticulo]"
+                      name="numeroArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[segundoNumeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[segundoNumeroArticulo]"
+                      length="25"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[segundoNumeroArticulo]"
+                      name="segundoNumeroArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[costo]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[costo]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[costo]"
+                      name="costo"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[unidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="unidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[fechaActualizacion]"
+                      dataType="dbTimeStamp"
+                      name="fechaActualizacion" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[tipoCosto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="tipoCosto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[numeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="23"
+                      name="numeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[segundoNumeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="segundoNumeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].ExternalColumns[costo]"
+                      dataType="r8"
+                      name="costo" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[unidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[unidadNegocio]"
+                      name="unidadNegocio" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[numeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="23"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[numeroArticulo]"
+                      name="numeroArticulo" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[segundoNumeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[segundoNumeroArticulo]"
+                      name="segundoNumeroArticulo" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[tipoCosto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[tipoCosto]"
+                      name="tipoCosto" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[fechaActualizacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[fechaActualizacion]"
+                      name="fechaActualizacion" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[costo]"
+                      dataType="r8"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[costo]"
+                      name="costo" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_Costos\STG_Costos"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="STG_Costos"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_Costos]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_Costos\STG_Costos.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[unidadNegocio]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="unidadNegocio"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[unidadNegocio]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[unidadNegocio]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[tipoCosto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="tipoCosto"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoCosto]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[tipoCosto]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[segundoNumeroArticulo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="segundoNumeroArticulo"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[segundoNumeroArticulo]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[segundoNumeroArticulo]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[costo]"
+                      cachedDataType="r8"
+                      cachedName="costo"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[costo]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[costo]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[numeroArticulo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="23"
+                      cachedName="numeroArticulo"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[numeroArticulo]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[numeroArticulo]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[fechaActualizacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaActualizacion"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaActualizacionOrigen]"
+                      lineageId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB].Columns[fechaActualizacion]" />
+                    <inputColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].Columns[fechaEjecucion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="fechaEjecucion"
+                      externalMetadataColumnId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaEjecucion]"
+                      lineageId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de columna derivada].Columns[fechaEjecucion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[unidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="unidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[tipoCosto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="tipoCosto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[costo]"
+                      dataType="r8"
+                      name="costo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[numeroArticulo]"
+                      dataType="i4"
+                      name="numeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[segundoNumeroArticulo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="segundoNumeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[ID_Costo]"
+                      dataType="i4"
+                      name="ID_Costo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaActualizacionOrigen]"
+                      dataType="dbDate"
+                      name="fechaActualizacionOrigen" />
+                    <externalMetadataColumn
+                      refId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaEjecucion]"
+                      dataType="dbDate"
+                      name="fechaEjecucion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_Costos\STG_Costos.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_Costos\STG_Costos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\STG_Costos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_Costos\STG_Costos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_Costos\STG_Costos.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_Costos.Paths[Salida de columna derivada]"
+              endId="Package\STG_Costos\STG_Costos.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de columna derivada"
+              startId="Package\STG_Costos\Costo y FechaEjecucion.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\STG_Costos.Paths[Salida de origen de OLE DB]"
+              endId="Package\STG_Costos\Costo y FechaEjecucion.Inputs[Entrada de columna derivada]"
+              name="Salida de origen de OLE DB"
+              startId="Package\STG_Costos\INPUT Costos.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG_Costos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1580E496-D856-468F-9F50-4347128B16D8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG_Costos"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="BEGIN TRANSACTION&#xA;&#xA;TRUNCATE TABLE [dbo].[STG_Costos];&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{09D3151F-5544-4CD2-8FA9-77F52EAC8B94}"
+      DTS:From="Package\Truncate STG_Costos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\STG_Costos" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\STG_Costos"
+          TopLeft="281.25,122" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Truncate STG_Costos"
+          TopLeft="258.75,28" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="348.75,70">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_Costos">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\STG_Costos\STG_Costos"
+          TopLeft="320.805555555556,185" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\STG_Costos\Costo y FechaEjecucion"
+          TopLeft="293.305555555556,101" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\STG_Costos\INPUT Costos"
+          TopLeft="316.305555555556,24" />
+        <EdgeLayout
+          Id="Package\STG_Costos.Paths[Salida de origen de OLE DB]"
+          TopLeft="388.305555555556,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_Costos.Paths[Salida de columna derivada]"
+          TopLeft="388.305555555556,143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_Costos\STG_Costos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_Costos\INPUT Costos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,565 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/14/2019 5:47:22 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{408156DB-DE85-418A-A1A0-491850D41F53}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Costo_Equipo"
+  DTS:PackageType="5"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{0316DFE2-8717-47F4-9EB3-E68042DB2959}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Costo_Equipo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E7320931-AC68-43CA-AA8E-5B322E289C9D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Costo_Equipo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_ArticuloLibroMayor"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+	A.NroDeArticulo,
+	LTRIM(RTRIM(A.NroDeSerie)) AS NroDeSerie,
+	LTRIM(RTRIM(A.UnidadDeNegocio)) AS UnidadDeNegocio,
+	A.FechaOrdenTransaccion,
+	C.costo AS CostoEstandar,
+	A.ImporteCostoUnitario AS CostoReal
+FROM [STG].[dbo].[STG_ArticuloLibroMayor] A
+LEFT JOIN [STG].[dbo].[STG_Costos] C
+	ON A.NroDeArticulo = C.numeroArticulo
+	AND A.UnidadDeNegocio = C.unidadNegocio
+WHERE UnidadDeNegocio IN ('901','201')
+AND A.NroDeSerie &lt;&gt; ''
+AND NroDeSerie IS NOT NULL
+AND TipoDeDocumento = 'IC'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Connections[OleDbConnection]"
+                  connectionManagerID="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeArticulo]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[NroDeArticulo]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeArticulo]"
+                      name="NroDeArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[NroDeSerie]"
+                      length="30"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeSerie]"
+                      name="NroDeSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[FechaOrdenTransaccion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[FechaOrdenTransaccion]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[FechaOrdenTransaccion]"
+                      name="FechaOrdenTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoEstandar]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[CostoEstandar]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoEstandar]"
+                      name="CostoEstandar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoReal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[CostoReal]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoReal]"
+                      name="CostoReal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[UnidadDeNegocio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[UnidadDeNegocio]"
+                      length="12"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[UnidadDeNegocio]"
+                      name="UnidadDeNegocio"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[NroDeArticulo]"
+                      dataType="r8"
+                      name="NroDeArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[NroDeSerie]"
+                      dataType="wstr"
+                      length="30"
+                      name="NroDeSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[FechaOrdenTransaccion]"
+                      dataType="dbDate"
+                      name="FechaOrdenTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[CostoEstandar]"
+                      dataType="r8"
+                      name="CostoEstandar" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[CostoReal]"
+                      dataType="r8"
+                      name="CostoReal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].ExternalColumns[UnidadDeNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadDeNegocio" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[NroDeArticulo]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[NroDeArticulo]"
+                      name="NroDeArticulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[NroDeSerie]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[NroDeSerie]"
+                      name="NroDeSerie" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[UnidadDeNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[UnidadDeNegocio]"
+                      name="UnidadDeNegocio" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[FechaOrdenTransaccion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[FechaOrdenTransaccion]"
+                      name="FechaOrdenTransaccion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[CostoEstandar]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[CostoEstandar]"
+                      name="CostoEstandar" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[CostoReal]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[CostoReal]"
+                      name="CostoReal" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_Costo_Equipo"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Costo_Equipo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Connections[OleDbConnection]"
+                  connectionManagerID="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[NroDeSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="NroDeSerie"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[nroDeSerie]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeSerie]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[CostoEstandar]"
+                      cachedDataType="r8"
+                      cachedName="CostoEstandar"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[costoEstandar]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoEstandar]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[CostoReal]"
+                      cachedDataType="r8"
+                      cachedName="CostoReal"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[costoReal]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[CostoReal]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[NroDeArticulo]"
+                      cachedDataType="r8"
+                      cachedName="NroDeArticulo"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[numeroArticulo]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[NroDeArticulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[UnidadDeNegocio]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="UnidadDeNegocio"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[unidadNegocio]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[UnidadDeNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].Columns[FechaOrdenTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaOrdenTransaccion"
+                      externalMetadataColumnId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[fechaOrden]"
+                      lineageId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output].Columns[FechaOrdenTransaccion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[ID_Costo_Equipo]"
+                      dataType="i4"
+                      name="ID_Costo_Equipo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[nroDeSerie]"
+                      dataType="wstr"
+                      length="30"
+                      name="nroDeSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[numeroArticulo]"
+                      dataType="i4"
+                      name="numeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[unidadNegocio]"
+                      dataType="wstr"
+                      length="15"
+                      name="unidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[fechaOrden]"
+                      dataType="dbDate"
+                      name="fechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[costoEstandar]"
+                      dataType="r8"
+                      name="costoEstandar" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input].ExternalColumns[costoReal]"
+                      dataType="r8"
+                      name="costoReal" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Costo_Equipo.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C9996F5A-09DA-4877-ADD0-66DB083D13FD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_Costo_Equipo;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A34C0B91-6162-4664-B2B7-9F8962AFA06A}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_Costo_Equipo" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Carga STG_Costo_Equipo"
+          TopLeft="252,168" />
+        <NodeLayout
+          Size="131,43"
+          Id="Package\TRUNCATE"
+          TopLeft="280,49" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="348.5,92">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76"
+              Start="0,0"
+              End="0,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_Costo_Equipo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="220,42"
+          Id="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor"
+          TopLeft="216,93" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo"
+          TopLeft="226,245" />
+        <EdgeLayout
+          Id="Package\Carga STG_Costo_Equipo.Paths[OLE DB Source Output]"
+          TopLeft="327,135">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,110"
+              Start="0,0"
+              End="0,102.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,102.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Costo_Equipo\Input STG_ArticuloLibroMayor">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Costo_Equipo\Output STG_Costo_Equipo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

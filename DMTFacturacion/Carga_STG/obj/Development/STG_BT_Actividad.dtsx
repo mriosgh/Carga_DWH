@@ -1,0 +1,2656 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/28/2020 11:47:08 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis5"
+  DTS:DTSID="{69BF4F75-1C24-471B-884A-6FC7ACC57D00}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_BT_Actividad"
+  DTS:PackageType="5"
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{9CE10C35-69C7-4AF4-8C1A-FE2073C8D7FB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{23678C0F-ABF0-4865-9541-404DD3C725A3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG\JDE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="JDE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT F.SK_MES,
+FC_Fecha, 
+SK_Trimestre, 
+SK_Semana, 
+SK_Bimestre, 
+SK_Año, 
+SK_DiaSemana, 
+SK_MesAnterior, 
+FC_PrimerDia, 
+FC_UltimoDia
+FROM DBO.LK_Fecha F WITH(NOLOCK)
+INNER JOIN DBO.LK_Mes M WITH(NOLOCK)
+ON F.SK_MES = M.SK_Mes
+WHERE SK_Trimestre = (
+						SELECT SK_Trimestre
+						FROM DBO.LK_Fecha F WITH(NOLOCK)
+						INNER JOIN DBO.LK_Mes M WITH(NOLOCK)
+						ON F.SK_MES = M.SK_Mes
+						WHERE CONVERT(VARCHAR(12),FC_Fecha,112) = CONVERT(VARCHAR(12),GETDATE(),112))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG\JDE.Connections[OleDbConnection]"
+                  connectionManagerID="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MES]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_MES]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MES]"
+                      name="SK_MES"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_Fecha]"
+                      name="FC_Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Trimestre]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Trimestre]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Trimestre]"
+                      name="SK_Trimestre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Semana]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Semana]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Semana]"
+                      name="SK_Semana"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Bimestre]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Bimestre]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Bimestre]"
+                      name="SK_Bimestre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Año]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Año]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Año]"
+                      name="SK_Año"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_DiaSemana]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_DiaSemana]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_DiaSemana]"
+                      name="SK_DiaSemana"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MesAnterior]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_MesAnterior]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MesAnterior]"
+                      name="SK_MesAnterior"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_PrimerDia]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_PrimerDia]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_PrimerDia]"
+                      name="FC_PrimerDia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_UltimoDia]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_UltimoDia]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_UltimoDia]"
+                      name="FC_UltimoDia"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_MES]"
+                      dataType="i4"
+                      name="SK_MES" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Trimestre]"
+                      dataType="i4"
+                      name="SK_Trimestre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Semana]"
+                      dataType="i4"
+                      name="SK_Semana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Bimestre]"
+                      dataType="i4"
+                      name="SK_Bimestre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_Año]"
+                      dataType="i4"
+                      name="SK_Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_DiaSemana]"
+                      dataType="i4"
+                      name="SK_DiaSemana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[SK_MesAnterior]"
+                      dataType="i4"
+                      name="SK_MesAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_PrimerDia]"
+                      dataType="dbDate"
+                      name="FC_PrimerDia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].ExternalColumns[FC_UltimoDia]"
+                      dataType="dbDate"
+                      name="FC_UltimoDia" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_MES]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_MES]"
+                      name="SK_MES" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_Fecha]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_Fecha]"
+                      name="FC_Fecha" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Trimestre]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Trimestre]"
+                      name="SK_Trimestre" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Semana]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Semana]"
+                      name="SK_Semana" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Bimestre]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Bimestre]"
+                      name="SK_Bimestre" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Año]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_Año]"
+                      name="SK_Año" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_DiaSemana]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_DiaSemana]"
+                      name="SK_DiaSemana" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_MesAnterior]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[SK_MesAnterior]"
+                      name="SK_MesAnterior" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_PrimerDia]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_PrimerDia]"
+                      name="FC_PrimerDia" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_UltimoDia]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[FC_UltimoDia]"
+                      name="FC_UltimoDia" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG\STG"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_TrimestreActual]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG\STG.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_MES]"
+                      cachedDataType="i4"
+                      cachedName="SK_MES"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_MES]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MES]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[FC_Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_Fecha"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_Fecha]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_Trimestre]"
+                      cachedDataType="i4"
+                      cachedName="SK_Trimestre"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Trimestre]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Trimestre]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_Semana]"
+                      cachedDataType="i4"
+                      cachedName="SK_Semana"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Semana]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Semana]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_Bimestre]"
+                      cachedDataType="i4"
+                      cachedName="SK_Bimestre"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Bimestre]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Bimestre]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_Año]"
+                      cachedDataType="i4"
+                      cachedName="SK_Año"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Año]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_Año]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_DiaSemana]"
+                      cachedDataType="i4"
+                      cachedName="SK_DiaSemana"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_DiaSemana]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_DiaSemana]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[SK_MesAnterior]"
+                      cachedDataType="i4"
+                      cachedName="SK_MesAnterior"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_MesAnterior]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[SK_MesAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[FC_PrimerDia]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_PrimerDia"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_PrimerDia]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_PrimerDia]" />
+                    <inputColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].Columns[FC_UltimoDia]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_UltimoDia"
+                      externalMetadataColumnId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_UltimoDia]"
+                      lineageId="Package\Carga STG\JDE.Outputs[OLE DB Source Output].Columns[FC_UltimoDia]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_MES]"
+                      dataType="i4"
+                      name="SK_MES" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Trimestre]"
+                      dataType="i4"
+                      name="SK_Trimestre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Semana]"
+                      dataType="i4"
+                      name="SK_Semana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Bimestre]"
+                      dataType="i4"
+                      name="SK_Bimestre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_Año]"
+                      dataType="i4"
+                      name="SK_Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_DiaSemana]"
+                      dataType="i4"
+                      name="SK_DiaSemana" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[SK_MesAnterior]"
+                      dataType="i4"
+                      name="SK_MesAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_PrimerDia]"
+                      dataType="dbDate"
+                      name="FC_PrimerDia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG\STG.Inputs[OLE DB Destination Input].ExternalColumns[FC_UltimoDia]"
+                      dataType="dbDate"
+                      name="FC_UltimoDia" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG\STG.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG\STG.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG\STG.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\STG.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG\STG.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG\STG.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG\STG.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG\JDE.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_BT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{20A1A0DF-D6ED-4BFB-B39F-9003B5EEED17}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_BT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_BT\Cabecera y Detalle"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Cabecera y Detalle"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+CAST(cab.IdProveedor AS INT) AS PHAN8
+,rtrim(ltrim (CodigoDeInforme2Compras)) as PDPDP2
+,CASE WHEN cab.UnidadDeNegocio IN ('901BA', '901B') AND CodigoDeInforme2Compras = 'P' THEN 'FAB' ELSE RTRIM(LTRIM(CodigoDeInforme1Compras)) END AS PDPDP1
+,RTRIM(LTRIM(cab.UnidadDeNegocio)) AS PHMCU
+,cab.Compania as PHKCOO
+,cab.NroOrdenCompra as PHDOCO
+,cab.TipoDeOrden as PHDCTO
+,cab.SufijoOrdenCompra as PHSFXO
+,NroDeLinea as PDLNID
+,CodigoDeEstadoultimo as PDLTTR
+,CodigoDeEstadoSiguiente as PDNXTR
+,cab.CodigoDeMonedaDesde as PHCRCD 
+,cab.ValorAbiertoExtranjero as PHFAP
+,DET.ValorTotalExtranjero as PDFEA 
+,cab.CantidadPedidoBruto as PHOTOT  
+,det.ValorPrecioTotal as PDAEXP 
+,det.CodigoDeMonedaDesde as PDCRCD 
+,cab.FechaPedidoTransaccion as PHTRDJ 
+,det.FechaActualizacion as PDUPMJ
+
+FROM DBO.STG_OrdenCompraCabecera CAB WITH(NOLOCK)
+INNER JOIN DBO.STG_OrdenCompraLineas DET WITH(NOLOCK)
+	ON CAB.Compania =  DET.Compania
+	AND CAB.NroOrdenCompra = det.NroOrdenCompra
+	AND CAB.TipoDeOrden = DET.TipoDeOrden
+	AND CAB.SufijoOrdenCompra = DET.SufijoOrdenCompra
+WHERE cab.TipoDeOrden IN ('OC','OI')
+AND ( cab.FechaPedidoTransaccion  IN (SELECT FC_FECHA FROM [dbo].[STG_TrimestreActual])
+OR det.FechaActualizacion  IN (SELECT FC_FECHA FROM [dbo].[STG_TrimestreActual]))
+ORDER BY cab.Compania, cab.NroOrdenCompra, cab.TipoDeOrden, cab.SufijoOrdenCompra, NroDeLinea</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_BT\Cabecera y Detalle.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output]"
+                  isSorted="true"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHAN8]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHAN8]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHAN8]"
+                      name="PHAN8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDPDP2]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP2]"
+                      name="PDPDP2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDPDP1]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP1]"
+                      name="PDPDP1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHMCU]"
+                      length="12"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHMCU]"
+                      name="PHMCU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHKCOO]"
+                      length="5"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHKCOO]"
+                      name="PHKCOO"
+                      sortKeyPosition="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDOCO]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHDOCO]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDOCO]"
+                      name="PHDOCO"
+                      sortKeyPosition="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHDCTO]"
+                      length="2"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDCTO]"
+                      name="PHDCTO"
+                      sortKeyPosition="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHSFXO]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHSFXO]"
+                      name="PHSFXO"
+                      sortKeyPosition="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLNID]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDLNID]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLNID]"
+                      name="PDLNID"
+                      sortKeyPosition="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHTRDJ]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHTRDJ]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHTRDJ]"
+                      name="PHTRDJ"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDUPMJ]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDUPMJ]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDUPMJ]"
+                      name="PDUPMJ"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLTTR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDLTTR]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLTTR]"
+                      name="PDLTTR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDNXTR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDNXTR]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDNXTR]"
+                      name="PDNXTR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHCRCD]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHCRCD]"
+                      name="PHCRCD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHFAP]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHFAP]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHFAP]"
+                      name="PHFAP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDFEA]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDFEA]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDFEA]"
+                      name="PDFEA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHOTOT]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHOTOT]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHOTOT]"
+                      name="PHOTOT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDAEXP]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDAEXP]"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDAEXP]"
+                      name="PDAEXP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDCRCD]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDCRCD]"
+                      name="PDCRCD"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHAN8]"
+                      dataType="i4"
+                      name="PHAN8" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDPDP2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PDPDP2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDPDP1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PDPDP1" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="PHMCU" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="PHKCOO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHDOCO]"
+                      dataType="r8"
+                      name="PHDOCO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="PHDCTO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PHSFXO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDLNID]"
+                      dataType="r8"
+                      name="PDLNID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHTRDJ]"
+                      dataType="dbDate"
+                      name="PHTRDJ" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDUPMJ]"
+                      dataType="dbDate"
+                      name="PDUPMJ" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDLTTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PDLTTR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDNXTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PDNXTR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PHCRCD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHFAP]"
+                      dataType="r8"
+                      name="PHFAP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDFEA]"
+                      dataType="r8"
+                      name="PDFEA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PHOTOT]"
+                      dataType="r8"
+                      name="PHOTOT" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDAEXP]"
+                      dataType="r8"
+                      name="PDAEXP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].ExternalColumns[PDCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PDCRCD" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHAN8]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHAN8]"
+                      name="PHAN8" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDPDP2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDPDP2]"
+                      name="PDPDP2" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDPDP1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDPDP1]"
+                      name="PDPDP1" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHMCU]"
+                      name="PHMCU" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHKCOO]"
+                      name="PHKCOO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHDOCO]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHDOCO]"
+                      name="PHDOCO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHDCTO]"
+                      name="PHDCTO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHSFXO]"
+                      name="PHSFXO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDLNID]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDLNID]"
+                      name="PDLNID" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDLTTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDLTTR]"
+                      name="PDLTTR" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDNXTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDNXTR]"
+                      name="PDNXTR" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHCRCD]"
+                      name="PHCRCD" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHFAP]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHFAP]"
+                      name="PHFAP" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDFEA]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDFEA]"
+                      name="PDFEA" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHOTOT]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHOTOT]"
+                      name="PHOTOT" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDAEXP]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDAEXP]"
+                      name="PDAEXP" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDCRCD]"
+                      name="PDCRCD" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHTRDJ]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PHTRDJ]"
+                      name="PHTRDJ" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDUPMJ]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[PDUPMJ]"
+                      name="PDUPMJ" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_BT\EMBARQUENULL"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="EMBARQUENULL"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input].Columns[QG_1CFE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="QG_1CFE"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]}) ? "*sin dato*" : [LEN]([TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]})) == 0 ? "*sin dato*" : [TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(QG_1CFE) ? "*sin dato*" : LEN(TRIM(QG_1CFE)) == 0 ? "*sin dato*" : TRIM(QG_1CFE)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input].Columns[PDPDP2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]})) == 0 ? "-1" : [REPLACENULL]([TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]}),"-1")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(PDPDP2)) == 0 ? "-1" : REPLACENULL(TRIM(PDPDP2),"-1")</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input].Columns[PDPDP1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP1"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]})) == 0 ? "-1" : [REPLACENULL]([TRIM](#{Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]}),"-1")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(PDPDP1)) == 0 ? "-1" : REPLACENULL(TRIM(PDPDP1),"-1")</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_BT\F564311"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="F564311"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select
+	 F564311.QGKCOO
+	,F564311.QGDOCO
+	,F564311.QGDCTO
+	,F564311.QGSFXO
+	,F564311.QGLNID
+	,RTRIM(LTRIM(F564311.QG_1CFE)) AS QG_1CFE
+
+FROM PRODDTA.F564311 F564311
+where QGDCTO IN ('OC','OI')
+ORDER BY QGKCOO, QGDOCO, QGDCTO, QGSFXO, QGLNID</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_BT\F564311.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output]"
+                  isSorted="true"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGKCOO]"
+                      length="5"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGKCOO]"
+                      name="QGKCOO"
+                      sortKeyPosition="1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDOCO]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGDOCO]"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDOCO]"
+                      name="QGDOCO"
+                      sortKeyPosition="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGDCTO]"
+                      length="2"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDCTO]"
+                      name="QGDCTO"
+                      sortKeyPosition="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGSFXO]"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGSFXO]"
+                      name="QGSFXO"
+                      sortKeyPosition="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGLNID]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGLNID]"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGLNID]"
+                      name="QGLNID"
+                      sortKeyPosition="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QG_1CFE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QG_1CFE]"
+                      length="10"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QG_1CFE]"
+                      name="QG_1CFE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="QGKCOO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGDOCO]"
+                      dataType="r8"
+                      name="QGDOCO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="QGDCTO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="QGSFXO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QGLNID]"
+                      dataType="r8"
+                      name="QGLNID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].ExternalColumns[QG_1CFE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="QG_1CFE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGKCOO]"
+                      name="QGKCOO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGDOCO]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGDOCO]"
+                      name="QGDOCO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGDCTO]"
+                      name="QGDCTO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGSFXO]"
+                      name="QGSFXO" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGLNID]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QGLNID]"
+                      name="QGLNID" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QG_1CFE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[QG_1CFE]"
+                      name="QG_1CFE" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_BT\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">5</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHKCOO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="PHKCOO"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHKCOO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHDOCO]"
+                      cachedDataType="r8"
+                      cachedName="PHDOCO"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDOCO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHDCTO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="PHDCTO"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHDCTO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHSFXO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PHSFXO"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHSFXO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDLNID]"
+                      cachedDataType="r8"
+                      cachedName="PDLNID"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLNID]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHAN8]"
+                      cachedDataType="i4"
+                      cachedName="PHAN8"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHAN8]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDPDP2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP2"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP2]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDPDP1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP1"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDPDP1]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHMCU]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="PHMCU"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHMCU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHTRDJ]"
+                      cachedDataType="dbDate"
+                      cachedName="PHTRDJ"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHTRDJ]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDUPMJ]"
+                      cachedDataType="dbDate"
+                      cachedName="PDUPMJ"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDUPMJ]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDLTTR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDLTTR"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDLTTR]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDNXTR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDNXTR"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDNXTR]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHCRCD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PHCRCD"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHCRCD]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHFAP]"
+                      cachedDataType="r8"
+                      cachedName="PHFAP"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHFAP]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDFEA]"
+                      cachedDataType="r8"
+                      cachedName="PDFEA"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDFEA]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHOTOT]"
+                      cachedDataType="r8"
+                      cachedName="PHOTOT"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PHOTOT]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDAEXP]"
+                      cachedDataType="r8"
+                      cachedName="PDAEXP"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDAEXP]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDCRCD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDCRCD"
+                      lineageId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output].Columns[PDCRCD]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QGKCOO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="QGKCOO"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGKCOO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QGDOCO]"
+                      cachedDataType="r8"
+                      cachedName="QGDOCO"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDOCO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QGDCTO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="QGDCTO"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGDCTO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QGSFXO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="QGSFXO"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGSFXO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QGLNID]"
+                      cachedDataType="r8"
+                      cachedName="QGLNID"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QGLNID]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QG_1CFE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="QG_1CFE"
+                      lineageId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output].Columns[QG_1CFE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHAN8]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHAN8]"
+                      name="PHAN8">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHAN8]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]"
+                      name="PDPDP2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDPDP2]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]"
+                      name="PDPDP1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDPDP1]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHMCU]"
+                      name="PHMCU">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHMCU]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHKCOO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHKCOO]"
+                      name="PHKCOO"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHKCOO]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDOCO]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDOCO]"
+                      name="PHDOCO"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHDOCO]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDCTO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDCTO]"
+                      name="PHDCTO"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHDCTO]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHSFXO]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHSFXO]"
+                      name="PHSFXO"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHSFXO]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLNID]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLNID]"
+                      name="PDLNID"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDLNID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHTRDJ]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHTRDJ]"
+                      name="PHTRDJ">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHTRDJ]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDUPMJ]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDUPMJ]"
+                      name="PDUPMJ">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDUPMJ]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLTTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLTTR]"
+                      name="PDLTTR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDLTTR]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDNXTR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDNXTR]"
+                      name="PDNXTR">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDNXTR]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHCRCD]"
+                      name="PHCRCD">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHCRCD]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHFAP]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHFAP]"
+                      name="PHFAP">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHFAP]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDFEA]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDFEA]"
+                      name="PDFEA">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDFEA]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHOTOT]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHOTOT]"
+                      name="PHOTOT">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PHOTOT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDAEXP]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDAEXP]"
+                      name="PDAEXP">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDAEXP]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDCRCD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDCRCD]"
+                      name="PDCRCD">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input].Columns[PDCRCD]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]"
+                      name="QG_1CFE">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input].Columns[QG_1CFE]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_BT\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG_BT_Actividad]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_BT\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHAN8]"
+                      cachedDataType="i4"
+                      cachedName="PHAN8"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_ProveedorActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHAN8]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDPDP2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP2"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TipoArticuloActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP2]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDPDP1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDPDP1"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RubroActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDPDP1]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHMCU]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="PHMCU"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocioActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHMCU]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHKCOO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="PHKCOO"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompaniaActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHKCOO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHDOCO]"
+                      cachedDataType="r8"
+                      cachedName="PHDOCO"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NroOrdenCompraActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDOCO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHDCTO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="PHDCTO"
+                      cachedSortKeyPosition="3"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TipoDeOrdenActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHDCTO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHSFXO]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PHSFXO"
+                      cachedSortKeyPosition="4"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SufijoOrdenCompraActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHSFXO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDLNID]"
+                      cachedDataType="r8"
+                      cachedName="PDLNID"
+                      cachedSortKeyPosition="5"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NroDeLineaActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLNID]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHTRDJ]"
+                      cachedDataType="dbDate"
+                      cachedName="PHTRDJ"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaTransaccioCabActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHTRDJ]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDUPMJ]"
+                      cachedDataType="dbDate"
+                      cachedName="PDUPMJ"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaActualizacionDetActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDUPMJ]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDLTTR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDLTTR"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoultimoAct]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDLTTR]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDNXTR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDNXTR"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoSiguienteAct]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDNXTR]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHCRCD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PHCRCD"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoDeMonedaCabActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHCRCD]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHFAP]"
+                      cachedDataType="r8"
+                      cachedName="PHFAP"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorAbiertoExtCabeceraAct]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHFAP]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDFEA]"
+                      cachedDataType="r8"
+                      cachedName="PDFEA"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorTotalExtCabeceraAct]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDFEA]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PHOTOT]"
+                      cachedDataType="r8"
+                      cachedName="PHOTOT"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioBrutoTotalCabeceraActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PHOTOT]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDAEXP]"
+                      cachedDataType="r8"
+                      cachedName="PDAEXP"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioTotalDetActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDAEXP]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PDCRCD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PDCRCD"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoDeMonedaActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[PDCRCD]" />
+                    <inputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[QG_1CFE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="QG_1CFE"
+                      externalMetadataColumnId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarqueActividad]"
+                      lineageId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output].Columns[QG_1CFE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_ProveedorActividad]"
+                      dataType="i4"
+                      name="SK_PRO_ProveedorActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TipoArticuloActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="TipoArticuloActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RubroActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="RubroActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocioActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="UnidadNegocioActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompaniaActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CompaniaActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NroOrdenCompraActividad]"
+                      dataType="r8"
+                      name="NroOrdenCompraActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TipoDeOrdenActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TipoDeOrdenActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SufijoOrdenCompraActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="SufijoOrdenCompraActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NroDeLineaActividad]"
+                      dataType="r8"
+                      name="NroDeLineaActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaTransaccioCabActividad]"
+                      dataType="dbDate"
+                      name="FechaTransaccioCabActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaActualizacionDetActividad]"
+                      dataType="dbDate"
+                      name="FechaActualizacionDetActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarqueActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="MetodoEmbarqueActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoultimoAct]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="EstadoultimoAct" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoSiguienteAct]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="EstadoSiguienteAct" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoDeMonedaCabActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="CodigoDeMonedaCabActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorAbiertoExtCabeceraAct]"
+                      dataType="r8"
+                      name="ValorAbiertoExtCabeceraAct" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorTotalExtCabeceraAct]"
+                      dataType="r8"
+                      name="ValorTotalExtCabeceraAct" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioBrutoTotalCabeceraActividad]"
+                      dataType="r8"
+                      name="PrecioBrutoTotalCabeceraActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioTotalDetActividad]"
+                      dataType="r8"
+                      name="PrecioTotalDetActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoDeMonedaActividad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="CodigoDeMonedaActividad" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_BT\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_BT\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_BT\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_BT.Paths[Derived Column Output]"
+              endId="Package\Carga STG_BT\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga STG_BT\EMBARQUENULL.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga STG_BT.Paths[Merge Join Output]"
+              endId="Package\Carga STG_BT\EMBARQUENULL.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\Carga STG_BT\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Carga STG_BT.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Right Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_BT\F564311.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga STG_BT.Paths[OLE DB Source Output1]"
+              endId="Package\Carga STG_BT\Merge Join.Inputs[Merge Join Left Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_BT\Cabecera y Detalle.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncamos STG"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7329288A-93F8-478D-8CE9-52FAC29D567C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncamos STG"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE DBO.STG_TrimestreActual;&#xA;TRUNCATE TABLE DBO.STG_BT_Actividad;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{8B09152A-BF5D-4CF1-9F49-958CA655AFB1}"
+      DTS:From="Package\Truncamos STG"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{3784FECF-58D3-4381-8ABC-09FE256CC20D}"
+      DTS:From="Package\Carga STG"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Carga STG_BT" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Carga STG"
+          TopLeft="276,158" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Carga STG_BT"
+          TopLeft="269,272" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Truncamos STG"
+          TopLeft="270,51" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="343.75,93">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="341.5,200">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,72"
+              Start="0,0"
+              End="0,64.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="98,42"
+          Id="Package\Carga STG\STG"
+          TopLeft="157,240" />
+        <NodeLayout
+          Size="97,42"
+          Id="Package\Carga STG\JDE"
+          TopLeft="163,46" />
+        <EdgeLayout
+          Id="Package\Carga STG.Paths[OLE DB Source Output]"
+          TopLeft="208.75,88">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,152"
+              Start="0,0"
+              End="0,144.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,144.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG\JDE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG\STG">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga STG_BT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Carga STG_BT\OLE DB Destination"
+          TopLeft="258,264" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Carga STG_BT\EMBARQUENULL"
+          TopLeft="259,186" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\Carga STG_BT\F564311"
+          TopLeft="401,14" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Carga STG_BT\Merge Join"
+          TopLeft="273,116" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga STG_BT\Cabecera y Detalle"
+          TopLeft="132,24" />
+        <EdgeLayout
+          Id="Package\Carga STG_BT.Paths[OLE DB Source Output1]"
+          TopLeft="215.5,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102.166666666667,50"
+              Start="0,0"
+              End="102.166666666667,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.6352583586626" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.6352583586626"
+                    Point2="0,29.6352583586626"
+                    Point3="4,29.6352583586626" />
+                  <mssgle:LineSegment
+                    End="98.1666666666667,29.6352583586626" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98.1666666666667,29.6352583586626"
+                    Point2="102.166666666667,29.6352583586626"
+                    Point3="102.166666666667,33.6352583586626" />
+                  <mssgle:LineSegment
+                    End="102.166666666667,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_BT.Paths[OLE DB Source Output]"
+          TopLeft="461,56">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-102.666666666667,60"
+              Start="0,0"
+              End="-102.666666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5623100303951" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.5623100303951"
+                    Point2="0,35.5623100303951"
+                    Point3="-4,35.5623100303951" />
+                  <mssgle:LineSegment
+                    End="-98.6666666666667,35.5623100303951" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-98.6666666666667,35.5623100303951"
+                    Point2="-102.666666666667,35.5623100303951"
+                    Point3="-102.666666666667,39.5623100303951" />
+                  <mssgle:LineSegment
+                    End="-102.666666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_BT.Paths[Merge Join Output]"
+          TopLeft="338,158">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_BT.Paths[Derived Column Output]"
+          TopLeft="340.75,228">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_BT\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_BT\F564311">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_BT\Cabecera y Detalle">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

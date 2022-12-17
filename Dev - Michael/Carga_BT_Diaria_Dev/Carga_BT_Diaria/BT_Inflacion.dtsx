@@ -1,0 +1,716 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/15/2020 12:45:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis2"
+  DTS:DTSID="{CDD49F53-821F-40BD-BEF8-7153FDF7D515}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="BT_Inflacion"
+  DTS:PackageType="5"
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{6D79457A-A801-4216-8781-252229EDC198}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{ED79BD62-241B-4ECA-8F91-C0A5771FDDEF}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FC_Desde">
+      <DTS:VariableValue
+        DTS:DataType="8">2010-01-01</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{57E7A9A3-7B18-4C85-8246-638FE261A7C2}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_I4) replace(left( @[User::FC_Desde] ,7),&quot;-&quot;,&quot;&quot;)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MES">
+      <DTS:VariableValue
+        DTS:DataType="3">201001</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga BT_Inflacion_"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CB3EF41F-551D-42AA-8E3B-50FCB7345C01}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga BT_Inflacion_"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga BT_Inflacion_\GET STG_Inflacion"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GET STG_Inflacion"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT A.[SK_Mes]
+      ,A.[NU_INF_Valor]
+      ,CAST(A.[NU_INF_Valor] AS FLOAT) - CAST(c.bv AS FLOAT) as NU_INF_Variacion
+  FROM [STG].[dbo].[STG_BT_Inflacion_] A
+  OUTER APPLY (SELECT  TOP 1 b.[SK_Mes]
+      ,b.[NU_INF_Valor] bv FROM [STG_BT_Inflacion_] B
+		WHERE  
+		DATEADD (MM,1,
+		CONVERT(CHAR(8),CONCAT (b.[SK_Mes],'01' ), 112)) =  
+		CONVERT( CHAR(8),CONCAT (a.[SK_Mes],'01' ), 112)  
+		ORDER BY b.[SK_Mes] DESC
+ ) c
+WHERE a.[SK_Mes] &gt;= ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{57E7A9A3-7B18-4C85-8246-638FE261A7C2};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Connections[OleDbConnection]"
+                  connectionManagerID="{1A290C50-0624-4513-A2C4-6504F9841FEC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      name="SK_Mes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Variacion]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      name="NU_INF_Variacion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Variacion]"
+                      dataType="r8"
+                      name="NU_INF_Variacion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      name="SK_Mes" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Variacion]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Variacion]"
+                      name="NU_INF_Variacion" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="INSERT BT_Inflacion_"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_Inflacion_]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].Columns[SK_Mes]"
+                      cachedDataType="i4"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].Columns[NU_INF_Valor]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Valor"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]" />
+                    <inputColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      externalMetadataColumnId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Variacion]"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[SK_INF_Inflacion]"
+                      dataType="i4"
+                      name="SK_INF_Inflacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      dataType="i4"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Variacion]"
+                      dataType="r8"
+                      name="NU_INF_Variacion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_Inflacion_\REPLACE NULL"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="REPLACE NULL"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_Inflacion_\REPLACE NULL.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_Inflacion_\REPLACE NULL.Inputs[Derived Column Input].Columns[NU_INF_Variacion]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Variacion"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Variacion]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(NU_INF_Variacion,0)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_Inflacion_\REPLACE NULL.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_Inflacion_\REPLACE NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga BT_Inflacion_.Paths[Derived Column Output]"
+              endId="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_Inflacion_\REPLACE NULL.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_Inflacion_.Paths[OLE DB Source Output]"
+              endId="Package\Carga BT_Inflacion_\REPLACE NULL.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga BT_Inflacion_\GET STG_Inflacion.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\delete from fc_Desde"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{74CF4DE2-CB9A-4DFD-A1B5-F75320F603A6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="delete from fc_Desde"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="DELETE FROM BT_Inflacion_&#xA;WHERE &#xA;&#x9;sk_mes &gt;= ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::MES"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\fc_desde"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1E7DFEEF-C1EB-425D-9FC6-652ECBA03EFD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="fc_desde"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="SELECT FC_DESDE&#xA;FROM DW_AUD_Fecha_Proceso&#xA;WHERE idModulo=13&#xA;&#xA;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::FC_Desde" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\UPDATE Fecha Aud"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{CEBF8DA8-55BA-4BA4-83DA-D80B49ABF39F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="UPDATE Fecha Aud"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="UPDATE DW_AUD_Fecha_Proceso&#xA;SET FC_Desde=?&#xA;WHERE idModulo=13&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::FC_Desde"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="130"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B78F2C61-6802-450E-AB67-15E6A71C32B8}"
+      DTS:From="Package\Carga BT_Inflacion_"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\UPDATE Fecha Aud" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{BCED62B2-80DB-4D84-8163-EE77BD33EF1C}"
+      DTS:From="Package\fc_desde"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\delete from fc_Desde" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{6CD2A70E-D7CE-473A-8B5A-8350853A2C53}"
+      DTS:From="Package\delete from fc_Desde"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Carga BT_Inflacion_" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Carga BT_Inflacion_"
+          TopLeft="238,302" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\delete from fc_Desde"
+          TopLeft="231,211" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\fc_desde"
+          TopLeft="254,105" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\UPDATE Fecha Aud"
+          TopLeft="239,401" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="324.5,344">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="317.75,147">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="323,253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga BT_Inflacion_">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_"
+          TopLeft="288,271" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga BT_Inflacion_\GET STG_Inflacion"
+          TopLeft="300,55" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Carga BT_Inflacion_\REPLACE NULL"
+          TopLeft="307,172" />
+        <EdgeLayout
+          Id="Package\Carga BT_Inflacion_.Paths[OLE DB Source Output]"
+          TopLeft="382.75,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_Inflacion_.Paths[Derived Column Output]"
+          TopLeft="380.75,214">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Inflacion_\INSERT BT_Inflacion_">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_Inflacion_\GET STG_Inflacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

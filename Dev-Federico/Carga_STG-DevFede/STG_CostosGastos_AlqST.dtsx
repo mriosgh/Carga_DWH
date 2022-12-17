@@ -1,0 +1,997 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/20/2021 12:37:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{ABB625F1-DBBB-4CA4-843C-746156F4A016}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_CostosGastos_AlqST"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{818351CB-0675-45C0-B9C7-E9A7099181AE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0AD3DBBF-CB0A-4368-98B4-BDD90E7C7751}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FCDesde">
+      <DTS:VariableValue
+        DTS:DataType="7">9/24/2021 2:21:36 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{05111D59-19E1-4FA7-94D4-CCE2C001ECCC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FCHasta">
+      <DTS:VariableValue
+        DTS:DataType="7">9/24/2021 2:21:40 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_CostosGastos_ST_Alq"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{fb6ab202-15d7-4113-8c60-a9a45a081689}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_CostosGastos_ST_Alq"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input JDE F0911"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select
+DATEADD(dd,((GLDGJ % 1000) - 1),(cast(cast(1900+(GLDGJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))FechaLM,
+GLDCT AS TipoDoc,
+GLDOC AS NroDoc,
+GLJELN AS NroLinea,
+GLOBJ AS NroCuenta,
+GLSUB AS SubCuenta,
+GLMCU AS CentroCostos,
+GLLT  AS LibroMayor,
+GLPN  AS Mes,
+CONCAT(GLCTRY,GLFY) AS Año,
+GLCRCD AS CodMoneda,
+GLAA/100 AS MontoPesos,
+GLAN8 AddressNumber
+from PRODDTA.F0911
+WHERE GLLT='AA'
+AND DATEADD(dd,((GLDGJ % 1000) - 1),(cast(cast(1900+(GLDGJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) BETWEEN ? AND ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{0AD3DBBF-CB0A-4368-98B4-BDD90E7C7751};"Parameter1:Input",{05111D59-19E1-4FA7-94D4-CCE2C001ECCC};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[FechaLM]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[FechaLM]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[FechaLM]"
+                      name="FechaLM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[TipoDoc]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[TipoDoc]"
+                      length="2"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[TipoDoc]"
+                      name="TipoDoc"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroDoc]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroDoc]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroDoc]"
+                      name="NroDoc"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroCuenta]"
+                      length="6"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroCuenta]"
+                      name="NroCuenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CentroCostos]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[CentroCostos]"
+                      length="12"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CentroCostos]"
+                      name="CentroCostos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[LibroMayor]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[LibroMayor]"
+                      length="2"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[LibroMayor]"
+                      name="LibroMayor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Mes]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Mes]"
+                      name="Mes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Año]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[Año]"
+                      length="46"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Año]"
+                      name="Año"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CodMoneda]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[CodMoneda]"
+                      length="3"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CodMoneda]"
+                      name="CodMoneda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[MontoPesos]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[MontoPesos]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[MontoPesos]"
+                      name="MontoPesos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[AddressNumber]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[AddressNumber]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[AddressNumber]"
+                      name="AddressNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroLinea]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroLinea]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroLinea]"
+                      name="NroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[SubCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[SubCuenta]"
+                      length="8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[SubCuenta]"
+                      name="SubCuenta"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[FechaLM]"
+                      dataType="dbTimeStamp"
+                      name="FechaLM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[TipoDoc]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TipoDoc" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroDoc]"
+                      dataType="r8"
+                      name="NroDoc" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="NroCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[CentroCostos]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="CentroCostos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[LibroMayor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LibroMayor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
+                      dataType="r8"
+                      name="Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[Año]"
+                      codePage="1252"
+                      dataType="str"
+                      length="46"
+                      name="Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[CodMoneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="CodMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[MontoPesos]"
+                      dataType="r8"
+                      name="MontoPesos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[AddressNumber]"
+                      dataType="r8"
+                      name="AddressNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[NroLinea]"
+                      dataType="r8"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].ExternalColumns[SubCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="SubCuenta" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[FechaLM]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[FechaLM]"
+                      name="FechaLM" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[TipoDoc]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[TipoDoc]"
+                      name="TipoDoc" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroDoc]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroDoc]"
+                      name="NroDoc" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroLinea]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroLinea]"
+                      name="NroLinea" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[NroCuenta]"
+                      name="NroCuenta" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[SubCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[SubCuenta]"
+                      name="SubCuenta" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[CentroCostos]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[CentroCostos]"
+                      name="CentroCostos" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[LibroMayor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[LibroMayor]"
+                      name="LibroMayor" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[Mes]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[Mes]"
+                      name="Mes" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[Año]"
+                      codePage="1252"
+                      dataType="str"
+                      length="46"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[Año]"
+                      name="Año" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[CodMoneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[CodMoneda]"
+                      name="CodMoneda" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[MontoPesos]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[MontoPesos]"
+                      name="MontoPesos" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[AddressNumber]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[AddressNumber]"
+                      name="AddressNumber" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_CostosGastos_AlqST"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_CostosGastos_AlqST]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[FechaLM]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaLM"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[FechaLM]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[FechaLM]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[NroCuenta]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="NroCuenta"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroCuenta]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroCuenta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[LibroMayor]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LibroMayor"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[LibroMayor]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[LibroMayor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[Mes]"
+                      cachedDataType="r8"
+                      cachedName="Mes"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Mes]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[Año]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="46"
+                      cachedName="Año"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[Año]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[Año]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[CodMoneda]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="CodMoneda"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[CodMoneda]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CodMoneda]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[MontoPesos]"
+                      cachedDataType="r8"
+                      cachedName="MontoPesos"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[MontoPesos]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[MontoPesos]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[AddressNumber]"
+                      cachedDataType="r8"
+                      cachedName="AddressNumber"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[AddressNumber]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[AddressNumber]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[TipoDoc]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TipoDoc"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[TipoDocumento]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[TipoDoc]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[NroDoc]"
+                      cachedDataType="r8"
+                      cachedName="NroDoc"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroDocumento]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroDoc]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[CentroCostos]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="CentroCostos"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[CentroCosto]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[CentroCostos]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[NroLinea]"
+                      cachedDataType="r8"
+                      cachedName="NroLinea"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[NroLinea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].Columns[SubCuenta]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="SubCuenta"
+                      externalMetadataColumnId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[SubCuenta]"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output].Columns[SubCuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[FechaLM]"
+                      dataType="dbDate"
+                      name="FechaLM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[TipoDocumento]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroDocumento]"
+                      dataType="i4"
+                      name="NroDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroCuenta]"
+                      dataType="i4"
+                      name="NroCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[CentroCosto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="CentroCosto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[LibroMayor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="LibroMayor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
+                      dataType="i4"
+                      name="Mes" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[Año]"
+                      dataType="i4"
+                      name="Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[CodMoneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CodMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[MontoPesos]"
+                      dataType="r8"
+                      name="MontoPesos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[AddressNumber]"
+                      dataType="i4"
+                      name="AddressNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[NroLinea]"
+                      dataType="i4"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input].ExternalColumns[SubCuenta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="SubCuenta" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_CostosGastos_ST_Alq.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete STG_CostosGastos_ST_Alq"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{f642921e-1ffa-498e-a42b-a9eb6ce6aa4d}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete STG_CostosGastos_ST_Alq"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+          SQLTask:SqlStatementSource="DELETE FROM STG.dbo.STG_CostosGastos_AlqST&#xA;WHERE FechaLM BETWEEN (SELECT FC_Desde FROM dbo.DW_AUD_Fecha_Proceso &#xA;WHERE idModulo=17) AND (SELECT FC_Hasta FROM dbo.DW_AUD_Fecha_Proceso &#xA;WHERE idModulo=17)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DROP INDEX F0911"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{F9A8AEFF-E171-4ADD-B2B3-428441825A85}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DROP INDEX F0911"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E07C5E30-6B15-475F-BE7D-604E316EB02E}"
+          SQLTask:SqlStatementSource="DROP INDEX IDX_R0911_ST_TEST_03 on PRODDTA.F0911" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DW_AUD_Fecha_Proceso"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B745B745-4426-4DFE-81B4-A62CA803B7A3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DW_AUD_Fecha_Proceso"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+          SQLTask:SqlStatementSource="SELECT FC_Desde,FC_Hasta FROM DW_AUD_Fecha_Proceso&#xA;WHERE IdModulo=17"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::FCDesde" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="1"
+            SQLTask:DtsVariableName="User::FCHasta" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Index JDE F0911"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{7A38089E-3C1E-485E-9524-53C919D3AF99}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Index JDE F0911"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E07C5E30-6B15-475F-BE7D-604E316EB02E}"
+          SQLTask:SqlStatementSource="CREATE NONCLUSTERED INDEX IDX_R0911_ST_TEST&#xA;ON [PRODDTA].[F0911] ([GLLT],[GLDGJ])&#xA;INCLUDE ([GLDOC],[GLOBJ],[GLMCU],[GLPN],[GLCTRY],[GLFY],[GLCRCD],[GLDCT],[GLAA],[GLAN8])&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{5846698A-894B-40DF-A900-931828A8CA30}"
+      DTS:From="Package\DW_AUD_Fecha_Proceso"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_CostosGastos_ST_Alq" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{63167E5D-00D6-46A2-8A9D-3D54F10BCEA4}"
+      DTS:From="Package\Index JDE F0911"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Delete STG_CostosGastos_ST_Alq" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{78FF7BFC-DE7D-4732-A9DE-E716A7624BC3}"
+      DTS:From="Package\Carga STG_CostosGastos_ST_Alq"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\DROP INDEX F0911" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE27F3B6-363A-4B02-933C-5735DE1A3796}"
+      DTS:From="Package\Delete STG_CostosGastos_ST_Alq"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\DW_AUD_Fecha_Proceso" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="237.333333333334,42"
+          Id="Package\Carga STG_CostosGastos_ST_Alq"
+          TopLeft="104.708330461756,286.922223343186" />
+        <NodeLayout
+          Size="239.333333333334,42"
+          Id="Package\Delete STG_CostosGastos_ST_Alq"
+          TopLeft="95.4861096882572,105.986109215932" />
+        <NodeLayout
+          Size="172.666666666667,42"
+          Id="Package\DROP INDEX F0911"
+          TopLeft="141.45833122544,366.455554543071" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\DW_AUD_Fecha_Proceso"
+          TopLeft="120.624998202548,198.522224200699" />
+        <NodeLayout
+          Size="159.333333333334,42"
+          Id="Package\Index JDE F0911"
+          TopLeft="140.416664574295,6.29999989926817" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="221.499997665485,240.522224200699">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.3999991424869"
+              Start="0,0"
+              End="0,38.8999991424869">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.8999991424869" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="217.618053797943,48.2999998992682">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57.6861093166636"
+              Start="0,0"
+              End="0,50.1861093166636">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.1861093166636" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="225.583330843598,328.922223343186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.5333311998854"
+              Start="0,0"
+              End="0,30.0333311998854">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.0333311998854" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="217.388887278736,147.986109215932">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.5361149847672"
+              Start="0,0"
+              End="0,43.0361149847672">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.0361149847672" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_CostosGastos_ST_Alq">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911"
+          TopLeft="175.416664052755,38.5666659770409" />
+        <NodeLayout
+          Size="235.333333333334,42"
+          Id="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST"
+          TopLeft="141.666664555669,154.266663908164" />
+        <EdgeLayout
+          Id="Package\Carga STG_CostosGastos_ST_Alq.Paths[OLE DB Source Output]"
+          TopLeft="256.874997637545,80.5666659770409">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,73.6999979311228"
+              Start="0,0"
+              End="0,66.1999979311228">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.1999979311228" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_CostosGastos_ST_Alq\Input JDE F0911">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_CostosGastos_ST_Alq\Output STG_CostosGastos_AlqST">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

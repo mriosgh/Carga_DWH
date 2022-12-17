@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/11/2022 10:05:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQADW"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{7AA9B163-DDAB-4506-8694-8D5013DCB008}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_NoesVersionesDetalle"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{15C857B8-6A69-459A-9D08-E394A698B754}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_NoesVersionesDetalle"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C1946026-EBEE-4C32-B71E-6703F26BF4EC}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_NoesVersionesDetalle"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="JDE_REP Noes-Versiones-Detalle"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+N.IDNoe,
+CAST(N.Interno AS NVARCHAR(15)) AS Interno,
+N.IDCliente,
+JDE.WWAN8 IDComercial,
+N.InicioFC,
+CAST(CASE
+WHEN NV.Bonif IS NULL THEN N.Bonif
+ELSE NV.Bonif END AS FLOAT) AS Bonif,
+CAST(CASE
+WHEN NV.BonifRenovable IS NULL THEN N.BonifRenovable
+ELSE NV.BonifRenovable END AS FLOAT) AS BonifRenovable,
+CAST(CASE
+WHEN NV.PcioUnitario IS NULL THEN N.PcioUnitario
+ELSE NV.PcioUnitario END AS FLOAT) AS PcioUnitario
+FROM (SELECT T1.* FROM(SELECT nd.idnoe,nd.interno,nd.PcioUnitario,n.IDCliente,n.IDComercial,n.InicioFC,Bonif,BonifRenovable,
+  ROW_NUMBER() OVER(PARTITION BY interno ORDER BY FECHA DESC) AS Row#
+FROM Noes n
+left join NoesDetalle nd
+on nd.IDNoe= n.IDNoe
+) AS T1
+WHERE ROW#=1) N
+LEFT JOIN (SELECT * FROM(SELECT ndv.idnoe,ndv.interno,ndv.PcioUnitario,nv.IDCliente,IDComercial,ndv.version,Bonif,BonifRenovable,
+  ROW_NUMBER() OVER(PARTITION BY ndv.idnoe,ndv.interno ORDER BY ndv.version DESC) AS Row#
+FROM NoesVersiones nv
+left join NoesVersionesDetalle ndv
+on ndv.IDNoe= nv.IDNoe
+) AS T1
+WHERE ROW#=1) NV
+ON N.IDNoe=NV.IDNoe
+AND N.Interno=NV.Interno
+LEFT JOIN (SELECT u.IDComercial,JDE.WWAN8,JDE.WWREM1 FROM Usuarios u
+LEFT JOIN PRODDTA.F0111 JDE
+ON UPPER(LTRIM(RTRIM(U.Email)))= UPPER(LTRIM(RTRIM(JDE.WWREM1)))
+WHERE u.IDComercial!=0) JDE
+ON N.IDComercial=JDE.IDComercial
+WHERE n.IDNoe is not null
+order by N.InicioFC desc</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDNoe]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDNoe]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDNoe]"
+                      name="IDNoe"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      length="15"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Interno]"
+                      name="Interno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDCliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDCliente]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDCliente]"
+                      name="IDCliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDComercial]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDComercial]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDComercial]"
+                      name="IDComercial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[PcioUnitario]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[PcioUnitario]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[PcioUnitario]"
+                      name="PcioUnitario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[InicioFC]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[InicioFC]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[InicioFC]"
+                      name="InicioFC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Bonif]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[Bonif]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Bonif]"
+                      name="Bonif"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[BonifRenovable]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[BonifRenovable]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[BonifRenovable]"
+                      name="BonifRenovable"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDNoe]"
+                      dataType="i4"
+                      name="IDNoe" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDCliente]"
+                      dataType="i4"
+                      name="IDCliente" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[IDComercial]"
+                      dataType="r8"
+                      name="IDComercial" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[PcioUnitario]"
+                      dataType="r8"
+                      name="PcioUnitario" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[InicioFC]"
+                      dataType="dbTimeStamp"
+                      name="InicioFC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[Bonif]"
+                      dataType="r8"
+                      name="Bonif" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].ExternalColumns[BonifRenovable]"
+                      dataType="r8"
+                      name="BonifRenovable" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDNoe]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDNoe]"
+                      name="IDNoe" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      name="Interno" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDCliente]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDCliente]"
+                      name="IDCliente" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDComercial]"
+                      dataType="r8"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[IDComercial]"
+                      name="IDComercial" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[InicioFC]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[InicioFC]"
+                      name="InicioFC" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[Bonif]"
+                      dataType="r8"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[Bonif]"
+                      name="Bonif" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[BonifRenovable]"
+                      dataType="r8"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[BonifRenovable]"
+                      name="BonifRenovable" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[PcioUnitario]"
+                      dataType="r8"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[PcioUnitario]"
+                      name="PcioUnitario" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_NoesVersionesDetalle"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_NoesVersionesDetalle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[IDNoe]"
+                      cachedDataType="i4"
+                      cachedName="IDNoe"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDNoe]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDNoe]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Interno"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Interno]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[IDCliente]"
+                      cachedDataType="i4"
+                      cachedName="IDCliente"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDCliente]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDCliente]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[IDComercial]"
+                      cachedDataType="i4"
+                      cachedName="IDComercial"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDComercial]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[IDComercial]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[PcioUnitario]"
+                      cachedDataType="r8"
+                      cachedName="PcioUnitario"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[PcioUnitario]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[PcioUnitario]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[InicioFC]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InicioFC"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[FechaInicio]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[InicioFC]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[Bonif]"
+                      cachedDataType="r8"
+                      cachedName="Bonif"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[Bonif]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[Bonif]" />
+                    <inputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].Columns[BonifRenovable]"
+                      cachedDataType="r8"
+                      cachedName="BonifRenovable"
+                      externalMetadataColumnId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[BonifRenovable]"
+                      lineageId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output].Columns[BonifRenovable]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDNoe]"
+                      dataType="i4"
+                      name="IDNoe" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="15"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDCliente]"
+                      dataType="i4"
+                      name="IDCliente" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[IDComercial]"
+                      dataType="i4"
+                      name="IDComercial" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[PcioUnitario]"
+                      dataType="r8"
+                      name="PcioUnitario" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[FechaInicio]"
+                      dataType="dbDate"
+                      name="FechaInicio" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[Bonif]"
+                      dataType="r8"
+                      name="Bonif" />
+                    <externalMetadataColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input].ExternalColumns[BonifRenovable]"
+                      dataType="r8"
+                      name="BonifRenovable" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_NoesVersionesDetalle.Paths[OLE DB Source Output]"
+              endId="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE STG_NoesVersionesDetalle"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7D653283-C069-4530-AB4D-7BD61E85AA4C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE STG_NoesVersionesDetalle"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_NoesVersionesDetalle" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{81C0CBC4-7218-49F8-939D-CC298F35396F}"
+      DTS:From="Package\TRUNCATE TABLE STG_NoesVersionesDetalle"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\STG_NoesVersionesDetalle" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205.333333333334,42.6666666666667"
+          Id="Package\STG_NoesVersionesDetalle"
+          TopLeft="215.624996786937,168.999996978045" />
+        <NodeLayout
+          Size="294.666666666667,42.6666666666667"
+          Id="Package\TRUNCATE TABLE STG_NoesVersionesDetalle"
+          TopLeft="166.249997522682,50.0499991050363" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="315.93749715481,92.716665771703">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.2833312063416"
+              Start="0,0"
+              End="0,68.7833312063416">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.7833312063416" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_NoesVersionesDetalle">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="233.333333333334,42.6666666666667"
+          Id="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle"
+          TopLeft="224.999996647239,42.8999992328882" />
+        <NodeLayout
+          Size="205.333333333334,42.6666666666667"
+          Id="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle"
+          TopLeft="240.624996414408,137.749997965992" />
+        <EdgeLayout
+          Id="Package\STG_NoesVersionesDetalle.Paths[OLE DB Source Output]"
+          TopLeft="342.47916319749,85.5666658995549">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.1833320664366"
+              Start="0,0"
+              End="0,44.6833320664366">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.6833320664366" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_NoesVersionesDetalle\JDE_REP Noes-Versiones-Detalle">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_NoesVersionesDetalle\STG_NoesVersionesDetalle">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1311 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/7/2018 11:29:44 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{E56CDA22-C0A3-48FA-B6BB-202C6EBAC5E3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Cargos_v2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="30"
+  DTS:VersionGUID="{A0D47358-DE86-4F26-B3ED-902F3D99EAF4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Cargos.xls]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{6F3492E8-6DE1-479C-8D64-C1B44AE284EA}"
+      DTS:ObjectName="Cargos.xls">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Sullair\DWH\DataMart Facturacion\Desarrollo\Input\Cargos y Provisiones\Cargos.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Cargos"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5D3A9DF9-A753-4A98-BCF8-4AE849CD4D0A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Cargos"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Cargos\GET JDE"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET JDE"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+	F.IDFacturacion
+	,CAST(LTRIM(RTRIM(F.Interno)) AS nvarchar(255)) AS JDE_Interno
+	,N.IDActividad AS JDE_idActividad
+	,N.IDSegmento AS JDE_idSegmento
+	,F0111.WWAN8 AS JDE_idComercial
+	,R.IDDeposito AS JDE_idDeposito
+	,CAST(ISNULL(CASE
+		WHEN cast(F.InicioFac as date) = cast(N.InicioFC as date) THEN 'True'
+		ELSE 'False'
+	END,'False') AS nvarchar(50)) AS FG_Facturacion_Genuina
+	,F.InicioFac
+FROM [dbo].[Facturacion] F
+LEFT JOIN  [dbo].[Noes] N
+	ON F.IDNoe = N.IDNoe
+LEFT JOIN  [dbo].[Usuarios] U
+	ON U.IDComercial = N.IDComercial 
+	AND U.IDComercial &lt;&gt; 0
+LEFT JOIN [PRODDTA].[F0111] F0111
+	ON LTRIM(RTRIM(F0111.WWREM1)) = LTRIM(RTRIM(U.Email))
+	AND F0111.WWIDLN = 0
+LEFT JOIN [dbo].[Remitos] R
+	ON R.IDRto = F.IDRto</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT
+	F.IDFacturacion
+	,CAST(LTRIM(RTRIM(F.Interno)) AS nvarchar(255)) AS JDE_Interno
+	,N.IDActividad AS JDE_idActividad
+	,N.IDSegmento AS JDE_idSegmento
+	,F0111.WWAN8 AS JDE_idComercial
+	,R.IDDeposito AS JDE_idDeposito
+	,CAST(ISNULL(CASE
+		WHEN cast(F.InicioFac as date) = cast(N.InicioFC as date) THEN 'True'
+		ELSE 'False'
+	END,'False') AS nvarchar(50)) AS FG_Facturacion_Genuina
+	,F.InicioFac
+FROM [dbo].[Facturacion] F
+LEFT JOIN  [dbo].[Noes] N
+	ON F.IDNoe = N.IDNoe
+LEFT JOIN  [dbo].[Usuarios] U
+	ON U.IDComercial = N.IDComercial 
+	AND U.IDComercial &lt;&gt; 0
+LEFT JOIN [PRODDTA].[F0111] F0111
+	ON LTRIM(RTRIM(F0111.WWREM1)) = LTRIM(RTRIM(U.Email))
+	AND F0111.WWIDLN = 0
+LEFT JOIN [dbo].[Remitos] R
+	ON R.IDRto = F.IDRto) [refTable]
+where [refTable].[IDFacturacion] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDFacturacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JDE_Interno" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JDE_idActividad" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JDE_idSegmento" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JDE_idComercial" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JDE_idDeposito" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FG_Facturacion_Genuina" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="InicioFac" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[ID Facturación]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Cargos\GET JDE.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input].Columns[ID Facturación]"
+                      cachedDataType="i4"
+                      cachedName="ID Facturación"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[ID Facturación]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">IDFacturacion</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_Interno]"
+                      name="JDE_Interno"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">JDE_Interno</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idActividad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idActividad]"
+                      name="JDE_idActividad"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">JDE_idActividad</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idSegmento]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idSegmento]"
+                      name="JDE_idSegmento"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">JDE_idSegmento</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idComercial]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idComercial]"
+                      name="JDE_idComercial"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">JDE_idComercial</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idDeposito]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idDeposito]"
+                      name="JDE_idDeposito"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">JDE_idDeposito</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[FG_Facturacion_Genuina]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="50"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[FG_Facturacion_Genuina]"
+                      name="FG_Facturacion_Genuina"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">FG_Facturacion_Genuina</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[InicioFac]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[InicioFac]"
+                      name="InicioFac"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">InicioFac</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Cargos\Input Excel Cargos"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Input Excel Cargos"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Hoja1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Cargos\Input Excel Cargos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Cargos.xls]"
+                  connectionManagerRefId="Package.ConnectionManagers[Cargos.xls]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[UN]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[UN]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[UN]"
+                      name="UN"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[C° Cliente]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[C° Cliente]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[C° Cliente]"
+                      name="C° Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cliente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Cliente]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cliente]"
+                      name="Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Modelo / articulo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Modelo / articulo]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Modelo / articulo]"
+                      name="Modelo / articulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[CatVta3]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[CatVta3]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[CatVta3]"
+                      name="CatVta3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Interno]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Interno]"
+                      name="Interno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cnt Días]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Cnt Días]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cnt Días]"
+                      name="Cnt Días"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[TotalPesos]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[TotalPesos]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[TotalPesos]"
+                      name="TotalPesos"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Desde]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Desde]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Desde]"
+                      name="Desde"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Hasta]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Hasta]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Hasta]"
+                      name="Hasta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Mes del cargo]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Mes del cargo]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Mes del cargo]"
+                      name="Mes del cargo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Año]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Año]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Año]"
+                      name="Año"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Segmento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Segmento]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Segmento]"
+                      name="Segmento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Actividad]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Actividad]"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Actividad]"
+                      name="Actividad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[ID Facturación]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[ID Facturación]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[ID Facturación]"
+                      name="ID Facturación"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[UN]"
+                      dataType="r8"
+                      name="UN" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[C° Cliente]"
+                      dataType="r8"
+                      name="C° Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Cliente]"
+                      dataType="wstr"
+                      length="255"
+                      name="Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Modelo / articulo]"
+                      dataType="wstr"
+                      length="255"
+                      name="Modelo / articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[CatVta3]"
+                      dataType="wstr"
+                      length="255"
+                      name="CatVta3" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="255"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Cnt Días]"
+                      dataType="r8"
+                      name="Cnt Días" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[TotalPesos]"
+                      dataType="r8"
+                      name="TotalPesos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Desde]"
+                      dataType="date"
+                      name="Desde" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Hasta]"
+                      dataType="date"
+                      name="Hasta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Mes del cargo]"
+                      dataType="date"
+                      name="Mes del cargo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Año]"
+                      dataType="r8"
+                      name="Año" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Segmento]"
+                      dataType="wstr"
+                      length="255"
+                      name="Segmento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[Actividad]"
+                      dataType="wstr"
+                      length="255"
+                      name="Actividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].ExternalColumns[ID Facturación]"
+                      dataType="r8"
+                      name="ID Facturación" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[UN]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[UN]"
+                      name="UN" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[C° Cliente]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[C° Cliente]"
+                      name="C° Cliente" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Cliente]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Cliente]"
+                      name="Cliente" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Modelo / articulo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Modelo / articulo]"
+                      name="Modelo / articulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[CatVta3]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[CatVta3]"
+                      name="CatVta3" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Interno]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Interno]"
+                      name="Interno" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Cnt Días]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Cnt Días]"
+                      name="Cnt Días" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[TotalPesos]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[TotalPesos]"
+                      name="TotalPesos" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Desde]"
+                      dataType="date"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Desde]"
+                      name="Desde" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Hasta]"
+                      dataType="date"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Hasta]"
+                      name="Hasta" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Mes del cargo]"
+                      dataType="date"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Mes del cargo]"
+                      name="Mes del cargo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Año]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Año]"
+                      name="Año" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Segmento]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Segmento]"
+                      name="Segmento" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Actividad]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[Actividad]"
+                      name="Actividad" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ID Facturación]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ID Facturación]"
+                      name="ID Facturación" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Cargos\Output STG_Cargos"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_Cargos"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Cargos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Cargos\Output STG_Cargos.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[UN]"
+                      cachedDataType="r8"
+                      cachedName="UN"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_UnidadNegocio]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[UN]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[C° Cliente]"
+                      cachedDataType="r8"
+                      cachedName="C° Cliente"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_ClienteCodigo]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[C° Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Cliente]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Cliente"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_ClienteNombre]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cliente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Modelo / articulo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Modelo / articulo"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Articulo]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Modelo / articulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[CatVta3]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CatVta3"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_CodigoVenta3]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[CatVta3]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Interno"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Interno]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Interno]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[TotalPesos]"
+                      cachedDataType="r8"
+                      cachedName="TotalPesos"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[NU_TotalPesos]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[TotalPesos]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Desde]"
+                      cachedDataType="date"
+                      cachedName="Desde"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_PeriodoDesde]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Desde]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Hasta]"
+                      cachedDataType="date"
+                      cachedName="Hasta"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_PeriodoHasta]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Hasta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Segmento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Segmento"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_Segmento]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Segmento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Actividad]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Actividad"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_Actividad]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Actividad]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Mes del cargo]"
+                      cachedDataType="date"
+                      cachedName="Mes del cargo"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_Fecha]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Mes del cargo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[ID Facturación]"
+                      cachedDataType="i4"
+                      cachedName="ID Facturación"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Facturacion]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[ID Facturación]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[JDE_idActividad]"
+                      cachedDataType="i4"
+                      cachedName="JDE_idActividad"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idActividad]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idActividad]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[JDE_idSegmento]"
+                      cachedDataType="i4"
+                      cachedName="JDE_idSegmento"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idSegmento]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idSegmento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[JDE_Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="JDE_Interno"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_Interno]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_Interno]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[JDE_idComercial]"
+                      cachedDataType="r8"
+                      cachedName="JDE_idComercial"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idComercial]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idComercial]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[Cnt Días]"
+                      cachedDataType="r8"
+                      cachedName="Cnt Días"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[NU_CantidadEnviada]"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Cnt Días]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[JDE_idDeposito]"
+                      cachedDataType="i4"
+                      cachedName="JDE_idDeposito"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idDeposito]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[JDE_idDeposito]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[FG_Facturacion_Genuina]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FG_Facturacion_Genuina"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[FG_Facturacion_Genuina]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[FG_Facturacion_Genuina]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].Columns[InicioFac]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InicioFac"
+                      externalMetadataColumnId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[InicioFac]"
+                      lineageId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output].Columns[InicioFac]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_UnidadNegocio]"
+                      dataType="r8"
+                      name="ID_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_ClienteCodigo]"
+                      dataType="r8"
+                      name="ID_ClienteCodigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_ClienteNombre]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_ClienteNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Articulo]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_CodigoVenta3]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_CodigoVenta3" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Interno]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[NU_TotalPesos]"
+                      dataType="r8"
+                      name="NU_TotalPesos" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_PeriodoDesde]"
+                      dataType="dbTimeStamp"
+                      name="DT_PeriodoDesde" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_PeriodoHasta]"
+                      dataType="dbTimeStamp"
+                      name="DT_PeriodoHasta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[DT_Fecha]"
+                      dataType="dbTimeStamp"
+                      name="DT_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_Segmento]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Segmento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[VC_Actividad]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_Actividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[ID_Facturacion]"
+                      dataType="i4"
+                      name="ID_Facturacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idActividad]"
+                      dataType="i4"
+                      name="JDE_idActividad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idSegmento]"
+                      dataType="i4"
+                      name="JDE_idSegmento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_Interno]"
+                      dataType="wstr"
+                      length="255"
+                      name="JDE_Interno" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idComercial]"
+                      dataType="i4"
+                      name="JDE_idComercial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[NU_CantidadEnviada]"
+                      dataType="r8"
+                      name="NU_CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[JDE_idDeposito]"
+                      dataType="i4"
+                      name="JDE_idDeposito" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[FG_Facturacion_Genuina]"
+                      dataType="wstr"
+                      length="50"
+                      name="FG_Facturacion_Genuina" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input].ExternalColumns[InicioFac]"
+                      dataType="dbDate"
+                      name="InicioFac" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Cargos\Output STG_Cargos.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Output STG_Cargos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Output STG_Cargos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Output STG_Cargos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Cargos\Replace dates"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Replace dates"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input].Columns[Desde]"
+                      cachedDataType="date"
+                      cachedName="Desde"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Desde]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Desde]},"1990-01-01")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Desde,"1990-01-01")</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input].Columns[Hasta]"
+                      cachedDataType="date"
+                      cachedName="Hasta"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Hasta]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output].Columns[Hasta]},"2099-12-31")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Hasta,"2099-12-31")</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Cargos.Paths[Derived Column Output]"
+              endId="Package\Carga STG_Cargos\Output STG_Cargos.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga STG_Cargos\Replace dates.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga STG_Cargos.Paths[Excel Source Output]"
+              endId="Package\Carga STG_Cargos\GET JDE.Inputs[Lookup Input]"
+              name="Excel Source Output"
+              startId="Package\Carga STG_Cargos\Input Excel Cargos.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\Carga STG_Cargos.Paths[Lookup Match Output]"
+              endId="Package\Carga STG_Cargos\Replace dates.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga STG_Cargos\GET JDE.Outputs[Lookup Match Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga STG_Cargos"
+          TopLeft="320,142" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_Cargos">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Carga STG_Cargos\Output STG_Cargos"
+          TopLeft="490,473" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Carga STG_Cargos\Input Excel Cargos"
+          TopLeft="477,93" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Carga STG_Cargos\Replace dates"
+          TopLeft="499,337" />
+        <NodeLayout
+          Size="119,42"
+          Id="Package\Carga STG_Cargos\GET JDE"
+          TopLeft="504,209" />
+        <EdgeLayout
+          Id="Package\Carga STG_Cargos.Paths[Lookup Match Output]"
+          TopLeft="567.25,251">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,86"
+              Start="0,0"
+              End="0,78.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,33.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_Cargos.Paths[Excel Source Output]"
+          TopLeft="562.25,135">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74"
+              Start="0,0"
+              End="0,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_Cargos.Paths[Derived Column Output]"
+          TopLeft="573.5,379">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,94"
+              Start="0,0"
+              End="0,86.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,86.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Cargos\Output STG_Cargos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Cargos\Input Excel Cargos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Cargos\GET JDE">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,2241 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/3/2020 12:27:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis4"
+  DTS:DTSID="{5AA1BE38-ECA8-4222-BB51-CC3EB3A37B46}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_LK_Empleado_1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="76"
+  DTS:VersionGUID="{96A7FA93-D976-431D-8C6D-9FAB8139D146}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CT LK_Empleado]"
+      DTS:CreationName="CACHE"
+      DTS:DTSID="{22F98CD8-9619-4A4F-8D03-AAA55F0ED092}"
+      DTS:ObjectName="CT LK_Empleado">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::CTLK_Empleado_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:UseFile="True"
+          DTS:ConnectionString="D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Empleado.caw">
+          <DTS:CacheColumns>
+            <DTS:CacheColumn
+              DTS:DataType="3"
+              DTS:IndexPosition="1"
+              DTS:ObjectName="CD_ID_Origen"
+              DTS:DTSID="{16F5A0B3-3F92-46D1-A143-4CCE479DDDC8}"
+              DTS:CreationName="" />
+            <DTS:CacheColumn
+              DTS:DataType="20"
+              DTS:ObjectName="SK_EMP_Empleado"
+              DTS:DTSID="{5DAEA8D7-1283-4CDD-A8C7-B99659088383}"
+              DTS:CreationName="" />
+          </DTS:CacheColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{D38D3313-2A23-49FA-87BB-F970C81794CB}"
+      DTS:ObjectName="CTLK_Empleado_ConnectionString"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">D:\Sullair\DWH\DataMart Facturacion\Cache\Cache LK_Empleado.caw</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{73559252-1C26-4ACE-8C41-81AE7ED7A42A}"
+      DTS:ObjectName="DT_STRING">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">S/D</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga cache LK_Empleado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{29703C5F-73DC-4CAF-B664-9B5FEE0CE524}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga cache LK_Empleado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga cache LK_Empleado\CT LK_Empleado"
+              componentClassID="Microsoft.Cache"
+              contactInfo="Cache Transform;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Writes data to a cache (a .caw file) with the Cache Connection Manager. Reuse the cache between multiple Lookup transforms to reduce database load. Share the cache to reduce memory usage. Note: cache data is stored in clear text and not recommended for sensitive data."
+              name="CT LK_Empleado"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Empleado\CT LK_Empleado.Connections[CacheConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CT LK_Empleado]"
+                  connectionManagerRefId="Package.ConnectionManagers[CT LK_Empleado]"
+                  description="The connection used to access the cache."
+                  name="CacheConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga cache LK_Empleado\CT LK_Empleado.Inputs[Cache Input]"
+                  hasSideEffects="true"
+                  name="Cache Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Empleado\CT LK_Empleado.Inputs[Cache Input].Columns[CD_ID_Origen]"
+                      cachedDataType="i4"
+                      cachedName="CD_ID_Origen"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">CD_ID_Origen</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga cache LK_Empleado\CT LK_Empleado.Inputs[Cache Input].Columns[SK_EMP_Empleado]"
+                      cachedDataType="i8"
+                      cachedName="SK_EMP_Empleado"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[SK_EMP_Empleado]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="The cache column associated with the input column."
+                          name="CacheColumnName">SK_EMP_Empleado</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Empleado\CT LK_Empleado.Outputs[Cache Output]"
+                  name="Cache Output"
+                  synchronousInputId="Package\Carga cache LK_Empleado\CT LK_Empleado.Inputs[Cache Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga cache LK_Empleado\LK_Empleado"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="LK_Empleado"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT CD_ID_Origen, SK_EMP_Empleado FROM LK_Empleado</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga cache LK_Empleado\LK_Empleado.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[SK_EMP_Empleado]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].ExternalColumns[SK_EMP_Empleado]"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].Columns[SK_EMP_Empleado]"
+                      name="SK_EMP_Empleado"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output].ExternalColumns[SK_EMP_Empleado]"
+                      dataType="i8"
+                      name="SK_EMP_Empleado" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[SK_EMP_Empleado]"
+                      dataType="i8"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[SK_EMP_Empleado]"
+                      name="SK_EMP_Empleado" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga cache LK_Empleado.Paths[OLE DB Source Output]"
+              endId="Package\Carga cache LK_Empleado\CT LK_Empleado.Inputs[Cache Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga cache LK_Empleado\LK_Empleado.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga_LK_Empleado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D9E53A48-8CFF-4C28-9B31-C8D67868F8A4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga_LK_Empleado">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga_LK_Empleado\Checksum Transformation"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="Checksum Transformation"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput].Columns[Copy of CD_ID_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="Copy of CD_ID_ORIGEN"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="Copy of VC_EMP_ApellidoYNombreAlfanumerico"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="descripcion"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput].Columns[Copy of VC_EMP_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of VC_EMP_Email"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput].Columns[FC_EMP_FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_EMP_FechaUltimaModificacion"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Checksum Transformation.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation.Outputs[ChecksumOutput].Columns[Checksum]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Checksum Transformation.Outputs[ChecksumOutput].Columns[Checksum]"
+                      name="Checksum">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Checksum Transformation upd"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="Checksum Transformation upd"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput].Columns[Copy of CD_ID_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="Copy of CD_ID_ORIGEN"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="Copy of VC_EMP_ApellidoYNombreAlfanumerico"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="descripcion"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput].Columns[Copy of VC_EMP_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of VC_EMP_Email"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput].Columns[FC_EMP_FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_EMP_FechaUltimaModificacion"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput].Columns[Checksum]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput].Columns[Checksum]"
+                      name="Checksum">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input].Columns[CH_CHECKSUM_DWH]"
+                      cachedDataType="i8"
+                      cachedName="CH_CHECKSUM_DWH"
+                      lineageId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CH_CHECKSUM_DWH]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input].Columns[Checksum]"
+                      cachedDataType="i4"
+                      cachedName="Checksum"
+                      lineageId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput].Columns[Checksum]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Case 1]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Case 1"
+                  synchronousInputId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CH_CHECKSUM_DWH]} != #{Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput].Columns[Checksum]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CH_CHECKSUM_DWH != Checksum</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_ApellidoYNombreAlfanumerico"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input].Columns[CD_ID_ORIGEN]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CD_ID_ORIGEN"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input].Columns[VC_EMP_Email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_Email"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]"
+                      name="Copy of CD_ID_ORIGEN"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="40"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      name="Copy of VC_EMP_ApellidoYNombreAlfanumerico"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]"
+                      name="Copy of VC_EMP_Email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[VC_EMP_Email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_Email"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]}) == "" || [ISNULL]([TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]})) ? @[$Package::DT_STRING] : [TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(VC_EMP_Email) == "" || ISNULL(TRIM(VC_EMP_Email)) ? @[$Package::DT_STRING] : TRIM(VC_EMP_Email)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[CD_ID_ORIGEN]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="CD_ID_ORIGEN"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(CD_ID_ORIGEN)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_ApellidoYNombreAlfanumerico"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]}) == "" || [ISNULL]([TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]})) ? @[$Package::DT_STRING] : [TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(VC_EMP_ApellidoYNombreAlfanumerico) == "" || ISNULL(TRIM(VC_EMP_ApellidoYNombreAlfanumerico)) ? @[$Package::DT_STRING] : TRIM(VC_EMP_ApellidoYNombreAlfanumerico)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[VC_EMP_NumeroDireccionLargo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_NumeroDireccionLargo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]}) == "" || [ISNULL]([TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]})) ? @[$Package::DT_STRING] : [TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(VC_EMP_NumeroDireccionLargo) == "" || ISNULL(TRIM(VC_EMP_NumeroDireccionLargo)) ? @[$Package::DT_STRING] : TRIM(VC_EMP_NumeroDireccionLargo)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[VC_EMP_IdentificacionImpuesto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_IdentificacionImpuesto"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]}) == "" || [ISNULL]([TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]})) ? @[$Package::DT_STRING] : [TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(VC_EMP_IdentificacionImpuesto) == "" || ISNULL(TRIM(VC_EMP_IdentificacionImpuesto)) ? @[$Package::DT_STRING] : TRIM(VC_EMP_IdentificacionImpuesto)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input].Columns[VC_EMP_DescripcionComprimido]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="VC_EMP_DescripcionComprimido"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]}) == "" || [ISNULL]([TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]})) ? @[$Package::DT_STRING] : [TRIM](#{Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(VC_EMP_DescripcionComprimido) == "" || ISNULL(TRIM(VC_EMP_DescripcionComprimido)) ? @[$Package::DT_STRING] : TRIM(VC_EMP_DescripcionComprimido)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[Fecha_Creacion]"
+                      name="Fecha_Creacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]"
+                      name="descripcion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Package::DT_STRING]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Package::DT_STRING]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Empleado\Insert Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of CD_ID_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="Copy of CD_ID_ORIGEN"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="Copy of VC_EMP_ApellidoYNombreAlfanumerico"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_ApellidoNombre]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[FC_EMP_FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_EMP_FechaUltimaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[Fecha_Creacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Creacion"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[Fecha_Creacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[Checksum]"
+                      cachedDataType="i4"
+                      cachedName="Checksum"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga_LK_Empleado\Checksum Transformation.Outputs[ChecksumOutput].Columns[Checksum]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of VC_EMP_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of VC_EMP_Email"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_Email]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_Descripcion]"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[SK_EMP_Empleado]"
+                      dataType="i8"
+                      name="SK_EMP_Empleado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_ApellidoNombre]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_EMP_ApellidoNombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_Descripcion]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_EMP_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMP_Email]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_EMP_Email" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_CREACION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ULTIMA_MODIFICACION" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Insert Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Empleado]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_EMP_Empleado" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_EMP_ApellidoNombre" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_EMP_Descripcion" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_EMP_Email" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_CREACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ULTIMA_MODIFICACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Empleado\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input].Columns[Copy of CD_ID_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="Copy of CD_ID_ORIGEN"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CD_ID_Origen]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CD_ID_Origen]"
+                      name="CD_ID_Origen"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CD_ID_Origen</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CH_CHECKSUM_DWH]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output].Columns[CH_CHECKSUM_DWH]"
+                      name="CH_CHECKSUM_DWH"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CH_CHECKSUM</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE [dbo].[LK_Empleado]
+ SET [FECHA_ULTIMA_MODIFICACION] = ?
+ ,[VC_EMP_ApellidoNombre] = ?
+ ,[VC_EMP_Descripcion] = ?
+  ,[CH_CHECKSUM] = ?
+ ,[VC_EMP_email] = ?
+ WHERE
+[CD_ID_ORIGEN] = ? </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Empleado\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[FC_EMP_FechaUltimaModificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_EMP_FechaUltimaModificacion"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="Copy of VC_EMP_ApellidoYNombreAlfanumerico"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_ApellidoYNombreAlfanumerico]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="descripcion"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output].Columns[descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[Checksum]"
+                      cachedDataType="i4"
+                      cachedName="Checksum"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput].Columns[Checksum]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of VC_EMP_Email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of VC_EMP_Email"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of VC_EMP_Email]" />
+                    <inputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of CD_ID_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="Copy of CD_ID_ORIGEN"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CD_ID_ORIGEN]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="dbTimeStamp"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="i8"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="wstr"
+                      length="50"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="i4"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source STG_LK_Empleados"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_LK_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT	LTRIM(RTRIM([CD_ID_ORIGEN])) AS [CD_ID_ORIGEN]
+		,LTRIM(RTRIM([VC_EMP_NumeroDireccionLargo])) AS [VC_EMP_NumeroDireccionLargo]
+		,LTRIM(RTRIM([VC_EMP_IdentificacionImpuesto])) AS [VC_EMP_IdentificacionImpuesto]
+		,LTRIM(RTRIM([VC_EMP_ApellidoYNombreAlfanumerico])) AS [VC_EMP_ApellidoYNombreAlfanumerico]
+		,LTRIM(RTRIM([VC_EMP_DescripcionComprimido])) AS [VC_EMP_DescripcionComprimido]
+		,LTRIM(RTRIM([VC_EMP_Email])) AS [VC_EMP_Email]
+		,[FC_EMP_FechaUltimaModificacion]
+FROM [dbo].[STG_LK_Empleado];</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_ORIGEN]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[CD_ID_ORIGEN]"
+                      name="CD_ID_ORIGEN"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      name="VC_EMP_ApellidoYNombreAlfanumerico"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[FC_EMP_FechaUltimaModificacion]"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[FC_EMP_FechaUltimaModificacion]"
+                      name="FC_EMP_FechaUltimaModificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_Email]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_Email]"
+                      name="VC_EMP_Email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_NumeroDireccionLargo]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_NumeroDireccionLargo]"
+                      name="VC_EMP_NumeroDireccionLargo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_IdentificacionImpuesto]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_IdentificacionImpuesto]"
+                      name="VC_EMP_IdentificacionImpuesto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_DescripcionComprimido]"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].Columns[VC_EMP_DescripcionComprimido]"
+                      name="VC_EMP_DescripcionComprimido"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[CD_ID_ORIGEN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="CD_ID_ORIGEN" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_EMP_ApellidoYNombreAlfanumerico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[FC_EMP_FechaUltimaModificacion]"
+                      dataType="dbTimeStamp"
+                      name="FC_EMP_FechaUltimaModificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_Email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_EMP_Email" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_NumeroDireccionLargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_EMP_NumeroDireccionLargo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_IdentificacionImpuesto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_EMP_IdentificacionImpuesto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output].ExternalColumns[VC_EMP_DescripcionComprimido]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_EMP_DescripcionComprimido" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[CD_ID_ORIGEN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[CD_ID_ORIGEN]"
+                      name="CD_ID_ORIGEN" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_NumeroDireccionLargo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_NumeroDireccionLargo]"
+                      name="VC_EMP_NumeroDireccionLargo" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_IdentificacionImpuesto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_IdentificacionImpuesto]"
+                      name="VC_EMP_IdentificacionImpuesto" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_ApellidoYNombreAlfanumerico]"
+                      name="VC_EMP_ApellidoYNombreAlfanumerico" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_DescripcionComprimido]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_DescripcionComprimido]"
+                      name="VC_EMP_DescripcionComprimido" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_Email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[VC_EMP_Email]"
+                      name="VC_EMP_Email" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[FC_EMP_FechaUltimaModificacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[FC_EMP_FechaUltimaModificacion]"
+                      name="FC_EMP_FechaUltimaModificacion" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[Case 1]"
+              endId="Package\Carga_LK_Empleado\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Case 1"
+              startId="Package\Carga_LK_Empleado\Conditional Split.Outputs[Case 1]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[ChecksumOutput]"
+              endId="Package\Carga_LK_Empleado\Insert Destination.Inputs[OLE DB Destination Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga_LK_Empleado\Checksum Transformation.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[ChecksumOutput1]"
+              endId="Package\Carga_LK_Empleado\Conditional Split.Inputs[Conditional Split Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga_LK_Empleado\Checksum Transformation upd.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[Data Conversion Output]"
+              endId="Package\Carga_LK_Empleado\Lookup.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\Carga_LK_Empleado\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[Derived Column Output]"
+              endId="Package\Carga_LK_Empleado\Data Conversion.Inputs[Data Conversion Input]"
+              name="Derived Column Output"
+              startId="Package\Carga_LK_Empleado\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[Lookup Match Output]"
+              endId="Package\Carga_LK_Empleado\Checksum Transformation upd.Inputs[ChecksumInput]"
+              name="Lookup Match Output"
+              startId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[Lookup No Match Output]"
+              endId="Package\Carga_LK_Empleado\Checksum Transformation.Inputs[ChecksumInput]"
+              name="Lookup No Match Output"
+              startId="Package\Carga_LK_Empleado\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga_LK_Empleado.Paths[OLE DB Source Output]"
+              endId="Package\Carga_LK_Empleado\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga_LK_Empleado\Source STG_LK_Empleados.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{09406FE1-7BA7-4BB4-AF80-50B643D58769}"
+      DTS:From="Package\Carga_LK_Empleado"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga cache LK_Empleado" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Carga cache LK_Empleado"
+          TopLeft="256,211" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga_LK_Empleado"
+          TopLeft="269,103" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="357.5,145">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga cache LK_Empleado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Carga cache LK_Empleado\LK_Empleado"
+          TopLeft="433,55" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Carga cache LK_Empleado\CT LK_Empleado"
+          TopLeft="432,161" />
+        <EdgeLayout
+          Id="Package\Carga cache LK_Empleado.Paths[OLE DB Source Output]"
+          TopLeft="508,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga cache LK_Empleado\LK_Empleado">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga_LK_Empleado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="223,42"
+          Id="Package\Carga_LK_Empleado\Checksum Transformation upd"
+          TopLeft="356.5,414.5" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\Carga_LK_Empleado\Source STG_LK_Empleados"
+          TopLeft="208,5.5" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Carga_LK_Empleado\Insert Destination"
+          TopLeft="90.5000000000001,517.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Carga_LK_Empleado\Conditional Split"
+          TopLeft="407,490" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga_LK_Empleado\Derived Column"
+          TopLeft="232,100.5" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Carga_LK_Empleado\Data Conversion"
+          TopLeft="221,187.5" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Carga_LK_Empleado\OLE DB Command"
+          TopLeft="425,620" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Carga_LK_Empleado\Checksum Transformation"
+          TopLeft="114,419" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Carga_LK_Empleado\Lookup"
+          TopLeft="245,278" />
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[OLE DB Source Output]"
+          TopLeft="310.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[Lookup No Match Output]"
+          TopLeft="284,320">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-69,99"
+              Start="0,0"
+              End="-69,91.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.4293193717277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.4293193717277"
+                    Point2="0,40.4293193717277"
+                    Point3="-4,40.4293193717277" />
+                  <mssgle:LineSegment
+                    End="-65,40.4293193717277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-65,40.4293193717277"
+                    Point2="-69,40.4293193717277"
+                    Point3="-69,44.4293193717277" />
+                  <mssgle:LineSegment
+                    End="-69,91.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-90.30638671875,45.4293193717277,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[Lookup Match Output]"
+          TopLeft="319,320">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="149,94.5"
+              Start="0,0"
+              End="149,87">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5916230366492" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.5916230366492"
+                    Point2="0,38.5916230366492"
+                    Point3="4,38.5916230366492" />
+                  <mssgle:LineSegment
+                    End="145,38.5916230366492" />
+                  <mssgle:CubicBezierSegment
+                    Point1="145,38.5916230366492"
+                    Point2="149,38.5916230366492"
+                    Point3="149,42.5916230366492" />
+                  <mssgle:LineSegment
+                    End="149,87" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="26.30861328125,43.5916230366492,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[Derived Column Output]"
+          TopLeft="309,142.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10,45"
+              Start="0,0"
+              End="-10,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.5"
+                    Point2="0,22.5"
+                    Point3="-4,22.5" />
+                  <mssgle:LineSegment
+                    End="-6,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6,22.5"
+                    Point2="-10,22.5"
+                    Point3="-10,26.5" />
+                  <mssgle:LineSegment
+                    End="-10,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[Data Conversion Output]"
+          TopLeft="300.25,229.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.5"
+              Start="0,0"
+              End="0,41">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[ChecksumOutput1]"
+          TopLeft="468,456.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.4999999999999,33.5"
+              Start="0,0"
+              End="16.4999999999999,26">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.75"
+                    Point2="0,16.75"
+                    Point3="4,16.75" />
+                  <mssgle:LineSegment
+                    End="12.4999999999999,16.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.4999999999999,16.75"
+                    Point2="16.4999999999999,16.75"
+                    Point3="16.4999999999999,20.75" />
+                  <mssgle:LineSegment
+                    End="16.4999999999999,26" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[ChecksumOutput]"
+          TopLeft="215,461">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-42.9999999999999,56.5"
+              Start="0,0"
+              End="-42.9999999999999,49">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.25"
+                    Point2="0,28.25"
+                    Point3="-4,28.25" />
+                  <mssgle:LineSegment
+                    End="-38.9999999999999,28.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-38.9999999999999,28.25"
+                    Point2="-42.9999999999999,28.25"
+                    Point3="-42.9999999999999,32.25" />
+                  <mssgle:LineSegment
+                    End="-42.9999999999999,49" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_LK_Empleado.Paths[Case 1]"
+          TopLeft="484.5,532">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23.5,88"
+              Start="0,0"
+              End="23.5,80.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40"
+                    Point2="0,44"
+                    Point3="4,44" />
+                  <mssgle:LineSegment
+                    End="19.5,44" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19.5,44"
+                    Point2="23.5,44"
+                    Point3="23.5,48" />
+                  <mssgle:LineSegment
+                    End="23.5,80.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-3.4680859375,49,30.436171875,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Empleado\Source STG_LK_Empleados">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Empleado\Insert Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_LK_Empleado\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Empleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

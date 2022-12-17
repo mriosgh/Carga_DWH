@@ -1,0 +1,772 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/9/2019 4:06:54 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PCSBAS1045"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{987DF141-1504-48E3-B776-811FE481120C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="Carga STG_ModelosNormalizados"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{5A5B28B1-C3D2-4143-BE6B-EA0E8FF532A6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{20D0E727-2C7E-4568-A411-6BF1ACC794FA}"
+      DTS:ObjectName="Administrador de conexiones con Excel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\Sullair\DWH\DMTCompresores\Maestro Modelos Competencia Final.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_ModelosNormalizados"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{FEA9835B-0122-40D4-8344-43C3E309E4C3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_ModelosNormalizados"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_ModelosNormalizados\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NU_MOD_CaudalM3PorMin]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NU_MOD_CaudalM3PorMin"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[NU_MOD_PotenciaHP]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NU_MOD_PotenciaHP"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_PotenciaHP]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_CaudalM3PorMin]"
+                      name="Copia de NU_MOD_CaudalM3PorMin"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_PotenciaHP]"
+                      name="Copia de NU_MOD_PotenciaHP"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_PotenciaHP]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de Excel"
+              name="Origen Excel Modelos Normalizados"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">FinalRevisado$</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="La asignación de parámetros del comando SQL a variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  connectionManagerRefId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel]"
+                  name="Salida de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Marca]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Modelo]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Familia]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Familia]"
+                      name="VC_MOD_Familia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_SubFamilia]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_SubFamilia]"
+                      name="VC_MOD_SubFamilia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_MarcaNormalizada]"
+                      name="VC_MOD_MarcaNormalizada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_ModeloNormalizado]"
+                      name="VC_MOD_ModeloNormalizado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_PotenciaHP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[NU_MOD_PotenciaHP]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_SubFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[NU_MOD_PotenciaHP]"
+                      dataType="wstr"
+                      length="255"
+                      name="NU_MOD_PotenciaHP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      dataType="wstr"
+                      length="255"
+                      name="NU_MOD_CaudalM3PorMin" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_Familia]"
+                      name="VC_MOD_Familia" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_SubFamilia]"
+                      name="VC_MOD_SubFamilia" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_MarcaNormalizada]"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[VC_MOD_ModeloNormalizado]"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[NU_MOD_PotenciaHP]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="STG_ModelosNormalizados"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[STG_ModelosNormalizados]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Connections[OleDbConnection]"
+                  connectionManagerID="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STGConnectionDB]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Marca]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Modelo]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_Familia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Familia"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Familia]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_Familia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_SubFamilia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_SubFamilia"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_SubFamilia]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_SubFamilia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_MarcaNormalizada]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_MarcaNormalizada"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_MarcaNormalizada]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[VC_MOD_ModeloNormalizado]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_ModeloNormalizado"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel].Columns[VC_MOD_ModeloNormalizado]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[Copia de NU_MOD_PotenciaHP]"
+                      cachedDataType="r8"
+                      cachedName="Copia de NU_MOD_PotenciaHP"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_MOD_PotenciaHP]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_PotenciaHP]" />
+                    <inputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].Columns[Copia de NU_MOD_CaudalM3PorMin]"
+                      cachedDataType="r8"
+                      cachedName="Copia de NU_MOD_CaudalM3PorMin"
+                      externalMetadataColumnId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      lineageId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de NU_MOD_CaudalM3PorMin]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_SubFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      name="NU_MOD_PotenciaHP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      name="NU_MOD_CaudalM3PorMin" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_ModelosNormalizados.Paths[Salida de conversión de datos]"
+              endId="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Carga STG_ModelosNormalizados.Paths[Salida de origen de Excel]"
+              endId="Package\Carga STG_ModelosNormalizados\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de Excel"
+              startId="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados.Outputs[Salida de origen de Excel]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG_ModelosNormalizados"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B20CF3BC-3824-419D-BEA8-6252436AC633}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG_ModelosNormalizados"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_MODELOSNORMALIZADOS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{B7E3BA30-2E60-4936-9FCC-DB2F0BE14D45}"
+      DTS:From="Package\Truncate STG_ModelosNormalizados"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Carga STG_ModelosNormalizados" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Carga STG_ModelosNormalizados"
+          TopLeft="236,162" />
+        <NodeLayout
+          Size="263,42"
+          Id="Package\Truncate STG_ModelosNormalizados"
+          TopLeft="236,44" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="364.25,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76"
+              Start="0,0"
+              End="0,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_ModelosNormalizados">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="217,42"
+          Id="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados"
+          TopLeft="285,280" />
+        <NodeLayout
+          Size="257,42"
+          Id="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados"
+          TopLeft="266,94" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Carga STG_ModelosNormalizados\Conversión de datos"
+          TopLeft="300,191" />
+        <EdgeLayout
+          Id="Package\Carga STG_ModelosNormalizados.Paths[Salida de origen de Excel]"
+          TopLeft="392.25,136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_ModelosNormalizados.Paths[Salida de conversión de datos]"
+          TopLeft="391.75,233">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_ModelosNormalizados\STG_ModelosNormalizados">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_ModelosNormalizados\Origen Excel Modelos Normalizados">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

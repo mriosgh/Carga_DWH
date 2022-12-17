@@ -1,0 +1,2929 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/17/2021 4:04:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{F97F0F9E-C099-49D4-957B-2C8D5D952322}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_LK_SubCategoria"
+  DTS:PackageType="5"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{BC0BF600-7849-458E-A3B7-6B7B653B4DAE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EBA5AE3D-FB3A-4352-864D-06FE1AEFE9F3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CountInsert">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DD05AF98-38F1-4AF0-BB4B-3FDAB9656E7D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CountNoUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AE0F43A3-7072-443A-8A8D-DA43E92EFE22}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CountUpdate">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga LK_SubCategoria"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{274C5AAC-EAA0-4DA2-99FE-C5EB0D941376}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga LK_SubCategoria"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga LK_SubCategoria\Cambio?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Cambio?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      lineageId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input].Columns[LK_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="LK_CHECKSUM"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Cambio?.Outputs[SI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SI"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]} != #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">CHK_ORIGEN != LK_CHECKSUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Cambio?.Outputs[NO]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="NO"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Cambio?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Cambio?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoCortoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[ComentarioCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioCortoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoLargoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[ComentarioLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioLargoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[idSubCategoria]"
+                      cachedDataType="i4"
+                      cachedName="idSubCategoria"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoCortoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput].Columns[DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoLargoPlazo"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]"
+                      name="CHK_ORIGEN">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[LK_CHECKSUM]"
+                      cachedDataType="i8"
+                      cachedName="LK_CHECKSUM"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(LK_CHECKSUM) ? @[$Project::DEF_UNK_CD_INT] : LK_CHECKSUM</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[NU_SUB_SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="NU_SUB_SemaforoCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(NU_SUB_SemaforoCortoPlazo) ? @[$Project::DEF_UNK_CD_INT] : NU_SUB_SemaforoCortoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[VC_SUB_ComentariosCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_ComentariosCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(VC_SUB_ComentariosCortoPlazo) ? @[$Project::DEF_UNK_STR] : VC_SUB_ComentariosCortoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[NU_SUB_SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="NU_SUB_SemaforoLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(NU_SUB_SemaforoLargoPlazo) ? @[$Project::DEF_UNK_CD_INT] : NU_SUB_SemaforoLargoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[VC_SUB_ComentariosLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_ComentariosLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(VC_SUB_ComentariosLargoPlazo) ? @[$Project::DEF_UNK_STR] : VC_SUB_ComentariosLargoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[VC_SUB_DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_DescSemaforoCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(VC_SUB_DescSemaforoCortoPlazo) ? @[$Project::DEF_UNK_STR] : VC_SUB_DescSemaforoCortoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input].Columns[VC_SUB_DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_DescSemaforoLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(VC_SUB_DescSemaforoLargoPlazo) ? @[$Project::DEF_UNK_STR] : VC_SUB_DescSemaforoLargoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Subcategoria]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Subcategoria]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_SUB_Subcategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_Descripcion" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_CAT_Categoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_SUB_SemaforoCortoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_DescSemaforoCortoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_ComentariosCortoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_SUB_SemaforoLargoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_DescSemaforoLargoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_ComentariosLargoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_SUB_SemaforoCortoPlazoAnterior" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_DescSemaforoCortoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_ComentariosCortoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_SUB_SemaforoLargoPlazoAnterior" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_DescSemaforoLargoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_SUB_ComentariosLargoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Creacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha_Modificacion" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input].Columns[idSubCategoria]"
+                      cachedDataType="i4"
+                      cachedName="idSubCategoria"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[LK_CHECKSUM]"
+                      name="LK_CHECKSUM"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CH_CHECKSUM</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]"
+                      name="NU_SUB_SemaforoCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">NU_SUB_SemaforoCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]"
+                      name="VC_SUB_ComentariosCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">VC_SUB_ComentariosCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]"
+                      name="NU_SUB_SemaforoLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">NU_SUB_SemaforoLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]"
+                      name="VC_SUB_ComentariosLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">VC_SUB_ComentariosLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]"
+                      name="VC_SUB_DescSemaforoCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">VC_SUB_DescSemaforoCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]"
+                      name="VC_SUB_DescSemaforoLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">VC_SUB_DescSemaforoLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET STG_PronosticosSectoriales"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[STG_PronosticosSectoriales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[STG_PronosticosSectoriales]) [refTable]
+where [refTable].[IDSubcategoria] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDSector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IDCategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IDSubcategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SemaforoCortoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DescSemaforoCortoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ComentarioCortoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SemaforoLargoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DescSemaforoLargoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ComentarioLargoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DescSector" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DescCategoria" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DescSubcategoria" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input].Columns[idSubCategoria]"
+                      cachedDataType="i4"
+                      cachedName="idSubCategoria"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">IDSubcategoria</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]"
+                      name="SemaforoCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SemaforoCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]"
+                      name="ComentarioCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ComentarioCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]"
+                      name="SemaforoLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SemaforoLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]"
+                      name="ComentarioLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ComentarioLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[IDCategoria]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[IDCategoria]"
+                      name="IDCategoria"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">IDCategoria</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]"
+                      name="DescSemaforoCortoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DescSemaforoCortoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]"
+                      name="DescSemaforoLargoPlazo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DescSemaforoLargoPlazo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET_SK_CAT_CATEGORIA"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_Categoria]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_Categoria]) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_CAT_Categoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CAT_Descripcion" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SEC_Sector" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CAT_SemaforoCortoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CAT_ComentariosCortoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CAT_SemaforoLargoPlazo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CAT_ComentariosLargoPlazo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CAT_SemaforoCortoPlazoAnterior" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CAT_ComentariosCortoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_CAT_SemaforoLargoPlazoAnterior" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_CAT_ComentariosLargoPlazoAnterior" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[IDCategoria]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input].Columns[IDCategoria]"
+                      cachedDataType="i4"
+                      cachedName="IDCategoria"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[IDCategoria]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]"
+                      name="SK_CAT_Categoria"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_CAT_Categoria</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_SubCategoria"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Sector]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+idSubCategoria,
+UPPER(LTRIM(RTRIM(SubCategoria))) AS SubCategoria
+FROM STG_SubCategoria</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].ExternalColumns[idSubCategoria]"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]"
+                      name="idSubCategoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[SubCategoria]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].ExternalColumns[SubCategoria]"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[SubCategoria]"
+                      name="SubCategoria"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].ExternalColumns[idSubCategoria]"
+                      dataType="i4"
+                      name="idSubCategoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].ExternalColumns[SubCategoria]"
+                      dataType="wstr"
+                      length="255"
+                      name="SubCategoria" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[idSubCategoria]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[idSubCategoria]"
+                      name="idSubCategoria" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[SubCategoria]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[SubCategoria]"
+                      name="SubCategoria" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\NULL"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="NULL"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]} + 1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SemaforoCortoPlazo) ? @[$Project::DEF_UNK_CD_INT] : SemaforoCortoPlazo + 1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[ComentarioCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(ComentarioCortoPlazo) ? @[$Project::DEF_UNK_STR] : ComentarioCortoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]} + 1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SemaforoLargoPlazo) ? @[$Project::DEF_UNK_CD_INT] : SemaforoLargoPlazo + 1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[ComentarioLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(ComentarioLargoPlazo) ? @[$Project::DEF_UNK_STR] : ComentarioLargoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoCortoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(DescSemaforoCortoPlazo) ? @[$Project::DEF_UNK_STR] : DescSemaforoCortoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoLargoPlazo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]}) ? @[$Project::DEF_UNK_STR] : #{Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(DescSemaforoLargoPlazo) ? @[$Project::DEF_UNK_STR] : DescSemaforoLargoPlazo</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input].Columns[SK_CAT_Categoria]"
+                      cachedDataType="i4"
+                      cachedName="SK_CAT_Categoria"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_CAT_Categoria) ? @[$Project::DEF_UNK_CD_INT] : SK_CAT_Categoria</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Creacion]"
+                      name="Fecha_Creacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Modificacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Modificacion]"
+                      name="Fecha_Modificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoCortoPlazoAnterior]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoCortoPlazoAnterior]"
+                      name="SemaforoCortoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_CD_INT]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_CD_INT]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioCortoPlazoAnterior]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioCortoPlazoAnterior]"
+                      name="ComentarioCortoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_STR]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_STR]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoLargoPlazoAnterior]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoLargoPlazoAnterior]"
+                      name="SemaforoLargoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_CD_INT]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_CD_INT]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioLargoPlazoAnterior]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioLargoPlazoAnterior]"
+                      name="ComentarioLargoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_STR]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_STR]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoCortoPlazoAnterior]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoCortoPlazoAnterior]"
+                      name="DescSemaforoCortoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_STR]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_STR]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoLargoPlazoAnterior]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoLargoPlazoAnterior]"
+                      name="DescSemaforoLargoPlazoAnterior"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::DEF_UNK_STR]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::DEF_UNK_STR]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output LK_SubCategoria"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_Subcategoria]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[idSubCategoria]"
+                      cachedDataType="i4"
+                      cachedName="idSubCategoria"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SubCategoria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SubCategoria"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_Descripcion]"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[SubCategoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoCortoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[ComentarioCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosCortoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[ComentarioLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosLargoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoLargoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SK_CAT_Categoria]"
+                      cachedDataType="i4"
+                      cachedName="SK_CAT_Categoria"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[SK_CAT_Categoria]"
+                      lineageId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output].Columns[SK_CAT_Categoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[Fecha_Creacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Creacion"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Creacion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[Fecha_Modificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Modificacion"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Modificacion]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Modificacion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SemaforoCortoPlazoAnterior]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoCortoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoCortoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoCortoPlazoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[ComentarioCortoPlazoAnterior]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ComentarioCortoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosCortoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioCortoPlazoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[SemaforoLargoPlazoAnterior]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoLargoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoLargoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[SemaforoLargoPlazoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[ComentarioLargoPlazoAnterior]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ComentarioLargoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosLargoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[ComentarioLargoPlazoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoCortoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoLargoPlazo]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[DescSemaforoCortoPlazoAnterior]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="DescSemaforoCortoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoCortoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoCortoPlazoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].Columns[DescSemaforoLargoPlazoAnterior]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="DescSemaforoLargoPlazoAnterior"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoLargoPlazoAnterior]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[DescSemaforoLargoPlazoAnterior]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[CD_ID_Origen]"
+                      dataType="i4"
+                      name="CD_ID_Origen" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[SK_CAT_Categoria]"
+                      dataType="i4"
+                      name="SK_CAT_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[SK_SUB_Subcategoria]"
+                      dataType="i4"
+                      name="SK_SUB_Subcategoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_Descripcion]"
+                      dataType="nText"
+                      name="VC_SUB_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoCortoPlazo]"
+                      dataType="i4"
+                      name="NU_SUB_SemaforoCortoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosCortoPlazo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_ComentariosCortoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoLargoPlazo]"
+                      dataType="i4"
+                      name="NU_SUB_SemaforoLargoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosLargoPlazo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_ComentariosLargoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoCortoPlazoAnterior]"
+                      dataType="i4"
+                      name="NU_SUB_SemaforoCortoPlazoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosCortoPlazoAnterior]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_ComentariosCortoPlazoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[NU_SUB_SemaforoLargoPlazoAnterior]"
+                      dataType="i4"
+                      name="NU_SUB_SemaforoLargoPlazoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_ComentariosLargoPlazoAnterior]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_ComentariosLargoPlazoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Modificacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Modificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoCortoPlazo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_DescSemaforoCortoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoLargoPlazo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_DescSemaforoLargoPlazo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoCortoPlazoAnterior]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_DescSemaforoCortoPlazoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input].ExternalColumns[VC_SUB_DescSemaforoLargoPlazoAnterior]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_SUB_DescSemaforoLargoPlazoAnterior" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\RowsInserted"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="RowsInserted">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::CountInsert</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\RowsInserted.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\RowsInserted.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga LK_SubCategoria\RowsInserted.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\RowsNoUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="RowsNoUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::CountNoUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\RowsNoUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\RowsNoUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga LK_SubCategoria\RowsNoUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\RowsUpdate"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="RowsUpdate">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::CountUpdate</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\RowsUpdate.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\RowsUpdate.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Carga LK_SubCategoria\RowsUpdate.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_SubCategoria\UPDATE"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="UPDATE"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE [LK_Subcategoria]
+   SET 
+      [VC_SUB_Descripcion] = ?
+      ,[NU_SUB_SemaforoCortoPlazo] = ?
+      ,[VC_SUB_DescSemaforoCortoPlazo] = ?
+      ,[VC_SUB_ComentariosCortoPlazo] = ?
+      ,[NU_SUB_SemaforoLargoPlazo] = ?
+      ,[VC_SUB_DescSemaforoLargoPlazo] = ?
+      ,[VC_SUB_ComentariosLargoPlazo] = ?
+      ,[NU_SUB_SemaforoCortoPlazoAnterior] = ?
+      ,[VC_SUB_DescSemaforoCortoPlazoAnterior] = ?
+      ,[VC_SUB_ComentariosCortoPlazoAnterior] = ?
+      ,[NU_SUB_SemaforoLargoPlazoAnterior] =?
+      ,[VC_SUB_DescSemaforoLargoPlazoAnterior] = ?
+      ,[VC_SUB_ComentariosLargoPlazoAnterior] = ?
+      ,[CH_CHECKSUM] = ?
+      ,[Fecha_Modificacion] = ?
+ WHERE CD_ID_Origen=?
+</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_SubCategoria\UPDATE.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[SubCategoria]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SubCategoria"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[SubCategoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[ComentarioCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="SemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[SemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DescSemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[DescSemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[ComentarioLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ComentarioLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output].Columns[ComentarioLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[NU_SUB_SemaforoCortoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="NU_SUB_SemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[VC_SUB_DescSemaforoCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_DescSemaforoCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[VC_SUB_ComentariosCortoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_ComentariosCortoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosCortoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[NU_SUB_SemaforoLargoPlazo]"
+                      cachedDataType="i4"
+                      cachedName="NU_SUB_SemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[NU_SUB_SemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[VC_SUB_DescSemaforoLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_DescSemaforoLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_DescSemaforoLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[VC_SUB_ComentariosLargoPlazo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_SUB_ComentariosLargoPlazo"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output].Columns[VC_SUB_ComentariosLargoPlazo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[CHK_ORIGEN]"
+                      cachedDataType="i4"
+                      cachedName="CHK_ORIGEN"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput].Columns[CHK_ORIGEN]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[Fecha_Modificacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_Modificacion"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output].Columns[Fecha_Modificacion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].Columns[idSubCategoria]"
+                      cachedDataType="i4"
+                      cachedName="idSubCategoria"
+                      externalMetadataColumnId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output].Columns[idSubCategoria]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="nText"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">193</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i4"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      dataType="i4"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      dataType="i4"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      dataType="wstr"
+                      length="255"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      dataType="i8"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      dataType="dbTimeStamp"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      dataType="i4"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_SubCategoria\UPDATE.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[ChecksumOutput]"
+              endId="Package\Carga LK_SubCategoria\Existe?.Inputs[Lookup Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga LK_SubCategoria\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Derived Column Output]"
+              endId="Package\Carga LK_SubCategoria\Cambio?.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Carga LK_SubCategoria\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Derived Column Output1]"
+              endId="Package\Carga LK_SubCategoria\CHK.Inputs[ChecksumInput]"
+              name="Derived Column Output"
+              startId="Package\Carga LK_SubCategoria\NULL.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Lookup Match Output]"
+              endId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Lookup Match Output1]"
+              endId="Package\Carga LK_SubCategoria\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Lookup Match Output2]"
+              endId="Package\Carga LK_SubCategoria\NULL.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Lookup No Match Output]"
+              endId="Package\Carga LK_SubCategoria\RowsInserted.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\Carga LK_SubCategoria\Existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[NO]"
+              endId="Package\Carga LK_SubCategoria\RowsNoUpdate.Inputs[Row Count Input 1]"
+              name="NO"
+              startId="Package\Carga LK_SubCategoria\Cambio?.Outputs[NO]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[OLE DB Source Output]"
+              endId="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga LK_SubCategoria\Input STG_SubCategoria.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Row Count Output 1]"
+              endId="Package\Carga LK_SubCategoria\Output LK_SubCategoria.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga LK_SubCategoria\RowsInserted.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[Row Count Output 11]"
+              endId="Package\Carga LK_SubCategoria\UPDATE.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\Carga LK_SubCategoria\RowsUpdate.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Carga LK_SubCategoria.Paths[SI]"
+              endId="Package\Carga LK_SubCategoria\RowsUpdate.Inputs[Row Count Input 1]"
+              name="SI"
+              startId="Package\Carga LK_SubCategoria\Cambio?.Outputs[SI]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Carga LK_SubCategoria"
+          TopLeft="164,63" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga LK_SubCategoria">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Carga LK_SubCategoria\RowsUpdate"
+          TopLeft="346,664" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga LK_SubCategoria\Derived Column"
+          TopLeft="333,503" />
+        <NodeLayout
+          Size="104,42"
+          Id="Package\Carga LK_SubCategoria\NULL"
+          TopLeft="357,267" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Carga LK_SubCategoria\RowsNoUpdate"
+          TopLeft="585,570" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Carga LK_SubCategoria\RowsInserted"
+          TopLeft="582,414" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Carga LK_SubCategoria\Existe?"
+          TopLeft="352,413" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales"
+          TopLeft="303,97" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\Carga LK_SubCategoria\CHK"
+          TopLeft="363,343" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA"
+          TopLeft="312,191" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Carga LK_SubCategoria\Input STG_SubCategoria"
+          TopLeft="316,23" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Carga LK_SubCategoria\Output LK_SubCategoria"
+          TopLeft="827,413" />
+        <NodeLayout
+          Size="119,42"
+          Id="Package\Carga LK_SubCategoria\Cambio?"
+          TopLeft="353,568" />
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[SI]"
+          TopLeft="413.75,610">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.2351953125,18.48291015625,10.470390625,9.5341796875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Row Count Output 1]"
+          TopLeft="725,434.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102,0"
+              Start="0,0"
+              End="94.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="94.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[OLE DB Source Output]"
+          TopLeft="416,65">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[NO]"
+          TopLeft="472,590">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="113,0"
+              Start="0,0"
+              End="105.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="105.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="45.4071875,5,14.685625,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Lookup No Match Output]"
+          TopLeft="464,434.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="118,0"
+              Start="0,0"
+              End="110.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="110.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-0.556386718749998,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Lookup Match Output2]"
+          TopLeft="411.5,233">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,7.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Lookup Match Output1]"
+          TopLeft="409,455">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,14.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Lookup Match Output]"
+          TopLeft="416.25,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Derived Column Output1]"
+          TopLeft="410.75,309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Derived Column Output]"
+          TopLeft="411.25,545">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23"
+              Start="0,0"
+              End="0,15.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[ChecksumOutput]"
+          TopLeft="410.25,385">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="118,42"
+          Id="Package\Carga LK_SubCategoria\UPDATE"
+          TopLeft="354,760" />
+        <EdgeLayout
+          Id="Package\Carga LK_SubCategoria.Paths[Row Count Output 11]"
+          TopLeft="414,706">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_SubCategoria\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Subcategoria]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_SubCategoria\GET STG_PronosticosSectoriales">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[STG_PronosticosSectoriales]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_SubCategoria\GET_SK_CAT_CATEGORIA">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Categoria]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_SubCategoria\Input STG_SubCategoria">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_SubCategoria\Output LK_SubCategoria">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

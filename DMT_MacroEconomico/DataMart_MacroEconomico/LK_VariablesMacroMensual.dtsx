@@ -1,0 +1,2158 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/13/2019 3:28:11 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{F4412564-5B63-41CA-938E-52E324689F95}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="LK_VariablesMacroMensual"
+  DTS:PackageType="5"
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{4C55F613-F50F-4B0C-9277-6ED37E9A47BE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga Variables DWH"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{4C02C927-F246-4483-84FB-53AA2A4FB168}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Variables DWH"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Variables DWH\Destino DWH"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino DWH"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[LK_VariablesMacro]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Variables DWH\Destino DWH.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].Columns[nroVariable]"
+                      cachedDataType="i4"
+                      cachedName="nroVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_nroVariable]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]" />
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].Columns[detVariable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="detVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_detVariable]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[detVariable]" />
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].Columns[descVariable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="descVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_descVariable]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[descVariable]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_VAR_Variable]"
+                      dataType="i4"
+                      name="SK_VAR_Variable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[NU_nroVariable]"
+                      dataType="i4"
+                      name="NU_nroVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_detVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_detVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_descVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="VC_descVariable" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Variables DWH\Destino DWH.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Destino DWH.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Destino DWH.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Destino DWH.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Variables DWH\Origen de STG"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen de STG"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_VariablesMacro]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Variables DWH\Origen de STG.Connections[OleDbConnection]"
+                  connectionManagerID="{87E70297-4CCB-40F4-A984-E9CE2C33F1B9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[nroVariable]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]"
+                      name="nroVariable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[detVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[detVariable]"
+                      length="255"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[detVariable]"
+                      name="detVariable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[descVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[descVariable]"
+                      length="255"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[descVariable]"
+                      name="descVariable"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[nroVariable]"
+                      dataType="i4"
+                      name="nroVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[detVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="detVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].ExternalColumns[descVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="descVariable" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[nroVariable]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[nroVariable]"
+                      name="nroVariable" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[detVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[detVariable]"
+                      name="detVariable" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[descVariable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[descVariable]"
+                      name="descVariable" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Variables DWH\Update"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE LK_VariablesMacro
+SET
+      NU_nroVariable = ?,
+      VC_detVariable = ?,
+      VC_descVariable = ?
+WHERE SK_VAR_Variable = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Variables DWH\Update.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].Columns[nroVariable]"
+                      cachedDataType="i4"
+                      cachedName="nroVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]" />
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].Columns[detVariable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="detVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[detVariable]" />
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].Columns[descVariable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="descVariable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[descVariable]" />
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].Columns[SK_VAR_Variable]"
+                      cachedDataType="i4"
+                      cachedName="SK_VAR_Variable"
+                      externalMetadataColumnId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Match Output].Columns[SK_VAR_Variable]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="i4"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Update.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Variables DWH\Verifica si existe"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Verifica si existe"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_VariablesMacro]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_VariablesMacro]) [refTable]
+where [refTable].[NU_nroVariable] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_VAR_Variable" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_nroVariable" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_detVariable" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_descVariable" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Variables DWH\Verifica si existe.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input].Columns[nroVariable]"
+                      cachedDataType="i4"
+                      cachedName="nroVariable"
+                      lineageId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB].Columns[nroVariable]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">NU_nroVariable</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Match Output].Columns[SK_VAR_Variable]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Match Output].Columns[SK_VAR_Variable]"
+                      name="SK_VAR_Variable"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_VAR_Variable</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Variables DWH.Paths[Lookup Match Output]"
+              endId="Package\Carga Variables DWH\Update.Inputs[OLE DB Command Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga Variables DWH.Paths[Lookup No Match Output]"
+              endId="Package\Carga Variables DWH\Destino DWH.Inputs[Entrada de destino de OLE DB]"
+              name="Lookup No Match Output"
+              startId="Package\Carga Variables DWH\Verifica si existe.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga Variables DWH.Paths[Salida de origen de OLE DB]"
+              endId="Package\Carga Variables DWH\Verifica si existe.Inputs[Lookup Input]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga Variables DWH\Origen de STG.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga VariablesExcelMensual"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:Disabled="True"
+      DTS:DTSID="{87A7E59D-EA86-4DA7-A5A2-05017608D729}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga VariablesExcelMensual"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga VariablesExcelMensual\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_VariablesMensualNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_VariablesMensualNueva]) [refTable]
+where [refTable].[VC_VAR_Variable] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_VAR_VariableMensualNueva" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Variable" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Descripcion" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Frecuencia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Fuente" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Variable]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelMensual\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda].Columns[Variable]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Variable"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Variable]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">VC_VAR_Variable</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="LK_VariablesMensualNueva"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[LK_VariablesMensualNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].Columns[Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Descripcion]"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].Columns[Frecuencia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Frecuencia"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Frecuencia]"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].Columns[Fuente]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Fuente"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Fuente]"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Fuente]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].Columns[Variable]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Variable"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Variable]"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Variable]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_VAR_VariableMensualNueva]"
+                      dataType="i4"
+                      name="SK_VAR_VariableMensualNueva" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Variable]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Variable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Fuente" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen Variables Mensual"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_VariablesMensualNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Connections[OleDbConnection]"
+                  connectionManagerID="{87E70297-4CCB-40F4-A984-E9CE2C33F1B9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Variable]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Variable]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Variable]"
+                      name="Variable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Frecuencia]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]"
+                      name="Frecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Fuente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Fuente]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].Columns[Fuente]"
+                      name="Fuente"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Variable]"
+                      dataType="wstr"
+                      length="255"
+                      name="Variable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      name="Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB].ExternalColumns[Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      name="Fuente" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Variable]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Variable]"
+                      name="Variable" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Frecuencia]"
+                      name="Frecuencia" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[Fuente]"
+                      name="Fuente" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga VariablesExcelMensual.Paths[Salida de entradas no coincidentes de búsqueda]"
+              endId="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas no coincidentes de búsqueda"
+              startId="Package\Carga VariablesExcelMensual\Existe?.Outputs[Salida de entradas no coincidentes de búsqueda]" />
+            <path
+              refId="Package\Carga VariablesExcelMensual.Paths[Salida de origen de OLE DB]"
+              endId="Package\Carga VariablesExcelMensual\Existe?.Inputs[Entrada de búsqueda]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga VariablesExcelMensual\Origen Variables Mensual.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga VariablesExcelTrimestral"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:Disabled="True"
+      DTS:DTSID="{C6377686-7D8E-48F2-A073-C1B37A72C9DD}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga VariablesExcelTrimestral"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga VariablesExcelTrimestral\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[LK_VariablesMensualNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[LK_VariablesMensualNueva]) [refTable]
+where [refTable].[VC_VAR_Variable] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_VAR_VariableMensualNueva" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Variable" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Descripcion" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Frecuencia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_VAR_Fuente" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Variable]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelTrimestral\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda].Columns[Variable]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Variable"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Variable]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">VC_VAR_Variable</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="LK_VariablesTrimestralNueva"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[LK_VariablesTrimestralNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Connections[OleDbConnection]"
+                  connectionManagerID="{D310A041-53C3-413A-B388-154CD92C81E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].Columns[Variable]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Variable"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Variable]"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Variable]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].Columns[Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripcion"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Descripcion]"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].Columns[Frecuencia]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Frecuencia"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Frecuencia]"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]" />
+                    <inputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].Columns[Fuente]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Fuente"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Fuente]"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Fuente]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[SK_VAR_VariableTrimestralNueva]"
+                      dataType="i4"
+                      name="SK_VAR_VariableTrimestralNueva" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Variable]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Variable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB].ExternalColumns[VC_VAR_Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_VAR_Fuente" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen Variables Trimestral"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_VariablesTrimestralNueva]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Connections[OleDbConnection]"
+                  connectionManagerID="{87E70297-4CCB-40F4-A984-E9CE2C33F1B9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Variable]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Variable]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Variable]"
+                      name="Variable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Frecuencia]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Frecuencia]"
+                      name="Frecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Fuente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Fuente]"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].Columns[Fuente]"
+                      name="Fuente"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Variable]"
+                      dataType="wstr"
+                      length="255"
+                      name="Variable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      name="Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB].ExternalColumns[Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      name="Fuente" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Variable]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Variable]"
+                      name="Variable" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Descripcion]"
+                      name="Descripcion" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Frecuencia]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Frecuencia]"
+                      name="Frecuencia" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Fuente]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[Fuente]"
+                      name="Fuente" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga VariablesExcelTrimestral.Paths[Salida de entradas no coincidentes de búsqueda]"
+              endId="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas no coincidentes de búsqueda"
+              startId="Package\Carga VariablesExcelTrimestral\Existe?.Outputs[Salida de entradas no coincidentes de búsqueda]" />
+            <path
+              refId="Package\Carga VariablesExcelTrimestral.Paths[Salida de origen de OLE DB]"
+              endId="Package\Carga VariablesExcelTrimestral\Existe?.Inputs[Entrada de búsqueda]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{1C2E246A-6A17-4A59-9C8A-58EA005B9A2E}"
+      DTS:From="Package\Carga Variables DWH"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Carga VariablesExcelMensual" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C31B35D4-F808-4976-A33C-F50A58B834F3}"
+      DTS:From="Package\Carga VariablesExcelMensual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Carga VariablesExcelTrimestral" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="sql12">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Carga Variables DWH"
+          TopLeft="399,206" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\Carga VariablesExcelMensual"
+          TopLeft="369,304" />
+        <NodeLayout
+          Size="234,42"
+          Id="Package\Carga VariablesExcelTrimestral"
+          TopLeft="369,394" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="485.5,248">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="484,346">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Variables DWH">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Carga Variables DWH\Origen de STG"
+          TopLeft="382.5,34.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Carga Variables DWH\Verifica si existe"
+          TopLeft="381,154" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Carga Variables DWH\Destino DWH"
+          TopLeft="485,267" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Carga Variables DWH\Update"
+          TopLeft="289,265" />
+        <EdgeLayout
+          Id="Package\Carga Variables DWH.Paths[Lookup Match Output]"
+          TopLeft="434,196">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-88.5,69"
+              Start="0,0"
+              End="-88.5,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0229885057471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.0229885057471"
+                    Point2="0,28.0229885057471"
+                    Point3="-4,28.0229885057471" />
+                  <mssgle:LineSegment
+                    End="-84.5,28.0229885057471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-84.5,28.0229885057471"
+                    Point2="-88.5,28.0229885057471"
+                    Point3="-88.5,32.0229885057471" />
+                  <mssgle:LineSegment
+                    End="-88.5,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-92.44138671875,33.0229885057471,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Variables DWH.Paths[Salida de origen de OLE DB]"
+          TopLeft="457.5,76.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77.5"
+              Start="0,0"
+              End="0,70">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga Variables DWH.Paths[Lookup No Match Output]"
+          TopLeft="483,196">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75,71"
+              Start="0,0"
+              End="75,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.8352490421456" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.8352490421456"
+                    Point2="0,28.8352490421456"
+                    Point3="4,28.8352490421456" />
+                  <mssgle:LineSegment
+                    End="71,28.8352490421456" />
+                  <mssgle:CubicBezierSegment
+                    Point1="71,28.8352490421456"
+                    Point2="75,28.8352490421456"
+                    Point3="75,32.8352490421456" />
+                  <mssgle:LineSegment
+                    End="75,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-18.30638671875,33.8352490421456,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Variables DWH\Origen de STG">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Variables DWH\Verifica si existe">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_VariablesMacro]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Variables DWH\Destino DWH">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga VariablesExcelMensual">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Carga VariablesExcelMensual\Origen Variables Mensual"
+          TopLeft="333,77" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva"
+          TopLeft="329,269" />
+        <NodeLayout
+          Size="115,42"
+          Id="Package\Carga VariablesExcelMensual\Existe?"
+          TopLeft="377,180" />
+        <EdgeLayout
+          Id="Package\Carga VariablesExcelMensual.Paths[Salida de origen de OLE DB]"
+          TopLeft="435.25,119">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga VariablesExcelMensual.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="436.25,222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-106.8890234375,13.65234375,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelMensual\Origen Variables Mensual">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelMensual\LK_VariablesMensualNueva">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelMensual\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_VariablesMensualNueva]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga VariablesExcelTrimestral">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="213,42"
+          Id="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral"
+          TopLeft="342,64" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva"
+          TopLeft="332,251" />
+        <NodeLayout
+          Size="115,42"
+          Id="Package\Carga VariablesExcelTrimestral\Existe?"
+          TopLeft="389,158" />
+        <EdgeLayout
+          Id="Package\Carga VariablesExcelTrimestral.Paths[Salida de origen de OLE DB]"
+          TopLeft="447.5,106">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga VariablesExcelTrimestral.Paths[Salida de entradas no coincidentes de búsqueda]"
+          TopLeft="445.5,200">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-106.8890234375,15.65234375,213.778046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelTrimestral\Origen Variables Trimestral">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelTrimestral\LK_VariablesTrimestralNueva">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga VariablesExcelTrimestral\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_VariablesMensualNueva]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

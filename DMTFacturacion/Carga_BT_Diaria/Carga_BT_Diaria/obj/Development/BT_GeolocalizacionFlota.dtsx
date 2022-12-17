@@ -1,0 +1,1206 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/5/2021 11:15:54 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{DD29FE15-0EE2-4007-B81F-92B2E5CAE7C6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="BT_GeolocalizacionFlota"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{430DBDFB-7BC2-4033-969E-9D7819A14988}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B195AA2E-8F74-4F34-8685-B26CFAC0154C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaHora">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/1900</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CARGA BT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{65AC0223-C907-4D49-A186-5A070F11B10A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA BT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA BT\BT_GeoFlota"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="BT_GeoFlota"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_GeolocalizacionFlota]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA BT\BT_GeoFlota.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[SK_FLA_FlotaAlquimia]"
+                      cachedDataType="i4"
+                      cachedName="SK_FLA_FlotaAlquimia"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[SK_FLA_FlotaAlquimia]"
+                      lineageId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output].Columns[SK_FLA_FlotaAlquimia]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[SK_ATV_Activo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ATV_Activo"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[SK_ATV_Activo]"
+                      lineageId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output].Columns[SK_ATV_Activo]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Fecha]"
+                      cachedDataType="dbDate"
+                      cachedName="Fecha"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Fecha]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Latitud]"
+                      cachedDataType="numeric"
+                      cachedName="Latitud"
+                      cachedPrecision="30"
+                      cachedScale="15"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Latitud]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Latitud]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Longitud]"
+                      cachedDataType="numeric"
+                      cachedName="Longitud"
+                      cachedPrecision="30"
+                      cachedScale="15"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Longitud]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Longitud]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Fecha_creacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Fecha_creacion"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      lineageId="Package\CARGA BT\FORMAT.Outputs[Derived Column Output].Columns[Fecha_creacion]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="34"
+                      cachedName="Interno"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[VC_GF_NumeroInterno]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[IdFlota]"
+                      cachedDataType="i4"
+                      cachedName="IdFlota"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_IdFlota]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[IdFlota]" />
+                    <inputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].Columns[Hora]"
+                      cachedDataType="i2"
+                      cachedName="Hora"
+                      externalMetadataColumnId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Hora]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Hora]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[SK_FLA_FlotaAlquimia]"
+                      dataType="i4"
+                      name="SK_FLA_FlotaAlquimia" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[SK_ATV_Activo]"
+                      dataType="i8"
+                      name="SK_ATV_Activo" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[FC_Fecha]"
+                      dataType="dbDate"
+                      name="FC_Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Latitud]"
+                      dataType="numeric"
+                      name="NU_GF_Latitud"
+                      precision="30"
+                      scale="15" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Longitud]"
+                      dataType="numeric"
+                      name="NU_GF_Longitud"
+                      precision="30"
+                      scale="15" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[Fecha_Creacion]"
+                      dataType="dbTimeStamp"
+                      name="Fecha_Creacion" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[VC_GF_NumeroInterno]"
+                      dataType="wstr"
+                      length="35"
+                      name="VC_GF_NumeroInterno" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_IdFlota]"
+                      dataType="i4"
+                      name="NU_GF_IdFlota" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input].ExternalColumns[NU_GF_Hora]"
+                      dataType="i2"
+                      name="NU_GF_Hora" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA BT\BT_GeoFlota.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\BT_GeoFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA BT\BT_GeoFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\BT_GeoFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA BT\FORMAT"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="FORMAT"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input].Columns[SK_FLA_FlotaAlquimia]"
+                      cachedDataType="i4"
+                      cachedName="SK_FLA_FlotaAlquimia"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output].Columns[SK_FLA_FlotaAlquimia]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output].Columns[SK_FLA_FlotaAlquimia]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_FLA_FlotaAlquimia,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input].Columns[SK_ATV_Activo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ATV_Activo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output].Columns[SK_ATV_Activo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output].Columns[SK_ATV_Activo]},@[$Project::DEF_UNK_CD_INT])</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_ATV_Activo,@[$Project::DEF_UNK_CD_INT])</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA BT\FORMAT.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\FORMAT.Outputs[Derived Column Output].Columns[Fecha_creacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\CARGA BT\FORMAT.Outputs[Derived Column Output].Columns[Fecha_creacion]"
+                      name="Fecha_creacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA BT\FORMAT.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\FORMAT.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\FORMAT.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA BT\FORMAT.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\FORMAT.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA BT\LK_Activo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_Activo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_ATV_Activo, VC_ATV_Interno
+FROM LK_Activo</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_ATV_Activo, VC_ATV_Interno
+FROM LK_Activo) [refTable]
+where [refTable].[VC_ATV_Interno] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_ATV_Activo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_ATV_Interno" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA BT\LK_Activo.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="34"
+                      cachedName="Interno"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_ATV_Interno</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output].Columns[SK_ATV_Activo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output].Columns[SK_ATV_Activo]"
+                      name="SK_ATV_Activo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_ATV_Activo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA BT\LK_Activo.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA BT\LK_Activo.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_Activo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\LK_Activo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_Activo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\LK_Activo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA BT\LK_FlotaAlquimia"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_FlotaAlquimia"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT SK_FLA_FlotaAlquimia, VC_FLA_Interno 
+FROM LK_FlotaAlquimia
+WHERE
+	FG_FLA_EstadoActual = 1</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT SK_FLA_FlotaAlquimia, VC_FLA_Interno 
+FROM LK_FlotaAlquimia
+WHERE
+	FG_FLA_EstadoActual = 1) [refTable]
+where [refTable].[VC_FLA_Interno] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_FLA_FlotaAlquimia" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_FLA_Interno" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA BT\LK_FlotaAlquimia.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input].Columns[Interno]"
+                      cachedDataType="wstr"
+                      cachedLength="34"
+                      cachedName="Interno"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_FLA_Interno</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output].Columns[SK_FLA_FlotaAlquimia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output].Columns[SK_FLA_FlotaAlquimia]"
+                      name="SK_FLA_FlotaAlquimia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_FLA_FlotaAlquimia</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA BT\STG_GeoFlota"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG_GeoFlota"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+	CAST(YYYY+'-'+MM+'-'+DD  AS date) AS Fecha,
+	CAST(HH AS SMALLINT) AS Hora,
+	IdFlota,
+	Interno,
+	Latitud,
+	Longitud
+FROM STG_GeolocalizacionFlota
+WHERE
+	CAST(YYYY + '-' + MM + '-' + DD + ' ' + HH + ':00:00' AS dateTIME) &gt; ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{B195AA2E-8F74-4F34-8685-B26CFAC0154C};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA BT\STG_GeoFlota.Connections[OleDbConnection]"
+                  connectionManagerID="{1A290C50-0624-4513-A2C4-6504F9841FEC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Fecha]"
+                      name="Fecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Hora]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Hora]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Hora]"
+                      name="Hora"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[IdFlota]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[IdFlota]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[IdFlota]"
+                      name="IdFlota"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      length="34"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Interno]"
+                      name="Interno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Latitud]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Latitud]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Latitud]"
+                      name="Latitud"
+                      precision="30"
+                      scale="15"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Longitud]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Longitud]"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].Columns[Longitud]"
+                      name="Longitud"
+                      precision="30"
+                      scale="15"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Fecha]"
+                      dataType="dbDate"
+                      name="Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Hora]"
+                      dataType="i2"
+                      name="Hora" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[IdFlota]"
+                      dataType="i4"
+                      name="IdFlota" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Interno]"
+                      dataType="wstr"
+                      length="34"
+                      name="Interno" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Latitud]"
+                      dataType="numeric"
+                      name="Latitud"
+                      precision="30"
+                      scale="15" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output].ExternalColumns[Longitud]"
+                      dataType="numeric"
+                      name="Longitud"
+                      precision="30"
+                      scale="15" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      dataType="dbDate"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Fecha]"
+                      name="Fecha" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Hora]"
+                      dataType="i2"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Hora]"
+                      name="Hora" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[IdFlota]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[IdFlota]"
+                      name="IdFlota" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      dataType="wstr"
+                      length="34"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Interno]"
+                      name="Interno" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Latitud]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Latitud]"
+                      name="Latitud"
+                      precision="30"
+                      scale="15" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Longitud]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[Longitud]"
+                      name="Longitud"
+                      precision="30"
+                      scale="15" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA BT.Paths[Derived Column Output]"
+              endId="Package\CARGA BT\BT_GeoFlota.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\CARGA BT\FORMAT.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\CARGA BT.Paths[Lookup Match Output]"
+              endId="Package\CARGA BT\LK_Activo.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\CARGA BT\LK_FlotaAlquimia.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\CARGA BT.Paths[Lookup Match Output1]"
+              endId="Package\CARGA BT\FORMAT.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\CARGA BT\LK_Activo.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\CARGA BT.Paths[OLE DB Source Output]"
+              endId="Package\CARGA BT\LK_FlotaAlquimia.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA BT\STG_GeoFlota.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SET FECHAS"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BAB0E160-FAA4-4E85-872F-97186F4CDCC6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SET FECHAS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="SELECT &#xA;&#x9;CAST(CAST(FC_Fecha AS nvarchar(10)) + ' ' + CAST(MAX(NU_GF_Hora) AS nvarchar(2)) + ':00:00' AS datetime)&#xA;FROM [dbo].[BT_GeolocalizacionFlota]&#xA;WHERE&#xA;&#x9;FC_Fecha = (SELECT MAX(FC_Fecha) FROM [BT_GeolocalizacionFlota])&#xA;GROUP BY FC_Fecha&#xA;&#xA;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::FechaHora" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{0F173B76-920A-4DF7-BC2C-6358890B3FFE}"
+      DTS:From="Package\SET FECHAS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\CARGA BT" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="128,42"
+          Id="Package\CARGA BT"
+          TopLeft="287,151" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\SET FECHAS"
+          TopLeft="286,51" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="353,93">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CARGA BT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="159,42"
+          Id="Package\CARGA BT\LK_FlotaAlquimia"
+          TopLeft="310,151" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\CARGA BT\FORMAT"
+          TopLeft="332,323" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\CARGA BT\BT_GeoFlota"
+          TopLeft="318,404" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\CARGA BT\LK_Activo"
+          TopLeft="324,241" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\CARGA BT\STG_GeoFlota"
+          TopLeft="314,72" />
+        <EdgeLayout
+          Id="Package\CARGA BT.Paths[OLE DB Source Output]"
+          TopLeft="388.25,114">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA BT.Paths[Lookup Match Output1]"
+          TopLeft="389.25,283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,10.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA BT.Paths[Lookup Match Output]"
+          TopLeft="388,193">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,14.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA BT.Paths[Derived Column Output]"
+          TopLeft="389.75,365">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA BT\STG_GeoFlota">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA BT\LK_FlotaAlquimia">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA BT\LK_Activo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA BT\BT_GeoFlota">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

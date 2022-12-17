@@ -1,0 +1,939 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/8/2020 2:45:57 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{3A603091-A46E-43BE-803F-7A82DEF8E314}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_GeolocalizacionFlota"
+  DTS:PackageType="5"
+  DTS:VersionBuild="51"
+  DTS:VersionGUID="{8BBBC834-720C-48B7-95BA-E5CDF41C18FC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[QryResultsFile]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{51324D13-57A3-41B5-9F06-6A206AA4D9DC}"
+      DTS:ObjectName="QryResultsFile">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::QryResultsFullPath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="11274"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults\">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Index"
+              DTS:DTSID="{B6CFF1D5-0628-448E-AFCD-8A3CAE6FA815}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="34"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Interno"
+              DTS:DTSID="{6F5505C7-934F-4747-A7D9-66A9532DAE67}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="IdFlota"
+              DTS:DTSID="{695FB996-0C61-4A22-B1BE-1A2E69A4A684}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="14"
+              DTS:DataScale="15"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Latitud"
+              DTS:DTSID="{9E21D461-ADF7-47AC-8A2C-FC4441CEF515}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="14"
+              DTS:DataScale="15"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Longitud"
+              DTS:DTSID="{61A1243C-5267-4545-B033-5AAD1F76FB6A}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{718E66CB-FFBE-47B3-854C-65F819F8173D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{11273CAB-CE13-440C-BDED-E73D5ABE7028}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryGeoFileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4A36D718-9249-4145-896E-07231BDEEB10}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryGeoProcessedFilesPath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults\PROCESSED\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DE037A8E-0CD8-4279-B1B4-EF6C5360A405}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::FolderPath] +  @[User::QryGeoFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryResultsFullPath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{83A22478-91EE-4C4E-A828-ACA9FC67F1A5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::QryGeoProcessedFilesPath] +  @[User::QryGeoFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="QryResultsProcessedFullPath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults\PROCESSED\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{D6AA9EFE-F8D6-4F9E-B4E2-F6A09381AB29}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{9375DA4E-0011-476B-A8D7-0321C2C29639}"
+        DTS:ObjectName="{9375DA4E-0011-476B-A8D7-0321C2C29639}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="D:\Sullair\DATA PIPELINE\GeolocalizacionFlota\queryResults" />
+            <FEFEProperty
+              FileSpec="*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Carga STG"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{D2A7DDCD-25B9-4FA6-B7AE-AC571AEB905D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga STG"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Carga STG\Qry File - Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="11274"
+                  name="Qry File - Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[QryResultsFile]"
+                      connectionManagerRefId="Package.ConnectionManagers[QryResultsFile]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Index]"
+                          dataType="i2"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Index]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Index]"
+                          name="Index"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Interno]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Interno]"
+                          length="34"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Interno]"
+                          name="Interno"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[IdFlota]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[IdFlota]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[IdFlota]"
+                          name="IdFlota"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Latitud]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Latitud]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Latitud]"
+                          name="Latitud"
+                          scale="15"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Longitud]"
+                          dataType="decimal"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Longitud]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Longitud]"
+                          name="Longitud"
+                          scale="15"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Index]"
+                          dataType="i2"
+                          name="Index" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Interno]"
+                          dataType="wstr"
+                          length="34"
+                          name="Interno" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[IdFlota]"
+                          dataType="i4"
+                          name="IdFlota" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Latitud]"
+                          dataType="decimal"
+                          name="Latitud"
+                          scale="15" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].ExternalColumns[Longitud]"
+                          dataType="decimal"
+                          name="Longitud"
+                          scale="15" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Carga STG\SET FECHAS"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="SET FECHAS"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[QryGeoFileName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[QryGeoFileName]"
+                          name="QryGeoFileName"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,50)@[User::QryGeoFileName]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,50)@[User::QryGeoFileName]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[YYYY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[YYYY]"
+                          name="YYYY"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,4)([SUBSTRING](@[User::QryGeoFileName],[FINDSTRING](@[User::QryGeoFileName],"_",1) + 1,4))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,4)(SUBSTRING(@[User::QryGeoFileName],FINDSTRING(@[User::QryGeoFileName],"_",1) + 1,4))</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[MM]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[MM]"
+                          name="MM"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,2)[REPLACE](([SUBSTRING](@[User::QryGeoFileName],[FINDSTRING](@[User::QryGeoFileName],"_",2) + 1,2)),"_","")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,2)REPLACE((SUBSTRING(@[User::QryGeoFileName],FINDSTRING(@[User::QryGeoFileName],"_",2) + 1,2)),"_","")</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[DD]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[DD]"
+                          name="DD"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,2)[REPLACE](([SUBSTRING](@[User::QryGeoFileName],[FINDSTRING](@[User::QryGeoFileName],"_",3) + 1,2)),"_","")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,2)REPLACE((SUBSTRING(@[User::QryGeoFileName],FINDSTRING(@[User::QryGeoFileName],"_",3) + 1,2)),"_","")</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[HH]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[HH]"
+                          name="HH"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,2)[REPLACE](([SUBSTRING](@[User::QryGeoFileName],[FINDSTRING](@[User::QryGeoFileName],"_",4) + 1,2)),".","")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,2)REPLACE((SUBSTRING(@[User::QryGeoFileName],FINDSTRING(@[User::QryGeoFileName],"_",4) + 1,2)),".","")</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="STG_GeolocalizacionFlota"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[STG_GeolocalizacionFlota]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Connections[OleDbConnection]"
+                      connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[STG]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[Interno]"
+                          cachedDataType="wstr"
+                          cachedLength="34"
+                          cachedName="Interno"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Interno]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[IdFlota]"
+                          cachedDataType="i4"
+                          cachedName="IdFlota"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[IdFlota]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[IdFlota]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[Latitud]"
+                          cachedDataType="decimal"
+                          cachedName="Latitud"
+                          cachedScale="15"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Latitud]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Latitud]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[Longitud]"
+                          cachedDataType="decimal"
+                          cachedName="Longitud"
+                          cachedScale="15"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Longitud]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output].Columns[Longitud]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[QryGeoFileName]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="QryGeoFileName"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[ArchivoOrigen]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[QryGeoFileName]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[YYYY]"
+                          cachedDataType="wstr"
+                          cachedLength="4"
+                          cachedName="YYYY"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[YYYY]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[YYYY]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[MM]"
+                          cachedDataType="wstr"
+                          cachedLength="2"
+                          cachedName="MM"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[MM]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[MM]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[DD]"
+                          cachedDataType="wstr"
+                          cachedLength="2"
+                          cachedName="DD"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[DD]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[DD]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].Columns[HH]"
+                          cachedDataType="wstr"
+                          cachedLength="2"
+                          cachedName="HH"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[HH]"
+                          lineageId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output].Columns[HH]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[FECHAYHORA]"
+                          dataType="dbTimeStamp"
+                          name="FECHAYHORA" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Interno]"
+                          dataType="wstr"
+                          length="34"
+                          name="Interno" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[IdFlota]"
+                          dataType="i4"
+                          name="IdFlota" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Latitud]"
+                          dataType="numeric"
+                          name="Latitud"
+                          precision="30"
+                          scale="15" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[Longitud]"
+                          dataType="numeric"
+                          name="Longitud"
+                          precision="30"
+                          scale="15" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[ArchivoOrigen]"
+                          dataType="wstr"
+                          length="50"
+                          name="ArchivoOrigen" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[YYYY]"
+                          dataType="wstr"
+                          length="4"
+                          name="YYYY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[MM]"
+                          dataType="wstr"
+                          length="2"
+                          name="MM" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[DD]"
+                          dataType="wstr"
+                          length="2"
+                          name="DD" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input].ExternalColumns[HH]"
+                          dataType="wstr"
+                          length="2"
+                          name="HH" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Carga STG.Paths[Derived Column Output]"
+                  endId="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Carga STG.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Carga STG\SET FECHAS.Inputs[Derived Column Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Carga STG\Qry File - Source.Outputs[Flat File Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\File System Task"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{96157606-BFC4-4351-923D-6B832F52B3E2}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="File System Task"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::QryResultsFullPath"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::QryGeoProcessedFilesPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{72C7A0CF-25E1-4671-8B19-D0146546B27D}"
+          DTS:From="Package\Foreach Loop Container\Carga STG"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\File System Task" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{EAA6B201-C4E1-4DDB-8509-D9E6A235C7F5}"
+          DTS:ObjectName="{EAA6B201-C4E1-4DDB-8509-D9E6A235C7F5}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::QryGeoFileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Foreach Loop Container\Carga STG"
+          TopLeft="61,34" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Foreach Loop Container\File System Task"
+          TopLeft="48,152" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="126.25,76">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76"
+              Start="0,0"
+              End="0,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="250,250"
+          Size="250,293"
+          Id="Package\Foreach Loop Container"
+          TopLeft="239,121" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Carga STG">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota"
+          TopLeft="342,374" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Foreach Loop Container\Carga STG\Qry File - Source"
+          TopLeft="368,69" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Foreach Loop Container\Carga STG\SET FECHAS"
+          TopLeft="377,148" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Carga STG.Paths[Flat File Source Output]"
+          TopLeft="446.5,111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Carga STG.Paths[Derived Column Output]"
+          TopLeft="443.75,190">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,184"
+              Start="0,0"
+              End="0,176.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,176.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Carga STG\STG_GeolocalizacionFlota">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

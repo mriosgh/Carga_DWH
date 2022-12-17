@@ -1,0 +1,1831 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/23/2021 5:20:22 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{700779F2-377F-47E3-8EA6-179D8E5AAD21}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_Inicial_BT_SNP_OCComexFechaCambio"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{21A477EC-EEE2-45A2-9480-2123C9A4320E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0B62A626-7B07-40A3-8578-B6B28FC950AD}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Inicial BT_SNP_OCComexFechaCambio"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  bt.[SK_OCIC_OrdenCompraInterCabecera]
+      ,bt.[SK_UNI_UnidadNegocio]
+      ,bt.[SK_TDO_TipoDocumento]
+      ,bt.[SK_ART_Articulo]
+      ,bt.[SK_PRO_Proveedor]
+      ,bt.[SK_EMP_EmpleadoComprador]
+      ,bt.[SK_MET_MetodoEmbarque]
+      ,[NU_OCILA_NumeroLinea] AS NU_OCCFEC_NumeroLinea
+      ,GETDATE() AS [FC_OCCFEC_FechaSnapchot]
+      ,[FC_OCILA_FechaOrden] AS FC_OCCFEC_FechaOrden
+	  ,FC_OCILA_FechaSolicitud AS FC_OCCFEC_FechaSolicitud
+      ,[FC_OCILA_FechaVoucher] AS FC_OCCFEC_FechaVoucher 
+      ,[NU_OCILA_MontoARS] AS NU_OCCFEC_MontoARS
+      ,[NU_OCILA_MontoUSD] AS NU_OCCFEC_MontoUSD
+      ,[VC_OCILA_CodigoMoneda] AS VC_OCCFEC_CodigoMoneda
+      ,[VC_OCILA_CuentaObjeto] AS VC_OCCFEC_CuentaObjeto
+      ,[VC_OCILA_Descripcion] AS VC_OCCFEC_Descripcion
+      ,[VC_OCILA_Descripcion2] AS VC_OCCFEC_Descripcion2
+      ,[VC_OCILA_EstadoCodigoSiguiente] AS VC_OCCFEC_EstadoCodigoSiguiente
+      ,[VC_OCILA_EstadoCodigoUltimo] AS VC_OCCFEC_EstadoCodigoUltimo
+      ,[VC_OCILA_NroCompania] AS VC_OCCFEC_NroCompania
+      ,[VC_OCILA_OriginalNumeroOrden] AS VC_OCCFEC_OriginalNumeroOrden
+      ,[VC_OCILA_OriginalTipoOrden] AS VC_OCCFEC_OriginalTipoOrden
+      ,[VC_OCILA_TipoLinea] AS VC_OCCFEC_TipoLinea
+      ,[VC_OCILA_UnidadNegocio] AS VC_OCCFEC_UnidadNegocio
+      ,BT.[SK_MON_Moneda]
+	  ,NU_OCILA_UnidadesOrden 
+      ,VC_OCILA_Referencia 
+      ,VC_OCILA_Referencia2
+      ,FC_OCILA_FechaPrometida as FC_OCILA_FechaEmitidaPlanta
+	  ,OCC.FechaPrometida AS FC_OCCFEC_FechaPrometida
+	  ,'FL_OCCFEC_FechaPrometidaCambio'=cast('False' as nvarchar(10))  
+      ,OCC.FechaPrometida AS FC_OCCFEC_FechaPrometidaAnterior
+	  ,OCC.FechaLlegadaPuerto AS FC_OCCFEC_FechaPuerto
+	  ,'FL_OCCFEC_FechaPuertoCambio'=cast('False' as nvarchar(10))  
+      ,OCC.FechaLlegadaPuerto AS FC_OCCFEC_FechaPuertoAnterior
+	  ,OCC.FechaZonaFranca AS FC_OCCFEC_FechaZonaFranca
+	  ,'FL_OCCFEC_FechaZonaFrancaCambio'=cast('False' as nvarchar(10))  
+      ,OCC.FechaZonaFranca AS FC_OCCFEC_FechaZonaFrancaAnterior
+	  ,[VC_OCILA_OriginalNumeroOrden] as VC_OCILA_NumeroRici
+	  ,[FC_OCILA_FechaOrden] as FC_OCILA_FechaRici
+	  ,OCIL.NroOI AS NU_OIC_NroOrden
+	  ,OCC.FechaEsperada AS FC_OCCFEC_FechaEsperada
+	  ,'FL_OCCFEC_FechaZonaEsperada'=cast('False' as nvarchar(10))  
+      ,OCC.FechaEsperada AS FC_OCCFEC_FechaEsperadaAnterior
+	  ,OCC.FechaEnPlanta AS FC_OCCFEC_FechaEnPlanta
+	  ,'FL_OCCFEC_FechaEnPlanta'=cast('False' as nvarchar(10))  
+      ,OCC.FechaEnPlanta AS FC_OCCFEC_FechaEnPlantaAnterior
+  FROM [dbo].[BT_SNP_OCInterLineasAbiertas] BT
+  LEFT JOIN LK_OrdenCompraInternacionalCabecera OCI
+  ON OCI.SK_OCIC_OrdenCompraInterCabecera=BT.SK_OCIC_OrdenCompraInterCabecera
+  LEFT JOIN LK_Tipo_Documento TDO
+  ON BT.SK_TDO_TipoDocumento=TDO.SK_TDO_Tipo_Documento
+ LEFT JOIN STG.dbo.STG_OrdenesComexCustomLineas OCC
+  ON TDO.CD_ID_Origen= LTRIM(RTRIM(CAST(OCC.[TipoOrden]AS NVARCHAR (2)))) 
+  AND OCI.NU_OCIC_NroOrden=LTRIM(RTRIM(OCC.[NroOrden])) 
+  AND BT.NU_OCILA_NumeroLinea=cast(OCC.[NroLinea] as int)
+  AND BT.VC_OCILA_NroCompania=LTRIM(RTRIM(cast(OCC.[NroCompania]as nvarchar(10))))
+  LEFT JOIN (SELECT
+CAST(L.[NroDeLinea]AS INT) AS [NU_OCIL_NumeroLinea]
+,CAST([NroOrdenCompra] AS int) AS [NU_OCIL_NumeroOrden]
+,CAST(R.[NroOI] as INT) as [NroOI]
+  FROM STG.[dbo].[STG_OrdenCompraLineas] L
+  LEFT JOIN STG.dbo.STG_OIOCRelacion R
+  ON R.TipoDeOrden =  L.TipoDeOrden
+	AND R.SufijoOrdenCompra = L.SufijoOrdenCompra
+	AND R.Compania = l.Compania
+	AND r.NroDocumento = L.NroOrdenCompra
+	AND R.NroDeLinea = L.NroDeLinea
+WHERE NroOI is not null) OCIL
+  ON OCI.NU_OCIC_NroOrden=cast(OCIL.NU_OCIL_NumeroOrden as int)
+   AND BT.NU_OCILA_NumeroLinea=cast(OCIL.NU_OCIL_NumeroLinea as int)
+  WHERE FC_OCILA_FechaSnapchot=(SELECT MAX(FC_OCILA_FechaSnapchot) FROM [dbo].[BT_SNP_OCInterLineasAbiertas])</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_OCIC_OrdenCompraInterCabecera]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_OCIC_OrdenCompraInterCabecera]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_OCIC_OrdenCompraInterCabecera]"
+                      name="SK_OCIC_OrdenCompraInterCabecera"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_UNI_UnidadNegocio]"
+                      name="SK_UNI_UnidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_TDO_TipoDocumento]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_TDO_TipoDocumento]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_TDO_TipoDocumento]"
+                      name="SK_TDO_TipoDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_ART_Articulo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_ART_Articulo]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_ART_Articulo]"
+                      name="SK_ART_Articulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_PRO_Proveedor]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_PRO_Proveedor]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_PRO_Proveedor]"
+                      name="SK_PRO_Proveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_EMP_EmpleadoComprador]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_EMP_EmpleadoComprador]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_EMP_EmpleadoComprador]"
+                      name="SK_EMP_EmpleadoComprador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MET_MetodoEmbarque]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_MET_MetodoEmbarque]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MET_MetodoEmbarque]"
+                      name="SK_MET_MetodoEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_NumeroLinea]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_NumeroLinea]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_NumeroLinea]"
+                      name="NU_OCCFEC_NumeroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSnapchot]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaSnapchot]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSnapchot]"
+                      name="FC_OCCFEC_FechaSnapchot"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaOrden]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaOrden]"
+                      name="FC_OCCFEC_FechaOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSolicitud]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaSolicitud]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSolicitud]"
+                      name="FC_OCCFEC_FechaSolicitud"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaVoucher]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaVoucher]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaVoucher]"
+                      name="FC_OCCFEC_FechaVoucher"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoARS]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_MontoARS]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoARS]"
+                      name="NU_OCCFEC_MontoARS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoUSD]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_MontoUSD]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoUSD]"
+                      name="NU_OCCFEC_MontoUSD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CodigoMoneda]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_CodigoMoneda]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CodigoMoneda]"
+                      name="VC_OCCFEC_CodigoMoneda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CuentaObjeto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_CuentaObjeto]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CuentaObjeto]"
+                      name="VC_OCCFEC_CuentaObjeto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_Descripcion]"
+                      length="30"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion]"
+                      name="VC_OCCFEC_Descripcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_Descripcion2]"
+                      length="30"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion2]"
+                      name="VC_OCCFEC_Descripcion2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      name="VC_OCCFEC_EstadoCodigoSiguiente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      name="VC_OCCFEC_EstadoCodigoUltimo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_NroCompania]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_NroCompania]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_NroCompania]"
+                      name="VC_OCCFEC_NroCompania"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalNumeroOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_OriginalNumeroOrden]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalNumeroOrden]"
+                      name="VC_OCCFEC_OriginalNumeroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalTipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_OriginalTipoOrden]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalTipoOrden]"
+                      name="VC_OCCFEC_OriginalTipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_TipoLinea]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_TipoLinea]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_TipoLinea]"
+                      name="VC_OCCFEC_TipoLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_UnidadNegocio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_UnidadNegocio]"
+                      length="12"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_UnidadNegocio]"
+                      name="VC_OCCFEC_UnidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MON_Moneda]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_MON_Moneda]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MON_Moneda]"
+                      name="SK_MON_Moneda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometida]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPrometida]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometida]"
+                      name="FC_OCCFEC_FechaPrometida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPrometidaCambio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaPrometidaCambio]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPrometidaCambio]"
+                      name="FL_OCCFEC_FechaPrometidaCambio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      name="FC_OCCFEC_FechaPrometidaAnterior"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCILA_UnidadesOrden]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCILA_UnidadesOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCILA_UnidadesOrden]"
+                      name="NU_OCILA_UnidadesOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_Referencia]"
+                      length="25"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia]"
+                      name="VC_OCILA_Referencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_Referencia2]"
+                      length="25"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia2]"
+                      name="VC_OCILA_Referencia2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaEmitidaPlanta]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCILA_FechaEmitidaPlanta]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaEmitidaPlanta]"
+                      name="FC_OCILA_FechaEmitidaPlanta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuerto]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPuerto]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuerto]"
+                      name="FC_OCCFEC_FechaPuerto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPuertoCambio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaPuertoCambio]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPuertoCambio]"
+                      name="FL_OCCFEC_FechaPuertoCambio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuertoAnterior]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPuertoAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuertoAnterior]"
+                      name="FC_OCCFEC_FechaPuertoAnterior"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFranca]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaZonaFranca]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFranca]"
+                      name="FC_OCCFEC_FechaZonaFranca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      name="FL_OCCFEC_FechaZonaFrancaCambio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      name="FC_OCCFEC_FechaZonaFrancaAnterior"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_NumeroRici]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_NumeroRici]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_NumeroRici]"
+                      name="VC_OCILA_NumeroRici"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaRici]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCILA_FechaRici]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaRici]"
+                      name="FC_OCILA_FechaRici"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OIC_NroOrden]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OIC_NroOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OIC_NroOrden]"
+                      name="NU_OIC_NroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperada]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEsperada]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperada]"
+                      name="FC_OCCFEC_FechaEsperada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaEsperada]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaZonaEsperada]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaEsperada]"
+                      name="FL_OCCFEC_FechaZonaEsperada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      name="FC_OCCFEC_FechaEsperadaAnterior"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlanta]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEnPlanta]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlanta]"
+                      name="FC_OCCFEC_FechaEnPlanta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaEnPlanta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaEnPlanta]"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaEnPlanta]"
+                      name="FL_OCCFEC_FechaEnPlanta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      name="FC_OCCFEC_FechaEnPlantaAnterior"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_OCIC_OrdenCompraInterCabecera]"
+                      dataType="i8"
+                      name="SK_OCIC_OrdenCompraInterCabecera" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      name="SK_UNI_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_TDO_TipoDocumento]"
+                      dataType="i8"
+                      name="SK_TDO_TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_ART_Articulo]"
+                      dataType="i8"
+                      name="SK_ART_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_PRO_Proveedor]"
+                      dataType="i8"
+                      name="SK_PRO_Proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_EMP_EmpleadoComprador]"
+                      dataType="i8"
+                      name="SK_EMP_EmpleadoComprador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_MET_MetodoEmbarque]"
+                      dataType="i8"
+                      name="SK_MET_MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_NumeroLinea]"
+                      dataType="i4"
+                      name="NU_OCCFEC_NumeroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaSnapchot]"
+                      dataType="dbTimeStamp"
+                      name="FC_OCCFEC_FechaSnapchot" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaOrden]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaSolicitud]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaSolicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaVoucher]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaVoucher" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_MontoARS]"
+                      dataType="r8"
+                      name="NU_OCCFEC_MontoARS" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCCFEC_MontoUSD]"
+                      dataType="r8"
+                      name="NU_OCCFEC_MontoUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_CodigoMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_CuentaObjeto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_Descripcion]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_OCCFEC_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_Descripcion2]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_OCCFEC_Descripcion2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_EstadoCodigoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_EstadoCodigoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_OriginalNumeroOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_OriginalNumeroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_OriginalTipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_OriginalTipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCCFEC_UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      name="VC_OCCFEC_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[SK_MON_Moneda]"
+                      dataType="i8"
+                      name="SK_MON_Moneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPrometida]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPrometida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaPrometidaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaPrometidaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPrometidaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OCILA_UnidadesOrden]"
+                      dataType="i8"
+                      name="NU_OCILA_UnidadesOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_Referencia]"
+                      dataType="wstr"
+                      length="25"
+                      name="VC_OCILA_Referencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_Referencia2]"
+                      dataType="wstr"
+                      length="25"
+                      name="VC_OCILA_Referencia2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCILA_FechaEmitidaPlanta]"
+                      dataType="dbDate"
+                      name="FC_OCILA_FechaEmitidaPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPuerto]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPuerto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaPuertoCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaPuertoCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaPuertoAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPuertoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaZonaFranca]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaZonaFranca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaZonaFrancaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaZonaFrancaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[VC_OCILA_NumeroRici]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCILA_NumeroRici" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCILA_FechaRici]"
+                      dataType="dbDate"
+                      name="FC_OCILA_FechaRici" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[NU_OIC_NroOrden]"
+                      dataType="i4"
+                      name="NU_OIC_NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEsperada]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEsperada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaZonaEsperada]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaZonaEsperada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEsperadaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEnPlanta]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEnPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FL_OCCFEC_FechaEnPlanta]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaEnPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].ExternalColumns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEnPlantaAnterior" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_OCIC_OrdenCompraInterCabecera]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_OCIC_OrdenCompraInterCabecera]"
+                      name="SK_OCIC_OrdenCompraInterCabecera" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_UNI_UnidadNegocio]"
+                      name="SK_UNI_UnidadNegocio" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_TDO_TipoDocumento]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_TDO_TipoDocumento]"
+                      name="SK_TDO_TipoDocumento" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_ART_Articulo]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_ART_Articulo]"
+                      name="SK_ART_Articulo" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_PRO_Proveedor]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_PRO_Proveedor]"
+                      name="SK_PRO_Proveedor" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_EMP_EmpleadoComprador]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_EMP_EmpleadoComprador]"
+                      name="SK_EMP_EmpleadoComprador" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_MET_MetodoEmbarque]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_MET_MetodoEmbarque]"
+                      name="SK_MET_MetodoEmbarque" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_NumeroLinea]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_NumeroLinea]"
+                      name="NU_OCCFEC_NumeroLinea" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaSnapchot]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaSnapchot]"
+                      name="FC_OCCFEC_FechaSnapchot" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaOrden]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaOrden]"
+                      name="FC_OCCFEC_FechaOrden" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaSolicitud]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaSolicitud]"
+                      name="FC_OCCFEC_FechaSolicitud" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaVoucher]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaVoucher]"
+                      name="FC_OCCFEC_FechaVoucher" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_MontoARS]"
+                      dataType="r8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_MontoARS]"
+                      name="NU_OCCFEC_MontoARS" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_MontoUSD]"
+                      dataType="r8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCCFEC_MontoUSD]"
+                      name="NU_OCCFEC_MontoUSD" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_CodigoMoneda]"
+                      name="VC_OCCFEC_CodigoMoneda" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_CuentaObjeto]"
+                      name="VC_OCCFEC_CuentaObjeto" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_Descripcion]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_Descripcion]"
+                      name="VC_OCCFEC_Descripcion" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_Descripcion2]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_Descripcion2]"
+                      name="VC_OCCFEC_Descripcion2" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      name="VC_OCCFEC_EstadoCodigoSiguiente" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      name="VC_OCCFEC_EstadoCodigoUltimo" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_NroCompania]"
+                      name="VC_OCCFEC_NroCompania" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_OriginalNumeroOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_OriginalNumeroOrden]"
+                      name="VC_OCCFEC_OriginalNumeroOrden" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_OriginalTipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_OriginalTipoOrden]"
+                      name="VC_OCCFEC_OriginalTipoOrden" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_TipoLinea]"
+                      name="VC_OCCFEC_TipoLinea" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCCFEC_UnidadNegocio]"
+                      name="VC_OCCFEC_UnidadNegocio" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_MON_Moneda]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[SK_MON_Moneda]"
+                      name="SK_MON_Moneda" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCILA_UnidadesOrden]"
+                      dataType="i8"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OCILA_UnidadesOrden]"
+                      name="NU_OCILA_UnidadesOrden" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_Referencia]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_Referencia]"
+                      name="VC_OCILA_Referencia" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_Referencia2]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_Referencia2]"
+                      name="VC_OCILA_Referencia2" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCILA_FechaEmitidaPlanta]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCILA_FechaEmitidaPlanta]"
+                      name="FC_OCILA_FechaEmitidaPlanta" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPrometida]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPrometida]"
+                      name="FC_OCCFEC_FechaPrometida" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaPrometidaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaPrometidaCambio]"
+                      name="FL_OCCFEC_FechaPrometidaCambio" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      name="FC_OCCFEC_FechaPrometidaAnterior" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPuerto]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPuerto]"
+                      name="FC_OCCFEC_FechaPuerto" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaPuertoCambio]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaPuertoCambio]"
+                      name="FL_OCCFEC_FechaPuertoCambio" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPuertoAnterior]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaPuertoAnterior]"
+                      name="FC_OCCFEC_FechaPuertoAnterior" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaZonaFranca]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaZonaFranca]"
+                      name="FC_OCCFEC_FechaZonaFranca" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      name="FL_OCCFEC_FechaZonaFrancaCambio" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      name="FC_OCCFEC_FechaZonaFrancaAnterior" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_NumeroRici]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[VC_OCILA_NumeroRici]"
+                      name="VC_OCILA_NumeroRici" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCILA_FechaRici]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCILA_FechaRici]"
+                      name="FC_OCILA_FechaRici" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OIC_NroOrden]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[NU_OIC_NroOrden]"
+                      name="NU_OIC_NroOrden" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEsperada]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEsperada]"
+                      name="FC_OCCFEC_FechaEsperada" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaZonaEsperada]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaZonaEsperada]"
+                      name="FL_OCCFEC_FechaZonaEsperada" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      name="FC_OCCFEC_FechaEsperadaAnterior" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEnPlanta]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEnPlanta]"
+                      name="FC_OCCFEC_FechaEnPlanta" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaEnPlanta]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FL_OCCFEC_FechaEnPlanta]"
+                      name="FL_OCCFEC_FechaEnPlanta" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      name="FC_OCCFEC_FechaEnPlantaAnterior" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_SNP_OCComexFechaEntregaCambio]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_OCIC_OrdenCompraInterCabecera]"
+                      cachedDataType="i8"
+                      cachedName="SK_OCIC_OrdenCompraInterCabecera"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_OCIC_OrdenCompraInterCabecera]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_OCIC_OrdenCompraInterCabecera]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_UNI_UnidadNegocio]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocio"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_UNI_UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_TDO_TipoDocumento]"
+                      cachedDataType="i8"
+                      cachedName="SK_TDO_TipoDocumento"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_TDO_TipoDocumento]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_TDO_TipoDocumento]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_ART_Articulo]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_PRO_Proveedor]"
+                      cachedDataType="i8"
+                      cachedName="SK_PRO_Proveedor"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Proveedor]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_PRO_Proveedor]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_EMP_EmpleadoComprador]"
+                      cachedDataType="i8"
+                      cachedName="SK_EMP_EmpleadoComprador"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_EMP_EmpleadoComprador]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_EMP_EmpleadoComprador]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_MET_MetodoEmbarque]"
+                      cachedDataType="i8"
+                      cachedName="SK_MET_MetodoEmbarque"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_MET_MetodoEmbarque]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MET_MetodoEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[NU_OCCFEC_NumeroLinea]"
+                      cachedDataType="i4"
+                      cachedName="NU_OCCFEC_NumeroLinea"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_NumeroLinea]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_NumeroLinea]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaSnapchot]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FC_OCCFEC_FechaSnapchot"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaSnapchot]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSnapchot]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaOrden]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaOrden"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaOrden]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaSolicitud]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaSolicitud"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaSolicitud]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaSolicitud]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaVoucher]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaVoucher"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaVoucher]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaVoucher]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[NU_OCCFEC_MontoARS]"
+                      cachedDataType="r8"
+                      cachedName="NU_OCCFEC_MontoARS"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_MontoARS]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoARS]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[NU_OCCFEC_MontoUSD]"
+                      cachedDataType="r8"
+                      cachedName="NU_OCCFEC_MontoUSD"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_MontoUSD]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCCFEC_MontoUSD]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_CodigoMoneda]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_CodigoMoneda"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_CodigoMoneda]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CodigoMoneda]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_CuentaObjeto"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_CuentaObjeto]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_CuentaObjeto]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_Descripcion]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="VC_OCCFEC_Descripcion"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_Descripcion]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_Descripcion2]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="VC_OCCFEC_Descripcion2"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_Descripcion2]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_Descripcion2]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_EstadoCodigoSiguiente"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoSiguiente]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_EstadoCodigoUltimo"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_EstadoCodigoUltimo]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_NroCompania]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_NroCompania"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_NroCompania]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_NroCompania]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_OriginalNumeroOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_OriginalNumeroOrden"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_OriginalNumeroOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalNumeroOrden]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_OriginalTipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_OriginalTipoOrden"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_OriginalTipoOrden]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_OriginalTipoOrden]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_TipoLinea]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCCFEC_TipoLinea"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_TipoLinea]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_TipoLinea]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCCFEC_UnidadNegocio]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="VC_OCCFEC_UnidadNegocio"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_UnidadNegocio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCCFEC_UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[SK_MON_Moneda]"
+                      cachedDataType="i8"
+                      cachedName="SK_MON_Moneda"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_MON_Moneda]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[SK_MON_Moneda]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaPrometida]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaPrometida"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPrometida]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometida]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FL_OCCFEC_FechaPrometidaCambio]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FL_OCCFEC_FechaPrometidaCambio"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaPrometidaCambio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPrometidaCambio]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaPrometidaAnterior"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPrometidaAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaPuerto]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaPuerto"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPuerto]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuerto]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FL_OCCFEC_FechaPuertoCambio]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FL_OCCFEC_FechaPuertoCambio"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaPuertoCambio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaPuertoCambio]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaPuertoAnterior]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaPuertoAnterior"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPuertoAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaPuertoAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaZonaFranca]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaZonaFranca"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaZonaFranca]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFranca]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FL_OCCFEC_FechaZonaFrancaCambio"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaFrancaCambio]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaZonaFrancaAnterior"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaZonaFrancaAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCILA_FechaEmitidaPlanta]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCILA_FechaEmitidaPlanta"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEmitidaPlanta]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaEmitidaPlanta]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[NU_OCILA_UnidadesOrden]"
+                      cachedDataType="i8"
+                      cachedName="NU_OCILA_UnidadesOrden"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_Cantidad]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OCILA_UnidadesOrden]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCILA_Referencia]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="VC_OCILA_Referencia"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_LNA_Alias]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCILA_Referencia2]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="VC_OCILA_Referencia2"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_SolicitudLNA_Alias]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_Referencia2]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[VC_OCILA_NumeroRici]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VC_OCILA_NumeroRici"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_NumeroRici]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[VC_OCILA_NumeroRici]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCILA_FechaRici]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCILA_FechaRici"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaRici]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCILA_FechaRici]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[NU_OIC_NroOrden]"
+                      cachedDataType="i4"
+                      cachedName="NU_OIC_NroOrden"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_NumeroOrdenOI]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[NU_OIC_NroOrden]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaEsperada]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaEsperada"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEsperada]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperada]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FL_OCCFEC_FechaZonaEsperada]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FL_OCCFEC_FechaZonaEsperada"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaEsperadaCambio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaZonaEsperada]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaEsperadaAnterior"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEsperadaAnterior]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaEnPlanta]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaEnPlanta"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEstimadaPlanta]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlanta]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FL_OCCFEC_FechaEnPlanta]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FL_OCCFEC_FechaEnPlanta"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaEstimadaPlantaCambio]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FL_OCCFEC_FechaEnPlanta]" />
+                    <inputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].Columns[FC_OCCFEC_FechaEnPlantaAnterior]"
+                      cachedDataType="dbDate"
+                      cachedName="FC_OCCFEC_FechaEnPlantaAnterior"
+                      externalMetadataColumnId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEstimadaPlantaAnterior]"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output].Columns[FC_OCCFEC_FechaEnPlantaAnterior]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_OCComexFechaEntregaCambio]"
+                      dataType="i8"
+                      name="SK_OCComexFechaEntregaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_OCIC_OrdenCompraInterCabecera]"
+                      dataType="i8"
+                      name="SK_OCIC_OrdenCompraInterCabecera" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      name="SK_UNI_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_TDO_TipoDocumento]"
+                      dataType="i8"
+                      name="SK_TDO_TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      dataType="i8"
+                      name="SK_ART_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Proveedor]"
+                      dataType="i8"
+                      name="SK_PRO_Proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_EMP_EmpleadoComprador]"
+                      dataType="i8"
+                      name="SK_EMP_EmpleadoComprador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_MET_MetodoEmbarque]"
+                      dataType="i8"
+                      name="SK_MET_MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_NumeroLinea]"
+                      dataType="i4"
+                      name="NU_OCCFEC_NumeroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaSnapchot]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaSnapchot" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaOrden]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaSolicitud]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaSolicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaVoucher]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaVoucher" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_MontoARS]"
+                      dataType="r8"
+                      name="NU_OCCFEC_MontoARS" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_MontoUSD]"
+                      dataType="r8"
+                      name="NU_OCCFEC_MontoUSD" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_CodigoMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_CuentaObjeto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_Descripcion]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_OCCFEC_Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_Descripcion2]"
+                      dataType="wstr"
+                      length="30"
+                      name="VC_OCCFEC_Descripcion2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_EstadoCodigoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_EstadoCodigoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_EstadoCodigoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_EstadoCodigoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_OriginalNumeroOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_OriginalNumeroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_OriginalTipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_OriginalTipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_OCCFEC_TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      name="VC_OCCFEC_UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[SK_MON_Moneda]"
+                      dataType="i8"
+                      name="SK_MON_Moneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPrometida]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPrometida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaPrometidaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaPrometidaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPrometidaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPrometidaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPuerto]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPuerto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaPuertoCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaPuertoCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaPuertoAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaPuertoAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaZonaFranca]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaZonaFranca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaZonaFrancaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaZonaFrancaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaZonaFrancaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaZonaFrancaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEmitidaPlanta]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEmitidaPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_Cantidad]"
+                      dataType="i4"
+                      name="NU_OCCFEC_Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_LNA_Alias]"
+                      dataType="wstr"
+                      length="25"
+                      name="VC_OCCFEC_LNA_Alias" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_SolicitudLNA_Alias]"
+                      dataType="wstr"
+                      length="25"
+                      name="VC_OCCFEC_SolicitudLNA_Alias" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[VC_OCCFEC_NumeroRici]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_OCCFEC_NumeroRici" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaRici]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaRici" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[NU_OCCFEC_NumeroOrdenOI]"
+                      dataType="i4"
+                      name="NU_OCCFEC_NumeroOrdenOI" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEsperada]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEsperada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaEsperadaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaEsperadaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEsperadaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEsperadaAnterior" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEstimadaPlanta]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEstimadaPlanta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FL_OCCFEC_FechaEstimadaPlantaCambio]"
+                      dataType="wstr"
+                      length="10"
+                      name="FL_OCCFEC_FechaEstimadaPlantaCambio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input].ExternalColumns[FC_OCCFEC_FechaEstimadaPlantaAnterior]"
+                      dataType="dbDate"
+                      name="FC_OCCFEC_FechaEstimadaPlantaAnterior" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga Inicial BT_SNP_OCComexFechaCambio.Paths[OLE DB Source Output]"
+              endId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="292.666666666667,42"
+          Id="Package\Carga Inicial BT_SNP_OCComexFechaCambio"
+          TopLeft="84.9999987334013,60.6666655818621" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Inicial BT_SNP_OCComexFechaCambio">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="111.333333333334,42"
+          Id="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output"
+          TopLeft="177.083330694586,145.599997396469" />
+        <NodeLayout
+          Size="104,42"
+          Id="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input"
+          TopLeft="174.583330731839,44.6333325352271" />
+        <EdgeLayout
+          Id="Package\Carga Inicial BT_SNP_OCComexFechaCambio.Paths[OLE DB Source Output]"
+          TopLeft="229.666664046546,86.6333325352271">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.9666648612419"
+              Start="0,0"
+              End="0,51.4666648612419">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.4666648612419" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Input">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Inicial BT_SNP_OCComexFechaCambio\Output">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

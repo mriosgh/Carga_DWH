@@ -1,0 +1,736 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/22/2021 4:13:39 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis1"
+  DTS:DTSID="{8F448947-19D6-4177-B4F9-D28F644343C9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_ClasificacionPreguntas"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{6EED9A7A-C982-4339-BE93-C60EC1AB1B86}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{93792CFE-BD56-428D-AC60-08A8BE8F9FDB}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Sullair\DWH\DataMart CRM\ClasificacionPreguntas.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_ClasificacionPreguntas"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EF472393-4143-4E56-BF5E-A12C6764F162}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_ClasificacionPreguntas"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_ClasificacionPreguntas\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input].Columns[Clasificacion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Clasificacion"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Clasificacion]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input].Columns[Pregunta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Pregunta"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Pregunta]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input].Columns[Etapa]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Etapa"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Etapa]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input].Columns[TipoPregunta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TipoPregunta"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[TipoPregunta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Clasificacion_str]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Clasificacion_str]"
+                      name="Clasificacion_str"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Clasificacion]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)Clasificacion</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Pregunta_str]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Pregunta_str]"
+                      name="Pregunta_str"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Pregunta]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)Pregunta</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Etapa_str]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Etapa_str]"
+                      name="Etapa_str"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Etapa]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)Etapa</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[TipoPregunta_str]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[TipoPregunta_str]"
+                      name="TipoPregunta_str"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,255,1252)#{Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[TipoPregunta]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,255,1252)TipoPregunta</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_ClasificacionPreguntas\Excel Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Clasificacion$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_ClasificacionPreguntas\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Clasificacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Clasificacion]"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Clasificacion]"
+                      name="Clasificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Pregunta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Pregunta]"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Pregunta]"
+                      name="Pregunta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[TipoPregunta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[TipoPregunta]"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[TipoPregunta]"
+                      name="TipoPregunta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Etapa]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Etapa]"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].Columns[Etapa]"
+                      name="Etapa"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Clasificacion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Clasificacion" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Pregunta]"
+                      dataType="wstr"
+                      length="255"
+                      name="Pregunta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[TipoPregunta]"
+                      dataType="wstr"
+                      length="255"
+                      name="TipoPregunta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output].ExternalColumns[Etapa]"
+                      dataType="wstr"
+                      length="255"
+                      name="Etapa" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Clasificacion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Clasificacion]"
+                      name="Clasificacion" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Pregunta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Pregunta]"
+                      name="Pregunta" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[TipoPregunta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[TipoPregunta]"
+                      name="TipoPregunta" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Etapa]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[Etapa]"
+                      name="Etapa" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_ClasificacionPreguntas"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG_ClasificacionPreguntas]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Connections[OleDbConnection]"
+                  connectionManagerID="{D38F921E-CF54-46E6-A635-88FB9ECB89E9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].Columns[Clasificacion_str]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Clasificacion_str"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[Clasificacion]"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Clasificacion_str]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].Columns[Pregunta_str]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Pregunta_str"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[IdPregunta]"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Pregunta_str]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].Columns[Etapa_str]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Etapa_str"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[Etapa]"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[Etapa_str]" />
+                    <inputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].Columns[TipoPregunta_str]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="TipoPregunta_str"
+                      externalMetadataColumnId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[TipoPregunta]"
+                      lineageId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output].Columns[TipoPregunta_str]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[Clasificacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Clasificacion" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[IdPregunta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="IdPregunta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[TipoPregunta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="TipoPregunta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input].ExternalColumns[Etapa]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Etapa" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_ClasificacionPreguntas.Paths[Derived Column Output]"
+              endId="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\STG_ClasificacionPreguntas\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG_ClasificacionPreguntas.Paths[Excel Source Output]"
+              endId="Package\STG_ClasificacionPreguntas\Derived Column.Inputs[Derived Column Input]"
+              name="Excel Source Output"
+              startId="Package\STG_ClasificacionPreguntas\Excel Source.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{39840D90-A110-46D7-B738-5723EB50E755}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D38F921E-CF54-46E6-A635-88FB9ECB89E9}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_ClasificacionPreguntas&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{55E5A9CB-7939-4019-812B-9EB8A9317258}"
+      DTS:From="Package\Truncate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\STG_ClasificacionPreguntas" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="208,42"
+          Id="Package\STG_ClasificacionPreguntas"
+          TopLeft="535,146" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\Truncate"
+          TopLeft="566,48" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="626.5,90">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="12.5,56"
+              Start="0,0"
+              End="12.5,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="4,28" />
+                  <mssgle:LineSegment
+                    End="8.5,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="8.5,28"
+                    Point2="12.5,28"
+                    Point3="12.5,32" />
+                  <mssgle:LineSegment
+                    End="12.5,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_ClasificacionPreguntas">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="208,42"
+          Id="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas"
+          TopLeft="512,311" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\STG_ClasificacionPreguntas\Derived Column"
+          TopLeft="539,193" />
+        <EdgeLayout
+          Id="Package\STG_ClasificacionPreguntas.Paths[Derived Column Output]"
+          TopLeft="616,235">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76"
+              Start="0,0"
+              End="0,68.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="139,42"
+          Id="Package\STG_ClasificacionPreguntas\Excel Source"
+          TopLeft="540,67" />
+        <EdgeLayout
+          Id="Package\STG_ClasificacionPreguntas.Paths[Excel Source Output]"
+          TopLeft="612.75,109">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84"
+              Start="0,0"
+              End="0,76.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_ClasificacionPreguntas\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_ClasificacionPreguntas\STG_ClasificacionPreguntas">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

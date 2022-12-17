@@ -1,0 +1,109 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/12/2019 4:31:55 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\rnaspleda"
+  DTS:DTSID="{E634C303-5372-4A6E-AF7F-53233649A9C7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_CodigoEstadoInventario"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{4F8E0BB8-9D33-4612-B635-4D7FC48D3CBE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Insert STG_CodigosEstadoInventario"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Insert STG_CodigosEstadoInventario"
+      DTS:DTSID="{1913E089-1F88-4354-8094-F9994955A6C3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert STG_CodigosEstadoInventario"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}"
+          SQLTask:SqlStatementSource="USE STG;&#xA;&#xA;BEGIN TRANSACTION&#xA;&#xA;TRUNCATE TABLE STG_CodigosEstadoInventario;&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Disponible para la venta',NULL);&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Reserva 48 hs',NULL);&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Reserva en firme',NULL);&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Vendido sin facturar',NULL);&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Vendido en Guarda',NULL);&#xA;&#xA;INSERT INTO STG_CodigosEstadoInventario ([Descripcion],[codigoEstado])&#xA;VALUES ('Vendido Brasil',NULL);&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update STG_CodigosEstadoInventario"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Update STG_CodigosEstadoInventario"
+      DTS:DTSID="{94937DD3-1B11-423E-BC65-B5514B00656D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update STG_CodigosEstadoInventario"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}"
+          SQLTask:SqlStatementSource="USE STG;&#xA;&#xA;BEGIN TRANSACTION&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'DISPVENT'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Disponible para la venta';&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'RES48'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Reserva 48 hs';&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'RESFIR'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Reserva en firme';&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'VENDSINFACT'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Vendido sin facturar';&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'VENDGUARD'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Vendido en Guarda';&#xA;&#xA;UPDATE STG_CodigosEstadoInventario &#xA;SET [codigoEstado] = 'VENDBRA'+CAST([ID_Origen] AS varchar)&#xA;WHERE [Descripcion] LIKE 'Vendido Brasil';&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{6F5B2B69-A01A-4454-983C-54497BFA3526}"
+      DTS:From="Package\Insert STG_CodigosEstadoInventario"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Update STG_CodigosEstadoInventario" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="sql12">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="221,62"
+          Id="Package\Insert STG_CodigosEstadoInventario"
+          TopLeft="277,31" />
+        <NodeLayout
+          Size="220,53"
+          Id="Package\Update STG_CodigosEstadoInventario"
+          TopLeft="278,140" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="387.75,93">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1384 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/30/2019 10:54:09 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{603E7C03-5B28-4B6F-83CF-DEE483D78057}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_LineasAbiertasHistorico"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{1C45A44E-64BC-451C-8E66-64DA8A10B583}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_LineasAbiertasHistorico"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CFB017C4-CDBD-4A70-941F-F5A204A0B3BB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_LineasAbiertasHistorico"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_OrdenesDeTrabajoLineas"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT L.*, GETDATE() AS FechaCreacion, LTRIM(RTRIM(O.UnidadDeNegocio)) AS UnidadNegocioOT
+FROM STG_OrdenesDeTrabajoLineas L
+        INNER JOIN STG_OrdenesDeTrabajo O
+                ON L.NroOrden = O.NroDeOrden
+                AND L.TipoOrden = O.TipoDeOrden
+                AND O.CodigoDeEstadoWO NOT IN ('99','91','IA','MM')
+				AND O.UnidadDeNegocio &gt;= '600'
+				AND O.UnidadDeNegocio &lt;= '804'
+WHERE
+         L.CodigoEstadoMaterial NOT IN ('','98')
+         AND L.TipoOrden = 'WZ'
+AND L.UnidadNegociosComponente = '300'</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroOrden]"
+                      name="NroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      name="TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoBOM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoBOM]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoBOM]"
+                      name="TipoBOM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadFijaOVariable]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadFijaOVariable]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadFijaOVariable]"
+                      name="CantidadFijaOVariable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoTipoIssue]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoTipoIssue]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoTipoIssue]"
+                      name="CodigoTipoIssue"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NumeroLineaComponente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NumeroLineaComponente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NumeroLineaComponente]"
+                      name="NumeroLineaComponente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSecuencia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroSecuencia]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSecuencia]"
+                      name="NroSecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ItemNumberComponente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[ItemNumberComponente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ItemNumberComponente]"
+                      name="ItemNumberComponente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegociosComponente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegociosComponente]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegociosComponente]"
+                      name="UnidadNegociosComponente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroSerie]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSerie]"
+                      name="NroSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroCliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroCliente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroCliente]"
+                      name="NroCliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoLinea]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoLinea]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoLinea]"
+                      name="TipoLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaTransaccion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaTransaccion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaTransaccion]"
+                      name="FechaTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaSolicitud]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitud]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaSolicitud]"
+                      name="FechaSolicitud"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadDisponible]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadDisponible]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadDisponible]"
+                      name="CantidadDisponible"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnEspera]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnEspera]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnEspera]"
+                      name="CantidadEnEspera"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnviada]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnviada]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnviada]"
+                      name="CantidadEnviada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadMedida]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadMedida]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadMedida]"
+                      name="UnidadMedida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CostoEstimado]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CostoEstimado]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CostoEstimado]"
+                      name="CostoEstimado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoEstadoMaterial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoMaterial]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoEstadoMaterial]"
+                      name="CodigoEstadoMaterial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoDocumento]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoDocumento]"
+                      name="TipoDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocios]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocios]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocios]"
+                      name="UnidadNegocios"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[WOPadre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[WOPadre]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[WOPadre]"
+                      name="WOPadre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[EstadoEnvio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[EstadoEnvio]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[EstadoEnvio]"
+                      name="EstadoEnvio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoReservadoUsuario]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoReservadoUsuario]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoReservadoUsuario]"
+                      name="CodigoReservadoUsuario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaReservadaUsuario]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaReservadaUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaReservadaUsuario]"
+                      name="FechaReservadaUsuario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroReservadoUsuario]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroReservadoUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroReservadoUsuario]"
+                      name="NroReservadoUsuario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[IDUsuario]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[IDUsuario]"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[IDUsuario]"
+                      name="IDUsuario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaActualizacion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaActualizacion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaActualizacion]"
+                      name="FechaActualizacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaCreacion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaCreacion]"
+                      name="FechaCreacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocioOT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocioOT]"
+                      length="12"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocioOT]"
+                      name="UnidadNegocioOT"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroOrden]"
+                      dataType="i4"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoBOM]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoBOM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadFijaOVariable]"
+                      dataType="wstr"
+                      length="10"
+                      name="CantidadFijaOVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoTipoIssue]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoTipoIssue" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NumeroLineaComponente]"
+                      dataType="i4"
+                      name="NumeroLineaComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroSecuencia]"
+                      dataType="i4"
+                      name="NroSecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[ItemNumberComponente]"
+                      dataType="i4"
+                      name="ItemNumberComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegociosComponente]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadNegociosComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroCliente]"
+                      dataType="i4"
+                      name="NroCliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaTransaccion]"
+                      dataType="dbDate"
+                      name="FechaTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitud]"
+                      dataType="dbDate"
+                      name="FechaSolicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadDisponible]"
+                      dataType="i4"
+                      name="CantidadDisponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnEspera]"
+                      dataType="i4"
+                      name="CantidadEnEspera" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnviada]"
+                      dataType="i8"
+                      name="CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CostoEstimado]"
+                      dataType="r8"
+                      name="CostoEstimado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoEstadoMaterial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocios]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadNegocios" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[WOPadre]"
+                      dataType="wstr"
+                      length="10"
+                      name="WOPadre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[EstadoEnvio]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoEnvio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[CodigoReservadoUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoReservadoUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaReservadaUsuario]"
+                      dataType="dbDate"
+                      name="FechaReservadaUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[NroReservadoUsuario]"
+                      dataType="i4"
+                      name="NroReservadoUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaActualizacion]"
+                      dataType="dbDate"
+                      name="FechaActualizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      name="FechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocioOT]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadNegocioOT" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroOrden]"
+                      name="NroOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      name="TipoOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoBOM]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoBOM]"
+                      name="TipoBOM" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadFijaOVariable]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadFijaOVariable]"
+                      name="CantidadFijaOVariable" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoTipoIssue]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoTipoIssue]"
+                      name="CodigoTipoIssue" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NumeroLineaComponente]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NumeroLineaComponente]"
+                      name="NumeroLineaComponente" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroSecuencia]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroSecuencia]"
+                      name="NroSecuencia" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ItemNumberComponente]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ItemNumberComponente]"
+                      name="ItemNumberComponente" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegociosComponente]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegociosComponente]"
+                      name="UnidadNegociosComponente" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroSerie]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroSerie]"
+                      name="NroSerie" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroCliente]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroCliente]"
+                      name="NroCliente" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoLinea]"
+                      name="TipoLinea" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaTransaccion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaTransaccion]"
+                      name="FechaTransaccion" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaSolicitud]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaSolicitud]"
+                      name="FechaSolicitud" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      name="Cantidad" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadDisponible]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadDisponible]"
+                      name="CantidadDisponible" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadEnEspera]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadEnEspera]"
+                      name="CantidadEnEspera" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadEnviada]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CantidadEnviada]"
+                      name="CantidadEnviada" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadMedida]"
+                      name="UnidadMedida" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CostoEstimado]"
+                      dataType="r8"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CostoEstimado]"
+                      name="CostoEstimado" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoMaterial]"
+                      name="CodigoEstadoMaterial" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[TipoDocumento]"
+                      name="TipoDocumento" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegocios]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegocios]"
+                      name="UnidadNegocios" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[WOPadre]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[WOPadre]"
+                      name="WOPadre" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[EstadoEnvio]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[EstadoEnvio]"
+                      name="EstadoEnvio" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoReservadoUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[CodigoReservadoUsuario]"
+                      name="CodigoReservadoUsuario" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaReservadaUsuario]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaReservadaUsuario]"
+                      name="FechaReservadaUsuario" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroReservadoUsuario]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[NroReservadoUsuario]"
+                      name="NroReservadoUsuario" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[IDUsuario]"
+                      name="IDUsuario" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaActualizacion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaActualizacion]"
+                      name="FechaActualizacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaCreacion]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[FechaCreacion]"
+                      name="FechaCreacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegocioOT]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[UnidadNegocioOT]"
+                      name="UnidadNegocioOT" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_LineasAbiertasHistorico"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_LineasAbiertasHistorico]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[ID]"
+                      cachedDataType="i4"
+                      cachedName="ID"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ID]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NroOrden]"
+                      cachedDataType="i4"
+                      cachedName="NroOrden"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[TipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoOrden"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[TipoBOM]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoBOM"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoBOM]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoBOM]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CantidadFijaOVariable]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CantidadFijaOVariable"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadFijaOVariable]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadFijaOVariable]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CodigoTipoIssue]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CodigoTipoIssue"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoTipoIssue]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoTipoIssue]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NumeroLineaComponente]"
+                      cachedDataType="i4"
+                      cachedName="NumeroLineaComponente"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NumeroLineaComponente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NumeroLineaComponente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NroSecuencia]"
+                      cachedDataType="i4"
+                      cachedName="NroSecuencia"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroSecuencia]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSecuencia]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[ItemNumberComponente]"
+                      cachedDataType="i4"
+                      cachedName="ItemNumberComponente"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[ItemNumberComponente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[ItemNumberComponente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[UnidadNegociosComponente]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UnidadNegociosComponente"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegociosComponente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegociosComponente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NroSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroSerie"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroSerie]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroSerie]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NroCliente]"
+                      cachedDataType="i4"
+                      cachedName="NroCliente"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroCliente]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroCliente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[TipoLinea]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoLinea"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoLinea]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoLinea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[FechaTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaTransaccion"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaTransaccion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[FechaSolicitud]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaSolicitud"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaSolicitud]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaSolicitud]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[Cantidad]"
+                      cachedDataType="i4"
+                      cachedName="Cantidad"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[Cantidad]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CantidadDisponible]"
+                      cachedDataType="i4"
+                      cachedName="CantidadDisponible"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadDisponible]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadDisponible]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CantidadEnEspera]"
+                      cachedDataType="i4"
+                      cachedName="CantidadEnEspera"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadEnEspera]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnEspera]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CantidadEnviada]"
+                      cachedDataType="i8"
+                      cachedName="CantidadEnviada"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadEnviada]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CantidadEnviada]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[UnidadMedida]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UnidadMedida"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadMedida]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadMedida]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CostoEstimado]"
+                      cachedDataType="r8"
+                      cachedName="CostoEstimado"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CostoEstimado]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CostoEstimado]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CodigoEstadoMaterial]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CodigoEstadoMaterial"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoEstadoMaterial]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoEstadoMaterial]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[TipoDocumento]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoDocumento"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoDocumento]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[TipoDocumento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[UnidadNegocios]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UnidadNegocios"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocios]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocios]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[WOPadre]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="WOPadre"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[WOPadre]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[WOPadre]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[EstadoEnvio]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EstadoEnvio"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[EstadoEnvio]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[EstadoEnvio]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[CodigoReservadoUsuario]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CodigoReservadoUsuario"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoReservadoUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[CodigoReservadoUsuario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[FechaReservadaUsuario]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaReservadaUsuario"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaReservadaUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaReservadaUsuario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[NroReservadoUsuario]"
+                      cachedDataType="i4"
+                      cachedName="NroReservadoUsuario"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroReservadoUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[NroReservadoUsuario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[IDUsuario]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="IDUsuario"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[IDUsuario]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[IDUsuario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[FechaActualizacion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaActualizacion"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaActualizacion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaActualizacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[FechaCreacion]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCreacion"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[FechaCreacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].Columns[UnidadNegocioOT]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="UnidadNegocioOT"
+                      externalMetadataColumnId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocioOT]"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output].Columns[UnidadNegocioOT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroOrden]"
+                      dataType="i4"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoBOM]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoBOM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadFijaOVariable]"
+                      dataType="wstr"
+                      length="10"
+                      name="CantidadFijaOVariable" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoTipoIssue]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoTipoIssue" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NumeroLineaComponente]"
+                      dataType="i4"
+                      name="NumeroLineaComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroSecuencia]"
+                      dataType="i4"
+                      name="NroSecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[ItemNumberComponente]"
+                      dataType="i4"
+                      name="ItemNumberComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegociosComponente]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadNegociosComponente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroCliente]"
+                      dataType="i4"
+                      name="NroCliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaTransaccion]"
+                      dataType="dbDate"
+                      name="FechaTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaSolicitud]"
+                      dataType="dbDate"
+                      name="FechaSolicitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadDisponible]"
+                      dataType="i4"
+                      name="CantidadDisponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadEnEspera]"
+                      dataType="i4"
+                      name="CantidadEnEspera" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CantidadEnviada]"
+                      dataType="i8"
+                      name="CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CostoEstimado]"
+                      dataType="r8"
+                      name="CostoEstimado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoEstadoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoEstadoMaterial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocios]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadNegocios" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[WOPadre]"
+                      dataType="wstr"
+                      length="10"
+                      name="WOPadre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[EstadoEnvio]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoEnvio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[CodigoReservadoUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoReservadoUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaReservadaUsuario]"
+                      dataType="dbDate"
+                      name="FechaReservadaUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[NroReservadoUsuario]"
+                      dataType="i4"
+                      name="NroReservadoUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaActualizacion]"
+                      dataType="dbDate"
+                      name="FechaActualizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[FechaCreacion]"
+                      dataType="dbDate"
+                      name="FechaCreacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocioOT]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadNegocioOT" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_LineasAbiertasHistorico.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Eliminar registros antiguos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{946BBDD9-503C-4A8E-88FC-7B104806E005}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Eliminar registros antiguos"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="DELETE FROM STG_LineasAbiertasHistorico&#xA;WHERE FechaCreacion IS NOT NULL AND FechaCreacion &lt; DATEADD(YEAR, -1,cast(GETDATE()as date))" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7E71A2A5-46F9-4DF9-B99A-576953EF072D}"
+      DTS:From="Package\Eliminar registros antiguos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga STG_LineasAbiertasHistorico" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="243,42"
+          Id="Package\Carga STG_LineasAbiertasHistorico"
+          TopLeft="292,185" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Eliminar registros antiguos"
+          TopLeft="311,75" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="413.25,117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_LineasAbiertasHistorico">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="248,42"
+          Id="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico"
+          TopLeft="303,247" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas"
+          TopLeft="304,68" />
+        <EdgeLayout
+          Id="Package\Carga STG_LineasAbiertasHistorico.Paths[OLE DB Source Output]"
+          TopLeft="428,110">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,137"
+              Start="0,0"
+              End="0,129.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,129.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_LineasAbiertasHistorico\Input STG_OrdenesDeTrabajoLineas">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_LineasAbiertasHistorico\Output STG_LineasAbiertasHistorico">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

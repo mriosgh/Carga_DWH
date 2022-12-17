@@ -1,0 +1,2334 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/25/2022 4:54:08 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{51AC4F13-169A-4081-9CF6-607E9CC3428F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Solicitudes_Recursos_SSHH"
+  DTS:PackageType="5"
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{CFD579F7-1832-495B-A28B-B381298D3D9A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SVRAPPLICATION5\APPLICATION5.SSHHDOC]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4E9A70C5-1640-4B53-B460-F0ECC7878AA8}"
+      DTS:ObjectName="SVRAPPLICATION5\APPLICATION5.SSHHDOC">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=SVRAPPLICATION5\APPLICATION5;Initial Catalog=SSHHDOC;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0FEB02D6-3661-47E6-AECF-C4C3A5415BF2}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="DATEADD( &quot;n&quot;, -60, GETDATE())"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FECHA_CARGA">
+      <DTS:VariableValue
+        DTS:DataType="7">8/1/2022 6:28:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_RecursosAuditoriaEstados"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{88353852-7673-4243-ADC8-9F39161F9E91}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_RecursosAuditoriaEstados"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Filtro Tiempo"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input].Columns[AUDIORIA_FECHA_ALTA]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="AUDIORIA_FECHA_ALTA"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDIORIA_FECHA_ALTA]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[UltimaHora]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="UltimaHora"
+                  synchronousInputId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDIORIA_FECHA_ALTA]} &gt;= @[User::FECHA_CARGA]</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">AUDIORIA_FECHA_ALTA &gt;= @[User::FECHA_CARGA]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[AnteriorUltimaHora]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="AnteriorUltimaHora"
+                  synchronousInputId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec [dbo].[SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SVRAPPLICATION5\APPLICATION5.SSHHDOC]"
+                  connectionManagerRefId="Package.ConnectionManagers[SVRAPPLICATION5\APPLICATION5.SSHHDOC]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_NUMERO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]"
+                      name="SOLICITUD_NUMERO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_NUMERO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_NUMERO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_NUMERO]"
+                      name="AUDITORIA_NUMERO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_INDICE_RECURSO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_INDICE_RECURSO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_INDICE_RECURSO]"
+                      name="AUDITORIA_INDICE_RECURSO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ESTADO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_ESTADO]"
+                      length="20"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ESTADO]"
+                      name="AUDITORIA_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDIORIA_FECHA_ALTA]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDIORIA_FECHA_ALTA]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDIORIA_FECHA_ALTA]"
+                      name="AUDIORIA_FECHA_ALTA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ES_REVERSION]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_ES_REVERSION]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ES_REVERSION]"
+                      name="AUDITORIA_ES_REVERSION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_USUARIO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_USUARIO]"
+                      length="30"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_USUARIO]"
+                      name="AUDITORIA_USUARIO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_TIPO]"
+                      length="1"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]"
+                      name="RECURSO_TIPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_VALOR]"
+                      length="20"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]"
+                      name="RECURSO_VALOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ITEM]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]"
+                      name="RECURSO_ITEM"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      name="SOLICITUD_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_SECTOR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CUIT]"
+                      dataType="wstr"
+                      length="15"
+                      name="SOLICITUD_CUIT" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CLIENTE_RAZON]"
+                      dataType="wstr"
+                      length="100"
+                      name="SOLICITUD_CLIENTE_RAZON" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_PLANTA]"
+                      dataType="wstr"
+                      length="200"
+                      name="SOLICITUD_PLANTA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_NUMERO]"
+                      dataType="i4"
+                      name="AUDITORIA_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_INDICE_RECURSO]"
+                      dataType="i4"
+                      name="AUDITORIA_INDICE_RECURSO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="AUDITORIA_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDIORIA_FECHA_ALTA]"
+                      dataType="dbTimeStamp"
+                      name="AUDIORIA_FECHA_ALTA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_ES_REVERSION]"
+                      dataType="bool"
+                      name="AUDITORIA_ES_REVERSION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[AUDITORIA_USUARIO]"
+                      dataType="wstr"
+                      length="30"
+                      name="AUDITORIA_USUARIO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="1"
+                      name="RECURSO_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_VALOR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ITEM]"
+                      dataType="i4"
+                      name="RECURSO_ITEM" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_NUMERO]"
+                      name="SOLICITUD_NUMERO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_NUMERO]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_NUMERO]"
+                      name="AUDITORIA_NUMERO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_INDICE_RECURSO]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_INDICE_RECURSO]"
+                      name="AUDITORIA_INDICE_RECURSO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_ESTADO]"
+                      name="AUDITORIA_ESTADO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDIORIA_FECHA_ALTA]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDIORIA_FECHA_ALTA]"
+                      name="AUDIORIA_FECHA_ALTA" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_ES_REVERSION]"
+                      dataType="bool"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_ES_REVERSION]"
+                      name="AUDITORIA_ES_REVERSION" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_USUARIO]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[AUDITORIA_USUARIO]"
+                      name="AUDITORIA_USUARIO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_TIPO]"
+                      name="RECURSO_TIPO" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_VALOR]"
+                      name="RECURSO_VALOR" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_ITEM]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[RECURSO_ITEM]"
+                      name="RECURSO_ITEM" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_RecursosAuditoriaEstados"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_RecursosAuditoriaEstados_SSHH]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[SOLICITUD_NUMERO]"
+                      cachedDataType="i4"
+                      cachedName="SOLICITUD_NUMERO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_NUMERO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDITORIA_NUMERO]"
+                      cachedDataType="i4"
+                      cachedName="AUDITORIA_NUMERO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_NUMERO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_NUMERO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDITORIA_INDICE_RECURSO]"
+                      cachedDataType="i4"
+                      cachedName="AUDITORIA_INDICE_RECURSO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_INDICE_RECURSO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_INDICE_RECURSO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDITORIA_ESTADO]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="AUDITORIA_ESTADO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_ESTADO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ESTADO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDIORIA_FECHA_ALTA]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="AUDIORIA_FECHA_ALTA"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDIORIA_FECHA_ALTA]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDIORIA_FECHA_ALTA]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDITORIA_ES_REVERSION]"
+                      cachedDataType="bool"
+                      cachedName="AUDITORIA_ES_REVERSION"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_ES_REVERSION]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_ES_REVERSION]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[AUDITORIA_USUARIO]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="AUDITORIA_USUARIO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_USUARIO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[AUDITORIA_USUARIO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[RECURSO_TIPO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="RECURSO_TIPO"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_TIPO]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[RECURSO_VALOR]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="RECURSO_VALOR"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_VALOR]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]" />
+                    <inputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].Columns[RECURSO_ITEM]"
+                      cachedDataType="i4"
+                      cachedName="RECURSO_ITEM"
+                      externalMetadataColumnId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ITEM]"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      name="SOLICITUD_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_NUMERO]"
+                      dataType="i8"
+                      name="AUDITORIA_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_INDICE_RECURSO]"
+                      dataType="i4"
+                      name="AUDITORIA_INDICE_RECURSO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="AUDITORIA_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDIORIA_FECHA_ALTA]"
+                      dataType="dbDate"
+                      name="AUDIORIA_FECHA_ALTA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_ES_REVERSION]"
+                      dataType="i2"
+                      name="AUDITORIA_ES_REVERSION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[AUDITORIA_USUARIO]"
+                      dataType="wstr"
+                      length="20"
+                      name="AUDITORIA_USUARIO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="3"
+                      name="RECURSO_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_VALOR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ITEM]"
+                      dataType="i4"
+                      name="RECURSO_ITEM" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_RecursosAuditoriaEstados.Paths[OLE DB Source Output]"
+              endId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga STG_RecursosAuditoriaEstados.Paths[UltimaHora]"
+              endId="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados.Inputs[OLE DB Destination Input]"
+              name="UltimaHora"
+              startId="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo.Outputs[UltimaHora]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\carga STG_Solicitudes_Recursos"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3AEED1E3-67D5-4435-9432-09C2E06371CB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="carga STG_Solicitudes_Recursos"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\carga STG_Solicitudes_Recursos\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Inputs[Data Conversion Input].Columns[RECURSO_OBSE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="RECURSO_OBSE"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_OBSE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Output].Columns[RECURSO_OBSE_UNICODE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Output].Columns[RECURSO_OBSE_UNICODE]"
+                      name="RECURSO_OBSE_UNICODE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_OBSE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Filtro ultima hora"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RECURSO_FECHA_ACTUALIZACION"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_FECHA_ACTUALIZACION]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[UltimaHora]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="UltimaHora"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_FECHA_ACTUALIZACION]} &gt;= @[User::FECHA_CARGA]</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">RECURSO_FECHA_ACTUALIZACION &gt;= @[User::FECHA_CARGA]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Anterior1Hora]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Anterior1Hora"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SSHH_CLIE_DATAWAREHOUSE_REPORTE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec SSHH_CLIE_DATAWAREHOUSE_REPORTE</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SVRAPPLICATION5\APPLICATION5.SSHHDOC]"
+                  connectionManagerRefId="Package.ConnectionManagers[SVRAPPLICATION5\APPLICATION5.SSHHDOC]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_NUMERO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]"
+                      name="SOLICITUD_NUMERO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_PLANTA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_PLANTA]"
+                      length="200"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_PLANTA]"
+                      name="SOLICITUD_PLANTA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPOHAB]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_TIPOHAB]"
+                      length="50"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPOHAB]"
+                      name="SOLICITUD_TIPOHAB"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_TIPO]"
+                      length="500"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPO]"
+                      name="SOLICITUD_TIPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_DESDE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_DESDE]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_DESDE]"
+                      name="SOLICITUD_DESDE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_HASTA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_HASTA]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_HASTA]"
+                      name="SOLICITUD_HASTA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_SECTOR]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR]"
+                      name="SOLICITUD_SECTOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      name="SOLICITUD_SECTOR_DESCRIPCION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_ESTADO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_ESTADO]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_ESTADO]"
+                      name="SOLICITUD_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_FECHA_ALTA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_FECHA_ALTA]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_FECHA_ALTA]"
+                      name="SOLICITUD_FECHA_ALTA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_INDICE]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_INDICE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_INDICE]"
+                      name="RECURSO_INDICE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_NUMERO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_NUMERO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_NUMERO]"
+                      name="RECURSO_NUMERO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_TIPO]"
+                      length="1"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]"
+                      name="RECURSO_TIPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_VALOR]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]"
+                      name="RECURSO_VALOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_SECTOR]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR]"
+                      name="RECURSO_SECTOR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_SECTOR_DESCRIPCION]"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR_DESCRIPCION]"
+                      name="RECURSO_SECTOR_DESCRIPCION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ITEM]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]"
+                      name="RECURSO_ITEM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_DESCRIPCION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_DESCRIPCION]"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_DESCRIPCION]"
+                      name="RECURSO_DESCRIPCION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ESTADO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ESTADO]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ESTADO]"
+                      name="RECURSO_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_OBSE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_OBSE]"
+                      length="2"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_OBSE]"
+                      name="RECURSO_OBSE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      name="RECURSO_USUARIO_PROCESO_SULLAIR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      name="RECURSO_USUARIO_PROCESO_CLIENTE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_HABILITACION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_HABILITACION]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_HABILITACION]"
+                      name="RECURSO_USUARIO_HABILITACION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_ANULACION]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_ANULACION]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_ANULACION]"
+                      name="RECURSO_USUARIO_ANULACION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      name="RECURSO_USUARIO_REVERSION_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      name="RECURSO_USUARIO_RECHAZO_ESTADO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_HORAS_HABILITACION]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_HORAS_HABILITACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_HORAS_HABILITACION]"
+                      name="RECURSO_HORAS_HABILITACION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_FECHA_ACTUALIZACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      name="RECURSO_FECHA_ACTUALIZACION"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_CLIENTE_JDE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CLIENTE_JDE]"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_CLIENTE_JDE]"
+                      name="SOLICITUD_CLIENTE_JDE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      name="SOLICITUD_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CUIT]"
+                      dataType="wstr"
+                      length="15"
+                      name="SOLICITUD_CUIT" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CLIENTE_JDE]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_CLIENTE_JDE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_CLIENTE_RAZON]"
+                      dataType="wstr"
+                      length="100"
+                      name="SOLICITUD_CLIENTE_RAZON" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_PLANTA]"
+                      dataType="wstr"
+                      length="200"
+                      name="SOLICITUD_PLANTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_TIPOHAB]"
+                      dataType="wstr"
+                      length="50"
+                      name="SOLICITUD_TIPOHAB" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_TIPO]"
+                      dataType="wstr"
+                      length="500"
+                      name="SOLICITUD_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_DESDE]"
+                      dataType="wstr"
+                      length="30"
+                      name="SOLICITUD_DESDE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_HASTA]"
+                      dataType="wstr"
+                      length="30"
+                      name="SOLICITUD_HASTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_SECTOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      name="SOLICITUD_SECTOR_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[SOLICITUD_FECHA_ALTA]"
+                      dataType="wstr"
+                      length="30"
+                      name="SOLICITUD_FECHA_ALTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_INDICE]"
+                      dataType="i4"
+                      name="RECURSO_INDICE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_NUMERO]"
+                      dataType="i4"
+                      name="RECURSO_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="1"
+                      name="RECURSO_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_VALOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_SECTOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      name="RECURSO_SECTOR_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ITEM]"
+                      dataType="i4"
+                      name="RECURSO_ITEM" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      name="RECURSO_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_OBSE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="RECURSO_OBSE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_PROCESO_SULLAIR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_PROCESO_CLIENTE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_HABILITACION]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_HABILITACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_ANULACION]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_ANULACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_REVERSION_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      dataType="wstr"
+                      length="30"
+                      name="RECURSO_USUARIO_RECHAZO_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_HORAS_HABILITACION]"
+                      dataType="i4"
+                      name="RECURSO_HORAS_HABILITACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].ExternalColumns[RECURSO_FECHA_ACTUALIZACION]"
+                      dataType="dbTimeStamp"
+                      name="RECURSO_FECHA_ACTUALIZACION" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_NUMERO]"
+                      name="SOLICITUD_NUMERO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_PLANTA]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_PLANTA]"
+                      name="SOLICITUD_PLANTA" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_TIPOHAB]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_TIPOHAB]"
+                      name="SOLICITUD_TIPOHAB" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_TIPO]"
+                      dataType="wstr"
+                      length="500"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_TIPO]"
+                      name="SOLICITUD_TIPO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_DESDE]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_DESDE]"
+                      name="SOLICITUD_DESDE" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_HASTA]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_HASTA]"
+                      name="SOLICITUD_HASTA" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_SECTOR]"
+                      name="SOLICITUD_SECTOR" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      name="SOLICITUD_SECTOR_DESCRIPCION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_ESTADO]"
+                      name="SOLICITUD_ESTADO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_FECHA_ALTA]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_FECHA_ALTA]"
+                      name="SOLICITUD_FECHA_ALTA" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_INDICE]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_INDICE]"
+                      name="RECURSO_INDICE" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_NUMERO]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_NUMERO]"
+                      name="RECURSO_NUMERO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_TIPO]"
+                      name="RECURSO_TIPO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_VALOR]"
+                      name="RECURSO_VALOR" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_SECTOR]"
+                      name="RECURSO_SECTOR" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_SECTOR_DESCRIPCION]"
+                      name="RECURSO_SECTOR_DESCRIPCION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_ITEM]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_ITEM]"
+                      name="RECURSO_ITEM" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_DESCRIPCION]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_DESCRIPCION]"
+                      name="RECURSO_DESCRIPCION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_ESTADO]"
+                      name="RECURSO_ESTADO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_OBSE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_OBSE]"
+                      name="RECURSO_OBSE" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      name="RECURSO_USUARIO_PROCESO_SULLAIR" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      name="RECURSO_USUARIO_PROCESO_CLIENTE" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_HABILITACION]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_HABILITACION]"
+                      name="RECURSO_USUARIO_HABILITACION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_ANULACION]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_ANULACION]"
+                      name="RECURSO_USUARIO_ANULACION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      name="RECURSO_USUARIO_REVERSION_ESTADO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      name="RECURSO_USUARIO_RECHAZO_ESTADO" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_HORAS_HABILITACION]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_HORAS_HABILITACION]"
+                      name="RECURSO_HORAS_HABILITACION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      name="RECURSO_FECHA_ACTUALIZACION" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_CLIENTE_JDE]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Error Output].Columns[SOLICITUD_CLIENTE_JDE]"
+                      name="SOLICITUD_CLIENTE_JDE" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_Solicitudes_recursos"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Solicitudes_Recursos]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_NUMERO]"
+                      cachedDataType="i4"
+                      cachedName="SOLICITUD_NUMERO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_NUMERO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_NUMERO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_PLANTA]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="SOLICITUD_PLANTA"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_PLANTA]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_PLANTA]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_TIPOHAB]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="SOLICITUD_TIPOHAB"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_TIPOHAB]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPOHAB]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_TIPO]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="SOLICITUD_TIPO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_TIPO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_TIPO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_DESDE]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="SOLICITUD_DESDE"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_DESDE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_DESDE]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_HASTA]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="SOLICITUD_HASTA"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_HASTA]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_HASTA]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_SECTOR]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SOLICITUD_SECTOR"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_SECTOR]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="SOLICITUD_SECTOR_DESCRIPCION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_SECTOR_DESCRIPCION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_ESTADO]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SOLICITUD_ESTADO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_ESTADO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_ESTADO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_FECHA_ALTA]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="SOLICITUD_FECHA_ALTA"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_FECHA_ALTA]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_FECHA_ALTA]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_INDICE]"
+                      cachedDataType="i4"
+                      cachedName="RECURSO_INDICE"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_INDICE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_INDICE]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_NUMERO]"
+                      cachedDataType="i4"
+                      cachedName="RECURSO_NUMERO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_NUMERO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_NUMERO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_TIPO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="RECURSO_TIPO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_TIPO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_TIPO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_VALOR]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="RECURSO_VALOR"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_VALOR]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_VALOR]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_SECTOR]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="RECURSO_SECTOR"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_SECTOR]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_SECTOR_DESCRIPCION]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="RECURSO_SECTOR_DESCRIPCION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_SECTOR_DESCRIPCION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_SECTOR_DESCRIPCION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_ITEM]"
+                      cachedDataType="i4"
+                      cachedName="RECURSO_ITEM"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ITEM]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ITEM]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_DESCRIPCION]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="RECURSO_DESCRIPCION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_DESCRIPCION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_DESCRIPCION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_ESTADO]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="RECURSO_ESTADO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ESTADO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_ESTADO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_PROCESO_SULLAIR"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_SULLAIR]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_PROCESO_CLIENTE"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_PROCESO_CLIENTE]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_HABILITACION]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_HABILITACION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_HABILITACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_HABILITACION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_ANULACION]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_ANULACION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_ANULACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_ANULACION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_REVERSION_ESTADO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_REVERSION_ESTADO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="RECURSO_USUARIO_RECHAZO_ESTADO"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_USUARIO_RECHAZO_ESTADO]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_HORAS_HABILITACION]"
+                      cachedDataType="i4"
+                      cachedName="RECURSO_HORAS_HABILITACION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_HORAS_HABILITACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_HORAS_HABILITACION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_FECHA_ACTUALIZACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RECURSO_FECHA_ACTUALIZACION"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_FECHA_ACTUALIZACION]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[RECURSO_FECHA_ACTUALIZACION]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[SOLICITUD_CLIENTE_JDE]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SOLICITUD_CLIENTE_JDE"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_CLIENTE_JDE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output].Columns[SOLICITUD_CLIENTE_JDE]" />
+                    <inputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].Columns[RECURSO_OBSE_UNICODE]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="RECURSO_OBSE_UNICODE"
+                      externalMetadataColumnId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_OBSE]"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Output].Columns[RECURSO_OBSE_UNICODE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_NUMERO]"
+                      dataType="i4"
+                      name="SOLICITUD_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_CLIENTE_JDE]"
+                      dataType="i8"
+                      name="SOLICITUD_CLIENTE_JDE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_PLANTA]"
+                      dataType="wstr"
+                      length="250"
+                      name="SOLICITUD_PLANTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_TIPOHAB]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_TIPOHAB" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_TIPO]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_DESDE]"
+                      dataType="dbDate"
+                      name="SOLICITUD_DESDE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_HASTA]"
+                      dataType="dbDate"
+                      name="SOLICITUD_HASTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_SECTOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="50"
+                      name="SOLICITUD_SECTOR_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="SOLICITUD_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[SOLICITUD_FECHA_ALTA]"
+                      dataType="dbDate"
+                      name="SOLICITUD_FECHA_ALTA" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_INDICE]"
+                      dataType="i4"
+                      name="RECURSO_INDICE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_NUMERO]"
+                      dataType="i4"
+                      name="RECURSO_NUMERO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_TIPO]"
+                      dataType="wstr"
+                      length="3"
+                      name="RECURSO_TIPO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_VALOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_VALOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_SECTOR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_SECTOR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_SECTOR_DESCRIPCION]"
+                      dataType="wstr"
+                      length="50"
+                      name="RECURSO_SECTOR_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ITEM]"
+                      dataType="i4"
+                      name="RECURSO_ITEM" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_DESCRIPCION]"
+                      dataType="wstr"
+                      length="50"
+                      name="RECURSO_DESCRIPCION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_OBSE]"
+                      dataType="wstr"
+                      length="5"
+                      name="RECURSO_OBSE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_PROCESO_SULLAIR]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_PROCESO_SULLAIR" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_PROCESO_CLIENTE]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_PROCESO_CLIENTE" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_HABILITACION]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_HABILITACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_ANULACION]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_ANULACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_REVERSION_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_REVERSION_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_USUARIO_RECHAZO_ESTADO]"
+                      dataType="wstr"
+                      length="20"
+                      name="RECURSO_USUARIO_RECHAZO_ESTADO" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_HORAS_HABILITACION]"
+                      dataType="i4"
+                      name="RECURSO_HORAS_HABILITACION" />
+                    <externalMetadataColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input].ExternalColumns[RECURSO_FECHA_ACTUALIZACION]"
+                      dataType="dbTimeStamp"
+                      name="RECURSO_FECHA_ACTUALIZACION" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\carga STG_Solicitudes_Recursos.Paths[Data Conversion Output]"
+              endId="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\carga STG_Solicitudes_Recursos.Paths[OLE DB Source Output]"
+              endId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\carga STG_Solicitudes_Recursos.Paths[UltimaHora]"
+              endId="Package\carga STG_Solicitudes_Recursos\Data Conversion.Inputs[Data Conversion Input]"
+              name="UltimaHora"
+              startId="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora.Outputs[UltimaHora]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE STG_RecursosAuditoriaEstados"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F2BE62E1-2DDF-4CF2-9EB1-27BB5FC7AFD3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE STG_RecursosAuditoriaEstados"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.STG_RecursosAuditoriaEstados_SSHH" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE STG_Solicitudes_Recursos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{17AFBD04-47C2-466F-8E53-1C0C96615611}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE STG_Solicitudes_Recursos"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.STG_Solicitudes_Recursos" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{CDBAC106-F255-4D26-949E-B8DAFCB46690}"
+      DTS:From="Package\TRUNCATE STG_Solicitudes_Recursos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\carga STG_Solicitudes_Recursos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{95EB7F6F-8025-4DC4-982F-FE2E55B3C7AB}"
+      DTS:From="Package\TRUNCATE STG_RecursosAuditoriaEstados"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Carga STG_RecursosAuditoriaEstados" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="255,42"
+          Id="Package\Carga STG_RecursosAuditoriaEstados"
+          TopLeft="523,167" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\carga STG_Solicitudes_Recursos"
+          TopLeft="219,166" />
+        <NodeLayout
+          Size="280,42"
+          Id="Package\TRUNCATE STG_RecursosAuditoriaEstados"
+          TopLeft="517,68" />
+        <NodeLayout
+          Size="257,42"
+          Id="Package\TRUNCATE STG_Solicitudes_Recursos"
+          TopLeft="206,70" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="334.5,112">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="653.75,110">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_RecursosAuditoriaEstados">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados"
+          TopLeft="418,283" />
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Carga STG_RecursosAuditoriaEstados\Filtro Tiempo"
+          TopLeft="463,190" />
+        <NodeLayout
+          Size="339,42"
+          Id="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS"
+          TopLeft="364,83" />
+        <EdgeLayout
+          Id="Package\Carga STG_RecursosAuditoriaEstados.Paths[UltimaHora]"
+          TopLeft="532,232">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.9423046875,16.87548828125,49.884609375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga STG_RecursosAuditoriaEstados.Paths[OLE DB Source Output]"
+          TopLeft="533.5,125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_RecursosAuditoriaEstados\STG_RecursosAuditoriaEstados">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_RecursosAuditoriaEstados\SSHH_CLIE_DATAWAREHOUSE_AUDITORIA_ESTADOS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\carga STG_Solicitudes_Recursos">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="159,42"
+          Id="Package\carga STG_Solicitudes_Recursos\Filtro ultima hora"
+          TopLeft="464,204" />
+        <NodeLayout
+          Size="278,42"
+          Id="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE"
+          TopLeft="403,97" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\carga STG_Solicitudes_Recursos\Data Conversion"
+          TopLeft="465,302" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos"
+          TopLeft="449,410" />
+        <EdgeLayout
+          Id="Package\carga STG_Solicitudes_Recursos.Paths[UltimaHora]"
+          TopLeft="543.25,246">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.9423046875,19.37548828125,49.884609375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga STG_Solicitudes_Recursos.Paths[OLE DB Source Output]"
+          TopLeft="542.75,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga STG_Solicitudes_Recursos.Paths[Data Conversion Output]"
+          TopLeft="545.75,344">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\carga STG_Solicitudes_Recursos\SSHH_CLIE_DATAWAREHOUSE_REPORTE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\carga STG_Solicitudes_Recursos\STG_Solicitudes_recursos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

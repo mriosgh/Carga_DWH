@@ -1,0 +1,1113 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/21/2019 1:17:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{07FBD616-8CD6-483A-8606-29450E174D02}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_LK_Localidad"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{C1C8A8F2-0ED6-434F-9E45-0255243D220D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga LK_Localidad"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{95A809EC-8F52-4468-9FAE-E92B7E628DF7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga LK_Localidad"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga LK_Localidad\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Localidad\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Derived Column.Inputs[Derived Column Input].Columns[SK_PRO_Provincia]"
+                      cachedDataType="i4"
+                      cachedName="SK_PRO_Provincia"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]}) ? @[$Project::DEF_UNK_CD_INT] : #{Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(SK_PRO_Provincia) ? @[$Project::DEF_UNK_CD_INT] : SK_PRO_Provincia</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga LK_Localidad\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga LK_Localidad\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="GET SK_PRO_Provincia"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [SK_PRO_Provincia]
+      ,CAST([VC_PRO_Provincia] AS NVARCHAR (50)) AS VC_PRO_Provincia
+      ,[VC_PRO_ProvinciaDetalle]
+      ,[NU_PRO_Latitud]
+      ,[NU_PRO_Longitud]
+      ,[NU_PRO_CodigoAFIP]
+      ,[NU_PRO_CodigoJDE]
+      ,[VC_PRO_CodigoISO3166]
+      ,[VC_PRO_CodigoISO3166Unif]
+      ,[VC_PRO_CodigoPais]
+      ,[SK_PAI_Pais]
+      ,[VC_PRO_CodigoSalesforce]
+  FROM [DWH_Dev].[dbo].[LK_Provincia]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT [SK_PRO_Provincia]
+      ,CAST([VC_PRO_Provincia] AS NVARCHAR (50)) AS VC_PRO_Provincia
+      ,[VC_PRO_ProvinciaDetalle]
+      ,[NU_PRO_Latitud]
+      ,[NU_PRO_Longitud]
+      ,[NU_PRO_CodigoAFIP]
+      ,[NU_PRO_CodigoJDE]
+      ,[VC_PRO_CodigoISO3166]
+      ,[VC_PRO_CodigoISO3166Unif]
+      ,[VC_PRO_CodigoPais]
+      ,[SK_PAI_Pais]
+      ,[VC_PRO_CodigoSalesforce]
+  FROM [DWH_Dev].[dbo].[LK_Provincia]) [refTable]
+where [refTable].[VC_PRO_Provincia] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_PRO_Provincia" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_Provincia" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_ProvinciaDetalle" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="NU_PRO_Latitud" dataType="DT_NUMERIC" length="0" precision="9" scale="6" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_Longitud" dataType="DT_NUMERIC" length="0" precision="9" scale="6" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_CodigoAFIP" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_PRO_CodigoJDE" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_CodigoISO3166" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_PRO_CodigoISO3166Unif" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="VC_PRO_CodigoPais" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SK_PAI_Pais" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_PRO_CodigoSalesforce" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_nombre]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input].Columns[provincia_nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="provincia_nombre"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_nombre]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_PRO_Provincia</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]"
+                      name="SK_PRO_Provincia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_PRO_Provincia</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Localidad\Input STG_Localidad"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input STG_Localidad"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Localidad]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT	CodigoPostal
+		,CAST(CodigoProvincia as varchar(50)) AS CodigoProvincia
+		,NombreLocalidad
+		,Latitud
+		,Longitud
+ FROM STG_Localidades</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Localidad\Input STG_Localidad.Connections[OleDbConnection]"
+                  connectionManagerID="{F3096442-89CD-4F58-A5A3-567D2EB1730F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[categoria]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[categoria]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[categoria]"
+                      name="categoria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lat]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[centroide_lat]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lat]"
+                      name="centroide_lat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lon]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[centroide_lon]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lon]"
+                      name="centroide_lon"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[departamento_id]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_id]"
+                      name="departamento_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[departamento_nombre]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_nombre]"
+                      name="departamento_nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[fuente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[fuente]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[fuente]"
+                      name="fuente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[funcion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[funcion]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[funcion]"
+                      name="funcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[municipio_id]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_id]"
+                      name="municipio_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[municipio_nombre]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_nombre]"
+                      name="municipio_nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[nombre]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[nombre]"
+                      name="nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[provincia_id]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_id]"
+                      name="provincia_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[provincia_nombre]"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_nombre]"
+                      name="provincia_nombre"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[categoria]"
+                      dataType="wstr"
+                      length="200"
+                      name="categoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[centroide_lat]"
+                      dataType="wstr"
+                      length="200"
+                      name="centroide_lat" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[centroide_lon]"
+                      dataType="wstr"
+                      length="200"
+                      name="centroide_lon" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[departamento_id]"
+                      dataType="wstr"
+                      length="200"
+                      name="departamento_id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[departamento_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="departamento_nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[fuente]"
+                      dataType="wstr"
+                      length="200"
+                      name="fuente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[funcion]"
+                      dataType="wstr"
+                      length="200"
+                      name="funcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="wstr"
+                      length="200"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[municipio_id]"
+                      dataType="wstr"
+                      length="200"
+                      name="municipio_id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[municipio_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="municipio_nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[provincia_id]"
+                      dataType="wstr"
+                      length="200"
+                      name="provincia_id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].ExternalColumns[provincia_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="provincia_nombre" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[categoria]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[categoria]"
+                      name="categoria" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[centroide_lat]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[centroide_lat]"
+                      name="centroide_lat" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[centroide_lon]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[centroide_lon]"
+                      name="centroide_lon" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[departamento_id]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[departamento_id]"
+                      name="departamento_id" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[departamento_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[departamento_nombre]"
+                      name="departamento_nombre" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[fuente]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[fuente]"
+                      name="fuente" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[funcion]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[funcion]"
+                      name="funcion" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[municipio_id]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[municipio_id]"
+                      name="municipio_id" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[municipio_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[municipio_nombre]"
+                      name="municipio_nombre" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[nombre]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[nombre]"
+                      name="nombre" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[provincia_id]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[provincia_id]"
+                      name="provincia_id" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[provincia_nombre]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[provincia_nombre]"
+                      name="provincia_nombre" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Localidad\Output LK_Localidad"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output LK_Localidad"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_Localidad]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Localidad\Output LK_Localidad.Connections[OleDbConnection]"
+                  connectionManagerID="{AA3015F8-AC52-4DBA-82E8-EB90C5207817}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[categoria]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="categoria"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Categoria]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[categoria]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[departamento_nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="departamento_nombre"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Departamento_Nombre]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_nombre]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[fuente]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="fuente"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Fuente]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[fuente]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[funcion]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="funcion"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Funcion]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[funcion]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[municipio_nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="municipio_nombre"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Municipio_Nombre]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_nombre]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="nombre"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Nombre]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[nombre]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[provincia_nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="provincia_nombre"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Provincia_Nombre]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_nombre]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[centroide_lon]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="centroide_lon"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Longitud]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lon]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[centroide_lat]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="centroide_lat"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Latitud]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[centroide_lat]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[SK_PRO_Provincia]"
+                      cachedDataType="i4"
+                      cachedName="SK_PRO_Provincia"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Provincia]"
+                      lineageId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output].Columns[SK_PRO_Provincia]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[departamento_id]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="departamento_id"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Departamento_Id]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[departamento_id]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Id]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[municipio_id]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="municipio_id"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Municipio_Id]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[municipio_id]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].Columns[provincia_id]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="provincia_id"
+                      externalMetadataColumnId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Provincia_Id]"
+                      lineageId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output].Columns[provincia_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[SK_LCD_Localidad]"
+                      dataType="i4"
+                      name="SK_LCD_Localidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Latitud]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Latitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Longitud]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Longitud" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Categoria]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Categoria" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Departamento_Nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Departamento_Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Fuente]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Fuente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Funcion]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Funcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Municipio_Nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Municipio_Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Provincia_Nombre]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Provincia_Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[SK_PRO_Provincia]"
+                      dataType="i4"
+                      name="SK_PRO_Provincia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Departamento_Id]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Departamento_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Id]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Municipio_Id]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Municipio_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input].ExternalColumns[VC_LCD_Provincia_Id]"
+                      dataType="wstr"
+                      length="200"
+                      name="VC_LCD_Provincia_Id" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Localidad\Output LK_Localidad.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Output LK_Localidad.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Localidad\Output LK_Localidad.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Localidad\Output LK_Localidad.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga LK_Localidad.Paths[Derived Column Output]"
+              endId="Package\Carga LK_Localidad\Output LK_Localidad.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga LK_Localidad\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga LK_Localidad.Paths[Lookup Match Output]"
+              endId="Package\Carga LK_Localidad\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga LK_Localidad.Paths[OLE DB Source Output]"
+              endId="Package\Carga LK_Localidad\GET SK_PRO_Provincia.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga LK_Localidad\Input STG_Localidad.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Carga LK_Localidad"
+          TopLeft="267.5,127.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga LK_Localidad">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga LK_Localidad\Output LK_Localidad"
+          TopLeft="300,430" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Carga LK_Localidad\GET SK_PRO_Provincia"
+          TopLeft="295,242" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga LK_Localidad\Derived Column"
+          TopLeft="314.5,340.5" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Carga LK_Localidad\Input STG_Localidad"
+          TopLeft="295,131" />
+        <EdgeLayout
+          Id="Package\Carga LK_Localidad.Paths[OLE DB Source Output]"
+          TopLeft="386.25,173">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69"
+              Start="0,0"
+              End="0,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Localidad.Paths[Lookup Match Output]"
+          TopLeft="390.25,284">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.5"
+              Start="0,0"
+              End="0,49">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,18.6953125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Localidad.Paths[Derived Column Output]"
+          TopLeft="389.75,382.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.5"
+              Start="0,0"
+              End="0,40">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Localidad\Output LK_Localidad">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Localidad\GET SK_PRO_Provincia">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Localidad\Input STG_Localidad">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

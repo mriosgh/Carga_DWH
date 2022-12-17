@@ -1,0 +1,2397 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/15/2021 1:16:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis1"
+  DTS:DTSID="{365BB466-BF13-4C9F-A701-B8C2921F35EA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="BT_Embarque"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{C37495E6-02B0-43A7-8803-08ECA4DA6202}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A423E2FA-6D25-4C38-BF21-75CB50F91661}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_WSTR,10)  (DT_DBDATE) DATEADD(&quot;dd&quot;,-1, GETDATE() )"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FechaDeAyer">
+      <DTS:VariableValue
+        DTS:DataType="8">2022-07-31</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{11EA69FF-16AC-40C7-8AB1-4831E14E3C11}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_rows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga BT_EmbarqueReal"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{88CACAA0-8BBD-4F92-B935-1C78D474A59D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga BT_EmbarqueReal"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="BT_EmbarqueReal"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[BT_EmbarqueReal]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[FechaRealDeEmbarque]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaRealDeEmbarque"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechaRealDeEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[FechaSolicitada]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaSolicitada"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechaSolicitada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaSolicitada]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[NumerodeLinea]"
+                      cachedDataType="i4"
+                      cachedName="NumerodeLinea"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_NrodeLinea]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumerodeLinea]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[TipodeOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="TipodeOrden"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_TipodeOrden]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipodeOrden]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[CodigoEstadoUltimo]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoEstadoUltimo"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoEstadoUltimo]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoUltimo]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[CodigoEstadoSiguiente]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoEstadoSiguiente"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoEstadoSiguiente]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[CantidadOrdenada]"
+                      cachedDataType="i4"
+                      cachedName="CantidadOrdenada"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_CantidadSolicitada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadOrdenada]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[CantidadEnviada]"
+                      cachedDataType="i4"
+                      cachedName="CantidadEnviada"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_CantidadEnviada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadEnviada]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[Clase]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Clase"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Clase]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Clase]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[Frecuencia]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Frecuencia"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Frecuencia]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Frecuencia]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Producto"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Producto]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Producto]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[TipoMaterial]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoMaterial"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_TipoMaterial]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipoMaterial]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[SolicitadaVSEmbarque]"
+                      cachedDataType="i4"
+                      cachedName="SolicitadaVSEmbarque"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_DiasSolicitadaVSEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[TransaccionVSEmbarque]"
+                      cachedDataType="i4"
+                      cachedName="TransaccionVSEmbarque"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_DiasTransaccionVSEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[SK_FPL_FamiliaPlanificacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_FPL_FamiliaPlanificacion"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_FPL_FamiliaPlanificacion]"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[NumeroOrdenDeVenta_int]"
+                      cachedDataType="i4"
+                      cachedName="NumeroOrdenDeVenta_int"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_NroDeOrden]"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[NumeroOrdenDeVenta_int]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[NúmerodeRemito]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NúmerodeRemito"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_NúmerodeRemito]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NúmerodeRemito]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[GrupoFechaSolicitada]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="GrupoFechaSolicitada"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_GrupoSolicitadaVSEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaSolicitada]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[GrupoFechaTransaccion]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="GrupoFechaTransaccion"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_GrupoTransaccionVSEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[SK_UNI_UnidadNegocio]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocio"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocioCabecera]"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[FechadeTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechadeTransaccion"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechadeTransaccion]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].Columns[CodigoCondicionDePago_format]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoCondicionDePago_format"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoCondicionDePago]"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[CodigoCondicionDePago_format]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechaRealDeEmbarque]"
+                      dataType="dbDate"
+                      name="FC_EMB_FechaRealDeEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechaSolicitada]"
+                      dataType="dbDate"
+                      name="FC_EMB_FechaSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_NrodeLinea]"
+                      dataType="i4"
+                      name="NU_EMB_NrodeLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_TipodeOrden]"
+                      dataType="wstr"
+                      length="5"
+                      name="VC_EMB_TipodeOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      length="3"
+                      name="VC_EMB_CodigoEstadoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      name="VC_EMB_CodigoEstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_CantidadSolicitada]"
+                      dataType="i4"
+                      name="NU_EMB_CantidadSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_CantidadEnviada]"
+                      dataType="i4"
+                      name="NU_EMB_CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Clase]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_EMB_Clase" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_EMB_Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_Producto]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_EMB_Producto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_TipoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      name="VC_EMB_TipoMaterial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_DiasSolicitadaVSEmbarque]"
+                      dataType="i4"
+                      name="NU_EMB_DiasSolicitadaVSEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_DiasTransaccionVSEmbarque]"
+                      dataType="i4"
+                      name="NU_EMB_DiasTransaccionVSEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_ART_Articulo]"
+                      dataType="i8"
+                      name="SK_ART_Articulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_FPL_FamiliaPlanificacion]"
+                      dataType="i8"
+                      name="SK_FPL_FamiliaPlanificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[FC_EMB_FechadeTransaccion]"
+                      dataType="dbDate"
+                      name="FC_EMB_FechadeTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[NU_EMB_NroDeOrden]"
+                      dataType="i4"
+                      name="NU_EMB_NroDeOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_NúmerodeRemito]"
+                      dataType="wstr"
+                      length="50"
+                      name="VC_EMB_NúmerodeRemito" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_GrupoSolicitadaVSEmbarque]"
+                      dataType="wstr"
+                      length="15"
+                      name="VC_EMB_GrupoSolicitadaVSEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_GrupoTransaccionVSEmbarque]"
+                      dataType="wstr"
+                      length="15"
+                      name="VC_EMB_GrupoTransaccionVSEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[SK_UNI_UnidadNegocioCabecera]"
+                      dataType="i8"
+                      name="SK_UNI_UnidadNegocioCabecera" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input].ExternalColumns[VC_EMB_CodigoCondicionDePago]"
+                      dataType="wstr"
+                      length="3"
+                      name="VC_EMB_CodigoCondicionDePago" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\Diferencia de dias"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Diferencia de dias"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input].Columns[FechaRealDeEmbarque]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaRealDeEmbarque"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input].Columns[FechadeTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechadeTransaccion"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input].Columns[FechaSolicitada]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaSolicitada"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaSolicitada]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]"
+                      name="SolicitadaVSEmbarque"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("dd",#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaSolicitada]},#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("dd",FechaSolicitada,FechaRealDeEmbarque)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]"
+                      name="TransaccionVSEmbarque"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("dd",#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeTransaccion]},#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("dd",FechadeTransaccion,FechaRealDeEmbarque)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\Grupos"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Grupos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input].Columns[SolicitadaVSEmbarque]"
+                      cachedDataType="i4"
+                      cachedName="SolicitadaVSEmbarque"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input].Columns[TransaccionVSEmbarque]"
+                      cachedDataType="i4"
+                      cachedName="TransaccionVSEmbarque"
+                      lineageId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaSolicitada]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaSolicitada]"
+                      name="GrupoFechaSolicitada"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt; 30 ? "Mas de 30" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= 16 ? "De 16 a 30" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= 8 ? "De 8 a 15" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= 1 ? "De 1 a 7" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} == 0 ? "0 dias" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= -7 ? "Entre -7 y -1" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= -15 ? "Entre -15 y -8" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &gt;= -30 ? "Entre -30 y -16" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[SolicitadaVSEmbarque]} &lt; -30 ? "Menos de -30" : "*sin dato*"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">SolicitadaVSEmbarque &gt; 30 ? "Mas de 30" : SolicitadaVSEmbarque &gt;= 16 ? "De 16 a 30" : SolicitadaVSEmbarque &gt;= 8 ? "De 8 a 15" : SolicitadaVSEmbarque &gt;= 1 ? "De 1 a 7" : SolicitadaVSEmbarque == 0 ? "0 dias" : SolicitadaVSEmbarque &gt;= -7 ? "Entre -7 y -1" : SolicitadaVSEmbarque &gt;= -15 ? "Entre -15 y -8" : SolicitadaVSEmbarque &gt;= -30 ? "Entre -30 y -16" : SolicitadaVSEmbarque &lt; -30 ? "Menos de -30" : "*sin dato*"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaTransaccion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output].Columns[GrupoFechaTransaccion]"
+                      name="GrupoFechaTransaccion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt; 30 ? "Mas de 30" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= 16 ? "De 16 a 30" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= 8 ? "De 8 a 15" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= 1 ? "De 1 a 7" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} == 0 ? "0 dias" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= -7 ? "Entre -7 y -1" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= -15 ? "Entre -15 y -8" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &gt;= -30 ? "Entre -30 y -16" : #{Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output].Columns[TransaccionVSEmbarque]} &lt; -30 ? "Menos de -30" : "*sin dato*"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TransaccionVSEmbarque &gt; 30 ? "Mas de 30" : TransaccionVSEmbarque &gt;= 16 ? "De 16 a 30" : TransaccionVSEmbarque &gt;= 8 ? "De 8 a 15" : TransaccionVSEmbarque &gt;= 1 ? "De 1 a 7" : TransaccionVSEmbarque == 0 ? "0 dias" : TransaccionVSEmbarque &gt;= -7 ? "Entre -7 y -1" : TransaccionVSEmbarque &gt;= -15 ? "Entre -15 y -8" : TransaccionVSEmbarque &gt;= -30 ? "Entre -30 y -16" : TransaccionVSEmbarque &lt; -30 ? "Menos de -30" : "*sin dato*"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\LK_Articulo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_Articulo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+	SK_ART_Articulo,
+	CD_ID_Origen
+FROM LK_Articulo</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+	SK_ART_Articulo,
+	CD_ID_Origen
+FROM LK_Articulo) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_ART_Articulo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[ItemArticulo]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input].Columns[ItemArticulo]"
+                      cachedDataType="i4"
+                      cachedName="ItemArticulo"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[ItemArticulo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      name="SK_ART_Articulo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_ART_Articulo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_FamiliaPlanificacion"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+	SK_FPL_FamiliaPlanificacion,
+	VC_FPL_CodigoFlia 
+FROM LK_FamiliaPlanificacion</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT
+	SK_FPL_FamiliaPlanificacion,
+	VC_FPL_CodigoFlia 
+FROM LK_FamiliaPlanificacion) [refTable]
+where [refTable].[VC_FPL_CodigoFlia] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_FPL_FamiliaPlanificacion" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_FPL_CodigoFlia" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input].Columns[FamiliaPlanificacion]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FamiliaPlanificacion"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_FPL_CodigoFlia</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      name="SK_FPL_FamiliaPlanificacion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_FPL_FamiliaPlanificacion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LK_UnidadNegocio"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+	SK_UNI_UnidadNegocio,
+	CD_ID_Origen
+FROM LK_UnidadNegocio</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT
+	SK_UNI_UnidadNegocio,
+	CD_ID_Origen
+FROM LK_UnidadNegocio) [refTable]
+where [refTable].[CD_ID_Origen] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_UNI_UnidadNegocio" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CD_ID_Origen" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[UnidadNegocio]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Connections[OleDbConnection]"
+                  connectionManagerID="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input].Columns[UnidadNegocio]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="UnidadNegocio"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[UnidadNegocio]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CD_ID_Origen</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      name="SK_UNI_UnidadNegocio"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_UNI_UnidadNegocio</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\NULLs y Format"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="NULLs y Format"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input].Columns[SK_ART_Articulo]"
+                      cachedDataType="i8"
+                      cachedName="SK_ART_Articulo"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output].Columns[SK_ART_Articulo]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_ART_Articulo,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input].Columns[SK_UNI_UnidadNegocio]"
+                      cachedDataType="i8"
+                      cachedName="SK_UNI_UnidadNegocio"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output].Columns[SK_UNI_UnidadNegocio]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_UNI_UnidadNegocio,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input].Columns[NumeroOrdendeVenta]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NumeroOrdendeVenta"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroOrdendeVenta]" />
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input].Columns[SK_FPL_FamiliaPlanificacion]"
+                      cachedDataType="i4"
+                      cachedName="SK_FPL_FamiliaPlanificacion"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output].Columns[SK_FPL_FamiliaPlanificacion]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(SK_FPL_FamiliaPlanificacion,-1)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input].Columns[CodigoCondicionDePago]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CodigoCondicionDePago"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoCondicionDePago]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[NumeroOrdenDeVenta_int]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[NumeroOrdenDeVenta_int]"
+                      name="NumeroOrdenDeVenta_int"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroOrdendeVenta]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)NumeroOrdendeVenta</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[CodigoCondicionDePago_format]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output].Columns[CodigoCondicionDePago_format]"
+                      name="CodigoCondicionDePago_format"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoCondicionDePago]}) == "" ? "s/d" : [TRIM](#{Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoCondicionDePago]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(CodigoCondicionDePago) == "" ? "s/d" : TRIM(CodigoCondicionDePago)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG_VentaResumidaEmbarque"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">(
+SELECT 
+	V.[Cliente]
+   ,V.[NumeroOrdendeVenta]
+   ,V.[TipodeOrden]
+   ,V.[NumerodeLinea]
+   ,LTRIM(RTRIM(V.[UnidadNegocio])) AS UnidadNegocio
+   ,CONVERT(INT,V.[ItemArticulo]) AS ItemArticulo
+   ,V.[NumeroItem2]
+   ,V.[NumerodeSerie]
+   ,V.[NúmerodeRemito]
+   ,V.[CodigoEstadoUltimo]
+   ,V.[CodigoEstadoSiguiente]
+   ,V.[TipoLinea]
+   ,V.[Cod_Flia]
+   ,V.[CantidadEnviada]
+   ,V.[CantidadOrdenada]
+   ,V.[Clase]
+   ,V.[FamiliaPlanificacion]
+   ,V.[Frecuencia]
+   ,V.[Producto]
+   ,V.[TipoMaterial]
+   ,V.[FechaRealDeEmbarque]
+   ,V.[FechadeTransaccion]
+   ,V.[FechaSolicitada]
+   ,V.[FechadeFactura/Venta]
+   ,V.[FechadeEntrega]
+   ,V.CodigoCondicionDePago
+FROM [STG_VentaResumidaEmbarque] V 
+WHERE 
+	V.TipodeOrden IN ('SO', 'YS')
+	AND RTRIM(LTRIM(V.unidadNegocio)) IN ('300', '301')
+	AND V.Producto IS NOT NULL
+	AND V.[FechaRealDeEmbarque] = ?
+)
+
+UNION ALL
+
+
+(
+SELECT 
+	V.[Cliente]
+   ,V.[NumeroOrdendeVenta]
+   ,V.[TipodeOrden]
+   ,V.[NumerodeLinea]
+   ,LTRIM(RTRIM(OCC.UnidadDeNegocio)) AS UnidadNegocio
+   ,CONVERT(INT,V.[ItemArticulo]) AS ItemArticulo
+   ,V.[NumeroItem2]
+   ,V.[NumerodeSerie]
+   ,V.[NúmerodeRemito]
+   ,V.[CodigoEstadoUltimo]
+   ,V.[CodigoEstadoSiguiente]
+   ,V.[TipoLinea]
+   ,V.[Cod_Flia]
+   ,V.[CantidadEnviada]
+   ,V.[CantidadOrdenada]
+   ,V.[Clase]
+   ,V.[FamiliaPlanificacion]
+   ,V.[Frecuencia]
+   ,V.[Producto]
+   ,V.[TipoMaterial]
+   ,V.[FechaRealDeEmbarque]
+   ,V.[FechadeTransaccion]
+   ,V.[FechaSolicitada]
+   ,V.[FechadeFactura/Venta]
+   ,V.[FechadeEntrega]
+   ,V.CodigoCondicionDePago
+FROM [STG_VentaResumidaEmbarque] V
+LEFT JOIN STG_OrdenCompraCabecera OCC
+	ON V.nroOrdenRelacionada = OCC.NroOrdenCompra
+	AND V.TipodeOrdenRelacionada = OCC.TipoDeOrden
+	AND V.companiaOrdenRelacionada = OCC.Compania
+WHERE 
+	V.TipodeOrden = 'SH'
+	AND RTRIM(LTRIM(V.unidadNegocio)) IN ('300', '301')
+	AND V.Producto IS NOT NULL
+	AND V.[FechaRealDeEmbarque] = ?
+)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{A423E2FA-6D25-4C38-BF21-75CB50F91661};"Parameter1:Input",{A423E2FA-6D25-4C38-BF21-75CB50F91661};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Connections[OleDbConnection]"
+                  connectionManagerID="{1A290C50-0624-4513-A2C4-6504F9841FEC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Cliente]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Cliente]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Cliente]"
+                      name="Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroOrdendeVenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumeroOrdendeVenta]"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroOrdendeVenta]"
+                      name="NumeroOrdendeVenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipodeOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipodeOrden]"
+                      length="5"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipodeOrden]"
+                      name="TipodeOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumerodeLinea]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumerodeLinea]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumerodeLinea]"
+                      name="NumerodeLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[UnidadNegocio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocio]"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[UnidadNegocio]"
+                      name="UnidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[ItemArticulo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[ItemArticulo]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[ItemArticulo]"
+                      name="ItemArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroItem2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumeroItem2]"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumeroItem2]"
+                      name="NumeroItem2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumerodeSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumerodeSerie]"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NumerodeSerie]"
+                      name="NumerodeSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NúmerodeRemito]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NúmerodeRemito]"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[NúmerodeRemito]"
+                      name="NúmerodeRemito"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoUltimo]"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoUltimo]"
+                      name="CodigoEstadoUltimo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoSiguiente]"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoEstadoSiguiente]"
+                      name="CodigoEstadoSiguiente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipoLinea]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipoLinea]"
+                      length="2"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipoLinea]"
+                      name="TipoLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Cod_Flia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Cod_Flia]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Cod_Flia]"
+                      name="Cod_Flia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadEnviada]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnviada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadEnviada]"
+                      name="CantidadEnviada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadOrdenada]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CantidadOrdenada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CantidadOrdenada]"
+                      name="CantidadOrdenada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Clase]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Clase]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Clase]"
+                      name="Clase"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FamiliaPlanificacion]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FamiliaPlanificacion]"
+                      name="FamiliaPlanificacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Frecuencia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Frecuencia]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Frecuencia]"
+                      name="Frecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Producto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Producto]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[Producto]"
+                      name="Producto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipoMaterial]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipoMaterial]"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[TipoMaterial]"
+                      name="TipoMaterial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechaRealDeEmbarque]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaRealDeEmbarque]"
+                      name="FechaRealDeEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeTransaccion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeTransaccion]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeTransaccion]"
+                      name="FechadeTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaSolicitada]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitada]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechaSolicitada]"
+                      name="FechaSolicitada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeFactura/Venta]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeFactura/Venta]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeFactura/Venta]"
+                      name="FechadeFactura/Venta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeEntrega]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeEntrega]"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[FechadeEntrega]"
+                      name="FechadeEntrega"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoCondicionDePago]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoCondicionDePago]"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].Columns[CodigoCondicionDePago]"
+                      name="CodigoCondicionDePago"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Cliente]"
+                      dataType="r8"
+                      name="Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumeroOrdendeVenta]"
+                      dataType="wstr"
+                      length="50"
+                      name="NumeroOrdendeVenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipodeOrden]"
+                      dataType="wstr"
+                      length="5"
+                      name="TipodeOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumerodeLinea]"
+                      dataType="i4"
+                      name="NumerodeLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocio]"
+                      dataType="wstr"
+                      length="50"
+                      name="UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[ItemArticulo]"
+                      dataType="i4"
+                      name="ItemArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumeroItem2]"
+                      dataType="wstr"
+                      length="50"
+                      name="NumeroItem2" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NumerodeSerie]"
+                      dataType="wstr"
+                      length="50"
+                      name="NumerodeSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[NúmerodeRemito]"
+                      dataType="wstr"
+                      length="50"
+                      name="NúmerodeRemito" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoEstadoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoEstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipoLinea]"
+                      dataType="wstr"
+                      length="2"
+                      name="TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Cod_Flia]"
+                      dataType="wstr"
+                      length="10"
+                      name="Cod_Flia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CantidadEnviada]"
+                      dataType="i4"
+                      name="CantidadEnviada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CantidadOrdenada]"
+                      dataType="i4"
+                      name="CantidadOrdenada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Clase]"
+                      dataType="wstr"
+                      length="10"
+                      name="Clase" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      length="10"
+                      name="FamiliaPlanificacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      name="Frecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[Producto]"
+                      dataType="wstr"
+                      length="10"
+                      name="Producto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[TipoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoMaterial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechaRealDeEmbarque]"
+                      dataType="dbDate"
+                      name="FechaRealDeEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeTransaccion]"
+                      dataType="dbDate"
+                      name="FechadeTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechaSolicitada]"
+                      dataType="dbDate"
+                      name="FechaSolicitada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeFactura/Venta]"
+                      dataType="dbDate"
+                      name="FechadeFactura/Venta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[FechadeEntrega]"
+                      dataType="dbDate"
+                      name="FechadeEntrega" />
+                    <externalMetadataColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output].ExternalColumns[CodigoCondicionDePago]"
+                      dataType="wstr"
+                      length="3"
+                      name="CodigoCondicionDePago" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Cliente]"
+                      dataType="r8"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Cliente]"
+                      name="Cliente" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumeroOrdendeVenta]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumeroOrdendeVenta]"
+                      name="NumeroOrdendeVenta" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipodeOrden]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipodeOrden]"
+                      name="TipodeOrden" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumerodeLinea]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumerodeLinea]"
+                      name="NumerodeLinea" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[UnidadNegocio]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[UnidadNegocio]"
+                      name="UnidadNegocio" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ItemArticulo]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ItemArticulo]"
+                      name="ItemArticulo" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumeroItem2]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumeroItem2]"
+                      name="NumeroItem2" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumerodeSerie]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NumerodeSerie]"
+                      name="NumerodeSerie" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NúmerodeRemito]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[NúmerodeRemito]"
+                      name="NúmerodeRemito" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoUltimo]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoUltimo]"
+                      name="CodigoEstadoUltimo" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoSiguiente]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoEstadoSiguiente]"
+                      name="CodigoEstadoSiguiente" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipoLinea]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipoLinea]"
+                      name="TipoLinea" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Cod_Flia]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Cod_Flia]"
+                      name="Cod_Flia" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CantidadEnviada]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CantidadEnviada]"
+                      name="CantidadEnviada" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CantidadOrdenada]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CantidadOrdenada]"
+                      name="CantidadOrdenada" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Clase]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Clase]"
+                      name="Clase" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FamiliaPlanificacion]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FamiliaPlanificacion]"
+                      name="FamiliaPlanificacion" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Frecuencia]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Frecuencia]"
+                      name="Frecuencia" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Producto]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[Producto]"
+                      name="Producto" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipoMaterial]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[TipoMaterial]"
+                      name="TipoMaterial" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechaRealDeEmbarque]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechaRealDeEmbarque]"
+                      name="FechaRealDeEmbarque" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeTransaccion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeTransaccion]"
+                      name="FechadeTransaccion" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechaSolicitada]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechaSolicitada]"
+                      name="FechaSolicitada" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeFactura/Venta]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeFactura/Venta]"
+                      name="FechadeFactura/Venta" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeEntrega]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[FechadeEntrega]"
+                      name="FechadeEntrega" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoCondicionDePago]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[CodigoCondicionDePago]"
+                      name="CodigoCondicionDePago" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output]"
+              endId="Package\Carga BT_EmbarqueReal\LK_Articulo.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output1]"
+              endId="Package\Carga BT_EmbarqueReal\NULLs y Format.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_EmbarqueReal\Grupos.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output2]"
+              endId="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Carga BT_EmbarqueReal\NULLs y Format.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output]"
+              endId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_EmbarqueReal\LK_Articulo.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output1]"
+              endId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output2]"
+              endId="Package\Carga BT_EmbarqueReal\Grupos.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Carga BT_EmbarqueReal.Paths[OLE DB Source Output]"
+              endId="Package\Carga BT_EmbarqueReal\Diferencia de dias.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DELETE FechaActual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B4C63222-818C-48D4-944B-EC63A4238291}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE FechaActual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D01E64F8-C9AC-4CDF-8D7F-11981A623A18}"
+          SQLTask:SqlStatementSource="DELETE FROM BT_EmbarqueReal&#xA;WHERE FC_EMB_FechaRealDeEmbarque = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::FechaDeAyer"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="0" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{813011CB-1C9F-4EDF-8196-ABC1844A893C}"
+      DTS:From="Package\DELETE FechaActual"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga BT_EmbarqueReal" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="196,42"
+          Id="Package\Carga BT_EmbarqueReal"
+          TopLeft="530,171" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\DELETE FechaActual"
+          TopLeft="543,44" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="629.5,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85"
+              Start="0,0"
+              End="0,77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga BT_EmbarqueReal">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque"
+          TopLeft="528,85" />
+        <NodeLayout
+          Size="187,42"
+          Id="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion"
+          TopLeft="547,465" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Carga BT_EmbarqueReal\NULLs y Format"
+          TopLeft="570,642" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Carga BT_EmbarqueReal\Diferencia de dias"
+          TopLeft="563,183" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Carga BT_EmbarqueReal\Grupos"
+          TopLeft="591,555" />
+        <NodeLayout
+          Size="132,42"
+          Id="Package\Carga BT_EmbarqueReal\LK_Articulo"
+          TopLeft="575,277" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio"
+          TopLeft="559,378" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal"
+          TopLeft="571,740" />
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[OLE DB Source Output]"
+          TopLeft="642.5,127">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output2]"
+          TopLeft="643.75,507">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,14.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output1]"
+          TopLeft="641.5,420">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,12.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Lookup Match Output]"
+          TopLeft="641.75,319">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output2]"
+          TopLeft="650.25,684">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output1]"
+          TopLeft="647,597">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga BT_EmbarqueReal.Paths[Derived Column Output]"
+          TopLeft="642.75,225">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_EmbarqueReal\STG_VentaResumidaEmbarque">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_EmbarqueReal\LK_FamiliaPlanificacion">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_EmbarqueReal\LK_Articulo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_EmbarqueReal\LK_UnidadNegocio">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga BT_EmbarqueReal\BT_EmbarqueReal">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

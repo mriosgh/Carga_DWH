@@ -1,0 +1,2073 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/27/2021 3:38:26 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{88B2826D-3052-4B47-8938-669E5AEBDC30}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_MiniAppCois"
+  DTS:PackageType="5"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{9F32E370-6FF5-4DB3-B6A7-E132B8A78E09}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78E92AC8-14C5-4B77-A96A-FF10192707A5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FCDesde">
+      <DTS:VariableValue
+        DTS:DataType="7">12/27/2021 4:13:24 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B7BBEA7A-6308-4ACC-A8CA-B9538C10FD92}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FCHasta">
+      <DTS:VariableValue
+        DTS:DataType="7">12/27/2021 4:13:28 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Cargar STG_Cois"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6BEBDC67-542F-4765-9220-3C6AAEF32CBF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cargar STG_Cois"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Cargar STG_Cois\Input Cois"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Input Cois"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT distinct
+ F56FACT3.FC_1NKY AS TipoFactura	
+,F56FACT3.FCDL0	AS NroFactura
+,F56FACT3.FCSEQN AS	NroSecuencia
+,DATEADD(dd,((F56FACT3.FC_1FECVEN % 1000) - 1),(cast(cast(1900+(F56FACT3.FC_1FECVEN/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaVencimientoRealProv
+,F56FACT3.FC_1MONT AS MontoCuota
+,F56FACT3.FC_1DL01 AS ObservacionesFactura
+,F56FACT3.FC_1DOCO AS NroOi
+,F56FACT3.FCURAB AS NroInterno
+,F56FACT3.FC_1IMPTEM AS	CopiaBco
+,F56FACT3.FC_1INSTRUC AS ObservacionesTesoreria	
+,F56FACT3.FC_1DSC1 AS NroDAPE
+,F56FACT3.FC_1ST AS	EstadoDAPE
+,DATEADD(dd,((F56FACT3.FC_1FG % 1000) - 1),(cast(cast(1900+(F56FACT3.FC_1FG/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaGestionDAPE
+,DATEADD(dd,((F56FACT3.FC_1FVD % 1000) - 1),(cast(cast(1900+(F56FACT3.FC_1FVD/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaEnvioBco
+,F56FACT3.FC_1DESPO	AS NroRefBancario
+,F56FACT3.FCAN8	AS Bco
+,F56FACT3.FC_1SC AS CT	
+,F56FACT3.FC_1VIH AS VIH
+,DATEADD(dd,((FCTRDJ % 1000) - 1),(cast(cast(1900+(FCTRDJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS FechaFactura
+,DATEADD(dd,((FCDRQJ % 1000) - 1),(cast(cast(1900+(FCDRQJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaCargaFactura
+,DATEADD(dd,((TG_1FECLLEG % 1000) - 1),(cast(cast(1900+(TG_1FECLLEG/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS ETA
+,DATEADD(dd,((TG_1FECP % 1000) - 1),(cast(cast(1900+(TG_1FECP/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaPagoAduana
+,DATEADD(dd,((TG_1FECD % 1000) - 1),(cast(cast(1900+(TG_1FECD/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaDocsDespa
+,TG_1DESPA AS Despachante
+,TG_1CFE AS FormaEmbarque
+,TG_1MET AS MetodoEmbarque
+,TG_1DL01 AS Transporte
+,DATEADD(dd,((TG_1FECSAL % 1000) - 1),(cast(cast(1900+(TG_1FECSAL/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaEmbarque
+,TG_1INSTRUC AS DocTransporte
+,TG_1DESPO AS NumeroDespacho
+,DATEADD(dd,((F56FACTE.TG_1FEO % 1000) - 1),(cast(cast(1900+(F56FACTE.TG_1FEO/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaOficDespacho
+,F56FACTE.TG_1NDF AS NumeroZFI
+,DATEADD(dd,((F56FACTE.TG_1FIZF % 1000) - 1),(cast(cast(1900+(F56FACTE.TG_1FIZF/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaZFI
+,F56FACTE.TG_1NDT AS NroTransito
+,PHMCU	AS UnidadNegocio
+,PHKCOO	AS Compania
+,PHDCTO	AS TipoOrden
+,PHSFXO	AS SufOrd
+,PHCRCD	AS Moneda
+,DATEADD(dd,((F4301.PHTRDJ % 1000) - 1),(cast(cast(1900+(F4301.PHTRDJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaAperturaOI
+,PHAN8	AS NroProveedor
+,PHORBY	AS Responsable
+,F564311.QG_1EXF AS Incoterm
+,QGDJAI	AS SIMI
+,DATEADD(dd,((DJDRQJ % 1000) - 1),(cast(cast(1900+(DJDRQJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01'))AS FechaIngresoSIMI
+,DATEADD(dd,((DJTRDJ % 1000) - 1),(cast(cast(1900+(DJTRDJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS FechaAprobacionSIMI
+FROM  PRODDTA.F564301 F564301
+
+LEFT JOIN PRODDTA.F56FACT F56FACT
+ON F564301.TGKCOO= F56FACT.FCKCOO
+AND F564301.TGDOCO= F56FACT.FCDOCO
+AND F564301.TGDCTO= F56FACT.FCDCTO
+AND F564301.TGSFXO= F56FACT.FCSFXO
+
+LEFT JOIN PRODDTA.F4301 F4301 
+ON  F4301.PHKCOO= F56FACT.FCKCOO
+AND F4301.PHDOCO= F56FACT.FCDOCO
+AND F4301.PHDCTO= F56FACT.FCDCTO
+AND F4301.PHSFXO= F56FACT.FCSFXO
+
+LEFT JOIN PRODDTA.F56FACTE F56FACTE
+ON  F56FACTE.TGKCOO= F56FACT.FCKCOO
+AND F56FACTE.TGDOCO= F56FACT.FCDOCO
+AND F56FACTE.TGDCTO= F56FACT.FCDCTO
+AND F56FACTE.TGSFXO= F56FACT.FCSFXO
+
+LEFT JOIN PRODDTA.F56FACT3 F56FACT3
+ON  F56FACT3.FC_1NKY=F56FACT.FC_1NKY
+AND F56FACT3.FCDL0=F56FACT.FCDL0
+AND F56FACT3.FC_1DOCO=F56FACT.FCDOCO
+
+LEFT JOIN PRODDTA.F56OIOC F56OIOC
+ON  F56OIOC.PPDOC=F56FACT3.FC_1DOCO
+
+LEFT JOIN PRODDTA.F564311 F564311
+ON  F56OIOC.PPKCOO= F564311.QGKCOO
+AND F56OIOC.PPDOCO= F564311.QGDOCO
+AND F56OIOC.PPDCTO= F564311.QGDCTO
+AND F56OIOC.PPLNID= F564311.QGLNID
+
+LEFT JOIN PRODDTA.F56DJAI F56DJAI
+ON F564311.QGDJAI= F56DJAI.DJDJAI
+
+WHERE  DATEADD(dd,((FCTRDJ % 1000) - 1),(cast(cast(1900+(FCTRDJ/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) BETWEEN  ? AND ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{78E92AC8-14C5-4B77-A96A-FF10192707A5};"Parameter1:Input",{B7BBEA7A-6308-4ACC-A8CA-B9538C10FD92};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar STG_Cois\Input Cois.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[TipoFactura]"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoFactura]"
+                      name="TipoFactura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroFactura]"
+                      length="30"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroFactura]"
+                      name="NroFactura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroSecuencia]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroSecuencia]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroSecuencia]"
+                      name="NroSecuencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaVencimientoRealProv]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaVencimientoRealProv]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaVencimientoRealProv]"
+                      name="FechaVencimientoRealProv"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MontoCuota]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[MontoCuota]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MontoCuota]"
+                      name="MontoCuota"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ObservacionesFactura]"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesFactura]"
+                      name="ObservacionesFactura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroOi]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroOi]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroOi]"
+                      name="NroOi"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroInterno]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroInterno]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroInterno]"
+                      name="NroInterno"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CopiaBco]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[CopiaBco]"
+                      length="1"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CopiaBco]"
+                      name="CopiaBco"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesTesoreria]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ObservacionesTesoreria]"
+                      length="100"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesTesoreria]"
+                      name="ObservacionesTesoreria"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroDAPE]"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroDAPE]"
+                      name="NroDAPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[EstadoDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[EstadoDAPE]"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[EstadoDAPE]"
+                      name="EstadoDAPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaGestionDAPE]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaGestionDAPE]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaGestionDAPE]"
+                      name="FechaGestionDAPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEnvioBco]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaEnvioBco]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEnvioBco]"
+                      name="FechaEnvioBco"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroRefBancario]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroRefBancario]"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroRefBancario]"
+                      name="NroRefBancario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Bco]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Bco]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Bco]"
+                      name="Bco"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[CT]"
+                      length="1"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CT]"
+                      name="CT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[VIH]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[VIH]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[VIH]"
+                      name="VIH"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaFactura]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaFactura]"
+                      name="FechaFactura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaCargaFactura]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaCargaFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaCargaFactura]"
+                      name="FechaCargaFactura"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ETA]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ETA]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ETA]"
+                      name="ETA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaPagoAduana]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaPagoAduana]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaPagoAduana]"
+                      name="FechaPagoAduana"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaDocsDespa]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaDocsDespa]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaDocsDespa]"
+                      name="FechaDocsDespa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Despachante]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Despachante]"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Despachante]"
+                      name="Despachante"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FormaEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FormaEmbarque]"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FormaEmbarque]"
+                      name="FormaEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Transporte]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Transporte]"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Transporte]"
+                      name="Transporte"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEmbarque]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaEmbarque]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEmbarque]"
+                      name="FechaEmbarque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[DocTransporte]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[DocTransporte]"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[DocTransporte]"
+                      name="DocTransporte"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroDespacho]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NumeroDespacho]"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroDespacho]"
+                      name="NumeroDespacho"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaOficDespacho]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaOficDespacho]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaOficDespacho]"
+                      name="FechaOficDespacho"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroZFI]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NumeroZFI]"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroZFI]"
+                      name="NumeroZFI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaZFI]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaZFI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaZFI]"
+                      name="FechaZFI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroTransito]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroTransito]"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroTransito]"
+                      name="NroTransito"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[UnidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocio]"
+                      length="12"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[UnidadNegocio]"
+                      name="UnidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Compania]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Compania]"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Compania]"
+                      name="Compania"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      length="2"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoOrden]"
+                      name="TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SufOrd]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[SufOrd]"
+                      length="3"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SufOrd]"
+                      name="SufOrd"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Moneda]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Moneda]"
+                      length="3"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Moneda]"
+                      name="Moneda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAperturaOI]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaAperturaOI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAperturaOI]"
+                      name="FechaAperturaOI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroProveedor]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroProveedor]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroProveedor]"
+                      name="NroProveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Responsable]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Responsable]"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Responsable]"
+                      name="Responsable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Incoterm]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Incoterm]"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Incoterm]"
+                      name="Incoterm"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SIMI]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[SIMI]"
+                      length="30"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SIMI]"
+                      name="SIMI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaIngresoSIMI]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaIngresoSIMI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaIngresoSIMI]"
+                      name="FechaIngresoSIMI"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAprobacionSIMI]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaAprobacionSIMI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAprobacionSIMI]"
+                      name="FechaAprobacionSIMI"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[TipoFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="TipoFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="NroFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroSecuencia]"
+                      dataType="r8"
+                      name="NroSecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaVencimientoRealProv]"
+                      dataType="dbTimeStamp"
+                      name="FechaVencimientoRealProv" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[MontoCuota]"
+                      dataType="r8"
+                      name="MontoCuota" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ObservacionesFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ObservacionesFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroOi]"
+                      dataType="r8"
+                      name="NroOi" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroInterno]"
+                      dataType="r8"
+                      name="NroInterno" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[CopiaBco]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CopiaBco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ObservacionesTesoreria]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ObservacionesTesoreria" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NroDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[EstadoDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="EstadoDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaGestionDAPE]"
+                      dataType="dbTimeStamp"
+                      name="FechaGestionDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaEnvioBco]"
+                      dataType="dbTimeStamp"
+                      name="FechaEnvioBco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroRefBancario]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="NroRefBancario" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Bco]"
+                      dataType="r8"
+                      name="Bco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[CT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CT" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[VIH]"
+                      dataType="numeric"
+                      name="VIH"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaFactura]"
+                      dataType="dbTimeStamp"
+                      name="FechaFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaCargaFactura]"
+                      dataType="dbTimeStamp"
+                      name="FechaCargaFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[ETA]"
+                      dataType="dbTimeStamp"
+                      name="ETA" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaPagoAduana]"
+                      dataType="dbTimeStamp"
+                      name="FechaPagoAduana" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaDocsDespa]"
+                      dataType="dbTimeStamp"
+                      name="FechaDocsDespa" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Despachante]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="Despachante" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FormaEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="FormaEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Transporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Transporte" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaEmbarque]"
+                      dataType="dbTimeStamp"
+                      name="FechaEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[DocTransporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="DocTransporte" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NumeroDespacho]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="NumeroDespacho" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaOficDespacho]"
+                      dataType="dbTimeStamp"
+                      name="FechaOficDespacho" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NumeroZFI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="NumeroZFI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaZFI]"
+                      dataType="dbTimeStamp"
+                      name="FechaZFI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroTransito]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="NroTransito" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[UnidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="Compania" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[SufOrd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="SufOrd" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Moneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Moneda" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaAperturaOI]"
+                      dataType="dbTimeStamp"
+                      name="FechaAperturaOI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[NroProveedor]"
+                      dataType="r8"
+                      name="NroProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Responsable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Responsable" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[Incoterm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="Incoterm" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[SIMI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="SIMI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaIngresoSIMI]"
+                      dataType="dbTimeStamp"
+                      name="FechaIngresoSIMI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].ExternalColumns[FechaAprobacionSIMI]"
+                      dataType="dbTimeStamp"
+                      name="FechaAprobacionSIMI" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[TipoFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[TipoFactura]"
+                      name="TipoFactura" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroFactura]"
+                      name="NroFactura" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroSecuencia]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroSecuencia]"
+                      name="NroSecuencia" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaVencimientoRealProv]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaVencimientoRealProv]"
+                      name="FechaVencimientoRealProv" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[MontoCuota]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[MontoCuota]"
+                      name="MontoCuota" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ObservacionesFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ObservacionesFactura]"
+                      name="ObservacionesFactura" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroOi]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroOi]"
+                      name="NroOi" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroInterno]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroInterno]"
+                      name="NroInterno" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[CopiaBco]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[CopiaBco]"
+                      name="CopiaBco" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ObservacionesTesoreria]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ObservacionesTesoreria]"
+                      name="ObservacionesTesoreria" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroDAPE]"
+                      name="NroDAPE" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[EstadoDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[EstadoDAPE]"
+                      name="EstadoDAPE" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaGestionDAPE]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaGestionDAPE]"
+                      name="FechaGestionDAPE" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaEnvioBco]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaEnvioBco]"
+                      name="FechaEnvioBco" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroRefBancario]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroRefBancario]"
+                      name="NroRefBancario" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Bco]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Bco]"
+                      name="Bco" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[CT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[CT]"
+                      name="CT" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[VIH]"
+                      dataType="numeric"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[VIH]"
+                      name="VIH"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaFactura]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaFactura]"
+                      name="FechaFactura" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaCargaFactura]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaCargaFactura]"
+                      name="FechaCargaFactura" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ETA]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ETA]"
+                      name="ETA" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaPagoAduana]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaPagoAduana]"
+                      name="FechaPagoAduana" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaDocsDespa]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaDocsDespa]"
+                      name="FechaDocsDespa" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Despachante]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Despachante]"
+                      name="Despachante" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FormaEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FormaEmbarque]"
+                      name="FormaEmbarque" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[MetodoEmbarque]"
+                      name="MetodoEmbarque" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Transporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Transporte]"
+                      name="Transporte" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaEmbarque]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaEmbarque]"
+                      name="FechaEmbarque" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[DocTransporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[DocTransporte]"
+                      name="DocTransporte" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NumeroDespacho]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NumeroDespacho]"
+                      name="NumeroDespacho" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaOficDespacho]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaOficDespacho]"
+                      name="FechaOficDespacho" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NumeroZFI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NumeroZFI]"
+                      name="NumeroZFI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaZFI]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaZFI]"
+                      name="FechaZFI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroTransito]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroTransito]"
+                      name="NroTransito" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[UnidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[UnidadNegocio]"
+                      name="UnidadNegocio" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Compania]"
+                      name="Compania" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[TipoOrden]"
+                      name="TipoOrden" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[SufOrd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[SufOrd]"
+                      name="SufOrd" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Moneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Moneda]"
+                      name="Moneda" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaAperturaOI]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaAperturaOI]"
+                      name="FechaAperturaOI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroProveedor]"
+                      dataType="r8"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[NroProveedor]"
+                      name="NroProveedor" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Responsable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Responsable]"
+                      name="Responsable" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Incoterm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[Incoterm]"
+                      name="Incoterm" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[SIMI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[SIMI]"
+                      name="SIMI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaIngresoSIMI]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaIngresoSIMI]"
+                      name="FechaIngresoSIMI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaAprobacionSIMI]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[FechaAprobacionSIMI]"
+                      name="FechaAprobacionSIMI" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar STG_Cois\Output STG_Cois"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Output STG_Cois"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_Cois]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar STG_Cois\Output STG_Cois.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[TipoFactura]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="TipoFactura"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[TipoFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoFactura]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroFactura]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="NroFactura"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroFactura]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroSecuencia]"
+                      cachedDataType="r8"
+                      cachedName="NroSecuencia"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroSecuencia]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroSecuencia]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaVencimientoRealProv]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaVencimientoRealProv"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaVencimientoRealProv]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaVencimientoRealProv]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[MontoCuota]"
+                      cachedDataType="r8"
+                      cachedName="MontoCuota"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[MontoCuota]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MontoCuota]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[ObservacionesFactura]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ObservacionesFactura"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[ObservacionesFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesFactura]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroOi]"
+                      cachedDataType="r8"
+                      cachedName="NroOi"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroOi]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroOi]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroInterno]"
+                      cachedDataType="r8"
+                      cachedName="NroInterno"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroInterno]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroInterno]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[CopiaBco]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CopiaBco"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[CopiaBco]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CopiaBco]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[ObservacionesTesoreria]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ObservacionesTesoreria"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[ObservacionesTesoreria]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ObservacionesTesoreria]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroDAPE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="NroDAPE"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroDAPE]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroDAPE]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[EstadoDAPE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="EstadoDAPE"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[EstadoDAPE]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[EstadoDAPE]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaGestionDAPE]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaGestionDAPE"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaGestionDAPE]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaGestionDAPE]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaEnvioBco]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEnvioBco"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnvioBco]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEnvioBco]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroRefBancario]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="NroRefBancario"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroRefBancario]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroRefBancario]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Bco]"
+                      cachedDataType="r8"
+                      cachedName="Bco"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Bco]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Bco]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[CT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CT"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[CT]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[CT]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[VIH]"
+                      cachedDataType="numeric"
+                      cachedName="VIH"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[VIH]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[VIH]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaFactura]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaFactura"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaFactura]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaCargaFactura]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaCargaFactura"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaCargaFactura]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaCargaFactura]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaPagoAduana]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaPagoAduana"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaPagoAduana]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaPagoAduana]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaDocsDespa]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaDocsDespa"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaDocsDespa]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaDocsDespa]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Despachante]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="Despachante"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Despachante]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Despachante]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FormaEmbarque]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="FormaEmbarque"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FormaEmbarque]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FormaEmbarque]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[MetodoEmbarque]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="MetodoEmbarque"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[MetodoEmbarque]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Transporte]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Transporte"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Transporte]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Transporte]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaEmbarque]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEmbarque"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaEmbarque]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaEmbarque]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[DocTransporte]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="DocTransporte"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[DocTransporte]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[DocTransporte]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NumeroDespacho]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="NumeroDespacho"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NumeroDespacho]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroDespacho]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaOficDespacho]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaOficDespacho"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaOficDespacho]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaOficDespacho]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NumeroZFI]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="NumeroZFI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NumeroZFI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NumeroZFI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaZFI]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaZFI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaZFI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaZFI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroTransito]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="NroTransito"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroTransito]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroTransito]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[UnidadNegocio]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="UnidadNegocio"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocio]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Compania]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="Compania"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Compania]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Compania]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[TipoOrden]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TipoOrden"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[TipoOrden]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[SufOrd]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="SufOrd"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[SufOrd]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SufOrd]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Moneda]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Moneda"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Moneda]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Moneda]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaAperturaOI]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaAperturaOI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaAperturaOI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAperturaOI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[NroProveedor]"
+                      cachedDataType="r8"
+                      cachedName="NroProveedor"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroProveedor]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[NroProveedor]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Responsable]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Responsable"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Responsable]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Responsable]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[Incoterm]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="Incoterm"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Incoterm]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[Incoterm]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[SIMI]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="SIMI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[SIMI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[SIMI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaIngresoSIMI]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaIngresoSIMI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaIngresoSIMI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaIngresoSIMI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[FechaAprobacionSIMI]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaAprobacionSIMI"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaAprobacionSIMI]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[FechaAprobacionSIMI]" />
+                    <inputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].Columns[ETA]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ETA"
+                      externalMetadataColumnId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaETA]"
+                      lineageId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output].Columns[ETA]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[TipoFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="TipoFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NroFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroSecuencia]"
+                      dataType="i4"
+                      name="NroSecuencia" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaVencimientoRealProv]"
+                      dataType="dbDate"
+                      name="FechaVencimientoRealProv" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[MontoCuota]"
+                      dataType="r8"
+                      name="MontoCuota" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[ObservacionesFactura]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ObservacionesFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroOi]"
+                      dataType="i4"
+                      name="NroOi" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroInterno]"
+                      dataType="i4"
+                      name="NroInterno" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[CopiaBco]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CopiaBco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[ObservacionesTesoreria]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ObservacionesTesoreria" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NroDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[EstadoDAPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EstadoDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaGestionDAPE]"
+                      dataType="dbDate"
+                      name="FechaGestionDAPE" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnvioBco]"
+                      dataType="dbDate"
+                      name="FechaEnvioBco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroRefBancario]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NroRefBancario" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Bco]"
+                      dataType="i4"
+                      name="Bco" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[CT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CT" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[VIH]"
+                      dataType="i4"
+                      name="VIH" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaFactura]"
+                      dataType="dbDate"
+                      name="FechaFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaCargaFactura]"
+                      dataType="dbDate"
+                      name="FechaCargaFactura" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaPagoAduana]"
+                      dataType="dbDate"
+                      name="FechaPagoAduana" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaDocsDespa]"
+                      dataType="dbDate"
+                      name="FechaDocsDespa" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Despachante]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Despachante" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FormaEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FormaEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[MetodoEmbarque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="MetodoEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Transporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Transporte" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaEmbarque]"
+                      dataType="dbDate"
+                      name="FechaEmbarque" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[DocTransporte]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="DocTransporte" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NumeroDespacho]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NumeroDespacho" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaOficDespacho]"
+                      dataType="dbDate"
+                      name="FechaOficDespacho" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NumeroZFI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NumeroZFI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaZFI]"
+                      dataType="dbDate"
+                      name="FechaZFI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroTransito]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NroTransito" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[UnidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Compania" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[TipoOrden]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[SufOrd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="SufOrd" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Moneda]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Moneda" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaAperturaOI]"
+                      dataType="dbDate"
+                      name="FechaAperturaOI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[NroProveedor]"
+                      dataType="i4"
+                      name="NroProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Responsable]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Responsable" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[Incoterm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Incoterm" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[SIMI]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="SIMI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaIngresoSIMI]"
+                      dataType="dbDate"
+                      name="FechaIngresoSIMI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaAprobacionSIMI]"
+                      dataType="dbDate"
+                      name="FechaAprobacionSIMI" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input].ExternalColumns[FechaETA]"
+                      dataType="dbDate"
+                      name="FechaETA" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar STG_Cois\Output STG_Cois.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar STG_Cois\Output STG_Cois.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar STG_Cois\Output STG_Cois.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar STG_Cois\Output STG_Cois.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Cargar STG_Cois.Paths[OLE DB Source Output]"
+              endId="Package\Cargar STG_Cois\Output STG_Cois.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Cargar STG_Cois\Input Cois.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Fecha Auditoria"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{04B85281-53A0-4133-995F-8C2BA1E2324C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Fecha Auditoria"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B9E19C5C-4ADD-4C36-A8DA-A0FD133E7923}"
+          SQLTask:SqlStatementSource="select FC_Desde,cast(DATEADD(Day,-1,GETDATE())as date) AS FC_Hasta from DW_AUD_Fecha_Proceso&#xA;WHERE idModulo=18"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::FCDesde" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="1"
+            SQLTask:DtsVariableName="User::FCHasta" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table STG_Cois"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3DE51E12-9F9A-411A-97E8-4D48BE734D6A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table STG_Cois"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_COIS" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{06A5A856-699D-4764-8215-5953753B3D70}"
+      DTS:From="Package\Fecha Auditoria"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Cargar STG_Cois" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{FD851C76-8AB5-4A91-9401-19D3622F0F46}"
+      DTS:From="Package\Truncate Table STG_Cois"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Fecha Auditoria" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Cargar STG_Cois"
+          TopLeft="153.333331048489,164.233330396613" />
+        <NodeLayout
+          Size="150.666666666667,42"
+          Id="Package\Fecha Auditoria"
+          TopLeft="153.333331048489,73.666665349404" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Truncate Table STG_Cois"
+          TopLeft="132.083331365138,1.29999997675418" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="230.666664381822,115.666665349404">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.566665047209"
+              Start="0,0"
+              End="0,41.066665047209">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.066665047209" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="230.041664540147,43.2999999767542">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.3666653726498"
+              Start="0,0"
+              End="0,22.8666653726498">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8666653726498" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Cargar STG_Cois">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="126.666666666667,42"
+          Id="Package\Cargar STG_Cois\Input Cois"
+          TopLeft="193.7499971129,48.5333324654897" />
+        <NodeLayout
+          Size="158.666666666667,42"
+          Id="Package\Cargar STG_Cois\Output STG_Cois"
+          TopLeft="180.416663978249,159.033330489596" />
+        <EdgeLayout
+          Id="Package\Cargar STG_Cois.Paths[OLE DB Source Output]"
+          TopLeft="258.583330545575,90.5333324654897">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68.4999980241063"
+              Start="0,0"
+              End="0,60.9999980241063">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.9999980241063" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar STG_Cois\Input Cois">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar STG_Cois\Output STG_Cois">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

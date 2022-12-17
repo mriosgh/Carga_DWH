@@ -1,0 +1,409 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/20/2020 12:01:13 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis4"
+  DTS:DTSID="{0B66655E-3E64-4AE1-BEEC-EA127E854642}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga_STG_LK_Inflacion"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{B66D1AB0-AAFC-4567-92DF-2023C0F46C89}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{61BC3C0F-8D9F-4DBD-B00F-40BFD200924D}"
+      DTS:ObjectName="SVRBIQA\SULLAIRBI.DWH_Dev.usersqlbi1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SVRBIQA\SULLAIRBI;User ID=usersqlbi1;Initial Catalog=DWH_Dev;Provider=SQLNCLI11.1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAtmH0TmqSjkWO3rK87djQXwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABpuxl8qDoGDbSROOVAa+ADAAAAAASAAACgAAAAEAAAANb0UE+oSoM0e4NnHo0SEqQYAAAAUBm+rdncxtCMXDCK68gkpDTFmp5vZ69EFAAAAIWcalX2D914x7yQlzdJNi4W11MG</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_LK_INFLACION"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{314C8474-BF16-4CC9-89E8-50CF95D04CF3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_LK_INFLACION"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination STG_BT_Inflacion"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_BT_Inflacion_]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Connections[OleDbConnection]"
+                  connectionManagerID="{96F73960-920B-4B77-A157-9830B71CFEE8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].Columns[SK_Mes]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="32"
+                      cachedName="SK_Mes"
+                      externalMetadataColumnId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]" />
+                    <inputColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].Columns[NU_INF_Valor]"
+                      cachedDataType="r8"
+                      cachedName="NU_INF_Valor"
+                      externalMetadataColumnId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].ExternalColumns[SK_Mes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Valor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NU_INF_Valor" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input].ExternalColumns[NU_INF_Variacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="NU_INF_Variacion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LK_INFLACION\Source LK_Inflacion"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source LK_Inflacion"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT CAST ([INFYR] AS VARCHAR) + RIGHT('00'+ CAST( INPN as varchar),2) AS SK_Mes
+		,INCRR NU_INF_Valor
+FROM PRODDTA.F5543INF</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Connections[OleDbConnection]"
+                  connectionManagerID="{309621B4-03CF-4DEC-B46F-8C13BCA2525F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      length="32"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[SK_Mes]"
+                      name="SK_Mes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[SK_Mes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="SK_Mes" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output].ExternalColumns[NU_INF_Valor]"
+                      dataType="r8"
+                      name="NU_INF_Valor" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[SK_Mes]"
+                      name="SK_Mes" />
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      dataType="r8"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[NU_INF_Valor]"
+                      name="NU_INF_Valor" />
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_LK_INFLACION.Paths[OLE DB Source Output]"
+              endId="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\STG_LK_INFLACION\Source LK_Inflacion.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="175,42"
+          Id="Package\STG_LK_INFLACION"
+          TopLeft="122,79" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_LK_INFLACION">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\STG_LK_INFLACION\Source LK_Inflacion"
+          TopLeft="123,24" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion"
+          TopLeft="98,239" />
+        <EdgeLayout
+          Id="Package\STG_LK_INFLACION.Paths[OLE DB Source Output]"
+          TopLeft="208.25,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,173"
+              Start="0,0"
+              End="0,165.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,165.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_LK_INFLACION\Source LK_Inflacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_LK_INFLACION\Destination STG_BT_Inflacion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

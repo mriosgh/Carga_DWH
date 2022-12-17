@@ -1,0 +1,667 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/17/2019 1:37:19 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-0BMVGN8"
+  DTS:CreatorName="DESKTOP-0BMVGN8\Dthink"
+  DTS:DTSID="{A6C584A5-9EEE-4EBD-98F9-85122D5CCC84}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_MRP"
+  DTS:PackageType="5"
+  DTS:VersionBuild="46"
+  DTS:VersionGUID="{4FB59FF6-3AFE-4CD1-83AA-E485DDFC1782}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_MRP"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{E17AB295-3EB7-4BE9-B2EB-6742FC9D6932}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_MRP"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_MRP\INPUT MRP"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="INPUT MRP"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT	[MRITM],
+	LTRIM(RTRIM([MRMCU])) AS [MRMCU],
+	LTRIM(RTRIM([MRQT])) AS [MRQT],
+	CAST(DATEADD(dd,(([MRSTRT] % 1000) - 1),(cast(cast(1900+([MRSTRT]/1000) as decimal(4,0)) as varchar(4)) + '01' + '01')) AS DATE) AS fechaUltimoDiaMesSig,
+	[MRTRQT]
+FROM [PRODDTA].[F3413]
+WHERE LTRIM(RTRIM(MRMCU)) IN ('901','901BA','901B','901G','201','201G','458','458BA','452','904','302')
+--AND MRTRQT &gt; 0;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_MRP\INPUT MRP.Connections[OleDbConnection]"
+                  connectionManagerID="{E07C5E30-6B15-475F-BE7D-604E316EB02E}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRITM]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRITM]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRITM]"
+                      name="MRITM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRMCU]"
+                      length="12"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRMCU]"
+                      name="MRMCU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRQT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRQT]"
+                      length="2"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRQT]"
+                      name="MRQT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRTRQT]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRTRQT]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRTRQT]"
+                      name="MRTRQT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[fechaUltimoDiaMesSig]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      name="fechaUltimoDiaMesSig"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRITM]"
+                      dataType="r8"
+                      name="MRITM" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="MRMCU" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRQT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="MRQT" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[MRTRQT]"
+                      dataType="r8"
+                      name="MRTRQT" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].ExternalColumns[fechaUltimoDiaMesSig]"
+                      dataType="dbDate"
+                      name="fechaUltimoDiaMesSig" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRITM]"
+                      dataType="r8"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRITM]"
+                      name="MRITM" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRMCU]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRMCU]"
+                      name="MRMCU" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRQT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRQT]"
+                      name="MRQT" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      dataType="dbDate"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      name="fechaUltimoDiaMesSig" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRTRQT]"
+                      dataType="r8"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[MRTRQT]"
+                      name="MRTRQT" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_MRP\Modificar cantidad"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Modificar cantidad"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada].Columns[MRTRQT]"
+                      cachedDataType="r8"
+                      cachedName="MRTRQT"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRTRQT]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">#{Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRTRQT]} / 1000</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">MRTRQT / 1000</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada].Columns[fechaUltimoDiaMesSig]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaUltimoDiaMesSig"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[YEAR](#{Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]}) == 1899 ? (DT_DBDATE)"1900-01-01" : #{Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">YEAR(fechaUltimoDiaMesSig) == 1899 ? (DT_DBDATE)"1900-01-01" : fechaUltimoDiaMesSig</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_MRP\STG_MRP"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="STG_MRP"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_MRP]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_MRP\STG_MRP.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].Columns[MRITM]"
+                      cachedDataType="r8"
+                      cachedName="MRITM"
+                      externalMetadataColumnId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[numeroArticulo]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRITM]" />
+                    <inputColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].Columns[MRMCU]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="MRMCU"
+                      externalMetadataColumnId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[unidadNegocio]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRMCU]" />
+                    <inputColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].Columns[MRQT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="MRQT"
+                      externalMetadataColumnId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[codigoOperacion]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRQT]" />
+                    <inputColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].Columns[MRTRQT]"
+                      cachedDataType="r8"
+                      cachedName="MRTRQT"
+                      externalMetadataColumnId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[cantidad]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[MRTRQT]" />
+                    <inputColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].Columns[fechaUltimoDiaMesSig]"
+                      cachedDataType="dbDate"
+                      cachedName="fechaUltimoDiaMesSig"
+                      externalMetadataColumnId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaUltimoDiaMesSig]"
+                      lineageId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB].Columns[fechaUltimoDiaMesSig]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[ID_MRP]"
+                      dataType="i4"
+                      name="ID_MRP" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[numeroArticulo]"
+                      dataType="i4"
+                      name="numeroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[unidadNegocio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="unidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[codigoOperacion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="codigoOperacion" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[fechaUltimoDiaMesSig]"
+                      dataType="dbDate"
+                      name="fechaUltimoDiaMesSig" />
+                    <externalMetadataColumn
+                      refId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB].ExternalColumns[cantidad]"
+                      dataType="r8"
+                      name="cantidad" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_MRP\STG_MRP.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_MRP\STG_MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\STG_MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_MRP\STG_MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_MRP\STG_MRP.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_MRP.Paths[Salida de columna derivada]"
+              endId="Package\STG_MRP\STG_MRP.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de columna derivada"
+              startId="Package\STG_MRP\Modificar cantidad.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\STG_MRP.Paths[Salida de origen de OLE DB]"
+              endId="Package\STG_MRP\Modificar cantidad.Inputs[Entrada de columna derivada]"
+              name="Salida de origen de OLE DB"
+              startId="Package\STG_MRP\INPUT MRP.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG_MRP"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EEE4C594-E5F5-476C-98CB-A3F12A5C552F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG_MRP"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="BEGIN TRANSACTION&#xA;&#xA;TRUNCATE TABLE STG_MRP;&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{FB166619-F27C-4161-BFB0-36D0E7B437EE}"
+      DTS:From="Package\Truncate STG_MRP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\STG_MRP" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="125,42"
+          Id="Package\STG_MRP"
+          TopLeft="294,115" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Truncate STG_MRP"
+          TopLeft="268,21" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="354.75,63">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_MRP">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\STG_MRP\Modificar cantidad"
+          TopLeft="287.666666666667,142" />
+        <NodeLayout
+          Size="133,42"
+          Id="Package\STG_MRP\INPUT MRP"
+          TopLeft="303.666666666667,17" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\STG_MRP\STG_MRP"
+          TopLeft="305.666666666667,263" />
+        <EdgeLayout
+          Id="Package\STG_MRP.Paths[Salida de origen de OLE DB]"
+          TopLeft="370.166666666667,59">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,83"
+              Start="0,0"
+              End="0,75.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_MRP.Paths[Salida de columna derivada]"
+          TopLeft="369.166666666667,184">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,79"
+              Start="0,0"
+              End="0,71.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_MRP\INPUT MRP">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_MRP\STG_MRP">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

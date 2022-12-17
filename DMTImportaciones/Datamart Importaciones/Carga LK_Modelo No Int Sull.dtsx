@@ -1,0 +1,1978 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/3/2018 10:32:44 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrcrm"
+  DTS:DTSID="{54F33D98-8C01-462F-A829-778E027D6EAB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="Carga LK_Modelo No Int Sull"
+  DTS:PackageType="5"
+  DTS:VersionBuild="235"
+  DTS:VersionGUID="{84C76C3B-918B-421D-AE7D-FE15D8F92D5F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga LK_Modelo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C028271E-6BA9-4880-BB72-E8DFAC6D18D9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga LK_Modelo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga LK_Modelo\CHK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Checksum Transformation; Konesans Ltd; Copyright © 2014 Konesans Ltd; http://www.konesans.com"
+              description="Checksum Transformation for SQL Server Integration Services 2014"
+              name="CHK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The Checksum Transformation algorithm used to produce the resulting checksum value."
+                  name="ChecksumAlgorithm"
+                  typeConverter="Konesans.Dts.Pipeline.ChecksumTransform.ChecksumTransform+ChecksumAlgorithm, Konesans.Dts.Pipeline.ChecksumTransform, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b2ab4a111192992b">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Konesans.ChecksumTransformation</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput]"
+                  errorRowDisposition="FailComponent"
+                  name="ChecksumInput">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput].Columns[FG_MOD_InteresSullair]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FG_MOD_InteresSullair"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput]"
+                  exclusionGroup="1"
+                  name="ChecksumOutput"
+                  synchronousInputId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput].Columns[Checksum]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput].Columns[Checksum]"
+                      name="Checksum">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Checksum transformation result column indicator."
+                          name="Checksum">Checksum</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\Conditional Split.Outputs[RowsOk]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="RowsOk"
+                  synchronousInputId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]} != "" &amp;&amp; #{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]} != "" &amp;&amp; ![ISNULL](#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]}) &amp;&amp; ![ISNULL](#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">VC_MOD_Modelo != "" &amp;&amp; VC_MOD_Marca != "" &amp;&amp; !ISNULL(VC_MOD_Modelo) &amp;&amp; !ISNULL(VC_MOD_Marca)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\Existe Normalizado?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe Normalizado?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Modelo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Modelo]) [refTable]
+where [refTable].[VC_MOD_ModeloNormalizado] = ? and [refTable].[VC_MOD_MarcaNormalizada] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_MOD_Modelo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Modelo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Marca" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_SubFamilia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Familia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaMKT" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FG_MOD_InteresSullair" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_CREACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ULTIMA_MODIFICACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_ModeloNormalizado" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_MarcaNormalizada" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_MarcaYModelo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_MarcaYModeloNormalizados" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_MOD_PotenciaHP" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_MOD_CaudalM3PorMin" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]};#{Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Modelo\Existe Normalizado?.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_ModeloNormalizado</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_MarcaNormalizada</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Match Output].Columns[SK_MOD_Modelo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Match Output].Columns[SK_MOD_Modelo]"
+                      name="SK_MOD_Modelo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_MOD_Modelo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\Existe?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Existe?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[LK_Modelo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[LK_Modelo]) [refTable]
+where [refTable].[VC_MOD_Modelo] = ? and [refTable].[VC_MOD_Marca] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SK_MOD_Modelo" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Modelo" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Marca" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_SubFamilia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_Familia" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaHistorico" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SK_SFM_SubFamiliaMKT" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FG_MOD_InteresSullair" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CH_CHECKSUM" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_CREACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FECHA_ULTIMA_MODIFICACION" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_ModeloNormalizado" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VC_MOD_MarcaNormalizada" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_MOD_PotenciaHP" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NU_MOD_CaudalM3PorMin" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]};#{Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Modelo\Existe?.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_Marca</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VC_MOD_Modelo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Match Output].Columns[SK_MOD_Modelo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Match Output].Columns[SK_MOD_Modelo]"
+                      name="SK_MOD_Modelo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SK_MOD_Modelo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\Format"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input].Columns[MARCA]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="MARCA"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MARCA]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input].Columns[MODELO]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="MODELO"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MODELO]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input].Columns[INTERES_SULLAIR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="INTERES_SULLAIR"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[INTERES_SULLAIR]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER]([LTRIM]([RTRIM]([REPLACE]([REPLACE]([REPLACE]([REPLACE](#{Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MODELO]},".","")," ",""),"/",""),"_",""))))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(LTRIM(RTRIM(REPLACE(REPLACE(REPLACE(REPLACE(MODELO,".","")," ",""),"/",""),"_",""))))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER]([LTRIM]([RTRIM](#{Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MARCA]})))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(LTRIM(RTRIM(MARCA)))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]"
+                      name="FG_MOD_InteresSullair"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LTRIM]([RTRIM](#{Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[INTERES_SULLAIR]}))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LTRIM(RTRIM(INTERES_SULLAIR))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_CREACION]"
+                      name="FECHA_CREACION"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      name="FECHA_ULTIMA_MODIFICACION"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_R8)0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_R8)0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_R8)0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_R8)0</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\LK_MODELO"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LK_MODELO"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LK_MODELO]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Modelo\LK_MODELO.Connections[OleDbConnection]"
+                  connectionManagerID="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWHConnectionStringDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Modelo]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Marca]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FG_MOD_InteresSullair]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FG_MOD_InteresSullair"
+                      cachedSortKeyPosition="3"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_InteresSullair]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FG_MOD_InteresSullair]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FECHA_CREACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_CREACION"
+                      cachedSortKeyPosition="4"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_CREACION]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_ULTIMA_MODIFICACION"
+                      cachedSortKeyPosition="5"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_ULTIMA_MODIFICACION]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[Checksum]"
+                      cachedDataType="i4"
+                      cachedName="Checksum"
+                      cachedSortKeyPosition="6"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[Checksum]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[FAMILIA]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FAMILIA"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Familia]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FAMILIA]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[SUBFAMILIA]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SUBFAMILIA"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_SubFamilia]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[SUBFAMILIA]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[NU_MOD_PotenciaHP]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_PotenciaHP"
+                      cachedSortKeyPosition="7"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_PotenciaHP]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_PotenciaHP]" />
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].Columns[NU_MOD_CaudalM3PorMin]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_CaudalM3PorMin"
+                      cachedSortKeyPosition="8"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_CaudalM3PorMin]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_MOD_Modelo]"
+                      dataType="i8"
+                      name="SK_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Modelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_SubFamilia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_SubFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_Familia]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaHistorico]"
+                      dataType="i8"
+                      name="SK_SFM_SubFamiliaHistorico" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[SK_SFM_SubFamiliaMKT]"
+                      dataType="i8"
+                      name="SK_SFM_SubFamiliaMKT" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_InteresSullair]"
+                      dataType="wstr"
+                      length="1"
+                      name="FG_MOD_InteresSullair" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[CH_CHECKSUM]"
+                      dataType="i8"
+                      name="CH_CHECKSUM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_CREACION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      name="FECHA_ULTIMA_MODIFICACION" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_ModeloNormalizado]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_ModeloNormalizado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_MarcaNormalizada]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaNormalizada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      name="NU_MOD_PotenciaHP" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      name="NU_MOD_CaudalM3PorMin" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[FG_MOD_OilFree]"
+                      dataType="wstr"
+                      length="1"
+                      name="FG_MOD_OilFree" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[NU_MOD_fobCustom]"
+                      dataType="i4"
+                      name="NU_MOD_fobCustom" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_MarcaYModelo]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaYModelo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input].ExternalColumns[VC_MOD_MarcaYModeloNormalizados]"
+                      dataType="wstr"
+                      length="255"
+                      name="VC_MOD_MarcaYModeloNormalizados" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\LK_MODELO.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\LK_MODELO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[VC_MOD_Modelo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Modelo"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[VC_MOD_Marca]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="VC_MOD_Marca"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[FG_MOD_InteresSullair]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FG_MOD_InteresSullair"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[FECHA_CREACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_CREACION"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_CREACION]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FECHA_ULTIMA_MODIFICACION"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[Checksum]"
+                      cachedDataType="i4"
+                      cachedName="Checksum"
+                      lineageId="Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput].Columns[Checksum]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[FAMILIA]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FAMILIA"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[FAMILIA]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[SUBFAMILIA]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SUBFAMILIA"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[SUBFAMILIA]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[NU_MOD_PotenciaHP]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_PotenciaHP"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_PotenciaHP]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">7</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input].Columns[NU_MOD_CaudalM3PorMin]"
+                      cachedDataType="r8"
+                      cachedName="NU_MOD_CaudalM3PorMin"
+                      lineageId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_CaudalM3PorMin]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">8</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Modelo]"
+                      name="VC_MOD_Modelo"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Modelo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[VC_MOD_Marca]"
+                      name="VC_MOD_Marca"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[VC_MOD_Marca]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FG_MOD_InteresSullair]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FG_MOD_InteresSullair]"
+                      name="FG_MOD_InteresSullair"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FG_MOD_InteresSullair]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_CREACION]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_CREACION]"
+                      name="FECHA_CREACION"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_CREACION]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FECHA_ULTIMA_MODIFICACION]"
+                      name="FECHA_ULTIMA_MODIFICACION"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[FECHA_ULTIMA_MODIFICACION]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[Checksum]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[Checksum]"
+                      name="Checksum"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput].Columns[Checksum]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FAMILIA]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[FAMILIA]"
+                      name="FAMILIA">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[FAMILIA]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[SUBFAMILIA]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[SUBFAMILIA]"
+                      name="SUBFAMILIA">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[SUBFAMILIA]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_PotenciaHP]"
+                      dataType="r8"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_PotenciaHP]"
+                      name="NU_MOD_PotenciaHP"
+                      sortKeyPosition="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_PotenciaHP]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_CaudalM3PorMin]"
+                      dataType="r8"
+                      lineageId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output].Columns[NU_MOD_CaudalM3PorMin]"
+                      name="NU_MOD_CaudalM3PorMin"
+                      sortKeyPosition="8">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga LK_Modelo\Format.Outputs[Derived Column Output].Columns[NU_MOD_CaudalM3PorMin]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga LK_Modelo\STG_IMPORTACIONES"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG_IMPORTACIONES"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_MODELOS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT
+MARCA,
+MODELO,
+FAMILIA = -1, 
+SUBFAMILIA = -1,
+INTERES_SULLAIR = null
+from [dbo].[STG_IMPORTACIONES_PROCESSED]
+WHERE YEAR(FECHA_NORMALIZADA) in (2010,2011,2012,2013,2014,2015)
+--AND MONTH(FECHA_NORMALIZADA) = 12
+-- despues eliminar esto
+AND POSICION_ARANCELARIA IN ('84144020$' , '84148012$','00000000$')
+ORDER BY 2</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Connections[OleDbConnection]"
+                  connectionManagerID="{652DBF4A-F5D0-460B-9F93-123EC34ECB97}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STGConnectionDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MARCA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[MARCA]"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MARCA]"
+                      name="MARCA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[FAMILIA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[FAMILIA]"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[FAMILIA]"
+                      name="FAMILIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[SUBFAMILIA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[SUBFAMILIA]"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[SUBFAMILIA]"
+                      name="SUBFAMILIA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[INTERES_SULLAIR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[INTERES_SULLAIR]"
+                      length="50"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[INTERES_SULLAIR]"
+                      name="INTERES_SULLAIR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MODELO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[MODELO]"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].Columns[MODELO]"
+                      name="MODELO"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[MARCA]"
+                      dataType="wstr"
+                      length="255"
+                      name="MARCA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[FAMILIA]"
+                      dataType="i4"
+                      name="FAMILIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[SUBFAMILIA]"
+                      dataType="i4"
+                      name="SUBFAMILIA" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[INTERES_SULLAIR]"
+                      dataType="i4"
+                      name="INTERES_SULLAIR" />
+                    <externalMetadataColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output].ExternalColumns[MODELO]"
+                      dataType="wstr"
+                      length="255"
+                      name="MODELO" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[MARCA]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[MARCA]"
+                      name="MARCA" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[MODELO]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[MODELO]"
+                      name="MODELO" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[FAMILIA]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[FAMILIA]"
+                      name="FAMILIA" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[SUBFAMILIA]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[SUBFAMILIA]"
+                      name="SUBFAMILIA" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[INTERES_SULLAIR]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[INTERES_SULLAIR]"
+                      name="INTERES_SULLAIR" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga LK_Modelo.Paths[ChecksumOutput]"
+              endId="Package\Carga LK_Modelo\Sort.Inputs[Sort Input]"
+              name="ChecksumOutput"
+              startId="Package\Carga LK_Modelo\CHK.Outputs[ChecksumOutput]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[Derived Column Output]"
+              endId="Package\Carga LK_Modelo\Conditional Split.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Carga LK_Modelo\Format.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[Lookup No Match Output]"
+              endId="Package\Carga LK_Modelo\Existe Normalizado?.Inputs[Lookup Input]"
+              name="Lookup No Match Output"
+              startId="Package\Carga LK_Modelo\Existe?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[Lookup No Match Output1]"
+              endId="Package\Carga LK_Modelo\LK_MODELO.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Carga LK_Modelo\Existe Normalizado?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[OLE DB Source Output]"
+              endId="Package\Carga LK_Modelo\Format.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga LK_Modelo\STG_IMPORTACIONES.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[RowsOk]"
+              endId="Package\Carga LK_Modelo\CHK.Inputs[ChecksumInput]"
+              name="RowsOk"
+              startId="Package\Carga LK_Modelo\Conditional Split.Outputs[RowsOk]" />
+            <path
+              refId="Package\Carga LK_Modelo.Paths[Sort Output]"
+              endId="Package\Carga LK_Modelo\Existe?.Inputs[Lookup Input]"
+              name="Sort Output"
+              startId="Package\Carga LK_Modelo\Sort.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{6F763E28-ED00-46D6-ABB9-9113135A25B0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E4B9CABC-A5E0-4BFA-866A-100F1B4974EB}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE LK_MODELO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9D62EDC2-4FCC-48A6-AD1F-51D3A75E39BA}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga LK_Modelo" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Carga LK_Modelo"
+          TopLeft="258,115" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\TRUNCATE"
+          TopLeft="273,34" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="340.25,76">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga LK_Modelo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Carga LK_Modelo\Format"
+          TopLeft="293.272727272727,77.0303030303031" />
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Carga LK_Modelo\Conditional Split"
+          TopLeft="267.272727272727,149.090909090909" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Carga LK_Modelo\LK_MODELO"
+          TopLeft="277.373376623376,563.312770562771" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Carga LK_Modelo\Existe Normalizado?"
+          TopLeft="261.000000447035,470.299999976754" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Carga LK_Modelo\Existe?"
+          TopLeft="292.068181818182,382.377705627706" />
+        <NodeLayout
+          Size="98,42"
+          Id="Package\Carga LK_Modelo\Sort"
+          TopLeft="298.288961038961,307.78354978355" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\Carga LK_Modelo\CHK"
+          TopLeft="297.042207792208,233.845238095238" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Carga LK_Modelo\STG_IMPORTACIONES"
+          TopLeft="253.454545454545,2.75757575757575" />
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[Sort Output]"
+          TopLeft="347.678571428572,349.78354978355">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.5941558441557"
+              Start="0,0"
+              End="0,25.0941558441557">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.0941558441557" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[RowsOk]"
+          TopLeft="346.657467532468,191.090909090909">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.754329004329"
+              Start="0,0"
+              End="0,35.254329004329">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.254329004329" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-18.52412109375,12.7526527834145,37.0482421875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[OLE DB Source Output]"
+          TopLeft="347.863636363636,44.7575757575758">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.2727272727274"
+              Start="0,0"
+              End="0,24.7727272727274">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7727272727274" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[Lookup No Match Output1]"
+          TopLeft="346.936688535205,512.299999976754">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.012770586017"
+              Start="0,0"
+              End="0,43.512770586017">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.512770586017" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,15.9516977930085,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[Lookup No Match Output]"
+          TopLeft="347.784091132609,424.377705627706">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.922294349048"
+              Start="0,0"
+              End="0,38.422294349048">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.422294349048" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,13.406459674524,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[Derived Column Output]"
+          TopLeft="348.022727272727,119.030303030303">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.0606060606059"
+              Start="0,0"
+              End="0,22.5606060606059">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5606060606059" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga LK_Modelo.Paths[ChecksumOutput]"
+          TopLeft="346.915584415585,275.845238095238">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.9383116883122"
+              Start="0,0"
+              End="0,24.4383116883122">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4383116883122" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Modelo\LK_MODELO">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Modelo\Existe Normalizado?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Modelo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Modelo\Existe?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[LK_Modelo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga LK_Modelo\STG_IMPORTACIONES">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

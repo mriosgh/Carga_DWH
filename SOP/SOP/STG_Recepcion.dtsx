@@ -1,0 +1,2666 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/11/2019 4:30:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-0BMVGN8"
+  DTS:CreatorName="DESKTOP-0BMVGN8\Dthink"
+  DTS:DTSID="{3C9B2CF0-BAC2-4993-8426-47BD4BB2C40A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_Recepcion"
+  DTS:PackageType="5"
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{F771C48D-8C12-4825-B2A1-E9BE75E08D53}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga STG_Recepcion"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{E7A5D61F-0C15-4DB1-8CED-7CA5CAF6099A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga STG_Recepcion"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga STG_Recepcion\INPUT Recepcion"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="INPUT Recepcion"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+	CAST(PRAN8  AS [bigint] ) AS [NroCuenta],
+	CAST(PRKCOO AS [nvarchar](10)) AS [NroCompaniaOrden],
+	CAST(PRDOCO AS [bigint] ) AS [NroOrden],
+	CAST(PRDCTO AS [nvarchar](10)) AS [TipoOrden],
+	CAST(PRSFXO AS [nvarchar](10)) AS [NroSufijo],
+	CAST(PRLNID AS [bigint] ) AS [NroLinea],
+	CAST(PRNLIN AS [bigint] ) AS [CantidadDeLineas],
+	CAST(PRITM  AS [bigint] ) AS [nroArticulo],
+	CAST(PRLOCN AS [nvarchar](20) ) AS [CodigoLocalizacion],
+	CAST(PRLOTN AS [nvarchar](30) ) AS [NroSerie],
+	CAST(PRCNID AS [nvarchar](20) ) AS [IDContenedor],
+	CAST(PRNXTR AS [nvarchar](10) ) AS [EstadoSiguiente],
+	CAST(PRLTTR AS [nvarchar](10) ) AS [EstadoUltimo],
+	CAST(DATEADD(dd,((PRTRDJ % 1000) - 1),(cast(cast(1900+(PRTRDJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date]) AS [FechaTransaccion],
+	CAST(DATEADD(dd,((PRRCDJ % 1000) - 1),(cast(cast(1900+(PRRCDJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date]) AS [FechaRecepcion],
+	CAST(DATEADD(dd,((PRDRQJ % 1000) - 1),(cast(cast(1900+(PRDRQJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date]) AS [FechaRequerida],
+	CAST(DATEADD(dd,((PRPDDJ % 1000) - 1),(cast(cast(1900+(PRPDDJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date]) AS [FechaProgramada],
+	CAST(DATEADD(dd,((PROPDJ % 1000) - 1),(cast(cast(1900+(PROPDJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date]) AS [FechaPrometidaOriginal],
+	CAST(PRVINV AS [nvarchar](25)) AS [NroFacturaProveedor],
+	CAST(PRPTC  AS [nvarchar](10)) AS [TerminosPago],
+	CAST(PRPST  AS [nvarchar](10)) AS [EstadoPago],
+	CAST(PRRTGC AS [nvarchar](10)) AS [ProcesoRouting],
+	CAST(PRLNTY AS [nvarchar](10)) AS [TipoLinea],
+	CAST(PRGLC  AS [nvarchar](10)) AS [CategoriaArticulo],
+	CAST(PRMCU  AS [nvarchar](12)) AS [UnidadNegocio],
+	CAST(PRCO   AS [nvarchar](10)) AS [NroCompania],
+	CAST(PRAID  AS [nvarchar](10)) AS [IDCuenta],
+	CAST(PRANI  AS [nvarchar](29)) AS [NroCuentaInput],
+	CAST(PROMCU AS [nvarchar](12)) AS [UnidadNegocioProyecto],
+	CAST(PROBJ  AS [nvarchar](10)) AS [CuentaObjeto],
+	CAST(PRSBL  AS [nvarchar](10)) AS [NroSubmaestroGL],
+	CAST(PRSBLT AS [nvarchar](10)) AS [TipoSubmaestroGL],
+	CAST(PRKCO  AS [nvarchar](10)) AS [NroCompaniaDocumento],
+	CAST(PRDOC  AS [bigint] ) AS [NroDocumento],
+	CAST(PRDCT  AS [nvarchar](10)) AS [TipoDocumento],
+	CAST(PRSFX  AS [nvarchar](10)) AS [ItemDocumentoPago],
+	CAST(DATEADD(dd,((PRDGL % 1000) - 1),(cast(cast(1900+(PRDGL/1000) as decimal(40)) as varchar(4)) + '01' + '01')) AS [date]) AS [FechaGL],
+	CAST(PRJELN AS [bigint] ) AS [NroLineaEntradaDiario],
+	CAST(PRVANI AS [nvarchar](29)) AS [NroCuentaRecibidaNoVoucher],
+	CAST(PRTX   AS [nvarchar](10)) AS [CompraImponible],
+	CAST(PREXR1 AS [nvarchar](10)) AS [ImpuestoExpl],
+	CAST(PRTXA1 AS [nvarchar](10)) AS [ImpuestoRatioArea],
+	CAST(PRUOM  AS [nvarchar](10)) AS [UnidadMedida],
+	CAST(PRUORG AS [bigint] ) AS [CantidadUnidades],
+	CAST(PRUPTD AS [bigint] ) AS [UnidadesPagadasALaFecha],
+	CAST(PRUOPN AS [bigint] ) AS [UnidadesAbiertas],
+	CAST(PRUREC AS [bigint] ) AS [UnidadesRecibidas],
+	CAST(PRUCLO AS [bigint] ) AS [UnidadesCerradas],
+	CAST(PRQTYS AS [bigint] ) AS [UnidadesStock],
+	CAST(PRQTYR AS [bigint] ) AS [UnidadesRegresadas],
+	CAST(PRUOM3 AS [nvarchar](10)) AS [UnidadMedidaAdquisitiva],
+	CAST(PRPRRC AS [bigint] ) AS [MontoCostoUnitario],
+	CAST(PRECST AS [bigint] ) AS [MontoCostoExtendido],
+	CAST(PRAPTD AS [bigint] ) AS [MontoPagadoALaFecha],
+	CAST(PRAOPN AS [bigint] ) AS [MontoAbierto],
+	CAST(PRAREC AS [bigint] ) AS [MontoRecibido],
+	CAST(PRACLO AS [bigint] ) AS [MontoCerrado],
+	CAST(PRAVCO AS [bigint] ) AS [MontoDiferenciaCostoPromedio],
+	CAST(PRVARC AS [bigint] ) AS [MontoVarianzaCosto],
+	CAST(PRCRCD AS [nvarchar](10) ) AS [CodigoMoneda],
+	CAST(PRCRR  AS [bigint] ) AS [CotizacionMonedaSpot],
+	CAST(PRFRRC AS [bigint] ) AS [MontoPUnitMonExt],
+	CAST(PRFEC  AS [bigint] ) AS [MontoCostoExtMonExt],
+	CAST(PRFAP  AS [bigint] ) AS [MontoAbiertoExt],
+	CAST(PRFAPT AS [bigint] ) AS [MontoPagadoAFechaExt],
+	CAST(PRFREC AS [bigint] ) AS [MontoRecibidoExt],
+	CAST(PRFCLO AS [bigint] ) AS [MontoCerradoExt],
+	CAST(PRTORG AS [nvarchar](10) ) AS [UsuarioTransaccion],
+	CAST(PRUSER AS [nvarchar](10) ) AS [IDUsuario],
+	CAST(PRPID  AS [nvarchar](10) ) AS [IDPrograma],
+	CAST(PRJOBN AS [nvarchar](10) ) AS [IDEstacionTrabajo],
+	CAST(DATEADD(dd,((PRUPMJ % 1000) - 1),(cast(cast(1900+(PRUPMJ/1000) as decimal(40)) as varchar(4)) + '01' + '01'))  AS [date] ) AS [FechaActualizacion],
+	CAST(PRTDAY AS [bigint] ) AS [TiempoActualizacion]				
+FROM PRODDTA.F43121</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping">"0:Input",{2A2BA581-7835-48E9-8092-10D5AAD69648};"1:Input",{8A213B9A-6AC7-4016-A413-1DE745252898};"2:Input",{2A2BA581-7835-48E9-8092-10D5AAD69648};"3:Input",{8A213B9A-6AC7-4016-A413-1DE745252898};"4:Input",{2A2BA581-7835-48E9-8092-10D5AAD69648};"5:Input",{8A213B9A-6AC7-4016-A413-1DE745252898};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Recepcion\INPUT Recepcion.Connections[OleDbConnection]"
+                  connectionManagerID="{15430022-1EF1-4861-BA04-BB3EF5AE206F}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JDE_REP]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuenta]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuenta]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuenta]"
+                      name="NroCuenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompaniaOrden]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaOrden]"
+                      name="NroCompaniaOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroOrden]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroOrden]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroOrden]"
+                      name="NroOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoOrden]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoOrden]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoOrden]"
+                      name="TipoOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSufijo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSufijo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSufijo]"
+                      name="NroSufijo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLinea]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroLinea]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLinea]"
+                      name="NroLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadDeLineas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CantidadDeLineas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadDeLineas]"
+                      name="CantidadDeLineas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[nroArticulo]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[nroArticulo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[nroArticulo]"
+                      name="nroArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoLocalizacion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CodigoLocalizacion]"
+                      length="20"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoLocalizacion]"
+                      name="CodigoLocalizacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSerie]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSerie]"
+                      length="30"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSerie]"
+                      name="NroSerie"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDContenedor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDContenedor]"
+                      length="20"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDContenedor]"
+                      name="IDContenedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoSiguiente]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoSiguiente]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoSiguiente]"
+                      name="EstadoSiguiente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoUltimo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoUltimo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoUltimo]"
+                      name="EstadoUltimo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaTransaccion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaTransaccion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaTransaccion]"
+                      name="FechaTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRecepcion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaRecepcion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRecepcion]"
+                      name="FechaRecepcion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRequerida]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaRequerida]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRequerida]"
+                      name="FechaRequerida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaProgramada]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaProgramada]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaProgramada]"
+                      name="FechaProgramada"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaPrometidaOriginal]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaPrometidaOriginal]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaPrometidaOriginal]"
+                      name="FechaPrometidaOriginal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroFacturaProveedor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroFacturaProveedor]"
+                      length="25"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroFacturaProveedor]"
+                      name="NroFacturaProveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TerminosPago]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TerminosPago]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TerminosPago]"
+                      name="TerminosPago"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoPago]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoPago]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoPago]"
+                      name="EstadoPago"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ProcesoRouting]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ProcesoRouting]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ProcesoRouting]"
+                      name="ProcesoRouting"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoLinea]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoLinea]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoLinea]"
+                      name="TipoLinea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CategoriaArticulo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CategoriaArticulo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CategoriaArticulo]"
+                      name="CategoriaArticulo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocio]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadNegocio]"
+                      length="12"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocio]"
+                      name="UnidadNegocio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompania]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompania]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompania]"
+                      name="NroCompania"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDCuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDCuenta]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDCuenta]"
+                      name="IDCuenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaInput]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuentaInput]"
+                      length="29"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaInput]"
+                      name="NroCuentaInput"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocioProyecto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadNegocioProyecto]"
+                      length="12"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocioProyecto]"
+                      name="UnidadNegocioProyecto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CuentaObjeto]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CuentaObjeto]"
+                      name="CuentaObjeto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSubmaestroGL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSubmaestroGL]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSubmaestroGL]"
+                      name="NroSubmaestroGL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoSubmaestroGL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoSubmaestroGL]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoSubmaestroGL]"
+                      name="TipoSubmaestroGL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaDocumento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompaniaDocumento]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaDocumento]"
+                      name="NroCompaniaDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroDocumento]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroDocumento]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroDocumento]"
+                      name="NroDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoDocumento]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoDocumento]"
+                      name="TipoDocumento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ItemDocumentoPago]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ItemDocumentoPago]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ItemDocumentoPago]"
+                      name="ItemDocumentoPago"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaGL]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaGL]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaGL]"
+                      name="FechaGL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLineaEntradaDiario]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroLineaEntradaDiario]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLineaEntradaDiario]"
+                      name="NroLineaEntradaDiario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaRecibidaNoVoucher]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuentaRecibidaNoVoucher]"
+                      length="29"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaRecibidaNoVoucher]"
+                      name="NroCuentaRecibidaNoVoucher"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CompraImponible]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CompraImponible]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CompraImponible]"
+                      name="CompraImponible"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoExpl]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ImpuestoExpl]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoExpl]"
+                      name="ImpuestoExpl"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoRatioArea]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ImpuestoRatioArea]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoRatioArea]"
+                      name="ImpuestoRatioArea"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedida]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadMedida]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedida]"
+                      name="UnidadMedida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadUnidades]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CantidadUnidades]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadUnidades]"
+                      name="CantidadUnidades"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesPagadasALaFecha]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesPagadasALaFecha]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesPagadasALaFecha]"
+                      name="UnidadesPagadasALaFecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesAbiertas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesAbiertas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesAbiertas]"
+                      name="UnidadesAbiertas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRecibidas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesRecibidas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRecibidas]"
+                      name="UnidadesRecibidas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesCerradas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesCerradas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesCerradas]"
+                      name="UnidadesCerradas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesStock]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesStock]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesStock]"
+                      name="UnidadesStock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRegresadas]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesRegresadas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRegresadas]"
+                      name="UnidadesRegresadas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedidaAdquisitiva]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadMedidaAdquisitiva]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedidaAdquisitiva]"
+                      name="UnidadMedidaAdquisitiva"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoUnitario]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoUnitario]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoUnitario]"
+                      name="MontoCostoUnitario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtendido]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoExtendido]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtendido]"
+                      name="MontoCostoExtendido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoALaFecha]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPagadoALaFecha]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoALaFecha]"
+                      name="MontoPagadoALaFecha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbierto]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoAbierto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbierto]"
+                      name="MontoAbierto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibido]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoRecibido]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibido]"
+                      name="MontoRecibido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerrado]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCerrado]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerrado]"
+                      name="MontoCerrado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoDiferenciaCostoPromedio]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoDiferenciaCostoPromedio]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoDiferenciaCostoPromedio]"
+                      name="MontoDiferenciaCostoPromedio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoVarianzaCosto]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoVarianzaCosto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoVarianzaCosto]"
+                      name="MontoVarianzaCosto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoMoneda]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CodigoMoneda]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoMoneda]"
+                      name="CodigoMoneda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CotizacionMonedaSpot]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CotizacionMonedaSpot]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CotizacionMonedaSpot]"
+                      name="CotizacionMonedaSpot"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPUnitMonExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPUnitMonExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPUnitMonExt]"
+                      name="MontoPUnitMonExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtMonExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoExtMonExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtMonExt]"
+                      name="MontoCostoExtMonExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbiertoExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoAbiertoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbiertoExt]"
+                      name="MontoAbiertoExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoAFechaExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPagadoAFechaExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoAFechaExt]"
+                      name="MontoPagadoAFechaExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibidoExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoRecibidoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibidoExt]"
+                      name="MontoRecibidoExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerradoExt]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCerradoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerradoExt]"
+                      name="MontoCerradoExt"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UsuarioTransaccion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UsuarioTransaccion]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UsuarioTransaccion]"
+                      name="UsuarioTransaccion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDUsuario]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDUsuario]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDUsuario]"
+                      name="IDUsuario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDPrograma]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDPrograma]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDPrograma]"
+                      name="IDPrograma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDEstacionTrabajo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDEstacionTrabajo]"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDEstacionTrabajo]"
+                      name="IDEstacionTrabajo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaActualizacion]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaActualizacion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaActualizacion]"
+                      name="FechaActualizacion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TiempoActualizacion]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TiempoActualizacion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TiempoActualizacion]"
+                      name="TiempoActualizacion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuenta]"
+                      dataType="i8"
+                      name="NroCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompaniaOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompaniaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroOrden]"
+                      dataType="i8"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSufijo]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroLinea]"
+                      dataType="i8"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CantidadDeLineas]"
+                      dataType="i8"
+                      name="CantidadDeLineas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[nroArticulo]"
+                      dataType="i8"
+                      name="nroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CodigoLocalizacion]"
+                      dataType="wstr"
+                      length="20"
+                      name="CodigoLocalizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="30"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDContenedor]"
+                      dataType="wstr"
+                      length="20"
+                      name="IDContenedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaTransaccion]"
+                      dataType="dbDate"
+                      name="FechaTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaRecepcion]"
+                      dataType="dbDate"
+                      name="FechaRecepcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaRequerida]"
+                      dataType="dbDate"
+                      name="FechaRequerida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaProgramada]"
+                      dataType="dbDate"
+                      name="FechaProgramada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaPrometidaOriginal]"
+                      dataType="dbDate"
+                      name="FechaPrometidaOriginal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroFacturaProveedor]"
+                      dataType="wstr"
+                      length="25"
+                      name="NroFacturaProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TerminosPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="TerminosPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[EstadoPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ProcesoRouting]"
+                      dataType="wstr"
+                      length="10"
+                      name="ProcesoRouting" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CategoriaArticulo]"
+                      dataType="wstr"
+                      length="10"
+                      name="CategoriaArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDCuenta]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuentaInput]"
+                      dataType="wstr"
+                      length="29"
+                      name="NroCuentaInput" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadNegocioProyecto]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadNegocioProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      name="CuentaObjeto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSubmaestroGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoSubmaestroGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCompaniaDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompaniaDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroDocumento]"
+                      dataType="i8"
+                      name="NroDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ItemDocumentoPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="ItemDocumentoPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaGL]"
+                      dataType="dbDate"
+                      name="FechaGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroLineaEntradaDiario]"
+                      dataType="i8"
+                      name="NroLineaEntradaDiario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[NroCuentaRecibidaNoVoucher]"
+                      dataType="wstr"
+                      length="29"
+                      name="NroCuentaRecibidaNoVoucher" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CompraImponible]"
+                      dataType="wstr"
+                      length="10"
+                      name="CompraImponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ImpuestoExpl]"
+                      dataType="wstr"
+                      length="10"
+                      name="ImpuestoExpl" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[ImpuestoRatioArea]"
+                      dataType="wstr"
+                      length="10"
+                      name="ImpuestoRatioArea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CantidadUnidades]"
+                      dataType="i8"
+                      name="CantidadUnidades" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesPagadasALaFecha]"
+                      dataType="i8"
+                      name="UnidadesPagadasALaFecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesAbiertas]"
+                      dataType="i8"
+                      name="UnidadesAbiertas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesRecibidas]"
+                      dataType="i8"
+                      name="UnidadesRecibidas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesCerradas]"
+                      dataType="i8"
+                      name="UnidadesCerradas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesStock]"
+                      dataType="i8"
+                      name="UnidadesStock" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadesRegresadas]"
+                      dataType="i8"
+                      name="UnidadesRegresadas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UnidadMedidaAdquisitiva]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedidaAdquisitiva" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoUnitario]"
+                      dataType="i8"
+                      name="MontoCostoUnitario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoExtendido]"
+                      dataType="i8"
+                      name="MontoCostoExtendido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPagadoALaFecha]"
+                      dataType="i8"
+                      name="MontoPagadoALaFecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoAbierto]"
+                      dataType="i8"
+                      name="MontoAbierto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoRecibido]"
+                      dataType="i8"
+                      name="MontoRecibido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCerrado]"
+                      dataType="i8"
+                      name="MontoCerrado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoDiferenciaCostoPromedio]"
+                      dataType="i8"
+                      name="MontoDiferenciaCostoPromedio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoVarianzaCosto]"
+                      dataType="i8"
+                      name="MontoVarianzaCosto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[CotizacionMonedaSpot]"
+                      dataType="i8"
+                      name="CotizacionMonedaSpot" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPUnitMonExt]"
+                      dataType="i8"
+                      name="MontoPUnitMonExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCostoExtMonExt]"
+                      dataType="i8"
+                      name="MontoCostoExtMonExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoAbiertoExt]"
+                      dataType="i8"
+                      name="MontoAbiertoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoPagadoAFechaExt]"
+                      dataType="i8"
+                      name="MontoPagadoAFechaExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoRecibidoExt]"
+                      dataType="i8"
+                      name="MontoRecibidoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoCerradoExt]"
+                      dataType="i8"
+                      name="MontoCerradoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[UsuarioTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="UsuarioTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDPrograma]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDPrograma" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[IDEstacionTrabajo]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDEstacionTrabajo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaActualizacion]"
+                      dataType="dbDate"
+                      name="FechaActualizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].ExternalColumns[TiempoActualizacion]"
+                      dataType="i8"
+                      name="TiempoActualizacion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuenta]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuenta]"
+                      name="NroCuenta" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompaniaOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompaniaOrden]"
+                      name="NroCompaniaOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroOrden]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroOrden]"
+                      name="NroOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoOrden]"
+                      name="TipoOrden" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSufijo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSufijo]"
+                      name="NroSufijo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroLinea]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroLinea]"
+                      name="NroLinea" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CantidadDeLineas]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CantidadDeLineas]"
+                      name="CantidadDeLineas" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[nroArticulo]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[nroArticulo]"
+                      name="nroArticulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CodigoLocalizacion]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CodigoLocalizacion]"
+                      name="CodigoLocalizacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSerie]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSerie]"
+                      name="NroSerie" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDContenedor]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDContenedor]"
+                      name="IDContenedor" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoSiguiente]"
+                      name="EstadoSiguiente" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoUltimo]"
+                      name="EstadoUltimo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaTransaccion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaTransaccion]"
+                      name="FechaTransaccion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaRecepcion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaRecepcion]"
+                      name="FechaRecepcion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaRequerida]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaRequerida]"
+                      name="FechaRequerida" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaProgramada]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaProgramada]"
+                      name="FechaProgramada" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaPrometidaOriginal]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaPrometidaOriginal]"
+                      name="FechaPrometidaOriginal" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroFacturaProveedor]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroFacturaProveedor]"
+                      name="NroFacturaProveedor" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TerminosPago]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TerminosPago]"
+                      name="TerminosPago" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoPago]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[EstadoPago]"
+                      name="EstadoPago" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ProcesoRouting]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ProcesoRouting]"
+                      name="ProcesoRouting" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoLinea]"
+                      name="TipoLinea" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CategoriaArticulo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CategoriaArticulo]"
+                      name="CategoriaArticulo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadNegocio]"
+                      name="UnidadNegocio" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompania]"
+                      name="NroCompania" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDCuenta]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDCuenta]"
+                      name="IDCuenta" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuentaInput]"
+                      dataType="wstr"
+                      length="29"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuentaInput]"
+                      name="NroCuentaInput" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadNegocioProyecto]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadNegocioProyecto]"
+                      name="UnidadNegocioProyecto" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CuentaObjeto]"
+                      name="CuentaObjeto" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroSubmaestroGL]"
+                      name="NroSubmaestroGL" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoSubmaestroGL]"
+                      name="TipoSubmaestroGL" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompaniaDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCompaniaDocumento]"
+                      name="NroCompaniaDocumento" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroDocumento]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroDocumento]"
+                      name="NroDocumento" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TipoDocumento]"
+                      name="TipoDocumento" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ItemDocumentoPago]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ItemDocumentoPago]"
+                      name="ItemDocumentoPago" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaGL]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaGL]"
+                      name="FechaGL" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroLineaEntradaDiario]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroLineaEntradaDiario]"
+                      name="NroLineaEntradaDiario" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuentaRecibidaNoVoucher]"
+                      dataType="wstr"
+                      length="29"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[NroCuentaRecibidaNoVoucher]"
+                      name="NroCuentaRecibidaNoVoucher" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CompraImponible]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CompraImponible]"
+                      name="CompraImponible" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ImpuestoExpl]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ImpuestoExpl]"
+                      name="ImpuestoExpl" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ImpuestoRatioArea]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ImpuestoRatioArea]"
+                      name="ImpuestoRatioArea" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadMedida]"
+                      name="UnidadMedida" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CantidadUnidades]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CantidadUnidades]"
+                      name="CantidadUnidades" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesPagadasALaFecha]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesPagadasALaFecha]"
+                      name="UnidadesPagadasALaFecha" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesAbiertas]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesAbiertas]"
+                      name="UnidadesAbiertas" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesRecibidas]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesRecibidas]"
+                      name="UnidadesRecibidas" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesCerradas]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesCerradas]"
+                      name="UnidadesCerradas" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesStock]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesStock]"
+                      name="UnidadesStock" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesRegresadas]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadesRegresadas]"
+                      name="UnidadesRegresadas" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadMedidaAdquisitiva]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UnidadMedidaAdquisitiva]"
+                      name="UnidadMedidaAdquisitiva" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoUnitario]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoUnitario]"
+                      name="MontoCostoUnitario" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoExtendido]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoExtendido]"
+                      name="MontoCostoExtendido" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPagadoALaFecha]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPagadoALaFecha]"
+                      name="MontoPagadoALaFecha" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoAbierto]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoAbierto]"
+                      name="MontoAbierto" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoRecibido]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoRecibido]"
+                      name="MontoRecibido" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCerrado]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCerrado]"
+                      name="MontoCerrado" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoDiferenciaCostoPromedio]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoDiferenciaCostoPromedio]"
+                      name="MontoDiferenciaCostoPromedio" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoVarianzaCosto]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoVarianzaCosto]"
+                      name="MontoVarianzaCosto" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CodigoMoneda]"
+                      name="CodigoMoneda" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CotizacionMonedaSpot]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[CotizacionMonedaSpot]"
+                      name="CotizacionMonedaSpot" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPUnitMonExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPUnitMonExt]"
+                      name="MontoPUnitMonExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoExtMonExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCostoExtMonExt]"
+                      name="MontoCostoExtMonExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoAbiertoExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoAbiertoExt]"
+                      name="MontoAbiertoExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPagadoAFechaExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoPagadoAFechaExt]"
+                      name="MontoPagadoAFechaExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoRecibidoExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoRecibidoExt]"
+                      name="MontoRecibidoExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCerradoExt]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[MontoCerradoExt]"
+                      name="MontoCerradoExt" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UsuarioTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[UsuarioTransaccion]"
+                      name="UsuarioTransaccion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDUsuario]"
+                      name="IDUsuario" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDPrograma]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDPrograma]"
+                      name="IDPrograma" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDEstacionTrabajo]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[IDEstacionTrabajo]"
+                      name="IDEstacionTrabajo" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaActualizacion]"
+                      dataType="dbDate"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[FechaActualizacion]"
+                      name="FechaActualizacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TiempoActualizacion]"
+                      dataType="i8"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[TiempoActualizacion]"
+                      name="TiempoActualizacion" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga STG_Recepcion\Insert STG_Recepcion"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Insert STG_Recepcion"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[STG_Recepcion]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Connections[OleDbConnection]"
+                  connectionManagerID="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCuenta]"
+                      cachedDataType="i8"
+                      cachedName="NroCuenta"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuenta]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuenta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCompaniaOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroCompaniaOrden"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompaniaOrden]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroOrden]"
+                      cachedDataType="i8"
+                      cachedName="NroOrden"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroOrden]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TipoOrden]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoOrden"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoOrden]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoOrden]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroSufijo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroSufijo"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSufijo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSufijo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroLinea]"
+                      cachedDataType="i8"
+                      cachedName="NroLinea"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroLinea]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLinea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CantidadDeLineas]"
+                      cachedDataType="i8"
+                      cachedName="CantidadDeLineas"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CantidadDeLineas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadDeLineas]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[nroArticulo]"
+                      cachedDataType="i8"
+                      cachedName="nroArticulo"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroArticulo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[nroArticulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CodigoLocalizacion]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="CodigoLocalizacion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoLocalizacion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoLocalizacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroSerie]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="NroSerie"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSerie]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSerie]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[IDContenedor]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="IDContenedor"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDContenedor]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDContenedor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[EstadoSiguiente]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EstadoSiguiente"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoSiguiente]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoSiguiente]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[EstadoUltimo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EstadoUltimo"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoUltimo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoUltimo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaTransaccion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaTransaccion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaTransaccion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaRecepcion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaRecepcion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaRecepcion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRecepcion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaRequerida]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaRequerida"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaRequerida]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaRequerida]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaProgramada]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaProgramada"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProgramada]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaProgramada]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaPrometidaOriginal]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaPrometidaOriginal"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaPrometidaOriginal]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaPrometidaOriginal]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroFacturaProveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="NroFacturaProveedor"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroFacturaProveedor]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroFacturaProveedor]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TerminosPago]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TerminosPago"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TerminosPago]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TerminosPago]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[EstadoPago]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EstadoPago"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoPago]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[EstadoPago]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[ProcesoRouting]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ProcesoRouting"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ProcesoRouting]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ProcesoRouting]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TipoLinea]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoLinea"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoLinea]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoLinea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CategoriaArticulo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CategoriaArticulo"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CategoriaArticulo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CategoriaArticulo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadNegocio]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="UnidadNegocio"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadNegocio]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocio]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCompania]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroCompania"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompania]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompania]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[IDCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="IDCuenta"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDCuenta]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDCuenta]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCuentaInput]"
+                      cachedDataType="wstr"
+                      cachedLength="29"
+                      cachedName="NroCuentaInput"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuentaInput]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaInput]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadNegocioProyecto]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="UnidadNegocioProyecto"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadNegocioProyecto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadNegocioProyecto]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CuentaObjeto"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CuentaObjeto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CuentaObjeto]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroSubmaestroGL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroSubmaestroGL"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSubmaestroGL]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroSubmaestroGL]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TipoSubmaestroGL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoSubmaestroGL"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoSubmaestroGL]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoSubmaestroGL]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCompaniaDocumento]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="NroCompaniaDocumento"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompaniaDocumento]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCompaniaDocumento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroDocumento]"
+                      cachedDataType="i8"
+                      cachedName="NroDocumento"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroDocumento]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroDocumento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TipoDocumento]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="TipoDocumento"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoDocumento]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TipoDocumento]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[ItemDocumentoPago]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ItemDocumentoPago"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ItemDocumentoPago]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ItemDocumentoPago]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaGL]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaGL"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaGL]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaGL]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroLineaEntradaDiario]"
+                      cachedDataType="i8"
+                      cachedName="NroLineaEntradaDiario"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroLineaEntradaDiario]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroLineaEntradaDiario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[NroCuentaRecibidaNoVoucher]"
+                      cachedDataType="wstr"
+                      cachedLength="29"
+                      cachedName="NroCuentaRecibidaNoVoucher"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuentaRecibidaNoVoucher]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[NroCuentaRecibidaNoVoucher]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CompraImponible]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CompraImponible"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CompraImponible]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CompraImponible]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[ImpuestoExpl]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ImpuestoExpl"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ImpuestoExpl]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoExpl]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[ImpuestoRatioArea]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ImpuestoRatioArea"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ImpuestoRatioArea]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[ImpuestoRatioArea]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadMedida]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UnidadMedida"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadMedida]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedida]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CantidadUnidades]"
+                      cachedDataType="i8"
+                      cachedName="CantidadUnidades"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CantidadUnidades]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CantidadUnidades]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesPagadasALaFecha]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesPagadasALaFecha"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesPagadasALaFecha]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesPagadasALaFecha]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesAbiertas]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesAbiertas"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesAbiertas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesAbiertas]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesRecibidas]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesRecibidas"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesRecibidas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRecibidas]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesCerradas]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesCerradas"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesCerradas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesCerradas]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesStock]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesStock"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesStock]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesStock]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadesRegresadas]"
+                      cachedDataType="i8"
+                      cachedName="UnidadesRegresadas"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesRegresadas]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadesRegresadas]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UnidadMedidaAdquisitiva]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UnidadMedidaAdquisitiva"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadMedidaAdquisitiva]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UnidadMedidaAdquisitiva]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoCostoUnitario]"
+                      cachedDataType="i8"
+                      cachedName="MontoCostoUnitario"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoUnitario]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoUnitario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoCostoExtendido]"
+                      cachedDataType="i8"
+                      cachedName="MontoCostoExtendido"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoExtendido]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtendido]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoPagadoALaFecha]"
+                      cachedDataType="i8"
+                      cachedName="MontoPagadoALaFecha"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPagadoALaFecha]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoALaFecha]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoAbierto]"
+                      cachedDataType="i8"
+                      cachedName="MontoAbierto"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoAbierto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbierto]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoRecibido]"
+                      cachedDataType="i8"
+                      cachedName="MontoRecibido"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoRecibido]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibido]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoCerrado]"
+                      cachedDataType="i8"
+                      cachedName="MontoCerrado"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCerrado]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerrado]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoDiferenciaCostoPromedio]"
+                      cachedDataType="i8"
+                      cachedName="MontoDiferenciaCostoPromedio"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoDiferenciaCostoPromedio]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoDiferenciaCostoPromedio]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoVarianzaCosto]"
+                      cachedDataType="i8"
+                      cachedName="MontoVarianzaCosto"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoVarianzaCosto]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoVarianzaCosto]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CodigoMoneda]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CodigoMoneda"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoMoneda]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CodigoMoneda]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[CotizacionMonedaSpot]"
+                      cachedDataType="i8"
+                      cachedName="CotizacionMonedaSpot"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CotizacionMonedaSpot]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[CotizacionMonedaSpot]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoPUnitMonExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoPUnitMonExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPUnitMonExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPUnitMonExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoCostoExtMonExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoCostoExtMonExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoExtMonExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCostoExtMonExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoAbiertoExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoAbiertoExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoAbiertoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoAbiertoExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoPagadoAFechaExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoPagadoAFechaExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPagadoAFechaExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoPagadoAFechaExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoRecibidoExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoRecibidoExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoRecibidoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoRecibidoExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[MontoCerradoExt]"
+                      cachedDataType="i8"
+                      cachedName="MontoCerradoExt"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCerradoExt]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[MontoCerradoExt]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[UsuarioTransaccion]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="UsuarioTransaccion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UsuarioTransaccion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[UsuarioTransaccion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[IDUsuario]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="IDUsuario"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDUsuario]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDUsuario]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[IDPrograma]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="IDPrograma"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDPrograma]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDPrograma]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[IDEstacionTrabajo]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="IDEstacionTrabajo"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDEstacionTrabajo]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[IDEstacionTrabajo]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[FechaActualizacion]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaActualizacion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaActualizacion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[FechaActualizacion]" />
+                    <inputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].Columns[TiempoActualizacion]"
+                      cachedDataType="i8"
+                      cachedName="TiempoActualizacion"
+                      externalMetadataColumnId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoActualizacion]"
+                      lineageId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB].Columns[TiempoActualizacion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuenta]"
+                      dataType="i8"
+                      name="NroCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompaniaOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompaniaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroOrden]"
+                      dataType="i8"
+                      name="NroOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoOrden]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoOrden" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSufijo]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSufijo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroLinea]"
+                      dataType="i8"
+                      name="NroLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CantidadDeLineas]"
+                      dataType="i8"
+                      name="CantidadDeLineas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[nroArticulo]"
+                      dataType="i8"
+                      name="nroArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoLocalizacion]"
+                      dataType="wstr"
+                      length="20"
+                      name="CodigoLocalizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSerie]"
+                      dataType="wstr"
+                      length="30"
+                      name="NroSerie" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDContenedor]"
+                      dataType="wstr"
+                      length="20"
+                      name="IDContenedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoSiguiente]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoSiguiente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoUltimo]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoUltimo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaTransaccion]"
+                      dataType="dbDate"
+                      name="FechaTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaRecepcion]"
+                      dataType="dbDate"
+                      name="FechaRecepcion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaRequerida]"
+                      dataType="dbDate"
+                      name="FechaRequerida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaProgramada]"
+                      dataType="dbDate"
+                      name="FechaProgramada" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaPrometidaOriginal]"
+                      dataType="dbDate"
+                      name="FechaPrometidaOriginal" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroFacturaProveedor]"
+                      dataType="wstr"
+                      length="25"
+                      name="NroFacturaProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TerminosPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="TerminosPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[EstadoPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="EstadoPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ProcesoRouting]"
+                      dataType="wstr"
+                      length="10"
+                      name="ProcesoRouting" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoLinea]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoLinea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CategoriaArticulo]"
+                      dataType="wstr"
+                      length="10"
+                      name="CategoriaArticulo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadNegocio]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadNegocio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompania]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompania" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDCuenta]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuentaInput]"
+                      dataType="wstr"
+                      length="29"
+                      name="NroCuentaInput" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadNegocioProyecto]"
+                      dataType="wstr"
+                      length="12"
+                      name="UnidadNegocioProyecto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CuentaObjeto]"
+                      dataType="wstr"
+                      length="10"
+                      name="CuentaObjeto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroSubmaestroGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoSubmaestroGL]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoSubmaestroGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCompaniaDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="NroCompaniaDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroDocumento]"
+                      dataType="i8"
+                      name="NroDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TipoDocumento]"
+                      dataType="wstr"
+                      length="10"
+                      name="TipoDocumento" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ItemDocumentoPago]"
+                      dataType="wstr"
+                      length="10"
+                      name="ItemDocumentoPago" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaGL]"
+                      dataType="dbDate"
+                      name="FechaGL" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroLineaEntradaDiario]"
+                      dataType="i8"
+                      name="NroLineaEntradaDiario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[NroCuentaRecibidaNoVoucher]"
+                      dataType="wstr"
+                      length="29"
+                      name="NroCuentaRecibidaNoVoucher" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CompraImponible]"
+                      dataType="wstr"
+                      length="10"
+                      name="CompraImponible" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ImpuestoExpl]"
+                      dataType="wstr"
+                      length="10"
+                      name="ImpuestoExpl" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[ImpuestoRatioArea]"
+                      dataType="wstr"
+                      length="10"
+                      name="ImpuestoRatioArea" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadMedida]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedida" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CantidadUnidades]"
+                      dataType="i8"
+                      name="CantidadUnidades" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesPagadasALaFecha]"
+                      dataType="i8"
+                      name="UnidadesPagadasALaFecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesAbiertas]"
+                      dataType="i8"
+                      name="UnidadesAbiertas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesRecibidas]"
+                      dataType="i8"
+                      name="UnidadesRecibidas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesCerradas]"
+                      dataType="i8"
+                      name="UnidadesCerradas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesStock]"
+                      dataType="i8"
+                      name="UnidadesStock" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadesRegresadas]"
+                      dataType="i8"
+                      name="UnidadesRegresadas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UnidadMedidaAdquisitiva]"
+                      dataType="wstr"
+                      length="10"
+                      name="UnidadMedidaAdquisitiva" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoUnitario]"
+                      dataType="i8"
+                      name="MontoCostoUnitario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoExtendido]"
+                      dataType="i8"
+                      name="MontoCostoExtendido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPagadoALaFecha]"
+                      dataType="i8"
+                      name="MontoPagadoALaFecha" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoAbierto]"
+                      dataType="i8"
+                      name="MontoAbierto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoRecibido]"
+                      dataType="i8"
+                      name="MontoRecibido" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCerrado]"
+                      dataType="i8"
+                      name="MontoCerrado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoDiferenciaCostoPromedio]"
+                      dataType="i8"
+                      name="MontoDiferenciaCostoPromedio" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoVarianzaCosto]"
+                      dataType="i8"
+                      name="MontoVarianzaCosto" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CodigoMoneda]"
+                      dataType="wstr"
+                      length="10"
+                      name="CodigoMoneda" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[CotizacionMonedaSpot]"
+                      dataType="i8"
+                      name="CotizacionMonedaSpot" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPUnitMonExt]"
+                      dataType="i8"
+                      name="MontoPUnitMonExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCostoExtMonExt]"
+                      dataType="i8"
+                      name="MontoCostoExtMonExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoAbiertoExt]"
+                      dataType="i8"
+                      name="MontoAbiertoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoPagadoAFechaExt]"
+                      dataType="i8"
+                      name="MontoPagadoAFechaExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoRecibidoExt]"
+                      dataType="i8"
+                      name="MontoRecibidoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoCerradoExt]"
+                      dataType="i8"
+                      name="MontoCerradoExt" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[UsuarioTransaccion]"
+                      dataType="wstr"
+                      length="10"
+                      name="UsuarioTransaccion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDUsuario]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDUsuario" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDPrograma]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDPrograma" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[IDEstacionTrabajo]"
+                      dataType="wstr"
+                      length="10"
+                      name="IDEstacionTrabajo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaActualizacion]"
+                      dataType="dbDate"
+                      name="FechaActualizacion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB].ExternalColumns[TiempoActualizacion]"
+                      dataType="i8"
+                      name="TiempoActualizacion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga STG_Recepcion.Paths[Salida de origen de OLE DB]"
+              endId="Package\Carga STG_Recepcion\Insert STG_Recepcion.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga STG_Recepcion\INPUT Recepcion.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG_Recepcion"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8FED80B3-61ED-4A17-A8BB-2C1095F3B226}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG_Recepcion"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DDE65711-AAB1-4ACD-A202-F340D7080E2C}"
+          SQLTask:SqlStatementSource="BEGIN TRANSACTION&#xA;&#xA;TRUNCATE TABLE STG_Recepcion;&#xA;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{3113AD55-CBE5-4DD4-B01E-CF847E56F634}"
+      DTS:From="Package\Truncate STG_Recepcion"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Carga STG_Recepcion" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Carga STG_Recepcion"
+          TopLeft="287.666666666667,110.5" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Truncate STG_Recepcion"
+          TopLeft="275.666666666667,13.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="376.666666666667,55.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga STG_Recepcion">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Carga STG_Recepcion\Insert STG_Recepcion"
+          TopLeft="272,182" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Carga STG_Recepcion\INPUT Recepcion"
+          TopLeft="290,14" />
+        <EdgeLayout
+          Id="Package\Carga STG_Recepcion.Paths[Salida de origen de OLE DB]"
+          TopLeft="366.75,56">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,126"
+              Start="0,0"
+              End="0,118.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,118.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Recepcion\Insert STG_Recepcion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga STG_Recepcion\INPUT Recepcion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

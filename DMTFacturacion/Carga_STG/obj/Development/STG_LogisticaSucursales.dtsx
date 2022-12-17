@@ -1,0 +1,2928 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/20/2022 4:13:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SVRBIQA"
+  DTS:CreatorName="SULLAIR\usrssis1"
+  DTS:DTSID="{55BDA910-C737-44BE-B78A-C30C41733816}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="11274"
+  DTS:ObjectName="STG_LogisticaSucursales"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{FD4DBAAC-BF5B-463D-81E8-05F991A76871}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{1B58A729-D089-4569-BB40-2122C53F64B0}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Sullair\DWH\DMT_Compras\Archivos\Sullair - LogisticaSucursales.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2E56F4F4-AD1B-41E4-B4E3-5EEDD6D73582}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_Rows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\STG_LogisticaSucursales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{592E31B1-E42A-4D7E-A48C-638AF9219E4F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG_LogisticaSucursales"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG_LogisticaSucursales\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input].Columns[N° Cuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Cuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene una particion]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Tiene una particion"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[TOKENCOUNT](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]},".") == 1</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">TOKENCOUNT([N° Cuenta],".") == 1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene dos particiones]"
+                  description="Output 3 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Tiene dos particiones"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[TOKENCOUNT](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]},".") == 2</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">TOKENCOUNT([N° Cuenta],".") == 2</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene tres particiones]"
+                  description="Output 4 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Tiene tres particiones"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[TOKENCOUNT](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]},".") == 3</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">TOKENCOUNT([N° Cuenta],".") == 3</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">2</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Excel Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">'Sullair - Viajes realizados sin$'</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_LogisticaSucursales\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Sucursal Movimiento]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sucursal Movimiento]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Sucursal Movimiento]"
+                      name="Sucursal Movimiento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[C° Proveedor]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]"
+                      name="C° Proveedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Viaje]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]"
+                      name="N° Viaje"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Cuenta]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]"
+                      name="N° Cuenta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Costo]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]"
+                      name="Costo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[CreacionViaje]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]"
+                      name="CreacionViaje"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Remito]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]"
+                      name="N° Remito"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Producto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Producto]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Producto]"
+                      name="Producto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Descripción]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Descripción]"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Descripción]"
+                      name="Descripción"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sucursal que realiza el Viaje]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sucursal que realiza el Viaje" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sucursal Movimiento]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sucursal Movimiento" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[C° Proveedor]"
+                      dataType="wstr"
+                      length="255"
+                      name="C° Proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Nombre Proveedor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Nombre Proveedor" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Viaje]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° Viaje" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Descripción]"
+                      dataType="wstr"
+                      length="255"
+                      name="Descripción" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Cuenta]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° Cuenta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Cnt]"
+                      dataType="wstr"
+                      length="255"
+                      name="Cnt" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Costo]"
+                      dataType="wstr"
+                      length="255"
+                      name="Costo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Solicitó]"
+                      dataType="wstr"
+                      length="255"
+                      name="Solicitó" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[CreacionViaje]"
+                      dataType="wstr"
+                      length="255"
+                      name="CreacionViaje" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Fecha Salida]"
+                      dataType="wstr"
+                      length="255"
+                      name="Fecha Salida" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[FechaOC]"
+                      dataType="wstr"
+                      length="255"
+                      name="FechaOC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Tipo OC]"
+                      dataType="wstr"
+                      length="255"
+                      name="Tipo OC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° OC]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° OC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[SinOC]"
+                      dataType="wstr"
+                      length="255"
+                      name="SinOC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[DetalleSinOC]"
+                      dataType="wstr"
+                      length="255"
+                      name="DetalleSinOC" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Fecha Ultimo Informe]"
+                      dataType="wstr"
+                      length="255"
+                      name="Fecha Ultimo Informe" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[N° Remito]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° Remito" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Origen]"
+                      dataType="wstr"
+                      length="255"
+                      name="Origen" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Destino]"
+                      dataType="wstr"
+                      length="255"
+                      name="Destino" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Producto]"
+                      dataType="wstr"
+                      length="255"
+                      name="Producto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Moneda]"
+                      dataType="wstr"
+                      length="255"
+                      name="Moneda" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[Cobrado a cliente]"
+                      dataType="wstr"
+                      length="255"
+                      name="Cobrado a cliente" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[IDMotivoRCA]"
+                      dataType="wstr"
+                      length="255"
+                      name="IDMotivoRCA" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].ExternalColumns[SucRecibe]"
+                      dataType="wstr"
+                      length="255"
+                      name="SucRecibe" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Sucursal Movimiento]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Sucursal Movimiento]"
+                      name="Sucursal Movimiento" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[C° Proveedor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[C° Proveedor]"
+                      name="C° Proveedor" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Viaje]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Viaje]"
+                      name="N° Viaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Cuenta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Cuenta]"
+                      name="N° Cuenta" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Costo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Costo]"
+                      name="Costo" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[CreacionViaje]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[CreacionViaje]"
+                      name="CreacionViaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Remito]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[N° Remito]"
+                      name="N° Remito" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Producto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Producto]"
+                      name="Producto" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Descripción]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Error Output].Columns[Descripción]"
+                      name="Descripción" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Format"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Format"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[C° Proveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="C° Proveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[CreacionViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CreacionViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[N° Viaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Viaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[N° Cuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Cuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[Costo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Costo"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input].Columns[N° Remito]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Remito"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[IdProveedor]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[IdProveedor]"
+                      name="IdProveedor"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)([TRIM](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]}) == "" ? "-1" : #{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)(TRIM([C° Proveedor]) == "" ? "-1" : [C° Proveedor])</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[FechaViaje]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[FechaViaje]"
+                      name="FechaViaje"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)CreacionViaje</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]"
+                      name="NroCuenta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM([N° Cuenta])</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroViaje]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroViaje]"
+                      name="NroViaje"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM([N° Viaje])</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[Costo_float]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[Costo_float]"
+                      name="Costo_float"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_R4)#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_R4)Costo</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[CentroEmisor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[CentroEmisor]"
+                      name="CentroEmisor"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]},"-",1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN([N° Remito],"-",1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemito]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemito]"
+                      name="NroRemito"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)[TOKEN](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]},"-",2)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)TOKEN([N° Remito],"-",2)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemitoCompleto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemitoCompleto]"
+                      name="NroRemitoCompleto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM([N° Remito])</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Split 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Split 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Split 1.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Inputs[Derived Column Input].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      name="CuentaObjeto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      name="CentroDeCosto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">""</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      name="Subcuenta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">""</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 1.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Split 2"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Split 2"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Split 2.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Inputs[Derived Column Input].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      name="CentroDeCosto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      name="CuentaObjeto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",2)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",2)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      name="Subcuenta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">""</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 2.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Split 3"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Split 3"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Split 3.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Inputs[Derived Column Input].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 3.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CentroDeCosto]"
+                      name="CentroDeCosto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CuentaObjeto]"
+                      name="CuentaObjeto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",2)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",2)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[Subcuenta]"
+                      name="Subcuenta"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TOKEN](#{Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]},".",3)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TOKEN(NroCuenta,".",3)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\Split 3.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_LogisticaSucursales"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG_LogisticaSucursales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Connections[OleDbConnection]"
+                  connectionManagerID="{781E633E-B433-4397-9942-D8425D84D9E3}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Producto"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Producto]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[IdProveedor]"
+                      cachedDataType="i4"
+                      cachedName="IdProveedor"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[IdProveedor]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[FechaViaje]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaViaje"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[FechaViaje]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[Sucursal Movimiento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sucursal Movimiento"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[SucursalMovimiento]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[Descripción]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripción"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[Costo_float]"
+                      cachedDataType="r4"
+                      cachedName="Costo_float"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Costo]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[NroViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroViaje"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroViaje]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroCuenta]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[NroRemito]"
+                      cachedDataType="i4"
+                      cachedName="NroRemito"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroRemito]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CuentaObjeto"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CuentaObjeto]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[CentroDeCosto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroDeCosto"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CentroDeCosto]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[Subcuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Subcuenta"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Subcuenta]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[NroRemitoCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroRemitoCompleto"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroRemitoCompleto]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]" />
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].Columns[CentroEmisor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroEmisor"
+                      externalMetadataColumnId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CentroEmisor]"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[SucursalMovimiento]"
+                      dataType="wstr"
+                      length="255"
+                      name="SucursalMovimiento" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[IdProveedor]"
+                      dataType="i4"
+                      name="IdProveedor" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroViaje]"
+                      dataType="wstr"
+                      length="255"
+                      name="NroViaje" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroCuenta]"
+                      dataType="wstr"
+                      length="255"
+                      name="NroCuenta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Costo]"
+                      dataType="r8"
+                      name="Costo" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroRemito]"
+                      dataType="i4"
+                      name="NroRemito" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Producto]"
+                      dataType="wstr"
+                      length="255"
+                      name="Producto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Descripcion]"
+                      dataType="wstr"
+                      length="255"
+                      name="Descripcion" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[FechaViaje]"
+                      dataType="dbDate"
+                      name="FechaViaje" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CentroDeCosto]"
+                      dataType="wstr"
+                      length="50"
+                      name="CentroDeCosto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CuentaObjeto]"
+                      dataType="wstr"
+                      length="50"
+                      name="CuentaObjeto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[Subcuenta]"
+                      dataType="wstr"
+                      length="50"
+                      name="Subcuenta" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[NroRemitoCompleto]"
+                      dataType="wstr"
+                      length="255"
+                      name="NroRemitoCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input].ExternalColumns[CentroEmisor]"
+                      dataType="wstr"
+                      length="4"
+                      name="CentroEmisor" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG_LogisticaSucursales\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Sucursal Movimiento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sucursal Movimiento"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Sucursal Movimiento]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[C° Proveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="C° Proveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[C° Proveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[N° Viaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Viaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Viaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[N° Cuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Cuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Cuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Costo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Costo"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[CreacionViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CreacionViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CreacionViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[N° Remito]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Remito"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Remito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Producto"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Producto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Descripción]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripción"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Descripción]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[IdProveedor]"
+                      cachedDataType="i4"
+                      cachedName="IdProveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[IdProveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[FechaViaje]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[FechaViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[NroViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Costo_float]"
+                      cachedDataType="r4"
+                      cachedName="Costo_float"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[Costo_float]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[CentroEmisor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroEmisor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[CentroEmisor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[NroRemito]"
+                      cachedDataType="i4"
+                      cachedName="NroRemito"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CuentaObjeto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CuentaObjeto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[CentroDeCosto]"
+                      cachedDataType="wstr"
+                      cachedName="CentroDeCosto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[CentroDeCosto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[Subcuenta]"
+                      cachedDataType="wstr"
+                      cachedName="Subcuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output].Columns[Subcuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1].Columns[NroRemitoCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroRemitoCompleto"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemitoCompleto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Sucursal Movimiento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sucursal Movimiento"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Sucursal Movimiento]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[C° Proveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="C° Proveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[C° Proveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[N° Viaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Viaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Viaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[N° Cuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Cuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Cuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Costo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Costo"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[CreacionViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CreacionViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CreacionViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[N° Remito]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Remito"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Remito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Producto"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Producto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Descripción]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripción"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Descripción]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[IdProveedor]"
+                      cachedDataType="i4"
+                      cachedName="IdProveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[IdProveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[FechaViaje]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[FechaViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[NroViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Costo_float]"
+                      cachedDataType="r4"
+                      cachedName="Costo_float"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[Costo_float]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[CentroEmisor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroEmisor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[CentroEmisor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[NroRemito]"
+                      cachedDataType="i4"
+                      cachedName="NroRemito"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CuentaObjeto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CuentaObjeto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[Subcuenta]"
+                      cachedDataType="wstr"
+                      cachedName="Subcuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[Subcuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[NroRemitoCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroRemitoCompleto"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemitoCompleto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2].Columns[CentroDeCosto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroDeCosto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output].Columns[CentroDeCosto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3]"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Sucursal Movimiento]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sucursal Movimiento"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Sucursal Movimiento]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[C° Proveedor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="C° Proveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[C° Proveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[C° Proveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[N° Viaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Viaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Viaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Viaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[N° Cuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Cuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Cuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Cuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Costo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Costo"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Costo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[CreacionViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CreacionViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[CreacionViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CreacionViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[N° Remito]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° Remito"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[N° Remito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Remito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Producto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Producto"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Producto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Descripción]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Descripción"
+                      lineageId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output].Columns[Descripción]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[IdProveedor]"
+                      cachedDataType="i4"
+                      cachedName="IdProveedor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[IdProveedor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[FechaViaje]"
+                      cachedDataType="dbDate"
+                      cachedName="FechaViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[FechaViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[NroCuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroCuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroCuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[NroViaje]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroViaje"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroViaje]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Costo_float]"
+                      cachedDataType="r4"
+                      cachedName="Costo_float"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[Costo_float]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[CentroEmisor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroEmisor"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[CentroEmisor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[NroRemito]"
+                      cachedDataType="i4"
+                      cachedName="NroRemito"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemito]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[CuentaObjeto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CuentaObjeto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CuentaObjeto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[NroRemitoCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="NroRemitoCompleto"
+                      lineageId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output].Columns[NroRemitoCompleto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[Subcuenta]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Subcuenta"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[Subcuenta]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3].Columns[CentroDeCosto]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CentroDeCosto"
+                      lineageId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output].Columns[CentroDeCosto]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 4]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 4">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Sucursal Movimiento]"
+                      name="Sucursal Movimiento" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[C° Proveedor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[C° Proveedor]"
+                      name="C° Proveedor" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Viaje]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Viaje]"
+                      name="N° Viaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Cuenta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Cuenta]"
+                      name="N° Cuenta" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo]"
+                      name="Costo" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CreacionViaje]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CreacionViaje]"
+                      name="CreacionViaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Remito]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[N° Remito]"
+                      name="N° Remito" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Producto]"
+                      name="Producto" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Descripción]"
+                      name="Descripción" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[IdProveedor]"
+                      name="IdProveedor" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]"
+                      dataType="dbDate"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[FechaViaje]"
+                      name="FechaViaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroCuenta]"
+                      name="NroCuenta" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroViaje]"
+                      name="NroViaje" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]"
+                      dataType="r4"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Costo_float]"
+                      name="Costo_float" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroEmisor]"
+                      name="CentroEmisor" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]"
+                      dataType="i4"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemito]"
+                      name="NroRemito" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CuentaObjeto]"
+                      name="CuentaObjeto" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[CentroDeCosto]"
+                      name="CentroDeCosto" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[Subcuenta]"
+                      name="Subcuenta" />
+                    <outputColumn
+                      refId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1].Columns[NroRemitoCompleto]"
+                      name="NroRemitoCompleto" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Derived Column Output]"
+              endId="Package\STG_LogisticaSucursales\Conditional Split.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\STG_LogisticaSucursales\Format.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Derived Column Output1]"
+              endId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 1]"
+              name="Derived Column Output"
+              startId="Package\STG_LogisticaSucursales\Split 1.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Derived Column Output2]"
+              endId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 2]"
+              name="Derived Column Output"
+              startId="Package\STG_LogisticaSucursales\Split 2.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Derived Column Output3]"
+              endId="Package\STG_LogisticaSucursales\Union All.Inputs[Union All Input 3]"
+              name="Derived Column Output"
+              startId="Package\STG_LogisticaSucursales\Split 3.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Excel Source Output]"
+              endId="Package\STG_LogisticaSucursales\Format.Inputs[Derived Column Input]"
+              name="Excel Source Output"
+              startId="Package\STG_LogisticaSucursales\Excel Source.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Tiene dos particiones]"
+              endId="Package\STG_LogisticaSucursales\Split 2.Inputs[Derived Column Input]"
+              name="Tiene dos particiones"
+              startId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene dos particiones]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Tiene tres particiones]"
+              endId="Package\STG_LogisticaSucursales\Split 3.Inputs[Derived Column Input]"
+              name="Tiene tres particiones"
+              startId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene tres particiones]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Tiene una particion]"
+              endId="Package\STG_LogisticaSucursales\Split 1.Inputs[Derived Column Input]"
+              name="Tiene una particion"
+              startId="Package\STG_LogisticaSucursales\Conditional Split.Outputs[Tiene una particion]" />
+            <path
+              refId="Package\STG_LogisticaSucursales.Paths[Union All Output 1]"
+              endId="Package\STG_LogisticaSucursales\STG_LogisticaSucursales.Inputs[OLE DB Destination Input]"
+              name="Union All Output 1"
+              startId="Package\STG_LogisticaSucursales\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{029D8D99-74F6-46BC-A32C-BF43176D7A31}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{781E633E-B433-4397-9942-D8425D84D9E3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_LogisticaSucursales" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{557DEB13-D3AA-4137-A42D-8B4B0B676677}"
+      DTS:From="Package\TRUNCATE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\STG_LogisticaSucursales" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\STG_LogisticaSucursales"
+          TopLeft="519,220" />
+        <NodeLayout
+          Size="131.2,41.6"
+          Id="Package\TRUNCATE"
+          TopLeft="542,80" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="607.5,122">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9,98"
+              Start="0,0"
+              End="9,90.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45"
+                    Point2="0,49"
+                    Point3="4,49" />
+                  <mssgle:LineSegment
+                    End="5,49" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5,49"
+                    Point2="9,49"
+                    Point3="9,53" />
+                  <mssgle:LineSegment
+                    End="9,90.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\STG_LogisticaSucursales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="108,41.6"
+          Id="Package\STG_LogisticaSucursales\Split 1"
+          TopLeft="188,343" />
+        <NodeLayout
+          Size="108,41.6"
+          Id="Package\STG_LogisticaSucursales\Split 2"
+          TopLeft="394,345" />
+        <NodeLayout
+          Size="112,41.6"
+          Id="Package\STG_LogisticaSucursales\Format"
+          TopLeft="394,143" />
+        <NodeLayout
+          Size="108,41.6"
+          Id="Package\STG_LogisticaSucursales\Split 3"
+          TopLeft="597,342" />
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\STG_LogisticaSucursales\STG_LogisticaSucursales"
+          TopLeft="359,535" />
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\STG_LogisticaSucursales\Excel Source"
+          TopLeft="379,53" />
+        <NodeLayout
+          Size="120.8,41.6"
+          Id="Package\STG_LogisticaSucursales\Union All"
+          TopLeft="398,446" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\STG_LogisticaSucursales\Conditional Split"
+          TopLeft="374,226" />
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Derived Column Output2]"
+          TopLeft="448,387">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.5,59"
+              Start="0,0"
+              End="10.5,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.5"
+                    Point2="0,29.5"
+                    Point3="4,29.5" />
+                  <mssgle:LineSegment
+                    End="6.5,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.5,29.5"
+                    Point2="10.5,29.5"
+                    Point3="10.5,33.5" />
+                  <mssgle:LineSegment
+                    End="10.5,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Derived Column Output1]"
+          TopLeft="242,385">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="188.25,61"
+              Start="0,0"
+              End="188.25,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.7897574123989" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.7897574123989"
+                    Point2="0,39.7897574123989"
+                    Point3="4,39.7897574123989" />
+                  <mssgle:LineSegment
+                    End="184.25,39.7897574123989" />
+                  <mssgle:CubicBezierSegment
+                    Point1="184.25,39.7897574123989"
+                    Point2="188.25,39.7897574123989"
+                    Point3="188.25,43.7897574123989" />
+                  <mssgle:LineSegment
+                    End="188.25,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Derived Column Output]"
+          TopLeft="450.75,185">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Union All Output 1]"
+          TopLeft="457.5,488">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Tiene una particion]"
+          TopLeft="414.75,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-172.75,75"
+              Start="0,0"
+              End="-172.75,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.845665961945" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.845665961945"
+                    Point2="0,25.845665961945"
+                    Point3="-4,25.845665961945" />
+                  <mssgle:LineSegment
+                    End="-168.75,25.845665961945" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-168.75,25.845665961945"
+                    Point2="-172.75,25.845665961945"
+                    Point3="-172.75,29.845665961945" />
+                  <mssgle:LineSegment
+                    End="-172.75,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-129.47302734375,30.845665961945,86.1960546875,11.3310546875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Tiene tres particiones]"
+          TopLeft="488.25,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="162.75,74"
+              Start="0,0"
+              End="162.75,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5010570824524" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.5010570824524"
+                    Point2="0,25.5010570824524"
+                    Point3="4,25.5010570824524" />
+                  <mssgle:LineSegment
+                    End="158.75,25.5010570824524" />
+                  <mssgle:CubicBezierSegment
+                    Point1="158.75,25.5010570824524"
+                    Point2="162.75,25.5010570824524"
+                    Point3="162.75,29.5010570824524" />
+                  <mssgle:LineSegment
+                    End="162.75,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.071328125,30.5010570824524,96.60734375,11.3310546875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Tiene dos particiones]"
+          TopLeft="449.75,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77"
+              Start="0,0"
+              End="0,69.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-47.683671875,28.9453125,95.36734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Excel Source Output]"
+          TopLeft="449.25,95">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG_LogisticaSucursales.Paths[Derived Column Output3]"
+          TopLeft="651,384">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-164.25,62"
+              Start="0,0"
+              End="-164.25,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.4420485175202" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.4420485175202"
+                    Point2="0,40.4420485175202"
+                    Point3="-4,40.4420485175202" />
+                  <mssgle:LineSegment
+                    End="-160.25,40.4420485175202" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-160.25,40.4420485175202"
+                    Point2="-164.25,40.4420485175202"
+                    Point3="-164.25,44.4420485175202" />
+                  <mssgle:LineSegment
+                    End="-164.25,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_LogisticaSucursales\STG_LogisticaSucursales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG_LogisticaSucursales\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
